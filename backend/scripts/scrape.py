@@ -1,6 +1,6 @@
 import urllib.request, urllib.error, urllib.parse
 import json
-BASE_URL = 'http://toilet.org.sg/'
+BASE_URL = 'https://toilet.org.sg/'
 
 
 def get_images_url(url):
