@@ -1,6 +1,7 @@
 [
     {
         "name": "AMK Bus Interchange",
+        "region": "Central",
         "address": "53 Ang Mo Kio Avenue 3, S(569933)",
         "stars": 4,
         "images_url": [
@@ -32,6 +33,7 @@
     },
     {
         "name": "Bishan Bus Interchange",
+        "region": "Central",
         "address": "514 Bishan Street 13, S(570514)",
         "stars": 4,
         "images_url": [
@@ -63,6 +65,7 @@
     },
     {
         "name": "Harbourfront Bus Terminal",
+        "region": "Central",
         "address": "4 Seah Im Road, S(099115)",
         "stars": 4,
         "images_url": [
@@ -88,6 +91,7 @@
     },
     {
         "name": "Kampong Bahru Bus Terminal",
+        "region": "Central",
         "address": "11A Spooner Road, S(168795)",
         "stars": 4,
         "images_url": [
@@ -121,6 +125,7 @@
     },
     {
         "name": "Kent Ridge Bus Terminal",
+        "region": "Central",
         "address": "37B, Clementi Road, S(884005)",
         "stars": 4,
         "images_url": [
@@ -145,6 +150,7 @@
     },
     {
         "name": "Queens Street Bus Terminal",
+        "region": "Central",
         "address": "Queens Street Bus Terminal, S(884001)",
         "stars": 4,
         "images_url": [
@@ -172,6 +178,7 @@
     },
     {
         "name": "Shenton Way Bus Terminal",
+        "region": "Central",
         "address": "31 Shenton Way, S(079121)",
         "stars": 4,
         "images_url": [
@@ -206,6 +213,7 @@
     },
     {
         "name": "St. Michael's Bus Terminal",
+        "region": "Central",
         "address": "10 Whampoa Road, S(327691)",
         "stars": 4,
         "images_url": [
@@ -234,6 +242,7 @@
     },
     {
         "name": "Yio Chu Kang Bus Interchange",
+        "region": "Central",
         "address": "Ang Mo Kio Avenue 8, Singapore S(088401)",
         "stars": 4,
         "images_url": [
@@ -260,6 +269,7 @@
     },
     {
         "name": "Seletar Country Club",
+        "region": "Central",
         "address": "101 Seletar Club Road, S(798273)",
         "stars": 5,
         "images_url": [
@@ -286,6 +296,7 @@
     },
     {
         "name": "CCMW",
+        "region": "Central",
         "address": "Blk 1 Cantonment Road, S(080001)",
         "stars": 3,
         "images_url": [
@@ -305,12 +316,14 @@
     },
     {
         "name": "CCMW ",
+        "region": "Central",
         "address": "Blk 803 King George's Avenue, S(200803)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CCMW Food House",
+        "region": "Central",
         "address": "Blk 40 Holland Drive #01-39, S (270040)",
         "stars": 3,
         "images_url": [
@@ -336,6 +349,7 @@
     },
     {
         "name": "CCMW Queen Street",
+        "region": "Central",
         "address": "Blk 269 Queen Street, #01-236, S(180269)",
         "stars": 3,
         "images_url": [
@@ -354,24 +368,28 @@
     },
     {
         "name": "CCMW Toa Payoh Central",
+        "region": "Central",
         "address": "Blk 78C Toa Payoh Central, S(313078)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "Chang Cheng Mee Wah Restaurant",
+        "region": "Central",
         "address": "Blk 111 Toa Payoh Lorong 1, #01-366, S(310111)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CMW Redhill Food House",
+        "region": "Central",
         "address": "Blk 75D, Redhill Road, #01-94, S(154075)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "NTUC Foodfare Anchorvale",
+        "region": "Central",
         "address": "Blk 308 Anchorvale Road #01-07 S(540308)",
         "stars": 3,
         "images_url": [
@@ -394,6 +412,7 @@
     },
     {
         "name": "Suntec Convention & Exhibition Centre",
+        "region": "Central",
         "address": "1 Raffles Boulevard Suntec City, S(039593)",
         "stars": 5,
         "images_url": [
@@ -422,6 +441,7 @@
     },
     {
         "name": "Fork & Spoon Foodcourt @ 470 Toa Payoh",
+        "region": "Central",
         "address": "Blk 470 Lorong 6 Toa Payoh, #02-70, S(310470)",
         "stars": 3,
         "images_url": [
@@ -443,6 +463,7 @@
     },
     {
         "name": "Gourmet Paradise @ 480 Toa Payoh Hub",
+        "region": "Central",
         "address": "Blk 480 Lorong 6 Toa Payoh, #B1-01, S(310480)",
         "stars": 3,
         "images_url": [
@@ -468,6 +489,7 @@
     },
     {
         "name": "KuoFu Food Court@88 Tanglin Halt",
+        "region": "Central",
         "address": "Blk 88 Tanglin Halt, S(141088)",
         "stars": 3,
         "images_url": [
@@ -495,6 +517,7 @@
     },
     {
         "name": "NTUC Foodfare Court@Clifford Centre",
+        "region": "Central",
         "address": "Clifford Centre, 24 Raffles Place, S(048621)",
         "stars": 3,
         "images_url": [
@@ -518,6 +541,7 @@
     },
     {
         "name": "The Gallerie Foodcourt",
+        "region": "Central",
         "address": "Marina Sq, 6 Raffles Boulevard #04-101/102, S(039594)",
         "stars": 5,
         "images_url": [
@@ -550,6 +574,7 @@
     },
     {
         "name": "Health Sciences Authority",
+        "region": "Central",
         "address": "11 Outram Road, S(169078)",
         "stars": 5,
         "images_url": [
@@ -575,6 +600,7 @@
     },
     {
         "name": "Maritime and Port Authority of Singapore",
+        "region": "Central",
         "address": "460 Alexandra Road, #18-00, S(119963)",
         "stars": 5,
         "images_url": [
@@ -601,6 +627,7 @@
     },
     {
         "name": "Ministry of Social & Family Development (MSF)",
+        "region": "Central",
         "address": "512 Thomson Rd, Level 1, 5 & 17, S(298136)",
         "stars": 5,
         "images_url": [
@@ -631,6 +658,7 @@
     },
     {
         "name": "Ministry of the Environment & Water Resources, Environment Building",
+        "region": "Central",
         "address": "40, Scotts Road, Level 1-4, S(228231)",
         "stars": 5,
         "images_url": [
@@ -682,6 +710,7 @@
     },
     {
         "name": "National Environment Agency, Environment Building",
+        "region": "Central",
         "address": "40, Scotts Road, Level 6/11/12/19/20/21, S(228231)",
         "stars": 5,
         "images_url": [
@@ -712,6 +741,7 @@
     },
     {
         "name": "PSA Tanjong Pagar Complex",
+        "region": "Central",
         "address": "7B Keppel Road, #19 - #21, S(089054)",
         "stars": 5,
         "images_url": [
@@ -736,6 +766,7 @@
     },
     {
         "name": "PSA Vista",
+        "region": "Central",
         "address": "20 Harbour Drive, #08-00, S(117612)",
         "stars": 5,
         "images_url": [
@@ -766,6 +797,7 @@
     },
     {
         "name": "Sengkang General Hospital",
+        "region": "Central",
         "address": "110 Sengkang East Way, S(544886)",
         "stars": 4,
         "images_url": [
@@ -789,6 +821,7 @@
     },
     {
         "name": "Tan Tock Seng Hospital",
+        "region": "Central",
         "address": "11 Jalan Tan Tock Seng, S(308433)",
         "stars": 5,
         "images_url": [
@@ -817,6 +850,7 @@
     },
     {
         "name": "National Library",
+        "region": "Central",
         "address": "100 Victoria Street, S(188064)",
         "stars": 5,
         "images_url": [
@@ -845,6 +879,7 @@
     },
     {
         "name": "210, Toa Payoh Lorong 8 Market & Hawker Centre",
+        "region": "Central",
         "address": "210 Lorong 8 Toa Payoh, S(310210)",
         "stars": 4,
         "images_url": [
@@ -865,6 +900,7 @@
     },
     {
         "name": "Adam Road Food Centre",
+        "region": "Central",
         "address": "2 Adam Road, S(289876)",
         "stars": 4,
         "images_url": [
@@ -886,6 +922,7 @@
     },
     {
         "name": "Albert Centre Market & Food Centre",
+        "region": "Central",
         "address": "Blk 270 Queen Street, S(180270)",
         "stars": 3,
         "images_url": [
@@ -904,6 +941,7 @@
     },
     {
         "name": "Amoy Food Centre",
+        "region": "Central",
         "address": "National Development Building (Annex B) Telok Ayer Street, S(069111)",
         "stars": 4,
         "images_url": [
@@ -930,6 +968,7 @@
     },
     {
         "name": "Bendemeer Market & Food Centre",
+        "region": "Central",
         "address": "Blk 29 Bendemeer Road, S(330029)",
         "stars": 4,
         "images_url": [
@@ -956,6 +995,7 @@
     },
     {
         "name": "Beo Crescent Market & Food Centre",
+        "region": "Central",
         "address": "38A Beo Crescent, S(169982)",
         "stars": 3,
         "images_url": [
@@ -979,6 +1019,7 @@
     },
     {
         "name": "Berseh Food Centre",
+        "region": "Central",
         "address": "166 Jalan Besar, S(208877)",
         "stars": 4,
         "images_url": [
@@ -1013,6 +1054,7 @@
     },
     {
         "name": "Blk 1 Jalan Kukoh Hawker Centre",
+        "region": "Central",
         "address": "1 Jalan Kukoh, S(161001)",
         "stars": 3,
         "images_url": [
@@ -1030,6 +1072,7 @@
     },
     {
         "name": "Blk 69 Geylang Bahru Market & Food Centre",
+        "region": "Central",
         "address": "Blk 69 Geyalng Bahru, S(330069)",
         "stars": 4,
         "images_url": [
@@ -1058,6 +1101,7 @@
     },
     {
         "name": "Bukit Timah Market & Food Centre",
+        "region": "Central",
         "address": "51 Upper Bukit Timah Road, S(588215)",
         "stars": 3,
         "images_url": [
@@ -1082,6 +1126,7 @@
     },
     {
         "name": "Chinatown Market",
+        "region": "Central",
         "address": "335 Smith Street, S(050335)",
         "stars": 3,
         "images_url": [
@@ -1102,6 +1147,7 @@
     },
     {
         "name": "Commonwealth Crescent Market",
+        "region": "Central",
         "address": "31 Commonwealth Crescent, S(149644)",
         "stars": 4,
         "images_url": [
@@ -1127,6 +1173,7 @@
     },
     {
         "name": "Golden Mile Food Centre",
+        "region": "Central",
         "address": "505 Beach Road, S(199583)",
         "stars": 4,
         "images_url": [
@@ -1151,6 +1198,7 @@
     },
     {
         "name": "Havelock Road Food Centre",
+        "region": "Central",
         "address": "Blk 22A, Havelock Road, S(161022)",
         "stars": 3,
         "images_url": [
@@ -1174,6 +1222,7 @@
     },
     {
         "name": "Hong Lim Market & Food Centre",
+        "region": "Central",
         "address": "Blk 531A Upper Cross Street, S(510531)",
         "stars": 3,
         "images_url": [
@@ -1193,6 +1242,7 @@
     },
     {
         "name": "Market Street Food Centre",
+        "region": "Central",
         "address": "50, Market Street, Golden Shoe Multi-Storey Car Park, 2nd/3rd Storey, S(048940)",
         "stars": 3,
         "images_url": [
@@ -1218,6 +1268,7 @@
     },
     {
         "name": "Maxwell Food Centre",
+        "region": "Central",
         "address": "1 Kadayanallur Street, S(069184)",
         "stars": 4,
         "images_url": [
@@ -1243,6 +1294,7 @@
     },
     {
         "name": "Newton Food Centre",
+        "region": "Central",
         "address": "500 Clemenceau Ave North, S(229495)",
         "stars": 4,
         "images_url": [
@@ -1285,6 +1337,7 @@
     },
     {
         "name": "North Bridge Road Market & Food Centre",
+        "region": "Central",
         "address": "861 North Bridge Road, S(198783)",
         "stars": 3,
         "images_url": [
@@ -1305,6 +1358,7 @@
     },
     {
         "name": "People's Park Food Centre",
+        "region": "Central",
         "address": "32 New Bridge Road, S(050032)",
         "stars": 3,
         "images_url": [
@@ -1324,6 +1378,7 @@
     },
     {
         "name": "Sembawang Hill Food Centre",
+        "region": "Central",
         "address": "590 Upper Thomson Road, S(574419)",
         "stars": 4,
         "images_url": [
@@ -1343,6 +1398,7 @@
     },
     {
         "name": "Sims Vista Market & Food Centre",
+        "region": "Central",
         "address": "Blk 49 Sims Place, S(380049)",
         "stars": 3,
         "images_url": [
@@ -1372,6 +1428,7 @@
     },
     {
         "name": "Tanglin Halt Market",
+        "region": "Central",
         "address": "48A, Tanglin Halt Road, S(148813)",
         "stars": 4,
         "images_url": [
@@ -1399,6 +1456,7 @@
     },
     {
         "name": "Tekka Centre Zhu Jiao Market",
+        "region": "Central",
         "address": "Blk 665 Buffalo Road, S(210665)",
         "stars": 3,
         "images_url": [
@@ -1425,6 +1483,7 @@
     },
     {
         "name": "Tiong Bahru Market",
+        "region": "Central",
         "address": "30 Seng Poh Road, S(168898)",
         "stars": 3,
         "images_url": [
@@ -1447,6 +1506,7 @@
     },
     {
         "name": "Upper Boon Keng Market & Food Centre",
+        "region": "Central",
         "address": "Blk 17, Upper Boon Keng Road, S(380017)",
         "stars": 3,
         "images_url": [
@@ -1474,6 +1534,7 @@
     },
     {
         "name": "Whampoa Drive Makan Place@Blk 90",
+        "region": "Central",
         "address": "Blk 90 Whampoa Drive, S(320090)",
         "stars": 3,
         "images_url": [
@@ -1500,6 +1561,7 @@
     },
     {
         "name": "Whampoa Drive Makan Place@Blk 92",
+        "region": "Central",
         "address": "Blk 92 Whampoa Drive, S(320092)",
         "stars": 3,
         "images_url": [
@@ -1526,6 +1588,7 @@
     },
     {
         "name": "Zion Riverside Food Centre",
+        "region": "Central",
         "address": "70 Zion Road, S(247792)",
         "stars": 3,
         "images_url": [
@@ -1548,6 +1611,7 @@
     },
     {
         "name": "Ang Mo Kio MRT station",
+        "region": "Central",
         "address": "2450 Ang Mo Kio Avenue 8, S(569811)",
         "stars": 4,
         "images_url": [
@@ -1578,6 +1642,7 @@
     },
     {
         "name": "Bayfront MRT Station",
+        "region": "Central",
         "address": "11 Bayfront Avenue, S(018957)",
         "stars": 4,
         "images_url": [
@@ -1604,6 +1669,7 @@
     },
     {
         "name": "Bencoolen MRT Station (DT23)",
+        "region": "Central",
         "address": "31, Bencoolen Street, S(189658)",
         "stars": 4,
         "images_url": [
@@ -1635,6 +1701,7 @@
     },
     {
         "name": "Bendemeer MRT Station (DT23)",
+        "region": "Central",
         "address": "11 Kallang Bahru, S(339356)",
         "stars": 4,
         "images_url": [
@@ -1661,6 +1728,7 @@
     },
     {
         "name": "Bishan MRT station",
+        "region": "Central",
         "address": "200 Bishan Road, S(579827)",
         "stars": 4,
         "images_url": [
@@ -1686,6 +1754,7 @@
     },
     {
         "name": "Boon Keng MRT Station (NE9)",
+        "region": "Central",
         "address": "900 Serangoon Road, S(328260)",
         "stars": 3,
         "images_url": [
@@ -1710,6 +1779,7 @@
     },
     {
         "name": "Botanic Garden (DT9)",
+        "region": "Central",
         "address": "100 Cluny Park, S(257494)",
         "stars": 4,
         "images_url": [
@@ -1729,6 +1799,7 @@
     },
     {
         "name": "Botanic Gardens MRT station",
+        "region": "Central",
         "address": "701, Telok Blangah Road, S(109029)",
         "stars": 4,
         "images_url": [
@@ -1752,6 +1823,7 @@
     },
     {
         "name": "Braddell MRT Station",
+        "region": "Central",
         "address": "377 Lorong 1, Toa Payoh, S(319756)",
         "stars": 4,
         "images_url": [
@@ -1785,6 +1857,7 @@
     },
     {
         "name": "Bras Basah MRT Station",
+        "region": "Central",
         "address": "65 Bras Basah Road, S(189561)",
         "stars": 5,
         "images_url": [
@@ -1805,6 +1878,7 @@
     },
     {
         "name": "Bugis MRT Station (DT14)",
+        "region": "Central",
         "address": "220 Voctoria Street, S(188022)",
         "stars": 4,
         "images_url": [
@@ -1832,6 +1906,7 @@
     },
     {
         "name": "Chinatown MRT Station (DT19)",
+        "region": "Central",
         "address": "91 Upper Cross Street, S(058362)",
         "stars": 4,
         "images_url": [
@@ -1861,6 +1936,7 @@
     },
     {
         "name": "Chinatown MRT Station (NE4)",
+        "region": "Central",
         "address": "151 New Bridge Road, (059443)",
         "stars": 4,
         "images_url": [
@@ -1886,6 +1962,7 @@
     },
     {
         "name": "City Hall MRT Station",
+        "region": "Central",
         "address": "150 North Bridge Road, S(179100) EW13",
         "stars": 4,
         "images_url": [
@@ -1917,6 +1994,7 @@
     },
     {
         "name": "Clark Quay MRT Station (NE5)",
+        "region": "Central",
         "address": "10 Outram Road, S(169037)",
         "stars": 4,
         "images_url": [
@@ -1944,6 +2022,7 @@
     },
     {
         "name": "Commonwealth MRT Station (EW20)",
+        "region": "Central",
         "address": "375 Commonwealth Avenue, S(149735)",
         "stars": 4,
         "images_url": [
@@ -1965,6 +2044,7 @@
     },
     {
         "name": "Dhoby Ghaut MRT Station",
+        "region": "Central",
         "address": "11 Orchard Road, S(238826) NS24",
         "stars": 4,
         "images_url": [
@@ -1997,6 +2077,7 @@
     },
     {
         "name": "Dhoby Ghaut MRT Station Circle Line",
+        "region": "Central",
         "address": "11 Orchard Road, S(238826)",
         "stars": 4,
         "images_url": [
@@ -2026,6 +2107,7 @@
     },
     {
         "name": "Downtown MRT Station (DT17)",
+        "region": "Central",
         "address": "15 Central Boulevard, S(018969)",
         "stars": 4,
         "images_url": [
@@ -2056,12 +2138,14 @@
     },
     {
         "name": "Esplanade MRT Station",
+        "region": "Central",
         "address": "90 Bras Basah Road, S(189562)",
         "stars": 4,
         "images_url": []
     },
     {
         "name": "Farrer Park MRT Station (NE8)",
+        "region": "Central",
         "address": "250 Race Course Road, S(218703)",
         "stars": 3,
         "images_url": [
@@ -2087,6 +2171,7 @@
     },
     {
         "name": "Farrer Road MRT station",
+        "region": "Central",
         "address": "119, Pasir Panjang Road, S(117424)",
         "stars": 4,
         "images_url": [
@@ -2109,6 +2194,7 @@
     },
     {
         "name": "Fort Canning MRT Station (DT20)",
+        "region": "Central",
         "address": "170 River Valley Road, S(179038)",
         "stars": 4,
         "images_url": [
@@ -2139,6 +2225,7 @@
     },
     {
         "name": "Geylang Bahru MRT Station (DT24)",
+        "region": "Central",
         "address": "541 Kallang Bahru, S(339355)",
         "stars": 4,
         "images_url": [
@@ -2168,6 +2255,7 @@
     },
     {
         "name": "HarbourFront MRT Station (NE1)",
+        "region": "Central",
         "address": "81 Telok Blangah Road, S(098867)",
         "stars": 4,
         "images_url": [
@@ -2193,6 +2281,7 @@
     },
     {
         "name": "Holland Village MRT station",
+        "region": "Central",
         "address": "262, Pasir Panjang Road, S(118628)",
         "stars": 4,
         "images_url": [
@@ -2215,6 +2304,7 @@
     },
     {
         "name": "Jalan Besar MRT Station (DT22)",
+        "region": "Central",
         "address": "35B Jalan Besar, S(208800)",
         "stars": 4,
         "images_url": [
@@ -2241,6 +2331,7 @@
     },
     {
         "name": "Jalan Besar MRT Station, B1 (DT22)",
+        "region": "Central",
         "address": "35B Jalan Besar, S(208800)",
         "stars": 4,
         "images_url": [
@@ -2262,6 +2353,7 @@
     },
     {
         "name": "Kallang MRT Station (EW10)",
+        "region": "Central",
         "address": "5 Sims Avenue, S(387405)",
         "stars": 4,
         "images_url": [
@@ -2294,6 +2386,7 @@
     },
     {
         "name": "Little India MRT Station (DT12)",
+        "region": "Central",
         "address": "60 Bukit Timah Road, S(229900)",
         "stars": 4,
         "images_url": [
@@ -2312,6 +2405,7 @@
     },
     {
         "name": "Little India MRT Station (NE7)",
+        "region": "Central",
         "address": "60 Bukit Timah Road, S(229900)",
         "stars": 3,
         "images_url": [
@@ -2337,6 +2431,7 @@
     },
     {
         "name": "Marina Bay MRT Station",
+        "region": "Central",
         "address": "21 Marina Station Road, S(018990)",
         "stars": 4,
         "images_url": [
@@ -2369,6 +2464,7 @@
     },
     {
         "name": "Marina South Pier station",
+        "region": "Central",
         "address": "31 Marina Coastal Drive, S(018988)",
         "stars": 4,
         "images_url": [
@@ -2398,6 +2494,7 @@
     },
     {
         "name": "Marymount Station",
+        "region": "Central",
         "address": "60 Marymount Road, S(573993)",
         "stars": 4,
         "images_url": [
@@ -2425,6 +2522,7 @@
     },
     {
         "name": "Newton MRT station",
+        "region": "Central",
         "address": "49 Scotts Road, S(228234)",
         "stars": 4,
         "images_url": [
@@ -2460,6 +2558,7 @@
     },
     {
         "name": "Newton MRT Station (DT11)",
+        "region": "Central",
         "address": "235 Bukit Timah Road, S(229901)",
         "stars": 4,
         "images_url": [
@@ -2479,6 +2578,7 @@
     },
     {
         "name": "Nicoll Highway MRT Station",
+        "region": "Central",
         "address": "20 Republic Avenue, S(038970)",
         "stars": 4,
         "images_url": [
@@ -2507,6 +2607,7 @@
     },
     {
         "name": "Orchard MRT Station",
+        "region": "Central",
         "address": "437 Orchard Road, S(238878)",
         "stars": 5,
         "images_url": [
@@ -2528,6 +2629,7 @@
     },
     {
         "name": "Outram MRT Station",
+        "region": "Central",
         "address": "10 Outram Road, S(169037)",
         "stars": 4,
         "images_url": [
@@ -2561,6 +2663,7 @@
     },
     {
         "name": "Outram MRT Station (NE3)",
+        "region": "Central",
         "address": "10 Eu Tong Sen Street S(059815)",
         "stars": 4,
         "images_url": [
@@ -2586,6 +2689,7 @@
     },
     {
         "name": "Potong Pasir MRT Station (NE10)",
+        "region": "Central",
         "address": "55 Upper Serangoon Rd. S(347694)",
         "stars": 4,
         "images_url": [
@@ -2603,6 +2707,7 @@
     },
     {
         "name": "Promenade MRT Station",
+        "region": "Central",
         "address": "2 Tamasek Avenue, S(039193)",
         "stars": 4,
         "images_url": [
@@ -2629,6 +2734,7 @@
     },
     {
         "name": "Queenstown MRT Station (EW19)",
+        "region": "Central",
         "address": "301 Commonwealth Avenue, S(149729)",
         "stars": 4,
         "images_url": [
@@ -2651,6 +2757,7 @@
     },
     {
         "name": "Raffles Place MRT Station",
+        "region": "Central",
         "address": "5 Raffles Place, S(048618)",
         "stars": 4,
         "images_url": [
@@ -2680,6 +2787,7 @@
     },
     {
         "name": "Redhill MRT Station (EW18)",
+        "region": "Central",
         "address": "920 Tiong Bahru Road, S(158792)",
         "stars": 4,
         "images_url": [
@@ -2703,6 +2811,7 @@
     },
     {
         "name": "Rochor MRT Station (DT13)",
+        "region": "Central",
         "address": "11 Rochore Canal Road, S(188505)",
         "stars": 4,
         "images_url": [
@@ -2723,6 +2832,7 @@
     },
     {
         "name": "Steven Road MRT Station (DT10)",
+        "region": "Central",
         "address": "92 Steven Road, S(257877)",
         "stars": 4,
         "images_url": [
@@ -2743,6 +2853,7 @@
     },
     {
         "name": "Tanjong Pagar MRT Station",
+        "region": "Central",
         "address": "120 Maxwell Road, S(069119)",
         "stars": 4,
         "images_url": [
@@ -2770,6 +2881,7 @@
     },
     {
         "name": "Telok Ayer MRT Station (DT18)",
+        "region": "Central",
         "address": "7 Cross Street, S(048416)",
         "stars": 4,
         "images_url": [
@@ -2798,6 +2910,7 @@
     },
     {
         "name": "Woodleigh MRT Station (NE11)",
+        "region": "Central",
         "address": "400 Upper Serangoon Road, S(347695)",
         "stars": 4,
         "images_url": [
@@ -2821,6 +2934,7 @@
     },
     {
         "name": "Yio Chu Kang MRT Station (NS15)",
+        "region": "Central",
         "address": "3000 Ang Mo Kio Avenue 8, S(569813)",
         "stars": 4,
         "images_url": [
@@ -2846,6 +2960,7 @@
     },
     {
         "name": "Marina South Pier",
+        "region": "Central",
         "address": "31 Marina Coastal Drive, S(018988)",
         "stars": 5,
         "images_url": [
@@ -2876,6 +2991,7 @@
     },
     {
         "name": "Malabar Muslim Jamaath Mosque",
+        "region": "Central",
         "address": "471 Victoria Street, S(198370)",
         "stars": 4,
         "images_url": [
@@ -2898,6 +3014,7 @@
     },
     {
         "name": "Lum Chang Building",
+        "region": "Central",
         "address": "14, Kung Chong Road, S(159150)",
         "stars": 5,
         "images_url": [
@@ -2928,6 +3045,7 @@
     },
     {
         "name": "Palais Renaissance",
+        "region": "Central",
         "address": "390, Orchard Road, Level 4-16, S(238871)",
         "stars": 5,
         "images_url": [
@@ -2950,6 +3068,7 @@
     },
     {
         "name": "Wee Hur Construction Pte Ltd",
+        "region": "Central",
         "address": "39 Kim Keat Road, Wee Hur Building, S(328814)",
         "stars": 4,
         "images_url": [
@@ -2971,12 +3090,14 @@
     },
     {
         "name": "MTR 1924 Indian Restaurant",
+        "region": "Central",
         "address": "438 Serangoon Road, S(218133)",
         "stars": 4,
         "images_url": []
     },
     {
         "name": "Dawson Place Shopping Centre",
+        "region": "Central",
         "address": "57 Dawson Road, S(142057)",
         "stars": 4,
         "images_url": [
@@ -3024,6 +3145,7 @@
     },
     {
         "name": "Liang Court",
+        "region": "Central",
         "address": "177B, River Valley Road, S(179032)",
         "stars": 4,
         "images_url": [
@@ -3060,6 +3182,7 @@
     },
     {
         "name": "New Bridge Centre",
+        "region": "Central",
         "address": "336, Smith Street, S(050336)",
         "stars": 4,
         "images_url": [
@@ -3079,6 +3202,7 @@
     },
     {
         "name": "Palais Renaissance",
+        "region": "Central",
         "address": "390, Orchard Road, Basement 1-Level 3, S(238871)",
         "stars": 5,
         "images_url": [
@@ -3108,6 +3232,7 @@
     },
     {
         "name": "Palais Renaissance",
+        "region": "Central",
         "address": "390, Orchard Road, Basement 2, S(238871)",
         "stars": 4,
         "images_url": [
@@ -3137,6 +3262,7 @@
     },
     {
         "name": "Robertson Walk",
+        "region": "Central",
         "address": "11, Unity Street, #02-20A, S(237995)",
         "stars": 4,
         "images_url": [
@@ -3159,6 +3285,7 @@
     },
     {
         "name": "Square 2 Shopping Mall",
+        "region": "Central",
         "address": "10 Sinaran Drive, S(307506)",
         "stars": 5,
         "images_url": [
@@ -3190,6 +3317,7 @@
     },
     {
         "name": "Suntec City Mall",
+        "region": "Central",
         "address": "3, Temasek Blvd., S(038983)",
         "stars": 6,
         "images_url": [
@@ -3216,6 +3344,7 @@
     },
     {
         "name": "The Central",
+        "region": "Central",
         "address": "6 Eu Tong Sen Street, S(059817)",
         "stars": 5,
         "images_url": [
@@ -3243,6 +3372,7 @@
     },
     {
         "name": "The Shoppes at Marina Bay Sands",
+        "region": "Central",
         "address": "2 Bayfront Avenue, S(018972)",
         "stars": 6,
         "images_url": [
@@ -3266,6 +3396,7 @@
     },
     {
         "name": "Tiong Bahru Plaza",
+        "region": "Central",
         "address": "302 Tiong Bahru Road, S(168732)",
         "stars": 5,
         "images_url": [
@@ -3298,6 +3429,7 @@
     },
     {
         "name": "UE Square Shopping Mall",
+        "region": "Central",
         "address": "81 Clemenceau Avenue, S(239917)",
         "stars": 4,
         "images_url": [
@@ -3323,6 +3455,7 @@
     },
     {
         "name": "Valley Point Mall",
+        "region": "Central",
         "address": "491 River Valley Road, S(248371)",
         "stars": 5,
         "images_url": [
@@ -3353,6 +3486,7 @@
     },
     {
         "name": "Merlion Park@Fullerton",
+        "region": "Central",
         "address": "1 Fullerton Road, S(049178)",
         "stars": 5,
         "images_url": [
@@ -3383,6 +3517,7 @@
     },
     {
         "name": "Sentosa Beach Station",
+        "region": "Central",
         "address": "33 Allanbroke Road, Sentosa, S(099981)",
         "stars": 5,
         "images_url": [
@@ -3428,6 +3563,7 @@
     },
     {
         "name": "Sentosa Boardwalk",
+        "region": "Central",
         "address": "Sentosa Boardwalk",
         "stars": 5,
         "images_url": [
@@ -3449,6 +3585,7 @@
     },
     {
         "name": "Sentosa Imbiah Lookout",
+        "region": "Central",
         "address": "Imbiah Lookout, Sentosa, S(099538)",
         "stars": 5,
         "images_url": [
@@ -3487,6 +3624,7 @@
     },
     {
         "name": "Sentosa Imbiah Station",
+        "region": "Central",
         "address": "Imbiah Express Station, Sentosa, S(099981)",
         "stars": 5,
         "images_url": [
@@ -3520,6 +3658,7 @@
     },
     {
         "name": "Sentosa Palawan Beach (East)",
+        "region": "Central",
         "address": "Palawan Beach Walk, S(098521)",
         "stars": 5,
         "images_url": [
@@ -3556,6 +3695,7 @@
     },
     {
         "name": "Sentosa Palawan Beach (West)",
+        "region": "Central",
         "address": "Palawan Beach Walk, S(098038)",
         "stars": 5,
         "images_url": [
@@ -3594,6 +3734,7 @@
     },
     {
         "name": "Sentosa Palawan Kidz City",
+        "region": "Central",
         "address": "31 Beach View, Palawan Kidz City S(098008)",
         "stars": 5,
         "images_url": [
@@ -3624,6 +3765,7 @@
     },
     {
         "name": "Sentosa Silosa Beach (East)",
+        "region": "Central",
         "address": "Siloso Beach Walk, S(098997)",
         "stars": 5,
         "images_url": [
@@ -3666,6 +3808,7 @@
     },
     {
         "name": "Sentosa Siloso (West)",
+        "region": "Central",
         "address": "Sentosa Siliso East",
         "stars": 5,
         "images_url": [
@@ -3686,6 +3829,7 @@
     },
     {
         "name": "Sentosa Wings of Time",
+        "region": "Central",
         "address": "Wings of Time, Sentosa, S(099538)",
         "stars": 5,
         "images_url": [
@@ -3717,6 +3861,7 @@
     },
     {
         "name": "The Fullerton Water Boat House",
+        "region": "Central",
         "address": "1 Fullerton Road, S(049213)",
         "stars": 5,
         "images_url": [
@@ -3745,6 +3890,7 @@
     },
     {
         "name": "Compassvale Bus Interchange",
+        "region": "North East",
         "address": "51A, Compassvale Road, S(544760)",
         "stars": 4,
         "images_url": [
@@ -3780,6 +3926,7 @@
     },
     {
         "name": "Hougang Bus Interchanage",
+        "region": "North East",
         "address": "840 Hougang Central, S(53877)",
         "stars": 4,
         "images_url": [
@@ -3809,6 +3956,7 @@
     },
     {
         "name": "Punggol Bus Interchange",
+        "region": "North East",
         "address": "70A, Punggol Place, S(828865)",
         "stars": 4,
         "images_url": [
@@ -3832,6 +3980,7 @@
     },
     {
         "name": "Sengkang Bus Interchange",
+        "region": "North East",
         "address": "13 Sengkang Square, S(545077)",
         "stars": 4,
         "images_url": [
@@ -3859,6 +4008,7 @@
     },
     {
         "name": "Tampines Bus Interchange",
+        "region": "North East",
         "address": "512 Tampines Central 1, S(520512)",
         "stars": 4,
         "images_url": [
@@ -3891,6 +4041,7 @@
     },
     {
         "name": "Tampines Concourse Bus Interchange",
+        "region": "North East",
         "address": "11 Tampines Concourse, S(529543)",
         "stars": 4,
         "images_url": [
@@ -3924,6 +4075,7 @@
     },
     {
         "name": "NTUC Club Downtown East",
+        "region": "North East",
         "address": "1 Pasir Ris Close S(519599)",
         "stars": 5,
         "images_url": [
@@ -3958,6 +4110,7 @@
     },
     {
         "name": "Safra Punggol",
+        "region": "North East",
         "address": "9 Sentul Crescent, S(828654)",
         "stars": 5,
         "images_url": [
@@ -4024,6 +4177,7 @@
     },
     {
         "name": "21 Street Eating House",
+        "region": "North East",
         "address": "Blk 201 Tampines Street 21,# 01-201 S(520201)",
         "stars": 5,
         "images_url": [
@@ -4052,36 +4206,42 @@
     },
     {
         "name": "CCMW Hougang Avenue 8",
+        "region": "North East",
         "address": "Blk 631 Hougang Avenue 8, #01-06, S(530631)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CCMW Tampines Ave 4",
+        "region": "North East",
         "address": "Blk 802 Tampines Ave 4, #01-77, S(520802)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CCMW Tampines Street 21 ",
+        "region": "North East",
         "address": "Blk 201C Tampines Street 21, #01-01, S(523201)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CCMW Tampines Street 41",
+        "region": "North East",
         "address": "Blk 406 Tampines Street 41, #01-07, S(520406)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "CCMW Tampines Street 81",
+        "region": "North East",
         "address": "Blk 820, Tampines Street 81, #01-501, S(520820)",
         "stars": 4,
         "images_url": []
     },
     {
         "name": "NTUC Foodfare",
+        "region": "North East",
         "address": "Blk 273C Punggol Place, #01-882, S(823273)",
         "stars": 3,
         "images_url": [
@@ -4106,6 +4266,7 @@
     },
     {
         "name": "NTUC Foodfare Anchorvale",
+        "region": "North East",
         "address": "Blk 308 Anchorvale Road #01-07 S(540308)",
         "stars": 3,
         "images_url": [
@@ -4125,6 +4286,7 @@
     },
     {
         "name": "NTUC Foodfare Pasir Ris",
+        "region": "North East",
         "address": "527C Pasir Ris Street 51, S(513527)",
         "stars": 3,
         "images_url": [
@@ -4146,6 +4308,7 @@
     },
     {
         "name": "NTUC Foodfare Upper Serangoon",
+        "region": "North East",
         "address": "476D Upper Serangoon View, #02-05, S(537476))",
         "stars": 3,
         "images_url": [
@@ -4166,12 +4329,14 @@
     },
     {
         "name": "Koufu Foodcourt",
+        "region": "North East",
         "address": "Blk 118 Rivervale Drive, #02-15/16, S(540118)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "Koufu Foodcourt",
+        "region": "North East",
         "address": "Blk 263 Compassvale Street, #01-09 S(540263)",
         "stars": 3,
         "images_url": [
@@ -4201,6 +4366,7 @@
     },
     {
         "name": "Chomp Chomp Food Centre",
+        "region": "North East",
         "address": "20 Kensington Park Road, S(557269)",
         "stars": 3,
         "images_url": [
@@ -4221,6 +4387,7 @@
     },
     {
         "name": "Hawker Centre @ Our Tampines Hub",
+        "region": "North East",
         "address": "902 Tampines Avenue 4, S(520902)",
         "stars": 3,
         "images_url": [
@@ -4259,6 +4426,7 @@
     },
     {
         "name": "Pasir Ris Central Hawker Centre",
+        "region": "North East",
         "address": "110 Pasir Ris Central, S(519641)",
         "stars": 5,
         "images_url": [
@@ -4294,6 +4462,7 @@
     },
     {
         "name": "Serangoon Garden Market",
+        "region": "North East",
         "address": "49A Serangoon Garden Way, S(555945)",
         "stars": 4,
         "images_url": [
@@ -4316,6 +4485,7 @@
     },
     {
         "name": "Tampines Round Market & Food Centre",
+        "region": "North East",
         "address": "Blk 137 Tampines Street 11, S(521137)",
         "stars": 4,
         "images_url": [
@@ -4337,6 +4507,7 @@
     },
     {
         "name": "Bedok Reservoir MRT Station (DT30)",
+        "region": "North East",
         "address": "371 Bedok North Avenue 3, S(469724)",
         "stars": 4,
         "images_url": [
@@ -4370,6 +4541,7 @@
     },
     {
         "name": "Buangkok MRT Station (NE15)",
+        "region": "North East",
         "address": "10 Sengkang Central, S(545061)",
         "stars": 4,
         "images_url": [
@@ -4388,6 +4560,7 @@
     },
     {
         "name": "Eunos MRT Station",
+        "region": "North East",
         "address": "30 Eunos Crescent, S(409423)",
         "stars": 4,
         "images_url": [
@@ -4420,6 +4593,7 @@
     },
     {
         "name": "Hougang MRT Station (NE14)",
+        "region": "North East",
         "address": "80 Hougang Central, S(538758)",
         "stars": 4,
         "images_url": [
@@ -4438,6 +4612,7 @@
     },
     {
         "name": "Kaki Bukit MRT Station (DT28)",
+        "region": "North East",
         "address": "30 Kaki Bukit Avenue 1, S(415804)",
         "stars": 4,
         "images_url": [
@@ -4463,6 +4638,7 @@
     },
     {
         "name": "Kembangan MRT Station",
+        "region": "North East",
         "address": "55 Sims Avenue East, S(416551)",
         "stars": 4,
         "images_url": [
@@ -4500,6 +4676,7 @@
     },
     {
         "name": "Kovan MRT Station (NE13)",
+        "region": "North East",
         "address": "900 Upper Serangoon Rd, S(534799)",
         "stars": 4,
         "images_url": [
@@ -4518,6 +4695,7 @@
     },
     {
         "name": "Pasir Ris MRT Station",
+        "region": "North East",
         "address": "10 Pasir Ris Central, S(519634)",
         "stars": 4,
         "images_url": [
@@ -4543,6 +4721,7 @@
     },
     {
         "name": "Punggol MRT Station-NE17",
+        "region": "North East",
         "address": "10 Punggol Central, S(828868)",
         "stars": 5,
         "images_url": [
@@ -4571,6 +4750,7 @@
     },
     {
         "name": "Sengkang MRT Station (NE16)",
+        "region": "North East",
         "address": "5 Sengkang Square, S(545062)",
         "stars": 4,
         "images_url": [
@@ -4590,6 +4770,7 @@
     },
     {
         "name": "Tampines East MRT Station (DT33)",
+        "region": "North East",
         "address": "20 Tampines Avenue 7, S(529623)",
         "stars": 4,
         "images_url": [
@@ -4620,6 +4801,7 @@
     },
     {
         "name": "Tampines MRT Station",
+        "region": "North East",
         "address": "20 Tampines Central, S(529538)",
         "stars": 4,
         "images_url": [
@@ -4650,6 +4832,7 @@
     },
     {
         "name": "Tampines MRT Station (DT32)",
+        "region": "North East",
         "address": "20 Tampines Central, S(529538)",
         "stars": 4,
         "images_url": [
@@ -4679,6 +4862,7 @@
     },
     {
         "name": "Tampines West MRT Station (DT31)",
+        "region": "North East",
         "address": "2 Tampines Avenue 4, S(529683)",
         "stars": 4,
         "images_url": [
@@ -4708,6 +4892,7 @@
     },
     {
         "name": "Tanah Merah MRT Station",
+        "region": "North East",
         "address": "920 New Upper Changi Road, (467356)",
         "stars": 4,
         "images_url": [
@@ -4745,6 +4930,7 @@
     },
     {
         "name": "Al - Istighfar Mosque",
+        "region": "North East",
         "address": "2 Pasir Ris Walk, S(518239)",
         "stars": 4,
         "images_url": [
@@ -4772,6 +4958,7 @@
     },
     {
         "name": "Century Square",
+        "region": "North East",
         "address": "2 Tampines Central 5, S(529509)",
         "stars": 4,
         "images_url": [
@@ -4807,6 +4994,7 @@
     },
     {
         "name": "Elias Mall",
+        "region": "North East",
         "address": "Blk 625, Level 1 & 2, Elias Road, S(510625)",
         "stars": 4,
         "images_url": [
@@ -4839,6 +5027,7 @@
     },
     {
         "name": "Hougang Mall",
+        "region": "North East",
         "address": "90 Hougang Avenue 10, Level B1 - 2, S(538766)",
         "stars": 4,
         "images_url": [
@@ -4877,6 +5066,7 @@
     },
     {
         "name": "Hougang Mall",
+        "region": "North East",
         "address": "90 Hougang Avenue 10, Level 3 - 5, S(538766)",
         "stars": 5,
         "images_url": [
@@ -4915,6 +5105,7 @@
     },
     {
         "name": "Loyang Point Shopping Centre",
+        "region": "North East",
         "address": "258/259 Pasir Ris Street 21, S(510258)",
         "stars": 4,
         "images_url": [
@@ -4939,6 +5130,7 @@
     },
     {
         "name": "Pasir Ris West Plaza",
+        "region": "North East",
         "address": "735, Pasir Ris Street 72, S(510735)",
         "stars": 4,
         "images_url": [
@@ -4965,6 +5157,7 @@
     },
     {
         "name": "Rivervale Plaza",
+        "region": "North East",
         "address": "118, Rivervale Plaza, S(540118)",
         "stars": 4,
         "images_url": [
@@ -4987,6 +5180,7 @@
     },
     {
         "name": "Tampines Central Community Complex",
+        "region": "North East",
         "address": "Blk 886A, Tampines Street 83, S(521866)",
         "stars": 4,
         "images_url": [
@@ -5016,6 +5210,7 @@
     },
     {
         "name": "Tampines One",
+        "region": "North East",
         "address": "10, Tampines Central 1, S(529536)",
         "stars": 5,
         "images_url": [
@@ -5060,6 +5255,7 @@
     },
     {
         "name": "White Sands",
+        "region": "North East",
         "address": "1 Pasir Ris Central Street 3, S(518457)",
         "stars": 5,
         "images_url": [
@@ -5095,6 +5291,7 @@
     },
     {
         "name": "Bukit Panjang Intergrated Transport Hub",
+        "region": "North West",
         "address": "15 Petir Road, S(678270)",
         "stars": 5,
         "images_url": [
@@ -5127,6 +5324,7 @@
     },
     {
         "name": "Sembawang Bus Interchange",
+        "region": "North West",
         "address": "11A, Sembawang Vista, S(757527)",
         "stars": 4,
         "images_url": [
@@ -5157,6 +5355,7 @@
     },
     {
         "name": "Woodlands Temporary Bus Interchange",
+        "region": "North West",
         "address": "3A Woodlands Square, S(727735)",
         "stars": 3,
         "images_url": [
@@ -5189,6 +5388,7 @@
     },
     {
         "name": "Yishun Integrated Hub Bus Interchange",
+        "region": "North West",
         "address": "20A Yishun Central, S(768830)",
         "stars": 5,
         "images_url": [
@@ -5218,6 +5418,7 @@
     },
     {
         "name": "NTUC Foodfare",
+        "region": "North West",
         "address": "507 Yishun Avenue 4, S(760507)",
         "stars": 3,
         "images_url": [
@@ -5243,6 +5444,7 @@
     },
     {
         "name": "NTUC Foodfare@29A Ghim Moh Link",
+        "region": "North West",
         "address": "29A Ghim Moh Link, #01-06, S(271029)",
         "stars": 4,
         "images_url": [
@@ -5264,6 +5466,7 @@
     },
     {
         "name": "Chang Cheng Mee Wah Foodcourt",
+        "region": "North West",
         "address": "27 Woodlands Link, #01-01 Chang Cheng HQ, S(738732)",
         "stars": 4,
         "images_url": [
@@ -5289,6 +5492,7 @@
     },
     {
         "name": "NTUC Foodfare KTPH",
+        "region": "North West",
         "address": "90 Yishun Central, S(768828)",
         "stars": 4,
         "images_url": [
@@ -5309,6 +5513,7 @@
     },
     {
         "name": "Viva Foodcourt",
+        "region": "North West",
         "address": "Blk 548 Woodlands Drive 44, #02-34, S(730548)",
         "stars": 3,
         "images_url": [
@@ -5336,6 +5541,7 @@
     },
     {
         "name": "Koufu Foodcourt@Fajar",
+        "region": "North West",
         "address": "445 Fajar Road, #01-548, S(670445)",
         "stars": 3,
         "images_url": [
@@ -5358,6 +5564,7 @@
     },
     {
         "name": "Bukit Panjang Hawker Centre",
+        "region": "North West",
         "address": "259 Bukit Panjang Ring Road, S(671259)",
         "stars": 4,
         "images_url": [
@@ -5396,6 +5603,7 @@
     },
     {
         "name": "Holland Village Market & Food Centre",
+        "region": "North West",
         "address": "1 Lorong Mambong, S(277700)",
         "stars": 3,
         "images_url": [
@@ -5416,6 +5624,7 @@
     },
     {
         "name": "Yishun Park Hawker Centre",
+        "region": "North West",
         "address": "51 Yishun Avenue 11, S(768867)",
         "stars": 4,
         "images_url": [
@@ -5455,6 +5664,7 @@
     },
     {
         "name": "Admiralty MRT Station",
+        "region": "North West",
         "address": "70 Woodlands Avenue, S(738344)",
         "stars": 4,
         "images_url": [
@@ -5481,6 +5691,7 @@
     },
     {
         "name": "Canberra MRT Station (NS12)",
+        "region": "North West",
         "address": "11, Canberra Link, S(756922)",
         "stars": 5,
         "images_url": [
@@ -5510,6 +5721,7 @@
     },
     {
         "name": "Cashew MRT Station (DT2)",
+        "region": "North West",
         "address": "1 Cashew Road, S(679696)",
         "stars": 4,
         "images_url": [
@@ -5528,6 +5740,7 @@
     },
     {
         "name": "Dover MRT Station (EW22)",
+        "region": "North West",
         "address": "200 Commonwealth Avenue West, S(138677)",
         "stars": 4,
         "images_url": [
@@ -5551,6 +5764,7 @@
     },
     {
         "name": "Hillview MRT Station (DT3)",
+        "region": "North West",
         "address": "510 Upper Bukit Timah Road, S(678211)",
         "stars": 4,
         "images_url": [
@@ -5571,6 +5785,7 @@
     },
     {
         "name": "King Albert MRT Station (DT6)",
+        "region": "North West",
         "address": "2 Blackmore Drive, S(599987)",
         "stars": 4,
         "images_url": [
@@ -5589,6 +5804,7 @@
     },
     {
         "name": "Kranji MRT Station",
+        "region": "North West",
         "address": "960 Woodlands Road, S(738702)",
         "stars": 4,
         "images_url": [
@@ -5613,6 +5829,7 @@
     },
     {
         "name": "Marsiling MRT Station",
+        "region": "North West",
         "address": "71 Woodlands Avenue 3, S(739044)",
         "stars": 4,
         "images_url": [
@@ -5641,6 +5858,7 @@
     },
     {
         "name": "Sembawang MRT Station (NS11)",
+        "region": "North West",
         "address": "11 Canberra Road, S(759775)",
         "stars": 4,
         "images_url": [
@@ -5664,6 +5882,7 @@
     },
     {
         "name": "Sixth Avenue MRT Station (DT7)",
+        "region": "North West",
         "address": "777 Bukit Timah Road, S(269784)",
         "stars": 4,
         "images_url": [
@@ -5683,6 +5902,7 @@
     },
     {
         "name": "Tan Kah Kee MRT Station (DT8)",
+        "region": "North West",
         "address": "651 Bukit Timah Road, S(266268)",
         "stars": 4,
         "images_url": [
@@ -5701,6 +5921,7 @@
     },
     {
         "name": "Woodlands MRT Station",
+        "region": "North West",
         "address": "30 Woodlands Avenue, S(738343)",
         "stars": 4,
         "images_url": [
@@ -5727,6 +5948,7 @@
     },
     {
         "name": "Woodlands North Station (TEL1)",
+        "region": "North West",
         "address": "20 Woodlands North Coast Road, S(737668)",
         "stars": 4,
         "images_url": [
@@ -5752,6 +5974,7 @@
     },
     {
         "name": "Woodlands South Station (TEL3)",
+        "region": "North West",
         "address": "30 Woodlands Drive 17, S(737741)",
         "stars": 4,
         "images_url": [
@@ -5778,6 +6001,7 @@
     },
     {
         "name": "Woodlands Station (TEL2)",
+        "region": "North West",
         "address": "11 Woodlands Square, S(737736)",
         "stars": 4,
         "images_url": [
@@ -5802,6 +6026,7 @@
     },
     {
         "name": "Yew Tee MRT Station",
+        "region": "North West",
         "address": "61 Choa Chu Kang Drive, S(689715)",
         "stars": 4,
         "images_url": [
@@ -5828,6 +6053,7 @@
     },
     {
         "name": "Yishun MRT Station (NS13)",
+        "region": "North West",
         "address": "301 Yishun Avenue 2, S(769093)",
         "stars": 4,
         "images_url": [
@@ -5849,6 +6075,7 @@
     },
     {
         "name": "888 Plaza",
+        "region": "North West",
         "address": "Blk 888, Woodlands Drive 50, S(731888)",
         "stars": 4,
         "images_url": [
@@ -5875,6 +6102,7 @@
     },
     {
         "name": "Admiralty Place",
+        "region": "North West",
         "address": "Blk 678 Woodlands Avenue 6, S(730678)",
         "stars": 4,
         "images_url": [
@@ -5907,6 +6135,7 @@
     },
     {
         "name": "Fajar Shopping Centre",
+        "region": "North West",
         "address": "445 Fajar Road, Level 1 & 2, S(670445)",
         "stars": 4,
         "images_url": [
@@ -5942,6 +6171,7 @@
     },
     {
         "name": "Sembawang Mart",
+        "region": "North West",
         "address": "Blk 511 Canberra Road, S(750511)",
         "stars": 5,
         "images_url": [
@@ -5974,6 +6204,7 @@
     },
     {
         "name": "Vista Point",
+        "region": "North West",
         "address": "Blk 548 Woodlands Drive 44, S(730548)",
         "stars": 5,
         "images_url": [
@@ -6007,6 +6238,7 @@
     },
     {
         "name": "Bedok Bus Interchange",
+        "region": "South East",
         "address": "12 BedokNorth Drive, S(465492)",
         "stars": 4,
         "images_url": [
@@ -6037,6 +6269,7 @@
     },
     {
         "name": "Changi Business Park Bus Terminal",
+        "region": "South East",
         "address": "55 Changi South Avenue 1, S(485997)",
         "stars": 4,
         "images_url": [
@@ -6069,6 +6302,7 @@
     },
     {
         "name": "Eunos Bus Interchange",
+        "region": "South East",
         "address": "409 Eunos Road 2, S(409388)",
         "stars": 4,
         "images_url": [
@@ -6100,6 +6334,7 @@
     },
     {
         "name": "Serangoon Bus Interchange",
+        "region": "South East",
         "address": "20 Serangoon Avenue 2, S(556138)",
         "stars": 4,
         "images_url": [
@@ -6129,6 +6364,7 @@
     },
     {
         "name": "Upper East Coast Bus Terminal",
+        "region": "South East",
         "address": "740 Upper East Coast Road, S(465549)",
         "stars": 4,
         "images_url": [
@@ -6158,12 +6394,14 @@
     },
     {
         "name": "CCMW BD 211 Food House",
+        "region": "South East",
         "address": "Blk 211, Upper Changi Road, S(460211)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "NTUC Foodfare Tampines",
+        "region": "South East",
         "address": "878C Tampines Avenue 8, S(523878)",
         "stars": 3,
         "images_url": [
@@ -6187,6 +6425,7 @@
     },
     {
         "name": "Heartbeat@Bedok",
+        "region": "South East",
         "address": "11 Bedok North Stree 1, S(469662)",
         "stars": 5,
         "images_url": [
@@ -6216,6 +6455,7 @@
     },
     {
         "name": "Bedok Food Centre",
+        "region": "South East",
         "address": "1 Bedok Road, S(469572)",
         "stars": 4,
         "images_url": [
@@ -6242,6 +6482,7 @@
     },
     {
         "name": "Blk 16 Bedok South Road Market & Food Centre",
+        "region": "South East",
         "address": "Blk 16, Bedok South Road, S(460016)",
         "stars": 4,
         "images_url": [
@@ -6262,6 +6503,7 @@
     },
     {
         "name": "Dunman Food Centre",
+        "region": "South East",
         "address": "271 Onan Road, S(424768)",
         "stars": 3,
         "images_url": [
@@ -6281,6 +6523,7 @@
     },
     {
         "name": "East Coast Lagoon Food Village",
+        "region": "South East",
         "address": "1220 East Coast Parkway, S(468960)",
         "stars": 3,
         "images_url": [
@@ -6308,6 +6551,7 @@
     },
     {
         "name": "Geylang Serai Market",
+        "region": "South East",
         "address": "1 Geylang Serai, S(402001)",
         "stars": 3,
         "images_url": [
@@ -6331,6 +6575,7 @@
     },
     {
         "name": "Aljunied MRT Station (EW9)",
+        "region": "South East",
         "address": "81 Lorong 25 Geylang, S(388310)",
         "stars": 4,
         "images_url": [
@@ -6357,6 +6602,7 @@
     },
     {
         "name": "Bartley MRT Station",
+        "region": "South East",
         "address": "212 Upper Paya Lebar, S(534881)",
         "stars": 4,
         "images_url": [
@@ -6383,6 +6629,7 @@
     },
     {
         "name": "Bedok MRT Station",
+        "region": "South East",
         "address": "315 New Upper Changi Road, S(467347)",
         "stars": 4,
         "images_url": [
@@ -6413,6 +6660,7 @@
     },
     {
         "name": "Bedok North MRT Station (DT29)",
+        "region": "South East",
         "address": "315 Upper Changi Road, S(467347)",
         "stars": 4,
         "images_url": [
@@ -6445,6 +6693,7 @@
     },
     {
         "name": "Dakota MRT Station",
+        "region": "South East",
         "address": "201 Airport Road, S(397973)",
         "stars": 4,
         "images_url": [
@@ -6475,6 +6724,7 @@
     },
     {
         "name": "Expo MRT Station",
+        "region": "South East",
         "address": "21 Upper Changi South Avenue 1, S(486065)",
         "stars": 4,
         "images_url": [
@@ -6505,6 +6755,7 @@
     },
     {
         "name": "Lorong Chuan MRT Station",
+        "region": "South East",
         "address": "150 Serangoon Avenue 3, S(554533)",
         "stars": 4,
         "images_url": [
@@ -6532,6 +6783,7 @@
     },
     {
         "name": "Macpherson MRT Station (DT26)",
+        "region": "South East",
         "address": "10 Circuit Link, S(378956)",
         "stars": 4,
         "images_url": [
@@ -6558,6 +6810,7 @@
     },
     {
         "name": "Macpherson MRT Station CC10",
+        "region": "South East",
         "address": "171 Paya Lebar Rd, S(409048)",
         "stars": 4,
         "images_url": [
@@ -6583,6 +6836,7 @@
     },
     {
         "name": "Mattar MRT Station (DT25)",
+        "region": "South East",
         "address": "60 Merpati Road, S(379314)",
         "stars": 4,
         "images_url": [
@@ -6609,6 +6863,7 @@
     },
     {
         "name": "Mountbatten MRT Station",
+        "region": "South East",
         "address": "301 Mountbatten Road, S(398006)",
         "stars": 4,
         "images_url": [
@@ -6637,6 +6892,7 @@
     },
     {
         "name": "Paya Lebar MRT Station",
+        "region": "South East",
         "address": "30 Paya Lebar Road, S(409006)",
         "stars": 4,
         "images_url": [
@@ -6665,6 +6921,7 @@
     },
     {
         "name": "Paya Lebar MRT Station CC09",
+        "region": "South East",
         "address": "30 Paya Lebar Road, S(409006)",
         "stars": 4,
         "images_url": [
@@ -6688,6 +6945,7 @@
     },
     {
         "name": "Serangoon MRT Station (NE12)",
+        "region": "South East",
         "address": "600 Upper Serangoon Rd., S(534801)",
         "stars": 4,
         "images_url": [
@@ -6707,6 +6965,7 @@
     },
     {
         "name": "Serangoon MRT Station CC13",
+        "region": "South East",
         "address": "600 Upper Serangoon Rd, S(534801)",
         "stars": 4,
         "images_url": [
@@ -6738,6 +6997,7 @@
     },
     {
         "name": "Simei MRT Station",
+        "region": "South East",
         "address": "30 Simei Street 3, S(529888)",
         "stars": 4,
         "images_url": [
@@ -6767,6 +7027,7 @@
     },
     {
         "name": "Stadium MRT Station",
+        "region": "South East",
         "address": "3 Stadium Walk, S(397692)",
         "stars": 4,
         "images_url": [
@@ -6794,6 +7055,7 @@
     },
     {
         "name": "Tai Seng MRT Station CC11",
+        "region": "South East",
         "address": "33 Upper Paya Lebar Rd, S(534803)",
         "stars": 4,
         "images_url": [
@@ -6819,6 +7081,7 @@
     },
     {
         "name": "Ubi MRT Station (DT27)",
+        "region": "South East",
         "address": "51 Ubi Avenue 2, S(408899)",
         "stars": 4,
         "images_url": [
@@ -6848,6 +7111,7 @@
     },
     {
         "name": "Upper Changi MRT Station",
+        "region": "South East",
         "address": "690 Upper Changi Road East, S(485990)",
         "stars": 4,
         "images_url": [
@@ -6879,6 +7143,7 @@
     },
     {
         "name": "Kah Engineering (1988) Pte Ltd",
+        "region": "South East",
         "address": "96B Jalan Senang, S(418482)",
         "stars": 3,
         "images_url": [
@@ -6900,6 +7165,7 @@
     },
     {
         "name": "Joo Chiat Complex",
+        "region": "South East",
         "address": "1 Joo Chiat Road, S(420001)",
         "stars": 4,
         "images_url": [
@@ -6928,6 +7194,7 @@
     },
     {
         "name": "SingPost Centre",
+        "region": "South East",
         "address": "Singpost Centre, 10 Eunos Rd, S(408600)",
         "stars": 5,
         "images_url": [
@@ -6949,6 +7216,7 @@
     },
     {
         "name": "Boon Lay Bus Interchange",
+        "region": "South West",
         "address": "87 Jurong West Central 3, S(648343)",
         "stars": 4,
         "images_url": [
@@ -6982,6 +7250,7 @@
     },
     {
         "name": "Choa Chu Kang Bus Interchange",
+        "region": "South West",
         "address": "301 Choa Chu Kang Central Avenue 3, S(689811)",
         "stars": 5,
         "images_url": [
@@ -7014,6 +7283,7 @@
     },
     {
         "name": "Clementi Bus Interchange",
+        "region": "South West",
         "address": "441 Commonwealth Avenue West, S(120441)",
         "stars": 4,
         "images_url": [
@@ -7042,6 +7312,7 @@
     },
     {
         "name": "Joo Koon Bus Interchange",
+        "region": "South West",
         "address": "55 Benoi Road, S(629907)",
         "stars": 4,
         "images_url": [
@@ -7072,6 +7343,7 @@
     },
     {
         "name": "Tuas Bus Terminal",
+        "region": "South West",
         "address": "1 Tuas West Drive, S(638410)",
         "stars": 4,
         "images_url": [
@@ -7095,12 +7367,14 @@
     },
     {
         "name": "CCMW Jurong West Street 41",
+        "region": "South West",
         "address": "Blk 498 Jurong West Street 41, #01-462, S(640498)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "NTUC Foodfare Bukit Batok",
+        "region": "South West",
         "address": "296A Bukit Batok Street 22, S(651296)",
         "stars": 3,
         "images_url": [
@@ -7120,6 +7394,7 @@
     },
     {
         "name": "NTUC Foodfare Choa Chu Kang",
+        "region": "South West",
         "address": "Blk 303, Choa Chu Kang Avenue 4, #01-723, S(680303)",
         "stars": 3,
         "images_url": [
@@ -7140,6 +7415,7 @@
     },
     {
         "name": "NTUC Foodfare Jurong West",
+        "region": "South West",
         "address": "Blk 679 Jurong West Central, #01-02, S(640679)",
         "stars": 4,
         "images_url": [
@@ -7159,18 +7435,21 @@
     },
     {
         "name": "Aspri-Westlite Construction Site",
+        "region": "South West",
         "address": "5 Jalan Papan Road, S(619396)",
         "stars": 4,
         "images_url": []
     },
     {
         "name": "Megastone Holding Dormitory",
+        "region": "South West",
         "address": "42A Sungei Kadut Street 1, S(729347)",
         "stars": 4,
         "images_url": []
     },
     {
         "name": "Unison Construction Dormitory",
+        "region": "South West",
         "address": "6 Tuas Basin Link, S(638760)",
         "stars": 4,
         "images_url": [
@@ -7193,6 +7472,7 @@
     },
     {
         "name": "Choa Chu Kang Crescent NTUC Foodfare",
+        "region": "South West",
         "address": "Blk 673B Choa Chu Kang Crescent, S(682673)",
         "stars": 3,
         "images_url": [
@@ -7213,6 +7493,7 @@
     },
     {
         "name": "Kopitiam",
+        "region": "South West",
         "address": "1 Lower Kent Ridge Road, #05-01 One@Kent Ridge, S (119082)",
         "stars": 5,
         "images_url": [
@@ -7242,6 +7523,7 @@
     },
     {
         "name": "Kopitiam",
+        "region": "South West",
         "address": "5 Lower Kent Ridge Rd, #01-01, S(119074)",
         "stars": 5,
         "images_url": [
@@ -7267,6 +7549,7 @@
     },
     {
         "name": "Koufu Foodcourt",
+        "region": "South West",
         "address": "1 Bukit Batok Central Link, #04-01, Westmall, S(658713)",
         "stars": 3,
         "images_url": [
@@ -7295,12 +7578,14 @@
     },
     {
         "name": "Koufu Foodcourt",
+        "region": "South West",
         "address": "Blk 638A, Jurong West Street 61, #01-22, S(641638)",
         "stars": 3,
         "images_url": []
     },
     {
         "name": "NTUC Foodfare",
+        "region": "South West",
         "address": "309 Choa Chu Kang Avenue 4, S(680309)",
         "stars": 3,
         "images_url": [
@@ -7320,12 +7605,14 @@
     },
     {
         "name": "JTC, Chemgallery at Oasis @ Sakra",
+        "region": "South West",
         "address": "3, Sakra Road, S(627878)",
         "stars": 5,
         "images_url": []
     },
     {
         "name": "Jurong Island Checkpoint",
+        "region": "South West",
         "address": "18 Jurong Pier Road, S(619618)",
         "stars": 4,
         "images_url": [
@@ -7349,6 +7636,7 @@
     },
     {
         "name": "CleanTech One",
+        "region": "South West",
         "address": "CleanTech One, 1 Clean Tech Loop, S(637141)",
         "stars": 5,
         "images_url": [
@@ -7374,6 +7662,7 @@
     },
     {
         "name": "CleanTech Two",
+        "region": "South West",
         "address": "3 Cleantech Loop, S(637143)",
         "stars": 5,
         "images_url": [
@@ -7399,6 +7688,7 @@
     },
     {
         "name": "JTC Surface Engineering Hub",
+        "region": "South West",
         "address": "8 Buroh Street, S(627563)",
         "stars": 5,
         "images_url": [
@@ -7427,6 +7717,7 @@
     },
     {
         "name": "Jurong Port Offshore Marine Centre",
+        "region": "South West",
         "address": "101 Tuas South Avenue, S(637423)",
         "stars": 4,
         "images_url": [
@@ -7450,6 +7741,7 @@
     },
     {
         "name": "LaunchPad @ JID",
+        "region": "South West",
         "address": "2 Cleantech Loop, S(637144)",
         "stars": 4,
         "images_url": [
@@ -7474,6 +7766,7 @@
     },
     {
         "name": "Ayer Rajah Amenity Centre",
+        "region": "South West",
         "address": "69 Ayer Rajah Crescent, S(139961)",
         "stars": 4,
         "images_url": [
@@ -7503,6 +7796,7 @@
     },
     {
         "name": "Jurong Port Road Food Centre",
+        "region": "South West",
         "address": "29A Jurong Port Road, S(619112)",
         "stars": 4,
         "images_url": [
@@ -7527,6 +7821,7 @@
     },
     {
         "name": "Jurong West Hawker Centre",
+        "region": "South West",
         "address": "50 Jurong West Street 61, S(648202)",
         "stars": 4,
         "images_url": [
@@ -7570,6 +7865,7 @@
     },
     {
         "name": "Pasir Panjang Food Centre",
+        "region": "South West",
         "address": "121 Pasir Panjang Road, S(118543)",
         "stars": 4,
         "images_url": [
@@ -7599,6 +7895,7 @@
     },
     {
         "name": "Taman Jurong Market & Food Centre",
+        "region": "South West",
         "address": "3 Yung Sheng Road, S(618499)",
         "stars": 5,
         "images_url": [
@@ -7625,6 +7922,7 @@
     },
     {
         "name": "Timbre + Ayer Rajah Crescent Hawker Centre",
+        "region": "South West",
         "address": "73A Ayer Rajah Crescent, S(139957)",
         "stars": 4,
         "images_url": [
@@ -7654,6 +7952,7 @@
     },
     {
         "name": "Beauty World MRT Station (DT5)",
+        "region": "South West",
         "address": "101 Upper Bukit Timah Road, S(588216)",
         "stars": 4,
         "images_url": [
@@ -7675,6 +7974,7 @@
     },
     {
         "name": "Boon Lay MRT Station (EW27)",
+        "region": "South West",
         "address": "301 Boon Lay Way, S(649846)",
         "stars": 4,
         "images_url": [
@@ -7702,6 +8002,7 @@
     },
     {
         "name": "Bukit Batok MRT Station (N2)",
+        "region": "South West",
         "address": "10 Bukit Batok Central, S(659958)",
         "stars": 4,
         "images_url": [
@@ -7724,6 +8025,7 @@
     },
     {
         "name": "Bukit Gombak MRT Station (NS3)",
+        "region": "South West",
         "address": "802 Bukit Batok West Avenue 5, S(659083)",
         "stars": 4,
         "images_url": [
@@ -7748,6 +8050,7 @@
     },
     {
         "name": "Bukit Panjang MRT Station (DT1)",
+        "region": "South West",
         "address": "950 Upper Bukit Timah Road, S(678213)",
         "stars": 4,
         "images_url": [
@@ -7770,6 +8073,7 @@
     },
     {
         "name": "Buona Vista MRT station",
+        "region": "South West",
         "address": "301, South Buona Vista Road, S(118177)",
         "stars": 4,
         "images_url": [
@@ -7792,6 +8096,7 @@
     },
     {
         "name": "Buona Vista MRT Station (EW21)",
+        "region": "South West",
         "address": "100 Bouna Vista Road, S(139345)",
         "stars": 4,
         "images_url": [
@@ -7819,6 +8124,7 @@
     },
     {
         "name": "Chinese Garden MRT Staton (EW25)",
+        "region": "South West",
         "address": "151 Boon Lay Way, S(609959)",
         "stars": 4,
         "images_url": [
@@ -7843,6 +8149,7 @@
     },
     {
         "name": "Choa Chu Kang MRT Station (NS4)",
+        "region": "South West",
         "address": "10 Choa Chu Kang Avenue 4 S(689810)",
         "stars": 4,
         "images_url": [
@@ -7864,6 +8171,7 @@
     },
     {
         "name": "Clementi MRT Station (EW23)",
+        "region": "South West",
         "address": "3150 Commonwealth Avenue West, S(129580)",
         "stars": 4,
         "images_url": [
@@ -7887,6 +8195,7 @@
     },
     {
         "name": "Gul Circle Station",
+        "region": "South West",
         "address": "7A Tuas Road, S(637288)",
         "stars": 4,
         "images_url": [
@@ -7913,6 +8222,7 @@
     },
     {
         "name": "Haw Par Villa MRT station",
+        "region": "South West",
         "address": "200, Holland Avenue, S(278995)",
         "stars": 4,
         "images_url": [
@@ -7934,6 +8244,7 @@
     },
     {
         "name": "Joo Koon MRT Station (EW29)",
+        "region": "South West",
         "address": "91 Joo Koon Circle, S(6291116)",
         "stars": 4,
         "images_url": [
@@ -7958,6 +8269,7 @@
     },
     {
         "name": "Jurong East MRT Station (EW24)",
+        "region": "South West",
         "address": "10 Jurong East Street 12, S(609690)",
         "stars": 4,
         "images_url": [
@@ -7981,6 +8293,7 @@
     },
     {
         "name": "Kent Ridge MRT station",
+        "region": "South West",
         "address": "100, North Buona Vista Road, S(139345)",
         "stars": 4,
         "images_url": [
@@ -8002,6 +8315,7 @@
     },
     {
         "name": "Labrador Park MRT station",
+        "region": "South West",
         "address": "100, Cluny Park Road, S(257494)",
         "stars": 4,
         "images_url": [
@@ -8021,6 +8335,7 @@
     },
     {
         "name": "Lakeside MRT (EW26)",
+        "region": "South West",
         "address": "201 Boon Lay Way, S(649845)",
         "stars": 4,
         "images_url": [
@@ -8045,6 +8360,7 @@
     },
     {
         "name": "One North MRT station",
+        "region": "South West",
         "address": "9, Ayer Rajah Avenue, S(138647)",
         "stars": 4,
         "images_url": [
@@ -8066,6 +8382,7 @@
     },
     {
         "name": "Pasir Panjang MRT station",
+        "region": "South West",
         "address": "71, Farrer Road, S(268857)",
         "stars": 4,
         "images_url": [
@@ -8087,6 +8404,7 @@
     },
     {
         "name": "Pioneer MRT Station (EW28)",
+        "region": "South West",
         "address": "31 Jurong West Street 63, S(648310)",
         "stars": 4,
         "images_url": [
@@ -8109,6 +8427,7 @@
     },
     {
         "name": "Telok Blangah MRT station",
+        "region": "South West",
         "address": "38, Toa Payoh Rise, S(298113)",
         "stars": 4,
         "images_url": [
@@ -8130,6 +8449,7 @@
     },
     {
         "name": "Tuas Crescent MRT Station",
+        "region": "South West",
         "address": "90 Pioneer Road, S(639608)",
         "stars": 4,
         "images_url": [
@@ -8159,6 +8479,7 @@
     },
     {
         "name": "Tuas Link MRT Station",
+        "region": "South West",
         "address": "20 Tuas West Drive, S(638418)",
         "stars": 4,
         "images_url": [
@@ -8189,6 +8510,7 @@
     },
     {
         "name": "Tuas West MRT Station",
+        "region": "South West",
         "address": "131, Pioneer Road, S(639609)",
         "stars": 4,
         "images_url": [
@@ -8220,6 +8542,7 @@
     },
     {
         "name": "Jurong Eco Garden",
+        "region": "South West",
         "address": "1 Cleantech Loop Singapore, S(637141)",
         "stars": 3,
         "images_url": [
@@ -8256,6 +8579,7 @@
     },
     {
         "name": "Assyakirin Mosque",
+        "region": "South West",
         "address": "550 Yung An Road, S(618617)",
         "stars": 4,
         "images_url": [
@@ -8278,6 +8602,7 @@
     },
     {
         "name": "Samwoh Eco Green Building",
+        "region": "South West",
         "address": "51 Kranji Crescent, S(728661)",
         "stars": 5,
         "images_url": [
@@ -8311,6 +8636,7 @@
     },
     {
         "name": "Depot Height Shopping Centre",
+        "region": "South West",
         "address": "108 Depot Road, S(100108)",
         "stars": 4,
         "images_url": [
@@ -8339,6 +8665,7 @@
     },
     {
         "name": "Gek Poh Shopping Centre",
+        "region": "South West",
         "address": "Blk 762, Jurong West Street 75, S(640762)",
         "stars": 3,
         "images_url": [
@@ -8371,6 +8698,7 @@
     },
     {
         "name": "Greenridge Shopping Centre",
+        "region": "South West",
         "address": "524A Jelapang Road, S(671524)",
         "stars": 4,
         "images_url": [
@@ -8401,6 +8729,7 @@
     },
     {
         "name": "Greenridge Shopping Centre",
+        "region": "South West",
         "address": "524A Jelapang Road, S(671524)",
         "stars": 5,
         "images_url": [
@@ -8428,6 +8757,7 @@
     },
     {
         "name": "Jurong Point Shopping Centre",
+        "region": "South West",
         "address": "1 Jurong West Central 2, #03-07, Jurong Point Shopping Centre, S(648886)",
         "stars": 5,
         "images_url": [
@@ -8476,6 +8806,7 @@
     },
     {
         "name": "Limbang Shopping Centre",
+        "region": "South West",
         "address": "532 Choa Chu Kang Street 51, S(680532)",
         "stars": 4,
         "images_url": [
@@ -8515,6 +8846,7 @@
     },
     {
         "name": "Pasir Ris West Plaza",
+        "region": "South West",
         "address": "Blk 735, Pasir Ris Street 72, S(510735)",
         "stars": 4,
         "images_url": [
@@ -8548,6 +8880,7 @@
     },
     {
         "name": "Pioneer Mall",
+        "region": "South West",
         "address": "638 Jurong West Street 61, S(640638)",
         "stars": 3,
         "images_url": [
@@ -8580,6 +8913,7 @@
     },
     {
         "name": "Sunshine Place",
+        "region": "South West",
         "address": "475 Choa Chu Kang Avenue 3, S(680475)",
         "stars": 4,
         "images_url": [
@@ -8614,6 +8948,7 @@
     },
     {
         "name": "Taman Jurong Shopping Centre",
+        "region": "South West",
         "address": "Blk 399 Yung Sheng Road (Near Party World/NTUC)",
         "stars": 4,
         "images_url": [
@@ -8640,6 +8975,7 @@
     },
     {
         "name": "Yew Tee Square",
+        "region": "South West",
         "address": "624 Choa Chu Kang Street 62, S(680624)",
         "stars": 4,
         "images_url": [

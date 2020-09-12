@@ -18,6 +18,8 @@ from bs4 import BeautifulSoup
 toilets = []
 soup = BeautifulSoup(open("toilets.html", "r"))
 all_tables = soup.select("table")
+regions = ["Central", "North East", "North West", "South East", "South West"]
+i = 0
 for table in all_tables:
     all_rows = table.select('tbody')[0].select('tr')
     for row in all_rows:
@@ -35,10 +37,12 @@ for table in all_tables:
         stars = len(all_columns[3].select('i'))
         toilets.append({
             'name': name,
+            'region': regions[i],
             'address': address,
             'stars': stars,
             'images_url': images_url
         })
+    i += 1
 
 print(json.dumps(
         toilets,
