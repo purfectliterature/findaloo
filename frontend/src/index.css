@@ -10,3 +10,14 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+:root {
+    --color-primary: #0078FA;
+    --color-primary-darker: #000D3C;
+    --color-primary-lighter: #B2D5F9;
+    --color-secondary: #FFBA00;
+    --color-accent: #31D1D1;
+    --color-off-white: #E4E9F2;
+    --color-white: #FFFFFF;
+    --color-border-grey: #D6D6D6;
+  }
