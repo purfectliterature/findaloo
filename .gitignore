@@ -25,3 +25,4 @@ yarn-error.log*
 # ignores for frontend
 
 # ignores for backend
+backend/db/settings.js
