@@ -15,9 +15,13 @@ app.get("/toilets", async (req, res) => {
     SELECT *
     FROM toilets`);
 
-    const { rows } = await db.query(statement);
+    try {
+        const { rows } = await db.query(statement);
+        res.status(200).send(rows);
+    } catch (error) {
+        res.status(500).send(error)
+    }
 
-    res.status(200).send(rows);
 });
 
 app.get("/toilets/:toiletid", async (req, res) => {
@@ -30,9 +34,12 @@ app.get("/toilets/:toiletid", async (req, res) => {
     FROM toilets
     WHERE id = (${toiletid})`);
 
-    const { rows } = await db.query(statement);
-
-    res.status(200).send(rows);
+    try {
+        const { rows } = await db.query(statement);
+        res.status(200).send(rows);
+    } catch (error) {
+        res.status(500).send(error)
+    }
 
 });
 
