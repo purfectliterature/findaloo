@@ -14,7 +14,7 @@ app.get("/toilets", (req, res) => {
 
 app.get("/toilets/:toiletid", (req, res) => {
     const toiletid = parseInt(req.params.uid);
-    
+
 });
 
 
