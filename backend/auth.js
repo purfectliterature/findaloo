@@ -116,3 +116,4 @@ function generateRefreshToken(user) {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
 }
 
+app.listen(4000);
