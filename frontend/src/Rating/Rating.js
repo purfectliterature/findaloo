@@ -16,10 +16,12 @@ class Rating extends React.Component {
     const emptyStarts = 5 - filledStars;
     const stars = [];
     for (let i = 0; i < filledStars; i++) {
-      stars.push(<StarIcon className="star-filled"></StarIcon>);
+      stars.push(<StarIcon className="star-filled" key={i}></StarIcon>);
     }
     for (let i = 0; i < emptyStarts; i++) {
-      stars.push(<StarIcon className="star-empty"></StarIcon>);
+      stars.push(
+        <StarIcon className="star-empty" key={i + filledStars}></StarIcon>
+      );
     }
     return <div className="stars">{stars}</div>;
   }
