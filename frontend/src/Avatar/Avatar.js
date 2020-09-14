@@ -10,11 +10,7 @@ class Avatar extends React.Component {
   }
 
   render() {
-    return (
-      <div className="avatar">
-        <img src={this.state.image} alt="Avatar" class="avatar"></img>
-      </div>
-    );
+    return <img src={this.state.image} alt="Avatar" className="avatar"></img>;
   }
 }
 
