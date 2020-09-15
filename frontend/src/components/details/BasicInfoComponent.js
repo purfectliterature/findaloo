@@ -2,14 +2,14 @@ import React from 'react';
 import { Star, StarHalf, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 
-const BasicInfo = ({ name, address, ratings, numberOfReviews }) => {
+const BasicInfoComponent = ({ name, address, ratings, numberOfReviews }) => {
   return (
     <div className="section">
       <h2 className="title-skin">{name}</h2>
 
       <div className="description-skin">
         <p className="p-margin">{address}</p>
-        <div className="ratings">
+        <div className="flex-row flex-align-center">
           <p className="p-margin ratings-text">{ratings}</p>
           <Stars ratings={ratings} />
           <p className="p-margin ratings-text">({numberOfReviews})</p>
@@ -35,15 +35,12 @@ const Stars = ({ ratings }) => {
 
   let stars = [];
   for (let i = 0; i < numFullStars; i++) {
-    console.log('full')
     stars.push(<Star/>);
   }
   for (let i = 0; i < numHalfStars; i++) {
-    console.log('half')
     stars.push(<StarHalf/>);
   }
   for (let i = 0; i < numEmptyStars; i++) {
-    console.log('empty')
     stars.push(<StarBorderOutlined/>);
   }
 
@@ -56,4 +53,4 @@ const Stars = ({ ratings }) => {
   )
 }
 
-export default BasicInfo;
+export default BasicInfoComponent;
