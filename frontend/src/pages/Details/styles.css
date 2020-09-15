@@ -1,11 +1,48 @@
 .p-margin {
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.5rem 0;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-align-top {
+  align-items: flex-start;
+}
+
+.flex-80 {
+  flex: 80;
+}
+
+.flex-20 {
+  flex: 20;
+}
+
+.separator {
+  margin-bottom: 1rem;
+}
+
+.grey-bottom-border {
+  border-bottom: 1px solid var(--color-border-grey);
+}
+
+.main-outlined-button-skin {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.details {
+  padding: 0 0 2rem 0;
 }
 
 .section {
   text-align: left;
-  padding: 1rem 1.5rem;
-  margin: 0.5rem 0;
+  padding: 1rem 1.25rem;
 }
 
 .header-skin {
@@ -14,12 +51,6 @@
 
 .description-skin {
   color: var(--color-grey-3)
-}
-
-.ratings {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .ratings-text {
@@ -32,4 +63,42 @@
 
 .star-skin {
   color: var(--color-secondary);
+}
+
+.tabInfo {
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.overview-subsection {
+  padding: 1rem 0;
+}
+
+.overview-features-left {
+  margin: 0 0.5rem 0 0;
+}
+
+.overview-features-right {
+  margin: 0 0.5rem;
+}
+
+.certificate-icon {
+  margin-right: 1rem;
+}
+
+.certificate-icon-skin {
+  color: var(--color-primary);
+}
+
+.certificate-logo {
+  width: 50px;
+}
+
+.learn-more-btn {
+  width: 7rem;
+  padding: 0.25rem 0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 14px;
 }
