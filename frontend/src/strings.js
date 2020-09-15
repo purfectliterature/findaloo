@@ -1,3 +1,1 @@
-export default {
-    
-}
+export const MAX_RATINGS = 5; 
