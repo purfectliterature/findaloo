@@ -3,10 +3,12 @@ import { useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { Page } from 'framework7-react';
 import './styles.css';
 import BasicInfoImageComponent from '../../components/details/BasicInfoImageComponent';
 import BasicInfoComponent from '../../components/details/BasicInfoComponent';
 import OverviewComponent from '../../components/details/OverviewComponent';
+import ReviewsComponent from '../../components/details/ReviewsComponent';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -33,7 +35,7 @@ const Details = () => {
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
     review_rating: 4.3,
-    reviews: 3300,
+    numberOfReviews: 3300,
     region: 'east',
     features: {
       has_handheld_bidet: true,
@@ -50,13 +52,37 @@ const Details = () => {
     certificates: [
       {
         certification_authority: 'Restroom Association (Singapore)',
-        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
       },
       {
         certification_authority: 'Restroom Association (Singapore)',
-        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
+      },
+    ],
+    reviews: [
+      {
+        user: {
+          name: 'Ronald McDonalds',
+          profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
+        },
+        cleanliness_rating: 4,
+        title: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        created_at: 1600253600,
+      },
+      {
+        user: {
+          name: 'Ketucky',
+          profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
+        },
+        cleanliness_rating: 2,
+        title: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        created_at: 1600253600,
       },
     ],
   };
@@ -87,8 +113,13 @@ const Details = () => {
     console.log('Report');
   };
 
+  const handleOnReviewClick = (index) => {
+    // TODO: Change
+    console.log(`Review: ${index} stars`);
+  };
+
   return (
-    <div className="details">
+    <Page>
       <BasicInfoImageComponent
         images={data.images}
         handleBackOnClick={handleBackOnClick}
@@ -100,7 +131,7 @@ const Details = () => {
         name={data.name}
         address={data.address}
         ratings={data.review_rating}
-        numberOfReviews={data.reviews}
+        numberOfReviews={data.numberOfReviews}
       />
 
       <div className="section">
@@ -125,11 +156,14 @@ const Details = () => {
             </div>
           </TabPanel>
           <TabPanel value={activeTab} index={1} dir={theme.direction}>
-            Item Two
+            <ReviewsComponent
+              reviews={data.reviews}
+              handleOnReviewClick={handleOnReviewClick}
+            />
           </TabPanel>
         </SwipeableViews>
       </div>
-    </div>
+    </Page>
   );
 };
 
