@@ -1,23 +1,7 @@
 import React from 'react';
+import { Block } from 'framework7-react';
 import { Star, StarHalf, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
-
-const BasicInfoComponent = ({ name, address, ratings, numberOfReviews }) => {
-  return (
-    <div className="section">
-      <h2 className="title-skin">{name}</h2>
-
-      <div className="description-skin">
-        <p className="p-margin">{address}</p>
-        <div className="flex-row flex-align-center">
-          <p className="p-margin ratings-text">{ratings}</p>
-          <Stars ratings={ratings} />
-          <p className="p-margin ratings-text">({numberOfReviews})</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Stars = ({ ratings }) => {
   let numFullStars = Math.floor(ratings);
@@ -52,5 +36,22 @@ const Stars = ({ ratings }) => {
     </div>
   )
 }
+
+const BasicInfoComponent = ({ name, address, ratings, numberOfReviews }) => {
+  return (
+    <div className="section">
+      <h2>{name}</h2>
+
+      <div className="description-skin">
+        <p>{address}</p>
+        <div className="display-flex flex-direction-row align-content-center">
+          <p className="ratings-text">{ratings}</p>
+          <Stars ratings={ratings} />
+          <p className="ratings-text">({numberOfReviews})</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default BasicInfoComponent;

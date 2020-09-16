@@ -2,36 +2,40 @@
   margin: 0 0 0.5rem 0;
 }
 
+.align-content-baseline {
+  align-items: baseline;
+}
+
 /* TODO: REMOVE */
-.flex-row {
+/* .flex-row {
   display: flex;
   flex-direction: row;
-}
+} */
 
 /* TODO: REMOVE */
-.flex-align-center {
+/* .flex-align-center {
   align-items: center;
-}
+} */
 
 /* TODO: REMOVE */
-.flex-align-top {
+/* .flex-align-top {
   align-items: flex-start;
-}
+} */
 
 /* TODO: REMOVE */
-.flex-80 {
+/* .flex-80 {
   flex: 80;
-}
+} */
 
 /* TODO: REMOVE */
-.flex-20 {
+/* .flex-20 {
   flex: 20;
-}
+} */
 
 /* TODO: REMOVE */
-.separator {
+/* .separator {
   margin-bottom: 1rem;
-}
+} */
 
 .grey-text {
   color: var(--color-grey-3);
@@ -54,6 +58,13 @@
   text-align: left;
   padding: 1rem 1.25rem;
 }
+
+.description-skin {
+  color: var(--color-grey-3);
+  line-height: 1.5;
+}
+
+/* ============== Basic Info Image ================= */
 
 .swiper {
   height: 100%;
@@ -87,16 +98,10 @@
   color: #fff;
 }
 
-.header-skin {
-  font-family: 'Work Sans';
-}
-
-.description-skin {
-  color: var(--color-grey-3)
-}
+/* ============== Basic Info ================= */
 
 .ratings-text {
-  margin: 0.25rem 0;
+  margin: 0.1rem 0;
 }
 
 .stars-section {
@@ -106,6 +111,8 @@
 .star-skin {
   color: var(--color-secondary);
 }
+
+/* ============== Tabs ================= */
 
 .tabInfo {
   padding: 0.5rem 0.5rem 0.5rem 0;
