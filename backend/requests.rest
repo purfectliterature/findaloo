@@ -4,9 +4,24 @@ POST http://localhost:4000/sign-up/customer
 Content-Type: application/json
 
 {
-    "email": "agnes@gmail.com",
+    "email": "agnes2@gmail.com",
     "authType": "native",
     "name": "Agnes",
-    "password": "password",
+    "password": "password2",
     "profilePicture": "www.google.com"
+}
+
+###
+
+POST http://localhost:4000/sign-up/management
+Content-Type: application/json
+
+{
+    "email": "customer_relations@smrt.com.sg",
+    "authType": "native",
+    "companyName": "SMRT Corporation Ltd",
+    "password": "passwordSMRT",
+    "displayEmail": "customer_relations@smrt.com.sg",
+    "companyLogo": "https://www.smrt.com.sg/Portals/0/SMRT_Corp_Logo.png?ver=2018-01-11-143632-557",
+    "officeAddress": "2 Tanjong Katong Road, #08-01, Tower 3, Paya Lebar Quarter, Singapore 437161"
 }
