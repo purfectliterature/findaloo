@@ -8,6 +8,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const token_secret = JSON.parse(getTokenSecrets());
 app.use(express.json());
 
 app.post('/sign-up/customer', async (req, res) => {
@@ -167,6 +168,47 @@ app.post('/token', (req, res) => {
 })
 
 
+function getTokenSecrets() {
+  // Load the AWS SDK
+  var AWS = require('aws-sdk'),
+    region = "us-east-2",
+    secretName = "peepoo-token-secrets",
+    secret,
+    decodedBinarySecret;
+
+  // Create a Secrets Manager client
+  var client = new AWS.SecretsManager({
+    region: region
+  });
+
+  client.getSecretValue({ SecretId: secretName }, function (err, data) {
+    if (err) {
+      if (err.code === 'DecryptionFailureException')
+        throw err;
+      else if (err.code === 'InternalServiceErrorException')
+        throw err;
+      else if (err.code === 'InvalidParameterException')
+        throw err;
+      else if (err.code === 'InvalidRequestException')
+        throw err;
+      else if (err.code === 'ResourceNotFoundException')
+        throw err;
+    }
+    else {
+      if ('SecretString' in data) {
+        secret = data.SecretString;
+        console.log(secret);
+      } else {
+        let buff = new Buffer(data.SecretBinary, 'base64');
+        decodedBinarySecret = buff.toString('ascii');
+      }
+    }
+
+    // Your code goes here. 
+  });
+}
+
+getAccessToken();
 async function getLastUserId() {
     let statement = SQL`
     SELECT id
