@@ -68,33 +68,57 @@ app.post('/sign-up/customer', async (req, res) => {
 app.post("/sign-up/management", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const managementProfile = {
+    const user = {
       roleId: 3,
-      companyName: req.body.companyName,
-      displayEmail: req.body.displayEmail,
-      companyLogo: req.body.companyLogo,
-      officeAddress: req.body.officeAddress,
       email: req.body.email,
       authType: req.body.authType,
-      password: hashedPassword,
+      password: hashedPassword
     };
-    
-    
 
-    if (req.body.authType === "native") {
-      Promise.all(
-        addUserToDb(customerProfile),
-        addNativeAuthPasswordToDb({
-          email: req.body.email,
-          password: hashedPassword,
-        })
-      );
-    } else {
-      await addCustomerProfileToDb(customerProfile);
+    try {
+      await db.query("BEGIN");
+      let statement = SQL`
+            INSERT 
+            INTO users("role_id", "email", "auth_type")
+            VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
+      await db.query(statement);
+    } catch (error) {
+      console.log("db.query():", error);
+      console.log("Transaction ROLLBACK called");
+      await db.query("ROLLBACK");
+      return res.status(409).send('User already exist');
     }
-    res.sendStatus(201);
+    
+    try {
+      const lastRow = await getLastUserId();
+      const lastUserId = lastRow.rows[0].id;
+      const managementProfile = {
+        userId: lastUserId,
+        companyName: req.body.companyName,
+        displayEmail: req.body.displayEmail,
+        companyLogo: req.body.companyLogo,
+        officeAddress: req.body.officeAddress,
+      };
+      if (req.body.authType === "native") {
+        await addManagementProfileToDb(managementProfile);
+        await addNativeAuthPasswordToDb({
+          email: req.body.email,
+          authType: req.body.authType,
+          password: hashedPassword,
+        });
+      } else {
+        await addManagementProfileToDb(managementProfile);
+      }
+      await db.query("COMMIT");
+    } catch (error) {
+      console.log("db.query():", error);
+      console.log("Transaction ROLLBACK called");
+      await db.query("ROLLBACK");
+      return res.status(500).send('Error in adding user');
+    }
+    return res.sendStatus(200);
   } catch {
-    res.sendStatus(500);
+    res.status(500).send('Error in adding user');
   }
 });
 
@@ -157,6 +181,21 @@ async function addCustomerProfileToDb(customerProfile) {
     INSERT 
     INTO customer_profiles("user_id", "name", "profile_picture")
     VALUES (${customerProfile.userId}, ${customerProfile.name}, ${customerProfile.profilePicture})`;
+
+  await db.query(statement);
+} 
+
+async function addManagementProfileToDb(managementProfile) {
+  let statement = SQL`
+    INSERT 
+    INTO management_profiles
+    VALUES (
+      ${managementProfile.userId},
+      ${managementProfile.companyName},
+      ${managementProfile.displayEmail},
+      ${managementProfile.companyLogo},
+      ${managementProfile.officeAddress}
+    )`;
 
   await db.query(statement);
 }
