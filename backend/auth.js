@@ -11,63 +11,58 @@ const bcrypt = require('bcrypt');
 app.use(express.json());
 
 app.post('/sign-up/customer', async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = {
+      roleId: 2,
+      email: req.body.email,
+      authType: req.body.authType,
+      password: hashedPassword
+    };
+
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = {
-            roleId: 2,
-            email: req.body.email,
-            authType: req.body.authType,
-            password: hashedPassword
-        };
-
-        const customerProfile = {
-          userId: userId,
-          name: req.body.name,
-          profilePicture: req.body.profilePicture
-        };
-
-        try {
-          await db.query("BEGIN");
-          try {
-            await addUserToDb(user);
-          } catch (error) {
-            client.query("ROLLBACK");
-            console.log("client.query():", er);
-            console.log("Transaction ROLLBACK called");
-            return res.sendStatus(500);
-          }
-          statusCode = 200;
-          if (req.body.authType === "native") {
-            userInsertionResult = await Promise.all([
-              addCustomerProfileToDb(customerProfile),
-              addNativeAuthPasswordToDb({
-                email: req.body.email,
-                password: hashedPassword,
-              })
-            ]
-            )
-          } else {
-            userInsertionResult = addCustomerProfileToDb(customerProfile);
-          }
-
-          userInsertionResult
-            .then(result => {
-              db.query("COMMIT");
-              console.log("client.query() COMMIT row count:", result.rowCount);
-            })
-            .catch(error => {
-              db.query("ROLLBACK");
-              statusCode = 500;
-              console.log(`Transaction ROLLBACK called, ${error}`);
-            });
-        } finally {
-          db.release();
-          console.log("Client is released");
-        }
-        res.sendStatus(statusCode);
-    } catch {
-        res.sendStatus(500);
+      await db.query("BEGIN");
+      let statement = SQL`
+            INSERT 
+            INTO users("role_id", "email", "auth_type")
+            VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
+      await db.query(statement);
+    } catch (error) {
+      console.log("db.query():", error);
+      console.log("Transaction ROLLBACK called");
+      await db.query("ROLLBACK");
+      return res.status(409).send('User already exist');
     }
+
+    try {
+      const lastRow = await getLastUserId();
+      const lastUserId = lastRow.rows[0].id;
+      const customerProfile = {
+        userId: lastUserId,
+        name: req.body.name,
+        profilePicture: req.body.profilePicture
+      };
+      if (req.body.authType === "native") {
+        await addCustomerProfileToDb(customerProfile);
+        await addNativeAuthPasswordToDb({
+          email: req.body.email,
+          authType: req.body.authType,
+          password: hashedPassword,
+        });
+        } else {
+          await addCustomerProfileToDb(customerProfile)
+        }
+        await db.query("COMMIT");
+    } catch (error) {
+        console.log("db.query():", error);
+        console.log("Transaction ROLLBACK called");
+        await db.query("ROLLBACK");
+        return res.status(500).send('Error in adding user');
+    }
+    return res.sendStatus(200);
+  } catch {
+    res.status(500).send('Error in adding user');
+  }
 });
 
 app.post("/sign-up/management", async (req, res) => {
@@ -147,14 +142,6 @@ app.post('/token', (req, res) => {
 
 })
 
-async function addUserToDb(user) {
-    let statement = SQL`
-    INSERT 
-    INTO users("role_id", "email", "auth_type")
-    VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
-
-    await db.query(statement);
-}
 
 async function getLastUserId() {
     let statement = SQL`
@@ -162,14 +149,23 @@ async function getLastUserId() {
     FROM users
     ORDER BY id DESC
     LIMIT 1`;
-    await db.query(statement);
+    return db.query(statement);
+}
+
+async function addCustomerProfileToDb(customerProfile) {
+  let statement = SQL`
+    INSERT 
+    INTO customer_profiles("user_id", "name", "profile_picture")
+    VALUES (${customerProfile.userId}, ${customerProfile.name}, ${customerProfile.profilePicture})`;
+
+  await db.query(statement);
 }
 
 async function addNativeAuthPasswordToDb(credentials) {
   let statement = SQL`
     INSERT 
     INTO native_auth_passwords
-    VALUES (${credentials.email}, ${credentials.password})`;
+    VALUES (${credentials.email}, ${credentials.authType}, ${credentials.password})`;
 
   await db.query(statement);
 }
