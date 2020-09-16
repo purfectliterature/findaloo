@@ -4,6 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import './styles.css';
+import BasicInfoImageComponent from '../../components/details/BasicInfoImageComponent';
 import BasicInfoComponent from '../../components/details/BasicInfoComponent';
 import OverviewComponent from '../../components/details/OverviewComponent';
 
@@ -31,7 +32,7 @@ const Details = () => {
     ],
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
-    review_rating: 4.2,
+    review_rating: 4.3,
     reviews: 3300,
     region: 'east',
     features: {
@@ -66,12 +67,35 @@ const Details = () => {
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
+
   const handleTabChangeIndex = (index) => {
     setActiveTab(index);
   };
 
+  const handleBackOnClick = () => {
+    // TODO: Change
+    console.log('Back');
+  };
+
+  const handleShareOnClick = () => {
+    // TODO: Change
+    console.log('Share');
+  };
+
+  const handleReportOnClick = () => {
+    // TODO: Change
+    console.log('Report');
+  };
+
   return (
     <div className="details">
+      <BasicInfoImageComponent
+        images={data.images}
+        handleBackOnClick={handleBackOnClick}
+        handleShareOnClick={handleShareOnClick}
+        handleReportOnClick={handleReportOnClick}
+      />
+
       <BasicInfoComponent
         name={data.name}
         address={data.address}
@@ -81,8 +105,8 @@ const Details = () => {
 
       <div className="section">
         <Tabs value={activeTab} onChange={handleTabChange}>
-          <Tab label="Overview" style={{width: '50%'}}/>
-          <Tab label="Reviews" style={{width: '50%'}}/>
+          <Tab label="Overview" className="tab" />
+          <Tab label="Reviews" className="tab" />
         </Tabs>
 
         <SwipeableViews
@@ -95,15 +119,15 @@ const Details = () => {
               features={data.features}
               certificates={data.certificates}
             />
+
+            <div className="obtain-data">
+              <a href="#">How did we obtain this data?</a>
+            </div>
           </TabPanel>
           <TabPanel value={activeTab} index={1} dir={theme.direction}>
             Item Two
           </TabPanel>
         </SwipeableViews>
-      </div>
-
-      <div>
-        <a href="#">How did we obtain this data?</a>
       </div>
     </div>
   );
