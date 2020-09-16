@@ -5,10 +5,7 @@ import { Report, Share, ArrowBack } from '@material-ui/icons';
 const BasicInfoImage = ({ images, handleBackOnClick, handleShareOnClick, handleReportOnClick }) => {
   return (
     <div className="image-section">
-      <Swiper pagination navigation scrollbar className="swiper">
-        {/* <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide> */}
+      <Swiper pagination className="swiper">
         {images.map((image, index) => (
           <SwiperSlide>
             <img src={image} alt="toilet image" className="image" />
@@ -16,7 +13,7 @@ const BasicInfoImage = ({ images, handleBackOnClick, handleShareOnClick, handleR
         ))}
       </Swiper>
 
-      <div className="actions flex-row">
+      <div className="display-flex flex-direction-row justify-content-space-between actions">
         <div>
           <Button onClick={handleBackOnClick} className="actions-btn actions-btn-skin"> 
             <ArrowBack />
