@@ -78,7 +78,7 @@ const Features = ({ features }) => {
   }
 
   return (
-    <div className="padding-vertical display-flex flex-direction-row justify-content-space-between grey-bottom-border">
+    <div className="padding-vertical display-flex flex-direction-row grey-bottom-border">
       <div className="margin-right">
         {featuresIncluded.map((feature, index) => (
           <span key={index}>{feature}</span>
@@ -124,7 +124,7 @@ const Certificates = ({ certificates }) => {
               </Button>
             </div>
           </div>
-          <div className="flex-20">
+          <div className="flex-20 text-align-right">
             <img
               src={certificate.logo}
               className="certificate-logo"
