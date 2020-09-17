@@ -8,6 +8,17 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+var AWS = require('aws-sdk'),
+    region = "us-east-2",
+    secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
+    secret,
+    decodedBinarySecret;
+
+var client = new AWS.SecretsManager({
+    region: region
+});
+    
+
 app.use(express.json());
 
 app.post('/sign-up/customer', async (req, res) => {
@@ -166,27 +177,16 @@ app.post('/token', (req, res) => {
 
 })
 
-
 async function getTokenSecrets() {
-  // Load the AWS SDK
-  var AWS = require('aws-sdk'),
-    region = "us-east-2",
-    secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
-    secret,
-    decodedBinarySecret;
-
-  // Create a Secrets Manager client
-  var client = new AWS.SecretsManager({
-    region: region
-  });
 
   try {
-    var data = await client.getSecretValue({ SecretId: secretName });
+    var data = await client.getSecretValue({ SecretId: secretName }).promise();
+    
     if ('SecretString' in data) {
       secret = data.SecretString;
       return secret;
     } else {
-      let buff = new Buffer(data.SecretBinary, 'base64');
+      let buff = Buffer.alloc(data.SecretBinary, 'base64');
       decodedBinarySecret = buff.toString('ascii');
       return decodedBinarySecret
     }
@@ -296,6 +296,14 @@ async function generateRefreshToken(user) {
   console.log(tokenSecret);
   return jwt.sign(user, tokenSecrets.REFRESH_TOKEN_SECRET)
 }
-const tokenSecret = null;
 
-app.listen(4000, async () => { tokenSecret = await getTokenSecrets().catch((err) => console.log(err)) });
+var tokenSecret = null;
+
+app.listen(4000, async () => { 
+    try {
+        tokenSecret = await getTokenSecrets();
+        console.log(tokenSecret);
+    } catch(err) {
+        console.log(err);
+    }
+});
