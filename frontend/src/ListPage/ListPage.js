@@ -2,7 +2,11 @@ import React from "react";
 import "./ListPage.css";
 import SearchBar from "../SearchBar/SearchBar";
 import Card from "../Card/Card.js";
+import FloatButton from "../FloatButton/FloatButton.js";
+import MapIcon from "@material-ui/icons/Map";
 import Masonry from "react-masonry-css";
+
+import Navbar from "framework7-react/components/navbar.js";
 
 const breakpointColumnsObj = {
     default: 4,
@@ -44,6 +48,10 @@ class ListPage extends React.Component {
                 >
                     {this.renderToiletList()}
                 </Masonry>
+                <FloatButton
+                    text="View Map"
+                    icon={<MapIcon></MapIcon>}
+                ></FloatButton>
             </div>
         );
     }

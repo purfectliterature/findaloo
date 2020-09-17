@@ -1,0 +1,27 @@
+@import "../index.css";
+
+.float {
+    position: fixed;
+	bottom: 30px;
+	right: 30px;
+}
+
+.btn-style {
+    background-color: var(--color-white);
+    border-radius: 30px;
+    border: none;
+    box-shadow: 2px 2px 2px var(--color-border-grey);
+    padding: 10px 10px;
+    color: var(--color-primary);
+    display: flex;
+    justify-items: center;
+    align-content: center;
+}
+
+.button-text {
+    font-size: 18px;
+}
+
+.button-icon {
+    margin-right: 5px;
+}
