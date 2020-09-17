@@ -302,14 +302,25 @@ async function generateRefreshToken(user) {
     return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
 
-app.listen(4000, async () => { 
-
-    try {
-        tokenSecret = await getTokenSecrets();
-        tokenSecret = JSON.parse(tokenSecret)
-    } catch(err) {
-        console.log(err);
-    }
+getTokenSecrets().then(data => {
+    console.log(data)
+    tokenSecret = data;
+    tokenSecret = JSON.parse(tokenSecret)
+    app.listen(4000)
 
     generateAccessToken({"User":"Agnes"})
-});
+}).catch(err => { })
+
+// app.listen(4000, async () => { 
+
+    
+
+//     try {
+//         tokenSecret = await getTokenSecrets();
+//         tokenSecret = JSON.parse(tokenSecret)
+//     } catch(err) {
+//         console.log(err);
+//     }
+
+//     generateAccessToken({"User":"Agnes"})
+// });
