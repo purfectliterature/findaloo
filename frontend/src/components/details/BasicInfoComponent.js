@@ -38,7 +38,7 @@ const Stars = ({ ratings }) => {
 
 const BasicInfoComponent = ({ name, address, ratings, numberOfReviews }) => {
   return (
-    <div className="section">
+    <div className="padding">
       <h2>{name}</h2>
 
       <div className="description-skin">

@@ -68,7 +68,7 @@ const Details = () => {
           profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
         },
         cleanliness_rating: 4,
-        title: '',
+        title: 'Tip-top cleanliness',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         created_at: 1600253600,
@@ -79,7 +79,7 @@ const Details = () => {
           profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
         },
         cleanliness_rating: 2,
-        title: '',
+        title: 'Dirty',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         created_at: 1600253600,
@@ -134,7 +134,7 @@ const Details = () => {
         numberOfReviews={data.numberOfReviews}
       />
 
-      <div className="section">
+      <div className="padding">
         <Tabs value={activeTab} onChange={handleTabChange}>
           <Tab label="Overview" className="tab" />
           <Tab label="Reviews" className="tab" />
@@ -151,8 +151,9 @@ const Details = () => {
               certificates={data.certificates}
             />
 
-            <div className="obtain-data">
-              <a href="#">How did we obtain this data?</a>
+            <div className="text-align-center">
+              {/* #TODO: Change link */}
+              <a href="https://www.google.com">How did we obtain this data?</a>
             </div>
           </TabPanel>
           <TabPanel value={activeTab} index={1} dir={theme.direction}>
