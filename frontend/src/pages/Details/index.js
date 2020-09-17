@@ -30,11 +30,11 @@ const Details = () => {
   const data = {
     images: [
       'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
-      'https://unsplash.com/photos/d6LzDABxP6I',
+      'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
     ],
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
-    review_rating: 4.3,
+    review_rating: 2.2,
     numberOfReviews: 3300,
     region: 'east',
     features: {

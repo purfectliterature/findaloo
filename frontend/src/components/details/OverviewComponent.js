@@ -1,11 +1,12 @@
 import React from 'react';
+import { Button } from 'framework7-react';
 import {
   AccessibleOutlined,
   AttachMoney,
   MoneyOff,
   Check,
   Close,
-  VerifiedUser,
+  VerifiedUserOutlined,
   OpenInNew,
 } from '@material-ui/icons';
 import IconTextComponent from '../common/IconTextComponent';
@@ -20,7 +21,8 @@ const ImportantInformation = ({ features }) => {
   }
 
   return (
-    <div className="overview-subsection grey-bottom-border">
+    <div className="padding-vertical grey-bottom-border">
+      {/* TODO: Gender */}
       {features.has_handicap && (
         <IconTextComponent
           icon={<AccessibleOutlined />}
@@ -58,13 +60,13 @@ const Features = ({ features }) => {
   }
 
   return (
-    <div className="overview-subsection grey-bottom-border flex-row">
-      <div className="overview-features-left">
+    <div className="padding-vertical display-flex flex-direction-row justify-content-space-between grey-bottom-border">
+      <div className="margin-right">
         {featuresIncluded.map((feature, index) => (
           <span key={index}>{feature}</span>
         ))}
       </div>
-      <div className="overview-features-right">
+      <div className="margin-horizontal">
         {featuresExcluded.map((feature, index) => (
           <span key={index}>{feature}</span>
         ))}
@@ -75,30 +77,41 @@ const Features = ({ features }) => {
 
 const Certificates = ({ certificates }) => {
   return (
-    <div className="overview-subsection">
+    <div className="padding-vertical">
       {certificates.map((certificate, index) => (
-        <div key={index} className="flex-row separator">
-          <div className="flex-80 flex-row flex-align-top">
-            <div className="certificate-icon certificate-icon-skin">
-              <VerifiedUser />
+        <div
+          key={index}
+          className="display-flex flex-direction-row margin-bottom"
+        >
+          <div className="display-flex flex-direction-row align-items-flex-start flex-80">
+            <div
+              className="certificate-icon certificate-icon-skin"
+              style={{ visibility: index !== 0 ? 'hidden' : 'visible' }}
+            >
+              <VerifiedUserOutlined />
             </div>
             <div>
-              <p className="p-margin">
+              <p className="no-margin margin-bottom">
                 Certified by {certificate.certification_authority}
               </p>
-              <a
+              <Button
+                outline
+                external
                 href={certificate.url}
                 target="_blank"
-                rel="noopener noreferrer"
                 className="learn-more-btn main-outlined-button-skin"
               >
                 <span>Learn more</span>
-                <OpenInNew/>
-              </a>
+                <OpenInNew />
+              </Button>
             </div>
           </div>
           <div className="flex-20">
-            <img src={certificate.logo} className="certificate-logo" alt='certificate logo'/>
+            <img
+              src={certificate.logo}
+              className="certificate-logo"
+              alt="certificate logo"
+            />
           </div>
         </div>
       ))}

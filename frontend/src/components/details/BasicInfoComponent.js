@@ -1,5 +1,4 @@
 import React from 'react';
-import { Block } from 'framework7-react';
 import { Star, StarHalf, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 

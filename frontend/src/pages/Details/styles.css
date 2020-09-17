@@ -23,19 +23,17 @@
 } */
 
 /* TODO: REMOVE */
-/* .flex-80 {
-  flex: 80;
-} */
-
-/* TODO: REMOVE */
-/* .flex-20 {
-  flex: 20;
-} */
-
-/* TODO: REMOVE */
 /* .separator {
   margin-bottom: 1rem;
 } */
+
+.flex-80 {
+  flex: 80;
+}
+
+.flex-20 {
+  flex: 20;
+}
 
 .grey-text {
   color: var(--color-grey-3);
@@ -122,17 +120,7 @@
   width: 50%;
 }
 
-.overview-subsection {
-  padding: 1rem 0;
-}
-
-.overview-features-left {
-  margin: 0 0.5rem 0 0;
-}
-
-.overview-features-right {
-  margin: 0 0.5rem;
-}
+/* ============== Overview ================= */
 
 .certificate-icon {
   margin-right: 1rem;
@@ -153,7 +141,17 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-size: 14px;
+}
+
+.learn-more-btn {
+  width: 9rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0.5rem;
+}
+
+.learn-more-btn .MuiSvgIcon-root {
+  font-size: 1.2rem;
 }
 
 .obtain-data {
@@ -164,7 +162,7 @@
   text-align: center;
 }
 
-.user-profile-image-section  {
+.user-profile-image-section {
   width: 70px;
   height: 70px;
   margin: 0 auto;
@@ -188,7 +186,7 @@
   font-size: 2rem;
 }
 
-.review-user-profile-image-section  {
+.review-user-profile-image-section {
   width: 40px;
   height: 40px;
   margin: 0 1rem 0.5rem 0;
@@ -202,9 +200,9 @@
 
 .review-user-name {
   margin-block-start: 0;
-  margin-block-end: 0.5em
+  margin-block-end: 0.5em;
 }
 
-.review-stars .MuiSvgIcon-root  {
+.review-stars .MuiSvgIcon-root {
   font-size: 1.1rem;
 }
