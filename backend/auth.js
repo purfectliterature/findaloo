@@ -8,6 +8,8 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+var tokenSecret;
+
 var AWS = require('aws-sdk'),
     region = "us-east-2",
     secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
@@ -20,6 +22,8 @@ var client = new AWS.SecretsManager({
     
 
 app.use(express.json());
+
+app.get("/", (req, res) => res.send("Hello Agnes!"));
 
 app.post('/sign-up/customer', async (req, res) => {
   try {
@@ -286,24 +290,26 @@ async function removeRefreshTokenFromDb(token) {
 }
 
 async function generateAccessToken(user) {
-  console.log(tokenSecret);
-    return jwt.sign(user, tokenSecrets.ACCESS_TOKEN_SECRET, {
+    console.log(tokenSecret);
+    console.log(tokenSecret.ACCESS_TOKEN_SECRET);
+    return jwt.sign(user, tokenSecret.ACCESS_TOKEN_SECRET, {
         expiresIn: '60m'
     })
 }
 
 async function generateRefreshToken(user) {
-  console.log(tokenSecret);
-  return jwt.sign(user, tokenSecrets.REFRESH_TOKEN_SECRET)
+    console.log(tokenSecret);
+    return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
 
-var tokenSecret = null;
-
 app.listen(4000, async () => { 
+
     try {
         tokenSecret = await getTokenSecrets();
-        console.log(tokenSecret);
+        tokenSecret = JSON.parse(tokenSecret)
     } catch(err) {
         console.log(err);
     }
+
+    generateAccessToken({"User":"Agnes"})
 });
