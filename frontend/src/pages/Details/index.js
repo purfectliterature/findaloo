@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { Page } from 'framework7-react';
+import React from 'react';
+import { Page, Tabs, Tab, Toolbar, Link } from 'framework7-react';
 import './styles.css';
 import BasicInfoImageComponent from '../../components/details/BasicInfoImageComponent';
 import BasicInfoComponent from '../../components/details/BasicInfoComponent';
@@ -29,8 +25,8 @@ const TabPanel = (props) => {
 const Details = () => {
   const data = {
     images: [
-      'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
-      'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
+      // 'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
+      // 'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
     ],
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
@@ -48,6 +44,8 @@ const Details = () => {
       has_hand_dryer: true,
       has_hand_soap: true,
       has_baby_change_station: false,
+      has_female: true,
+      has_male: true,
     },
     certificates: [
       {
@@ -87,17 +85,6 @@ const Details = () => {
     ],
   };
 
-  const [activeTab, setActiveTab] = useState(0);
-  const theme = useTheme();
-
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
-
-  const handleTabChangeIndex = (index) => {
-    setActiveTab(index);
-  };
-
   const handleBackOnClick = () => {
     // TODO: Change
     console.log('Back');
@@ -119,7 +106,7 @@ const Details = () => {
   };
 
   return (
-    <Page>
+    <Page className="page-skin">
       <BasicInfoImageComponent
         images={data.images}
         handleBackOnClick={handleBackOnClick}
@@ -135,17 +122,14 @@ const Details = () => {
       />
 
       <div className="padding">
-        <Tabs value={activeTab} onChange={handleTabChange}>
-          <Tab label="Overview" className="tab" />
-          <Tab label="Reviews" className="tab" />
-        </Tabs>
-
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={activeTab}
-          onChangeIndex={handleTabChangeIndex}
-        >
-          <TabPanel value={activeTab} index={0} dir={theme.direction}>
+        <Toolbar tabbar className="tab-bar" bgColor="inherit">
+          <Link tabLink="#overview" tabLinkActive>
+            Overview
+          </Link>
+          <Link tabLink="#reviews">Reviews</Link>
+        </Toolbar>
+        <Tabs animated>
+          <Tab id="overview" className="page-content" tabActive>
             <OverviewComponent
               features={data.features}
               certificates={data.certificates}
@@ -155,14 +139,15 @@ const Details = () => {
               {/* #TODO: Change link */}
               <a href="https://www.google.com">How did we obtain this data?</a>
             </div>
-          </TabPanel>
-          <TabPanel value={activeTab} index={1} dir={theme.direction}>
+          </Tab>
+
+          <Tab id="reviews" className="page-content" tabActive>
             <ReviewsComponent
               reviews={data.reviews}
               handleOnReviewClick={handleOnReviewClick}
             />
-          </TabPanel>
-        </SwipeableViews>
+          </Tab>
+        </Tabs>
       </div>
     </Page>
   );

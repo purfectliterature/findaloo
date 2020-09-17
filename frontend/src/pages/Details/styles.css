@@ -11,6 +11,10 @@
   margin-block-end: 0.25em;
 }
 
+.margin-right-half {
+  margin-right: 8px;
+}
+
 .user-profile-image {
   border-radius: 50%;
 }
@@ -39,6 +43,10 @@
 
 .grey-star-skin {
   color: var(--color-grey-3);
+}
+
+.page-skin {
+  background-color: #fff;
 }
 
 /* ============== Basic Info Image ================= */
@@ -87,12 +95,16 @@
 
 /* ============== Tabs ================= */
 
-.tabInfo {
-  padding: 0.5rem 0.5rem 0.5rem 0;
+.tab-bar-skin {
+  background-color: inherit;
 }
 
-.tab {
-  width: 50%;
+.tab-bar .tab-link-active {
+  border-bottom: 1px solid;
+}
+
+.tab-info {
+  padding: 0.5rem 0.5rem 0.5rem 0;
 }
 
 /* ============== Overview ================= */
