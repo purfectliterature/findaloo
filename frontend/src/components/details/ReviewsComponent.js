@@ -99,7 +99,7 @@ const ReviewStars = ({ reviewCount }) => {
 
 const ReviewsComponent = ({ reviews, handleOnReviewClick }) => {
   return (
-    <div className="tabInfo">
+    <div className="tab-info">
       <CreateReview
         currentUser={{
           name: 'Yuen Jian',

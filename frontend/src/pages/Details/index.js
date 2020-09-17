@@ -6,27 +6,11 @@ import BasicInfoComponent from '../../components/details/BasicInfoComponent';
 import OverviewComponent from '../../components/details/OverviewComponent';
 import ReviewsComponent from '../../components/details/ReviewsComponent';
 
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {children}
-    </div>
-  );
-};
-
 const Details = () => {
   const data = {
     images: [
-      // 'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
-      // 'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
+      'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
+      'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
     ],
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
@@ -45,17 +29,17 @@ const Details = () => {
       has_hand_soap: true,
       has_baby_change_station: false,
       has_female: true,
-      has_male: true,
+      has_male: false,
     },
     certificates: [
       {
         certification_authority: 'Restroom Association (Singapore)',
-        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
       },
       {
         certification_authority: 'Restroom Association (Singapore)',
-        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
       },
     ],
@@ -85,11 +69,6 @@ const Details = () => {
     ],
   };
 
-  const handleBackOnClick = () => {
-    // TODO: Change
-    console.log('Back');
-  };
-
   const handleShareOnClick = () => {
     // TODO: Change
     console.log('Share');
@@ -109,7 +88,6 @@ const Details = () => {
     <Page className="page-skin">
       <BasicInfoImageComponent
         images={data.images}
-        handleBackOnClick={handleBackOnClick}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
       />
