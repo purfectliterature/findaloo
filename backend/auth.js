@@ -19,165 +19,211 @@ var AWS = require('aws-sdk'),
 var client = new AWS.SecretsManager({
     region: region
 });
-    
 
 app.use(express.json());
 
-app.get("/", (req, res) => res.send("Hello Agnes!"));
-
 app.post('/sign-up/customer', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const { email, password, authType } = req.body;
+    const { name, profilePicture } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = {
-      roleId: 2,
-      email: req.body.email,
-      authType: req.body.authType,
-      password: hashedPassword
+        roleId: 2,
+        email: email,
+        authType: authType,
+        password: hashedPassword,
     };
 
     try {
-      await db.query("BEGIN");
-      let statement = SQL`
+        await db.query("BEGIN");
+        let statement = SQL`
             INSERT 
             INTO users("role_id", "email", "auth_type")
             VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
-      await db.query(statement);
+        await db.query(statement);
     } catch (error) {
-      console.log("db.query():", error);
-      console.log("Transaction ROLLBACK called");
-      await db.query("ROLLBACK");
-      return res.status(409).send('User already exist');
+        console.log("db.query():", error);
+        console.log("Transaction ROLLBACK called");
+        await db.query("ROLLBACK");
+        return res.status(409).send('User already exist');
     }
 
+    // Need to handle profile photo before saving to DB!
+
     try {
-      const lastRow = await getLastUserId();
-      const lastUserId = lastRow.rows[0].id;
-      const customerProfile = {
-        userId: lastUserId,
-        name: req.body.name,
-        profilePicture: req.body.profilePicture
-      };
-      if (req.body.authType === "native") {
-        await addCustomerProfileToDb(customerProfile);
-        await addNativeAuthPasswordToDb({
-          email: req.body.email,
-          authType: req.body.authType,
-          password: hashedPassword,
-        });
+        const lastRow = await getLastUserId();
+        const lastUserId = lastRow.rows[0].id;
+      
+        const customerProfile = {
+            userId: lastUserId,
+            name: name,
+            profilePicture: profilePicture
+        };
+
+        if (req.body.authType === "native") {
+            await addCustomerProfileToDb(customerProfile);
+            await addNativeAuthPasswordToDb({
+                email: email,
+                authType: authType,
+                password: hashedPassword,
+            });
         } else {
-          await addCustomerProfileToDb(customerProfile)
+            await addCustomerProfileToDb(customerProfile)
         }
+
         await db.query("COMMIT");
+
     } catch (error) {
         console.log("db.query():", error);
         console.log("Transaction ROLLBACK called");
         await db.query("ROLLBACK");
         return res.status(500).send('Error in adding user');
     }
+
     return res.sendStatus(200);
+
   } catch {
-    res.status(500).send('Error in adding user');
+        res.status(500).send('Error in adding user');
   }
 });
 
 app.post("/sign-up/management", async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = {
-      roleId: 3,
-      email: req.body.email,
-      authType: req.body.authType,
-      password: hashedPassword
-    };
+    try {
+        const { email, password, authType } = req.body;
+        const { companyName, displayEmail, companyLogo, officeAddress } = req.body;
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = {
+            roleId: 3,
+            email: email,
+            authType: authType,
+            password: hashedPassword,
+        };
 
     try {
-      await db.query("BEGIN");
-      let statement = SQL`
+        await db.query("BEGIN");
+        let statement = SQL`
             INSERT 
             INTO users("role_id", "email", "auth_type")
             VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
-      await db.query(statement);
+        await db.query(statement);
     } catch (error) {
-      console.log("db.query():", error);
-      console.log("Transaction ROLLBACK called");
-      await db.query("ROLLBACK");
-      return res.status(409).send('User already exist');
+        console.log("db.query():", error);
+        console.log("Transaction ROLLBACK called");
+        await db.query("ROLLBACK");
+        return res.status(409).send('User already exist');
     }
     
     try {
-      const lastRow = await getLastUserId();
-      const lastUserId = lastRow.rows[0].id;
-      const managementProfile = {
-        userId: lastUserId,
-        companyName: req.body.companyName,
-        displayEmail: req.body.displayEmail,
-        companyLogo: req.body.companyLogo,
-        officeAddress: req.body.officeAddress,
-      };
-      if (req.body.authType === "native") {
-        await addManagementProfileToDb(managementProfile);
-        await addNativeAuthPasswordToDb({
-          email: req.body.email,
-          authType: req.body.authType,
-          password: hashedPassword,
-        });
+        const lastRow = await getLastUserId();
+        const lastUserId = lastRow.rows[0].id;
+        const managementProfile = {
+            userId: lastUserId,
+            companyName: companyName,
+            displayEmail: displayEmail,
+            companyLogo: companyLogo,
+            officeAddress: officeAddress,
+        };
+        
+        if (req.body.authType === "native") {
+            await addManagementProfileToDb(managementProfile);
+            await addNativeAuthPasswordToDb({
+                email: req.body.email,
+                authType: req.body.authType,
+                password: hashedPassword,
+            });
       } else {
         await addManagementProfileToDb(managementProfile);
       }
       await db.query("COMMIT");
+
     } catch (error) {
-      console.log("db.query():", error);
-      console.log("Transaction ROLLBACK called");
-      await db.query("ROLLBACK");
-      return res.status(500).send('Error in adding user');
+        console.log("db.query():", error);
+        console.log("Transaction ROLLBACK called");
+        await db.query("ROLLBACK");
+        return res.status(500).send('Error in adding user');
     }
+    
     return res.sendStatus(200);
+
   } catch {
     res.status(500).send('Error in adding user');
   }
 });
 
 app.post('/login', async (req, res) => {
-    const username = req.body.username;
-    const user = { name: username };
+    const { email, password } = req.body;
 
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    let result;
+
+    try {
+        let statement = SQL `
+        SELECT password
+        FROM native_auth_passwords
+        WHERE email = ${email}`;
+
+        result = await db.query(statement);
+    } catch {
+        res.status(500).send('Error retrieving user');
+    }
+
+    let hashedPassword = result.rows[0].password;
+
+    if (!hashedPassword) {
+        res.status(404).send('No such user found');
+    }
+
+    const valid = await bcrypt.compare(password, hashedPassword)
+
+    if (!valid) {
+        res.status(401).send('Incorrect password');
+    }
+
+    const user = { email: email };
+
+    const accessToken = await generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
 
     await addRefreshTokenToDb(refreshToken);
 
-    res.json({
+    res.status(200).json({
         accessToken: accessToken,
         refreshToken: refreshToken,
     });
 });
 
-app.delete('/logout', (req, res) => {
-    removeRefreshTokenFromDb(token);
+app.delete('/logout', async (req, res) => {
+    const refreshToken = req.body.refreshToken;
+    await removeRefreshTokenFromDb(refreshToken);
     res.sendStatus(204);
 })
 
-app.post('/token', (req, res) => {
+app.post('/token', async (req, res) => {
     const refreshToken = req.body.refreshToken;
     
-    if (refreshToken == null) {
-        return res.sendStatus(401);
+    if (!refreshToken) {
+        return res.status(401).send('No refresh token');
     }
 
-    if (!checkIfRefreshTokenExists(token)) {
-        return res.sendStatus(403);
+    let exist = await checkIfRefreshTokenExists(refreshToken);
+
+    if (!exist) {
+        return res.status(403).send('Invalid refresh token');
     }
 
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, user) => {
-        if (error) {
-            return res.sendStatus(403);
-        }
+    let valid = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
 
-        const accessToken = generateAccessToken(user)
-        res.json({
+    if (valid) {
+        let user = { email: valid.email }
+        const accessToken = await generateAccessToken(user)
+        res.status(200).json({
             accessToken: accessToken,
         });
-    })
+    } else {
+        res.status(403).send('Invalid refresh token')
+    }
 
 })
 
@@ -265,13 +311,13 @@ async function addRefreshTokenToDb(token) {
     INTO refresh_tokens
     VALUES (${token})`);
 
-    const { error } = await db.query(statement)
-
-    if (error) {
-        return false;
+    try {
+        await db.query(statement)
+    } catch (err) {
+        if (err.code !== '23505') {
+            console.log(err);
+        }
     }
-
-    return true;
 }
 
 async function removeRefreshTokenFromDb(token) {
@@ -280,47 +326,31 @@ async function removeRefreshTokenFromDb(token) {
     FROM refresh_tokens
     WHERE token = (${token})`);
 
-    const { error } = await db.query(statement)
-
-    if (error) {
-        return false;
+    try {
+        await db.query(statement);
+    } catch (err) {
+        console.log(err)
     }
 
     return true;
 }
 
 async function generateAccessToken(user) {
-    console.log(tokenSecret);
-    console.log(tokenSecret.ACCESS_TOKEN_SECRET);
     return jwt.sign(user, tokenSecret.ACCESS_TOKEN_SECRET, {
         expiresIn: '60m'
     })
 }
 
 async function generateRefreshToken(user) {
-    console.log(tokenSecret);
     return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
 
 getTokenSecrets().then(data => {
-    console.log(data)
     tokenSecret = data;
     tokenSecret = JSON.parse(tokenSecret)
     app.listen(4000)
 
-    generateAccessToken({"User":"Agnes"})
+    console.log("Successfully initialised secret keys.")
+    console.log("Now listening on port 4000.")
+
 }).catch(err => { })
-
-// app.listen(4000, async () => { 
-
-    
-
-//     try {
-//         tokenSecret = await getTokenSecrets();
-//         tokenSecret = JSON.parse(tokenSecret)
-//     } catch(err) {
-//         console.log(err);
-//     }
-
-//     generateAccessToken({"User":"Agnes"})
-// });

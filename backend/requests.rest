@@ -25,3 +25,31 @@ Content-Type: application/json
     "companyLogo": "https://www.smrt.com.sg/Portals/0/SMRT_Corp_Logo.png?ver=2018-01-11-143632-557",
     "officeAddress": "2 Tanjong Katong Road, #08-01, Tower 3, Paya Lebar Quarter, Singapore 437161"
 }
+
+###
+
+POST http://localhost:4000/login 
+Content-Type: application/json
+
+{
+    "email": "agnes2@gmail.com",
+    "password": "password2"
+}
+
+###
+
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNTk3MzJ9.rAffCYolapyQKOUs7Vm0X6-vGXiZ5hpqXi4lrDuqBeY"
+}
+
+###
+
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNjAzNTF9.hheOaQjt47ITNYcSOAg1MqYmYKYkqWy4sXVGUrMAyPg"
+}
