@@ -8,7 +8,6 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const token_secret = JSON.parse(getTokenSecrets());
 app.use(express.json());
 
 app.post('/sign-up/customer', async (req, res) => {
@@ -144,7 +143,7 @@ app.delete('/logout', (req, res) => {
 })
 
 app.post('/token', (req, res) => {
-    const refreshToken = req.body.token;
+    const refreshToken = req.body.refreshToken;
     
     if (refreshToken == null) {
         return res.sendStatus(401);
@@ -168,11 +167,11 @@ app.post('/token', (req, res) => {
 })
 
 
-function getTokenSecrets() {
+async function getTokenSecrets() {
   // Load the AWS SDK
   var AWS = require('aws-sdk'),
     region = "us-east-2",
-    secretName = "peepoo-token-secrets",
+    secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
     secret,
     decodedBinarySecret;
 
@@ -181,34 +180,23 @@ function getTokenSecrets() {
     region: region
   });
 
-  client.getSecretValue({ SecretId: secretName }, function (err, data) {
+  try {
+    var data = await client.getSecretValue({ SecretId: secretName });
+    if ('SecretString' in data) {
+      secret = data.SecretString;
+      return secret;
+    } else {
+      let buff = new Buffer(data.SecretBinary, 'base64');
+      decodedBinarySecret = buff.toString('ascii');
+      return decodedBinarySecret
+    }
+  } catch (err) {
     if (err) {
-      if (err.code === 'DecryptionFailureException')
-        throw err;
-      else if (err.code === 'InternalServiceErrorException')
-        throw err;
-      else if (err.code === 'InvalidParameterException')
-        throw err;
-      else if (err.code === 'InvalidRequestException')
-        throw err;
-      else if (err.code === 'ResourceNotFoundException')
-        throw err;
+      throw err;
     }
-    else {
-      if ('SecretString' in data) {
-        secret = data.SecretString;
-        console.log(secret);
-      } else {
-        let buff = new Buffer(data.SecretBinary, 'base64');
-        decodedBinarySecret = buff.toString('ascii');
-      }
-    }
-
-    // Your code goes here. 
-  });
+  }
 }
 
-getAccessToken();
 async function getLastUserId() {
     let statement = SQL`
     SELECT id
@@ -297,14 +285,17 @@ async function removeRefreshTokenFromDb(token) {
     return true;
 }
 
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+async function generateAccessToken(user) {
+  console.log(tokenSecret);
+    return jwt.sign(user, tokenSecrets.ACCESS_TOKEN_SECRET, {
         expiresIn: '60m'
     })
 }
 
-function generateRefreshToken(user) {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+async function generateRefreshToken(user) {
+  console.log(tokenSecret);
+  return jwt.sign(user, tokenSecrets.REFRESH_TOKEN_SECRET)
 }
+const tokenSecret = null;
 
-app.listen(4000);
+app.listen(4000, async () => { tokenSecret = await getTokenSecrets().catch((err) => console.log(err)) });
