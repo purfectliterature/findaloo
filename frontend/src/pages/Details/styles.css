@@ -37,15 +37,23 @@
   line-height: 1.5;
 }
 
-.star-skin {
+.white-skin {
+  color: #fff;
+}
+
+.primary-skin {
+  color: var(--color-primary);
+}
+
+.secondary-skin {
   color: var(--color-secondary);
 }
 
-.grey-star-skin {
+.grey-skin {
   color: var(--color-grey-3);
 }
 
-.page-skin {
+.white-background-skin {
   background-color: #fff;
 }
 
@@ -56,7 +64,6 @@
 }
 
 .image-section {
-  height: 200px;
   position: relative;
 }
 
@@ -77,10 +84,6 @@
 .actions-btn {
   margin: 0.75rem 0;
   display: inline-block;
-}
-
-.actions-btn-skin {
-  color: #fff;
 }
 
 /* ============== Basic Info ================= */

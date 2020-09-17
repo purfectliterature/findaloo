@@ -30,7 +30,7 @@ const Stars = ({ ratings }) => {
   return (
     <div className="stars-section">
       {stars.map((star, index) => (
-        <span className='star-skin' key={index}>{star}</span>
+        <span className='secondary-skin' key={index}>{star}</span>
       ))}
     </div>
   )

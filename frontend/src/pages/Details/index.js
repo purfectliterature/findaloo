@@ -10,8 +10,8 @@ const Details = () => {
   const data = {
     id: 1,
     images: [
-      // 'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
-      // 'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
+      'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
+      'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
     ],
     name: 'Changi Airport T4 dept - FC Lounge',
     address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
@@ -35,12 +35,12 @@ const Details = () => {
     certificates: [
       {
         certification_authority: 'Restroom Association (Singapore)',
-        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
       },
       {
         certification_authority: 'Restroom Association (Singapore)',
-        // logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
+        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
         url: 'https://toilet.org.sg/',
       },
     ],
@@ -86,7 +86,7 @@ const Details = () => {
   };
 
   return (
-    <Page className="page-skin">
+    <Page className="white-background-skin">
       <BasicInfoImageComponent
         images={data.images}
         handleShareOnClick={handleShareOnClick}

@@ -27,7 +27,7 @@ const CreateReview = ({ currentUser, handleOnReviewClick }) => {
           <Button
             key={index}
             onClick={() => handleOnReviewClick(index + 1)}
-            className="create-review-btn grey-star-skin"
+            className="create-review-btn grey-skin"
           >
             <StarBorderOutlined />
           </Button>
@@ -89,7 +89,7 @@ const ReviewStars = ({ reviewCount }) => {
   return (
     <div className="review-stars-section">
       {stars.map((star, index) => (
-        <span className="review-stars star-skin" key={index}>
+        <span className="review-stars secondary-skin" key={index}>
           {star}
         </span>
       ))}
