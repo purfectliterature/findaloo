@@ -1,19 +1,45 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const jwt = require('jsonwebtoken');
 const db = require('./db')
+const SQL = require('sql-template-strings');
 
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
 
-app.get("/toilets", (req, res) => {
+app.get("/toilets", async (req, res) => {
+    let statement = (SQL `
+    SELECT *
+    FROM toilets`);
+
+    try {
+        const { rows } = await db.query(statement);
+        res.status(200).send(rows);
+    } catch (error) {
+        res.status(500).send(error)
+    }
 
 });
 
-app.get("/toilets/:toiletid", (req, res) => {
-    const toiletid = parseInt(req.params.uid);
+app.get("/toilets/:toiletid", async (req, res) => {
+    const toiletid = parseInt(req.params.toiletid);
+
+    console.log(toiletid);
+
+    let statement = (SQL `
+    SELECT *
+    FROM toilets
+    WHERE id = (${toiletid})`);
+
+    try {
+        const { rows } = await db.query(statement);
+        res.status(200).send(rows);
+    } catch (error) {
+        res.status(500).send(error)
+    }
 
 });
 
@@ -31,7 +57,7 @@ app.get("/toilets/search", (req, res) => {
 app.listen(port, () => console.log(`Express is running at https://localhost:${port}!`));
 
 function authenticateToken(req, res, next) {
-    const authHeader = req.headers.['authorization'];
+    const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
 
     if (token == nul) {

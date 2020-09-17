@@ -16,7 +16,7 @@ app.post('/login', async (req, res) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    await addRefreshTokenToDb(refreshToken)
+    await addRefreshTokenToDb(refreshToken);
 
     res.json({
         accessToken: accessToken,
