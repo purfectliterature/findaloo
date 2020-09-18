@@ -6,8 +6,6 @@ import FloatButton from "../FloatButton/FloatButton.js";
 import MapIcon from "@material-ui/icons/Map";
 import Masonry from "react-masonry-css";
 
-import Navbar from "framework7-react/components/navbar.js";
-
 const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -15,11 +13,37 @@ const breakpointColumnsObj = {
     300: 1,
 };
 
+const toilet = {
+    image:
+        "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
+    name: "NUS LT27",
+    distance: "100m",
+    isFree: true,
+    hasMale: true,
+    hasFemale: true,
+    rating: 3.2,
+    ratingCount: 1000,
+    hasBidet: true,
+    hasToiletPaper: true,
+};
+
+const toilets = [
+    toilet,
+    toilet,
+    toilet,
+    toilet,
+    toilet,
+    toilet,
+    toilet,
+    toilet,
+];
+
 class ListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toiletList: props.toiletList,
+            //toiletList: props.toiletList,
+            toiletList: toilets,
         };
     }
 

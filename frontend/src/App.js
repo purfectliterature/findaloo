@@ -1,7 +1,7 @@
 import React from "react";
 import { App, View } from "framework7-react";
 import "./App.css";
-import Details from "./pages/Details";
+import ListPage from "./ListPage/ListPage.js";
 
 const f7params = {
     root: "#app", // App root element
@@ -10,10 +10,6 @@ const f7params = {
     theme: "auto", // Automatic theme detection
     // App routes
     routes: [
-        {
-            path: "/details/",
-            component: Details,
-        },
         {
             path: "/list/",
             component: ListPage,
@@ -24,7 +20,7 @@ const f7params = {
 function Main() {
     return (
         <App params={f7params}>
-            <View main url="/ListPage/" />
+            <View main url="/" />
         </App>
     );
 }
