@@ -63,14 +63,14 @@ app.post('/sign-up/customer', async (req, res) => {
         };
 
         if (req.body.authType === "native") {
-            await addCustomerProfileToDb(customerProfile);
-            await addNativeAuthPasswordToDb({
-                email: email,
-                authType: authType,
-                password: hashedPassword,
-            });
+          await addCustomerProfileToDb(customerProfile);
+          await addNativeAuthPasswordToDb({
+              email: email,
+              authType: authType,
+              password: hashedPassword,
+          });
         } else {
-            await addCustomerProfileToDb(customerProfile)
+          await addCustomerProfileToDb(customerProfile)
         }
 
         await db.query("COMMIT");
@@ -127,13 +127,13 @@ app.post("/sign-up/management", async (req, res) => {
             officeAddress: officeAddress,
         };
         
-        if (req.body.authType === "native") {
-            await addManagementProfileToDb(managementProfile);
-            await addNativeAuthPasswordToDb({
-                email: req.body.email,
-                authType: req.body.authType,
-                password: hashedPassword,
-            });
+      if (req.body.authType === "native") {
+        await addManagementProfileToDb(managementProfile);
+        await addNativeAuthPasswordToDb({
+            email: req.body.email,
+            authType: req.body.authType,
+            password: hashedPassword,
+        });
       } else {
         await addManagementProfileToDb(managementProfile);
       }
