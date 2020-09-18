@@ -1,6 +1,6 @@
 import React from 'react';
 import * as moment from 'moment';
-import { Button, f7 } from 'framework7-react';
+import { Button } from 'framework7-react';
 import { Star, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 
@@ -26,13 +26,7 @@ const CreateReview = ({ currentUser, handleOnReviewClick }) => {
         {[...Array(MAX_RATINGS)].map((value, index) => (
           <Button
             key={index}
-            onClick={() =>
-              f7.views.main.router.navigate('/reviews/create/', {
-                props: {
-                  rating: index + 1,
-                },
-              })
-            }
+            onClick={() => handleOnReviewClick(index + 1)}
             className="create-review-btn grey-skin"
           >
             <StarBorderOutlined />
