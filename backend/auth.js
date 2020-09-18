@@ -297,7 +297,7 @@ async function checkIfRefreshTokenExists(token) {
 
     const { rows } = await db.query(statement)
 
-    if (rows[0].token === token) {
+    if (rows[0].token && rows[0].token === token) {
         return true;
     }
     
@@ -353,4 +353,6 @@ getTokenSecrets().then(data => {
     console.log("Successfully initialised secret keys.")
     console.log("Now listening on port 4000.")
 
-}).catch(err => { })
+}).catch(err => { 
+    console.log('Server init failed: ' + err)
+})
