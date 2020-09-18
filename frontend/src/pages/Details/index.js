@@ -83,8 +83,9 @@ const Details = () => {
   const handleOnReviewClick = (rating) => {
     f7.views.main.router.navigate('/reviews/create/', {
       props: {
+        id: data.id,
         rating: rating,
-        title: data.name,
+        postTitle: data.name,
       },
     });
   };
