@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
 import './styles.css';
+import UserProfileComponent from '../../components/createReview/UserProfileComponent';
 
 const CreateReviews = (props) => {
   // const { id, rating, title } = props;
@@ -8,8 +9,8 @@ const CreateReviews = (props) => {
   const rating = 2;
   const title = 'peepoo peepoo';
   const currentUser = {
-    name: 'Its me!',
-    profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
+    name: 'Jin Ying',
+    profile_image: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
   };
 
   const handlePostOnClick = (rating, title, description) => {
@@ -23,7 +24,7 @@ const CreateReviews = (props) => {
   };
 
   return (
-    <Page>
+    <Page className="white-background-skin">
       <Navbar backLink title={title}>
         <NavRight>
           <Button
@@ -35,6 +36,8 @@ const CreateReviews = (props) => {
           </Button>
         </NavRight>
       </Navbar>
+
+      <UserProfileComponent user={currentUser} />
     </Page>
   );
 };
