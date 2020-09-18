@@ -154,44 +154,47 @@ app.post("/sign-up/management", async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    let result;
+  let result;
 
-    try {
-        let statement = SQL `
-        SELECT password
-        FROM native_auth_passwords
-        WHERE email = ${email}`;
+  try {
+    let statement = SQL`
+      SELECT password
+      FROM native_auth_passwords
+      WHERE email = ${email}`;
 
-        result = await db.query(statement);
-    } catch {
-        res.status(500).send('Error retrieving user');
-    }
+    result = await db.query(statement);
+  } catch {
+    return res.status(500).send('Error retrieving user');
+  }
 
-    let hashedPassword = result.rows[0].password;
+  if (!result.rowCount) {
+    return res.status(404).send('No such user found');
+  }
+  let hashedPassword = result.rows[0].password;
 
-    if (!hashedPassword) {
-        res.status(404).send('No such user found');
-    }
+  if (!hashedPassword) {
+    return res.status(404).send('No such user found');
+  }
 
-    const valid = await bcrypt.compare(password, hashedPassword)
+  const valid = await bcrypt.compare(password, hashedPassword)
 
-    if (!valid) {
-        res.status(401).send('Incorrect password');
-    }
+  if (!valid) {
+    return res.status(401).send('Incorrect password');
+  }
 
-    const user = { email: email };
+  const user = { email: email };
 
-    const accessToken = await generateAccessToken(user);
-    const refreshToken = await generateRefreshToken(user);
+  const accessToken = await generateAccessToken(user);
+  const refreshToken = await generateRefreshToken(user);
 
-    await addRefreshTokenToDb(refreshToken);
+  await addRefreshTokenToDb(refreshToken);
 
-    res.status(200).json({
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-    });
+  return res.status(200).json({
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+  });
 });
 
 app.delete('/logout', async (req, res) => {
