@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import './styles.css';
 import UserProfileComponent from '../../components/createReview/UserProfileComponent';
 import UserRatingComponent from '../../components/createReview/UserRatingComponent';
+import UserInputComponent from '../../components/createReview/UserInputComponent';
 
 const CreateReviews = (props) => {
-  // const { id, rating, title } = props;
+  // TODO: Change to use props
+  // const { id, rating, postTitle } = props;
   const id = 1;
   const rating = 2;
-  const title = 'peepoo peepoo';
+  const postTitle = 'peepoo peepoo';
   const currentUser = {
     name: 'Jin Ying',
     profile_image: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
@@ -16,36 +20,59 @@ const CreateReviews = (props) => {
 
   const [userRatings, setUserRatings] = useState(rating);
 
-  const handlePostOnClick = (rating, title, description) => {
-    console.log('rating', rating);
-    console.log('title', title);
-    console.log('description', description);
+  const handleFormSubmission = async (values) => {
+    const { reviewTitle, reviewDescription } = values;
+    console.log('rating', userRatings);
+    console.log('reviewTitle', reviewTitle);
+    console.log('reviewDescription', reviewDescription);
 
     // TODO: API CALL
 
-    f7.views.main.router.navigate(`/toilets/${id}/`);
+    formik.setSubmitting(false);
+
+    // TODO: Routing
+    // f7.views.main.router.navigate(`/toilets/${id}/`);
   };
 
   const handleOnReviewClick = (newRating) => {
     setUserRatings(newRating);
-  }
+  };
+
+  const validationSchema = Yup.object().shape({
+    reviewTitle: Yup.string()
+      .required()
+      .min(1, 'A title must be provided')
+      .max(140, 'Title cannot exceeds 140 character limit'),
+    reviewDescription: Yup.string().required(),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      reviewTitle: '',
+      reviewDescription: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      handleFormSubmission(values);
+    },
+  });
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink title={title}>
-        <NavRight>
-          <Button
-            onClick={() => {
-              handlePostOnClick(rating);
-            }}
-          >
-            Post
-          </Button>
-        </NavRight>
-      </Navbar>
+      <form onSubmit={formik.handleSubmit}>
+        <Navbar backLink title={postTitle}>
+          <NavRight>
+            <Button type="submit">Post</Button>
+          </NavRight>
+        </Navbar>
 
-      <UserProfileComponent user={currentUser} />
-      <UserRatingComponent ratings={userRatings} handleOnReviewClick={handleOnReviewClick} />
+        <UserProfileComponent user={currentUser} />
+        <UserRatingComponent
+          ratings={userRatings}
+          handleOnReviewClick={handleOnReviewClick}
+        />
+        <UserInputComponent formik={formik} />
+      </form>
     </Page>
   );
 };
