@@ -39,14 +39,22 @@ CREATE TABLE "management_profiles" (
   "office_address" varchar NOT NULL
 );
 
-CREATE TABLE "toilets" (
+CREATE TABLE "buildings" (
   "id" BIGSERIAL PRIMARY KEY,
-  "management_id" bigint NOT NULL,
   "name" varchar NOT NULL,
   "region" varchar NOT NULL,
   "address" varchar NOT NULL,
   "latitude" double precision NOT NULL,
   "longitude" double precision NOT NULL,
+  "created_at" timestamp DEFAULT (now()),
+  "last_updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "toilets" (
+  "id" BIGSERIAL PRIMARY KEY,
+  "building_id" bigint NOT NULL,
+  "management_id" bigint NOT NULL,
+  "name" varchar NOT NULL,
   "review_rating" double precision,
   "queue" double precision,
   "created_at" timestamp DEFAULT (now()),
@@ -121,6 +129,8 @@ ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 ALTER TABLE "customer_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "management_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
+ALTER TABLE "toilets" ADD FOREIGN KEY ("building_id") REFERENCES "buildings" ("id");
 
 ALTER TABLE "toilets" ADD FOREIGN KEY ("management_id") REFERENCES "management_profiles" ("user_id");
 
