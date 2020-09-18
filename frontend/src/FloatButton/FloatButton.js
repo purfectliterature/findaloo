@@ -1,5 +1,6 @@
 import React from "react";
 import "./FloatButton.css";
+import { Button } from "framework7-react";
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -12,10 +13,10 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <button className="float btn-style">
-                <span className="button-icon">{this.state.icon}</span>
+            <Button raised round className="float btn-style">
+                {this.state.icon}
                 <span className="button-text">{this.state.text}</span>
-            </button>
+            </Button>
         );
     }
 }

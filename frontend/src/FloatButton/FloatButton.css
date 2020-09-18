@@ -8,20 +8,16 @@
 
 .btn-style {
     background-color: var(--color-white);
-    border-radius: 30px;
     border: none;
-    box-shadow: 2px 2px 2px var(--color-border-grey);
-    padding: 10px 10px;
     color: var(--color-primary);
+    text-transform: none;
+    padding: 20px 10px;
     display: flex;
-    justify-items: center;
-    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-text {
-    font-size: 18px;
-}
-
-.button-icon {
-    margin-right: 5px;
+    font-size: 16px;
+    margin-left: 5px;
 }
