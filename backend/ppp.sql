@@ -45,10 +45,10 @@ CREATE TABLE "toilets" (
   "name" varchar NOT NULL,
   "region" varchar NOT NULL,
   "address" varchar NOT NULL,
-  "latitude" precision NOT NULL,
-  "longitude" precision NOT NULL,
-  "review_rating" precision,
-  "queue" precision,
+  "latitude" double precision NOT NULL,
+  "longitude" double precision NOT NULL,
+  "review_rating" double precision,
+  "queue" double precision,
   "created_at" timestamp DEFAULT (now()),
   "last_updated_at" timestamp DEFAULT (now())
 );
@@ -80,7 +80,7 @@ CREATE TABLE "toilet_images" (
 CREATE TABLE "toilet_certifications" (
   "toilet_id" bigint NOT NULL,
   "certification_id" bigint NOT NULL,
-  "rating" precision
+  "rating" double precision
 );
 
 CREATE TABLE "certification_authorities" (
@@ -96,7 +96,7 @@ CREATE TABLE "reviews" (
   "id" BIGSERIAL PRIMARY KEY,
   "user_id" bigint NOT NULL,
   "toilet_id" bigint NOT NULL,
-  "cleanliness_rating" precision NOT NULL,
+  "cleanliness_rating" double precision NOT NULL,
   "title" varchar NOT NULL,
   "description" varchar NOT NULL,
   "queue" int,
