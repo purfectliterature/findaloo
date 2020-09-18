@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
 import './styles.css';
 import UserProfileComponent from '../../components/createReview/UserProfileComponent';
+import UserRatingComponent from '../../components/createReview/UserRatingComponent';
 
 const CreateReviews = (props) => {
   // const { id, rating, title } = props;
@@ -13,6 +14,8 @@ const CreateReviews = (props) => {
     profile_image: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
   };
 
+  const [userRatings, setUserRatings] = useState(rating);
+
   const handlePostOnClick = (rating, title, description) => {
     console.log('rating', rating);
     console.log('title', title);
@@ -22,6 +25,10 @@ const CreateReviews = (props) => {
 
     f7.views.main.router.navigate(`/toilets/${id}/`);
   };
+
+  const handleOnReviewClick = (newRating) => {
+    setUserRatings(newRating);
+  }
 
   return (
     <Page className="white-background-skin">
@@ -38,6 +45,7 @@ const CreateReviews = (props) => {
       </Navbar>
 
       <UserProfileComponent user={currentUser} />
+      <UserRatingComponent ratings={userRatings} handleOnReviewClick={handleOnReviewClick} />
     </Page>
   );
 };
