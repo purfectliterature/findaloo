@@ -20,7 +20,7 @@ const f7params = {
 function Main() {
     return (
         <App params={f7params}>
-            <View main url="/" />
+            <View main url="/list/" />
         </App>
     );
 }

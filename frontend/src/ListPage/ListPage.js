@@ -39,37 +39,47 @@ const toilets = [
     toilet,
 ];
 
-function renderToiletList() {
-    let list = [];
-    for (const toilet of toilets) {
-        list.push(<Card toilet={toilet} key={list.length}></Card>);
+class ListPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            //toiletList: props.toiletList,
+            toiletList: toilets,
+        };
     }
-    return list;
-}
 
-export const ListPage = () => (
-    <Page>
-        <div className="list-page">
-            <div className="searchBar-container">
-                <SearchBar></SearchBar>
-            </div>
-            <div className="title-container">
-                <h3>Is nature calling now?</h3>
-            </div>
-            <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column"
-                id="toilet-list"
-            >
-                {renderToiletList()}
-            </Masonry>
-            <FloatButton
-                text="View Map"
-                icon={<MapIcon></MapIcon>}
-            ></FloatButton>
-        </div>
-    </Page>
-);
+    renderToiletList() {
+        let list = [];
+        for (const toilet of this.state.toiletList) {
+            list.push(<Card toilet={toilet} key={list.length}></Card>);
+        }
+        return list;
+    }
+
+    render() {
+        return (
+            <Page className="list-page">
+                <div className="searchBar-container">
+                    <SearchBar></SearchBar>
+                </div>
+                <div className="title-container">
+                    <h3>Is nature calling now?</h3>
+                </div>
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="my-masonry-grid"
+                    columnClassName="my-masonry-grid_column"
+                    id="toilet-list"
+                >
+                    {this.renderToiletList()}
+                </Masonry>
+                <FloatButton
+                    text="View Map"
+                    icon={<MapIcon></MapIcon>}
+                ></FloatButton>
+            </Page>
+        );
+    }
+}
 
 export default ListPage;
