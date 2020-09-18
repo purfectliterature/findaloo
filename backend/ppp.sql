@@ -9,7 +9,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "native_auth_passwords" (
   "email" varchar PRIMARY KEY,
-  "auth_type" varchar,
+  "auth_type" varchar NOT NULL,
   "password" varchar NOT NULL
 );
 
@@ -39,14 +39,22 @@ CREATE TABLE "management_profiles" (
   "office_address" varchar NOT NULL
 );
 
-CREATE TABLE "toilets" (
+CREATE TABLE "buildings" (
   "id" BIGSERIAL PRIMARY KEY,
-  "management_id" bigint NOT NULL,
   "name" varchar NOT NULL,
   "region" varchar NOT NULL,
   "address" varchar NOT NULL,
   "latitude" double precision NOT NULL,
   "longitude" double precision NOT NULL,
+  "created_at" timestamp DEFAULT (now()),
+  "last_updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "toilets" (
+  "id" BIGSERIAL PRIMARY KEY,
+  "building_id" bigint NOT NULL,
+  "management_id" bigint NOT NULL,
+  "name" varchar NOT NULL,
   "review_rating" double precision,
   "queue" double precision,
   "created_at" timestamp DEFAULT (now()),
@@ -55,16 +63,18 @@ CREATE TABLE "toilets" (
 
 CREATE TABLE "toilet_features" (
   "toilet_id" bigint PRIMARY KEY NOT NULL,
+  "is_free" boolean DEFAULT false,
   "has_handheld_bidet" boolean DEFAULT false,
   "has_seat_bidet" boolean DEFAULT false,
   "has_toilet_paper" boolean DEFAULT false,
   "has_seat_cleaner" boolean DEFAULT false,
   "has_handicap" boolean DEFAULT false,
-  "is_free" boolean DEFAULT false,
   "has_water_heater" boolean DEFAULT false,
   "has_hand_dryer" boolean DEFAULT false,
   "has_hand_soap" boolean DEFAULT false,
   "has_baby_change_station" boolean DEFAULT false,
+  "has_female" boolean DEFAULT false,
+  "has_male" boolean DEFAULT false,
   "last_updated_at" timestamp DEFAULT (now())
 );
 
@@ -77,8 +87,15 @@ CREATE TABLE "toilet_images" (
 
 CREATE TABLE "toilet_certifications" (
   "toilet_id" bigint NOT NULL,
+  "certification_id" bigint NOT NULL,
+  "rating" double precision
+);
+
+CREATE TABLE "certification_authorities" (
+  "id" SERIAL PRIMARY KEY NOT NULL,
   "certification_authority" varchar NOT NULL,
-  "rating" varchar,
+  "certification_logo" varchar,
+  "certification_webpage" varchar,
   "created_at" timestamp DEFAULT (now()),
   "last_updated_at" timestamp DEFAULT (now())
 );
@@ -113,6 +130,8 @@ ALTER TABLE "customer_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" (
 
 ALTER TABLE "management_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
+ALTER TABLE "toilets" ADD FOREIGN KEY ("building_id") REFERENCES "buildings" ("id");
+
 ALTER TABLE "toilets" ADD FOREIGN KEY ("management_id") REFERENCES "management_profiles" ("user_id");
 
 ALTER TABLE "toilet_features" ADD FOREIGN KEY ("toilet_id") REFERENCES "toilets" ("id");
@@ -120,6 +139,8 @@ ALTER TABLE "toilet_features" ADD FOREIGN KEY ("toilet_id") REFERENCES "toilets"
 ALTER TABLE "toilet_images" ADD FOREIGN KEY ("toilet_id") REFERENCES "toilets" ("id");
 
 ALTER TABLE "toilet_certifications" ADD FOREIGN KEY ("toilet_id") REFERENCES "toilets" ("id");
+
+ALTER TABLE "toilet_certifications" ADD FOREIGN KEY ("certification_id") REFERENCES "certification_authorities" ("id");
 
 ALTER TABLE "reviews" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
@@ -131,8 +152,6 @@ ALTER TABLE "reports" ADD FOREIGN KEY ("toilet_id") REFERENCES "toilets" ("id");
 
 CREATE UNIQUE INDEX ON "users" ("email", "auth_type");
 
-CREATE UNIQUE INDEX ON "toilet_images" ("toilet_id", "image_url");
-
-CREATE UNIQUE INDEX ON "toilet_certifications" ("toilet_id", "certification_authority");
-
 ALTER TABLE "native_auth_passwords" ADD FOREIGN KEY ("email", "auth_type") REFERENCES "users" ("email", "auth_type");
+
+CREATE UNIQUE INDEX ON "toilet_images" ("toilet_id", "image_url");
