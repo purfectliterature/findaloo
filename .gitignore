@@ -5,6 +5,9 @@ node_modules
 /.pnp
 .pnp.js
 
+# dump db
+backend/scripts/setup_dump.sql
+
 # testing
 frontend/coverage
 
