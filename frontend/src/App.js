@@ -1,35 +1,32 @@
 import React from "react";
+import { App, View } from "framework7-react";
 import "./App.css";
-import ListPage from "./ListPage/ListPage";
+import Details from "./pages/Details";
 
-function App() {
-    const toilet = {
-        image:
-            "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
-        distance: "100m",
-        isFree: true,
-        hasMale: true,
-        hasFemale: true,
-        rating: 3.2,
-        ratingCount: 1000,
-        hasBidet: true,
-        hasToiletPaper: true,
-    };
+const f7params = {
+    root: "#app", // App root element
+    id: "io.framework7.testapp", // App bundle ID
+    name: "Framework7", // App name
+    theme: "auto", // Automatic theme detection
+    // App routes
+    routes: [
+        {
+            path: "/details/",
+            component: Details,
+        },
+        {
+            path: "/list/",
+            component: ListPage,
+        },
+    ],
+};
+
+function Main() {
     return (
-        <div className="App">
-            <ListPage
-                toiletList={[
-                    toilet,
-                    toilet,
-                    toilet,
-                    toilet,
-                    toilet,
-                    toilet,
-                    toilet,
-                ]}
-            ></ListPage>
-        </div>
+        <App params={f7params}>
+            <View main url="/ListPage/" />
+        </App>
     );
 }
-export default App;
+
+export default Main;

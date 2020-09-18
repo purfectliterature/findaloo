@@ -4925,6 +4925,11 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framework7-react@^5.7.12:
+  version "5.7.12"
+  resolved "https://registry.yarnpkg.com/framework7-react/-/framework7-react-5.7.12.tgz#a2a29f5a9f63f0ce86d1388fc1c252fd8599e52f"
+  integrity sha512-34RrtPQiCbWY4oXc0lpul6AUqyrnbrZ2bkUe01CIBHyyXtlSiRSdkknaC4soe5oYb3OeAnO2MwalKI92moUDTg==
+
 framework7@^5.7.12:
   version "5.7.12"
   resolved "https://registry.yarnpkg.com/framework7/-/framework7-5.7.12.tgz#07975f9ab40fa5440c935263512a40a80cd0a1db"
