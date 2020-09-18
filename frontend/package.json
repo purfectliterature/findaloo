@@ -12,6 +12,7 @@
     "framework7": "^5.7.12",
     "framework7-react": "^5.7.12",
     "google-maps-react": "^2.0.6",
+    "moment": "^2.28.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
