@@ -1,0 +1,200 @@
+.mapview {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.map-search-overlay {
+    position: absolute;
+    z-index: 12;
+    top: 2rem;
+    left: 1rem;
+    right: 1rem;
+}
+
+.bottom-sheet {
+    width: 100%;
+    height: 100vh;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    z-index: 10;
+
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
+
+    transition: all 0.4s ease-in-out;
+}
+
+.bottom-sheet.bs-opened {
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+}
+
+.bottom-sheet.bs-opened .bottom-sheet-top {
+    padding: 0;
+    height: 0;
+}
+
+.bottom-sheet.bs-opened .bottom-sheet-top .handle {
+    transform: scaleX(10);
+    background-color: white;
+}
+
+.bottom-sheet.bs-opened .bottom-sheet-top .buildings {
+    margin-top: 0;
+    height: 0;
+}
+
+.bottom-sheet.bs-opened .bottom-sheet-top .px-card {
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.bottom-sheet.bs-opened .bottom-sheet-content .page-content {
+    padding-top: 7rem;
+}
+
+.bottom-sheet-top {
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-bottom: 1rem;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.bottom-sheet-top .handle {
+    width: 4rem;
+    height: 0.3rem;
+    border-radius: 2rem;
+    align-self: center;
+
+    margin: 0.8rem 0;
+
+    background-color: var(--color-primary-lighter);
+    transition: all 0.2s ease-in-out;
+}
+
+.bottom-sheet-top h2 {
+    text-align: center;
+}
+
+.buildings {
+    height: 10rem;
+    margin-top: 1rem;
+
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 0rem;
+    grid-auto-columns: 10rem;
+    grid-auto-flow: column;
+
+    overflow-x: scroll;
+    scroll-snap-type: x proximity;
+
+    transform: scale(1);
+    transform-origin: top left;
+    transition: all 0.2s ease-in-out;
+}
+
+.buildings::before {
+    content: "";
+}
+
+.buildings::after {
+    content: "";
+    width: 0.1rem;
+}
+
+.px-card {
+    width: 10rem;
+    height: 10rem;
+    box-sizing: border-box;
+    border-radius: 1.5rem;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    color: white;
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%),
+        url("https://babyslingsandcarriers.com/pub/media/wysiwyg/pdt_combo_potty/combo-potty-training-toilet-seat-installed-with-child-seat-up.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bottom-sheet-content {
+    position: relative;
+    background-color: white;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.bottom-sheet-content .page-content {
+    padding-top: 0rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.fake-card {
+    border-radius: 1rem;
+    width: calc(50% - 4rem);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-width: 0.05rem;
+    border-style: solid;
+    border-color: var(--color-border-grey);
+}
+
+.cards {
+    padding: 0 1rem;
+}
+
+.cards-gutter {
+    width: 1rem;
+}
+
+.open-bottom-sheet {
+    position: absolute;
+    z-index: 13;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0) !important;
+    font-family: "Inter";
+    font-weight: 600;
+    text-transform: none;
+    font-size: 1rem;
+    padding: 0 1rem;
+}
+
+.open-bottom-sheet.hidden {
+    bottom: -5rem;
+}
+
+.open-bottom-sheet .icon {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+}
+
+.my-location {
+    position: absolute;
+    z-index: 9;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-grey-3);
+    bottom: 18rem;
+    right: 1rem;
+}
+
+.my-location.location-found {
+    color: var(--color-primary);
+}
+
+.my-location.bottom {
+    bottom: 1rem;
+}
