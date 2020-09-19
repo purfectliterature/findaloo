@@ -19,7 +19,7 @@ class Card extends React.Component {
             return (
                 <img
                     className="gender-icon"
-                    src="./Male-icon.svg"
+                    src="Male-icon.svg"
                     alt="male"
                 ></img>
             );
@@ -31,7 +31,7 @@ class Card extends React.Component {
             return (
                 <img
                     className="gender-icon"
-                    src="./Female-icon.svg"
+                    src="Female-icon.svg"
                     alt="female"
                 ></img>
             );
