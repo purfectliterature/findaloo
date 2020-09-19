@@ -13,6 +13,10 @@
 
 }
 
+.rating-text {
+    color: var(--color-grey-3);
+}
+
 .star-filled {
     font-size: inherit !important;
     color: var(--color-secondary);
@@ -20,9 +24,5 @@
 
 .star-empty {
     font-size: inherit !important;
-    color: var(--color-grey-3);
-}
-
-.rating-text {
-    color: var(--color-grey-3);
+    color: var(--color-border-grey);
 }

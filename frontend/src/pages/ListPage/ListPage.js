@@ -22,7 +22,7 @@ const toilet = {
     isFree: true,
     hasMale: true,
     hasFemale: true,
-    rating: 3.2,
+    rating: 3.8,
     ratingCount: 1000,
     hasBidet: true,
     hasToiletPaper: true,

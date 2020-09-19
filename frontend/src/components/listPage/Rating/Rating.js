@@ -1,6 +1,7 @@
 import React from "react";
 import "./Rating.css";
 import StarIcon from "@material-ui/icons/Star";
+import StarHalfIcon from "@material-ui/icons/StarHalf";
 
 class Rating extends React.Component {
     constructor(props) {
@@ -12,11 +13,28 @@ class Rating extends React.Component {
     }
 
     renderStars() {
-        const filledStars = Math.floor(this.state.rating);
-        const emptyStarts = 5 - filledStars;
+        let filledStars = Math.floor(this.state.rating);
+        let halfStar = 0;
+        if (this.state.rating - filledStars > 0.25) {
+            if (this.state.rating - filledStars < 0.75) {
+                halfStar = 1;
+            } else {
+                filledStars++;
+            }
+        }
+
+        const emptyStarts = 5 - filledStars - halfStar;
         const stars = [];
         for (let i = 0; i < filledStars; i++) {
             stars.push(<StarIcon className="star-filled" key={i}></StarIcon>);
+        }
+        if (halfStar > 0) {
+            stars.push(
+                <StarHalfIcon
+                    className="star-filled"
+                    key={filledStars}
+                ></StarHalfIcon>
+            );
         }
         for (let i = 0; i < emptyStarts; i++) {
             stars.push(
