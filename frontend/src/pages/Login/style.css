@@ -69,3 +69,8 @@
 .form-link:active {
     text-decoration: underline;
 }
+
+.error-message {
+    font-size: 10px;
+    color: red;
+}

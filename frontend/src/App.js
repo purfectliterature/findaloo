@@ -2,8 +2,9 @@ import React from "react";
 import { App, View } from "framework7-react";
 import "./App.css";
 import Details from "./pages/Details";
-import LoginPage from "./pages/Login/index.js";
-import RegisterPage from "./pages/Register/index.js";
+import CreateReviews from "./pages/CreateReview";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
 
 const f7params = {
     root: "#app", // App root element
@@ -13,8 +14,12 @@ const f7params = {
     // App routes
     routes: [
         {
-            path: "/details/",
+            path: "/toilets/:id/",
             component: Details,
+        },
+        {
+            path: "/reviews/create/",
+            component: CreateReviews,
         },
         {
             path: "/login/",
@@ -30,7 +35,7 @@ const f7params = {
 function Main() {
     return (
         <App params={f7params}>
-            <View main url="/register/" />
+            <View main url="/login/" />
         </App>
     );
 }

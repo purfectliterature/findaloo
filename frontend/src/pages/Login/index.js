@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Page, List, ListInput, Button } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "./style.css";
+import { useFormik } from "formik";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -10,13 +11,7 @@ class LoginPage extends React.Component {
         this.state = {
             visible: false,
         };
-        this.toggleVisibility = this.toggleVisibility.bind(this);
     }
-
-    toggleVisibility() {
-        this.setState({ visible: !this.state.visible });
-    }
-
     render() {
         return (
             <Page className="white-background-skin">
@@ -36,51 +31,108 @@ class LoginPage extends React.Component {
                     Let’s log into<br></br> your account!
                 </h1>
 
-                <List noHairlines className="login-form">
-                    <ListInput
-                        outline
-                        label="Email"
-                        floatingLabel
-                        type="email"
-                        placeholder="Email"
-                    ></ListInput>
-
-                    <ListInput
-                        outline
-                        label="Password"
-                        floatingLabel
-                        type={this.state.visible ? "text" : "password"}
-                        placeholder="Password"
-                        maxlength={20}
-                    >
-                        <span
-                            slot="input"
-                            className="visibility-icon"
-                            onClick={this.toggleVisibility}
-                        >
-                            {this.state.visible ? (
-                                <VisibilityOffIcon></VisibilityOffIcon>
-                            ) : (
-                                <VisibilityIcon></VisibilityIcon>
-                            )}
-                        </span>
-                    </ListInput>
-                    <div className="form-link">
-                        <a href="#">Having trouble signing in?</a>
-                    </div>
-                </List>
-
-                <div className="btn-group">
-                    <Button fill className="btn">
-                        Log in
-                    </Button>
-                    <Button outline className="btn">
-                        Create an account
-                    </Button>
-                </div>
+                <Form></Form>
             </Page>
         );
     }
 }
 
 export default LoginPage;
+
+const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+        errors.email = "Required";
+    } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+        errors.email = "Invalid email address";
+    }
+
+    if (!values.password) {
+        errors.password = "Required";
+    }
+
+    return errors;
+};
+
+const Form = () => {
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validate,
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
+    const [visible, setVisible] = useState(false);
+
+    const toggleVisibility = () => {
+        setVisible(!visible);
+    };
+
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            <List noHairlines className="login-form">
+                <ListInput
+                    outline
+                    label="Email"
+                    floatingLabel
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    validate={false}
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                >
+                    <div slot="root-end" className="error-message">
+                        {formik.errors.email}
+                    </div>
+                </ListInput>
+
+                <ListInput
+                    outline
+                    label="Password"
+                    floatingLabel
+                    type={visible ? "text" : "password"}
+                    placeholder="Password"
+                    maxlength={20}
+                    name="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    errorMessage={formik.errors.password}
+                >
+                    <span
+                        slot="input"
+                        className="visibility-icon"
+                        onClick={toggleVisibility}
+                    >
+                        {visible ? (
+                            <VisibilityOffIcon></VisibilityOffIcon>
+                        ) : (
+                            <VisibilityIcon></VisibilityIcon>
+                        )}
+                    </span>
+                    <div slot="root-end" className="error-message">
+                        {formik.errors.password}
+                    </div>
+                </ListInput>
+                <div className="form-link">
+                    <a href="#">Having trouble signing in?</a>
+                </div>
+            </List>
+
+            <div className="btn-group">
+                <Button fill className="btn" type="submit">
+                    Log in
+                </Button>
+                <Button outline className="btn">
+                    Create an account
+                </Button>
+            </div>
+        </form>
+    );
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Tabs, Tab, Toolbar, Link } from 'framework7-react';
+import { Page, Tabs, Tab, Toolbar, Link, f7 } from 'framework7-react';
 import './styles.css';
 import BasicInfoImageComponent from '../../components/details/BasicInfoImageComponent';
 import BasicInfoComponent from '../../components/details/BasicInfoComponent';
@@ -80,9 +80,14 @@ const Details = () => {
     console.log('Report');
   };
 
-  const handleOnReviewClick = (index) => {
-    // TODO: Change
-    console.log(`Review: ${index} stars`);
+  const handleOnReviewClick = (rating) => {
+    f7.views.main.router.navigate('/reviews/create/', {
+      props: {
+        id: data.id,
+        rating: rating,
+        postTitle: data.name,
+      },
+    });
   };
 
   return (
