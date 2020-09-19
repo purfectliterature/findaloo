@@ -13,10 +13,12 @@ app.get("/", (req, res) => res.send("Hello Agnes!"));
 app.get("/toilets", async (req, res) => {
     let statement = (SQL `
     SELECT *
-    FROM toilets`);
+    FROM ToiletSummary`);
+
 
     try {
         const { rows } = await db.query(statement);
+        console.log(rows)
         res.status(200).send(rows);
     } catch (error) {
         res.status(500).send(error)
