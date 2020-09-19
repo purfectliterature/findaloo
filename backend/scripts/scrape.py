@@ -101,7 +101,7 @@ for table in all_tables:
 
         for i in range(number_of_toilets):
             toilet_name = f"{name}, L{levels_of_toilets[i]}"
-            sql_query = f"INSERT INTO toilets values({toilet_count}, {building_count}, {management}, '{toilet_name}', NULL, {random.randint(1,10)});\n"
+            sql_query = f"INSERT INTO toilets values({toilet_count}, {building_count}, {management}, '{toilet_name}', {random.randint(1,10)});\n"
             queries.append(sql_query)
             sql_query = f"INSERT INTO toilet_certifications values({toilet_count}, 1, {stars});\n"
             queries.append(sql_query)
@@ -128,8 +128,6 @@ for table in all_tables:
             toilet_count += 1
 
         building_count += 1
-        break
-    break
     table_count += 1
 
 with open("toilets_db2.sql", "w") as out_file:
