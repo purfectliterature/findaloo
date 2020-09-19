@@ -3,6 +3,7 @@ import { App, View } from "framework7-react";
 import "./App.css";
 import Details from "./pages/Details";
 import LoginPage from "./pages/Login/index.js";
+import RegisterPage from "./pages/Register/index.js";
 
 const f7params = {
     root: "#app", // App root element
@@ -19,13 +20,17 @@ const f7params = {
             path: "/login/",
             component: LoginPage,
         },
+        {
+            path: "/register/",
+            component: RegisterPage,
+        },
     ],
 };
 
 function Main() {
     return (
         <App params={f7params}>
-            <View main url="/login/" />
+            <View main url="/register/" />
         </App>
     );
 }

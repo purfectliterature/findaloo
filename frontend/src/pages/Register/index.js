@@ -33,10 +33,17 @@ class LoginPage extends React.Component {
                 </div>
 
                 <h1>
-                    Let’s log into<br></br> your account!
+                    Create a new<br></br>account!
                 </h1>
 
                 <List noHairlines className="login-form">
+                    <ListInput
+                        outline
+                        label="Name"
+                        floatingLabel
+                        type="text"
+                        placeholder="Name"
+                    ></ListInput>
                     <ListInput
                         outline
                         label="Email"
@@ -65,17 +72,19 @@ class LoginPage extends React.Component {
                             )}
                         </span>
                     </ListInput>
-                    <div className="form-link">
-                        <a href="#">Having trouble signing in?</a>
-                    </div>
                 </List>
 
-                <div className="btn-group">
+                <div className="bottom-group">
+                    <div className="terms-text">
+                        When you click on Create account, you are agreeing to
+                        App Name’s{" "}
+                        <a className="terms-link">terms of service</a>.
+                    </div>
                     <Button fill className="btn">
-                        Log in
+                        Create account
                     </Button>
                     <Button outline className="btn">
-                        Create an account
+                        Log in to your account
                     </Button>
                 </div>
             </Page>
