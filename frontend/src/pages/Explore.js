@@ -48,8 +48,8 @@ export default (props) => {
     return (<>
         <div className="map-search-overlay">
             <TextBox
-                id="id"
-                name="name"
+                id="search"
+                name="text"
                 type="search"
                 placeholder="Search anything here"
                 value="10"
@@ -95,6 +95,7 @@ export default (props) => {
             }}
             onSheetStepClose={() => {
                 document.getElementById("bottom-sheet").classList.remove("bs-opened");
+                document.getElementById("search").blur();
                 setBottomSheetState("normal");
             }}
             onSheetClose={() => setBottomSheetState("hidden")}
@@ -141,8 +142,6 @@ export default (props) => {
                 </div>
             </Page>
         </Sheet>
-
-        {/* AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E */}
 
         <div className="mapview">
             <GoogleMapReact
