@@ -184,49 +184,57 @@ app.post('/login', async (req, res) => {
     return res.status(401).send('Incorrect password');
   }
 
-  const user = { email: email };
+  try {
+    const user = { email: email };
 
-  const accessToken = await generateAccessToken(user);
-  const refreshToken = await generateRefreshToken(user);
+    const accessToken = await generateAccessToken(user);
+    const refreshToken = await generateRefreshToken(user);
 
-  await addRefreshTokenToDb(refreshToken);
+    await addRefreshTokenToDb(refreshToken);
 
-  return res.status(200).json({
-    accessToken: accessToken,
-    refreshToken: refreshToken,
-  });
+    return res.status(200).json({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 });
 
 app.delete('/logout', async (req, res) => {
+  try {
     const refreshToken = req.body.refreshToken;
     await removeRefreshTokenFromDb(refreshToken);
     res.sendStatus(204);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 })
 
 app.post('/token', async (req, res) => {
-    const refreshToken = req.body.refreshToken;
-    
-    if (!refreshToken) {
-        return res.status(401).send('No refresh token');
-    }
+  const refreshToken = req.body.refreshToken;
+  
+  if (!refreshToken) {
+      return res.status(401).send('No refresh token');
+  }
 
-    let exist = await checkIfRefreshTokenExists(refreshToken);
+  let exist = await checkIfRefreshTokenExists(refreshToken);
 
-    if (!exist) {
-        return res.status(403).send('Invalid refresh token');
-    }
+  if (!exist) {
+      return res.status(403).send('Invalid refresh token');
+  }
 
-    let valid = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
+  let valid = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
 
-    if (valid) {
-        let user = { email: valid.email }
-        const accessToken = await generateAccessToken(user)
-        res.status(200).json({
-            accessToken: accessToken,
-        });
-    } else {
-        res.status(403).send('Invalid refresh token')
-    }
+  if (valid) {
+      let user = { email: valid.email }
+      const accessToken = await generateAccessToken(user)
+      res.status(200).json({
+          accessToken: accessToken,
+      });
+  } else {
+      res.status(403).send('Invalid refresh token')
+  }
 
 })
 
