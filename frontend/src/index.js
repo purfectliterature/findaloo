@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'framework7/css/framework7.bundle.min.css';
+import 'framework7-icons/css/framework7-icons.css';
 import App from './App';
+import Framework7 from 'framework7/framework7.esm.bundle';
+import Framework7React from 'framework7-react';
 import * as serviceWorker from './serviceWorker';
+
+Framework7.use(Framework7React);
 
 ReactDOM.render(
     <React.StrictMode>

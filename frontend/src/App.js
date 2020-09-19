@@ -1,12 +1,13 @@
 import React from 'react';
+import { App } from 'framework7-react';
 import './App.css';
 
-function App() {
+import Explore from "./pages/Explore";
+
+export default (props) => {
     return (
-        <div className="App">
-            
-        </div>
+        <App>
+            <Explore />
+        </App>
     );
 }
-
-export default App;
