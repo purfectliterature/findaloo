@@ -1,6 +1,8 @@
 import React from "react";
 import { App, View } from "framework7-react";
 import "./App.css";
+import Details from "./pages/Details";
+import CreateReviews from "./pages/CreateReview";
 import ListPage from "./ListPage/ListPage.js";
 
 const f7params = {
@@ -11,6 +13,14 @@ const f7params = {
     // App routes
     routes: [
         {
+            path: "/toilets/:id/",
+            component: Details,
+        },
+        {
+            path: "/reviews/create/",
+            component: CreateReviews,
+        },
+        {
             path: "/list/",
             component: ListPage,
         },
@@ -20,7 +30,7 @@ const f7params = {
 function Main() {
     return (
         <App params={f7params}>
-            <View main url="/list/" />
+            <View main url="/toilets/:id/" />
         </App>
     );
 }
