@@ -212,7 +212,7 @@ app.post("/review/:toiletId", authenticateToken, async (req, res) => {
     try {
         await addToiletReview(userId, toiletId, req.body);
     } catch (err) {
-        return res.status(500).send('Error in adding reviews');
+        return res.status(500).send('Error in creating review');
     }
     return res.sendStatus(200);
 })
@@ -223,7 +223,7 @@ app.put("/review/:toiletId", authenticateToken, async (req, res) => {
     try {
         await changeToiletReview(userId, toiletId, req.body);
     } catch (err) {
-        return res.status(500).send('Error in editing reviews');
+        return res.status(500).send('Error in editing review');
     }
     return res.sendStatus(200);
 })
@@ -234,7 +234,7 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     try {
         await addToiletReport(userId, toiletId, req.body);
     } catch (err) {
-        return res.status(500).send('Error in adding report');
+        return res.status(500).send('Error in creating report');
     }
     return res.sendStatus(200);
 })
