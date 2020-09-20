@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Page, List, ListInput, Button } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import "./style.css";
+import "../style.css";
 import { useFormik } from "formik";
 
 class LoginPage extends React.Component {
@@ -125,7 +125,7 @@ const Form = () => {
                 </div>
             </List>
 
-            <div className="btn-group">
+            <div className="bottom-group">
                 <Button fill className="btn" type="submit">
                     Log in
                 </Button>

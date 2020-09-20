@@ -1,5 +1,5 @@
 .page {
-    padding: 15px
+    padding: 15px 15px 0 15px;
 }
 
 .white-background-skin {
@@ -54,20 +54,16 @@
 }
 
 .bottom-group {
-    position: absolute;
-    bottom: 10px;
+    margin-top: 20px;
     left: 0;
     right: 0;
+    bottom: 10px;
 }
 
 .form-link {
     float: right;
     font-size: 12px;
     font-weight: bold;
-}
-
-.form-link:active {
-    text-decoration: underline;
 }
 
 .terms-text {
@@ -77,4 +73,9 @@
 
 .terms-link {
     text-decoration: underline;
+}
+
+.error-message {
+    font-size: 10px;
+    color: red;
 }
