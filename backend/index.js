@@ -6,6 +6,16 @@ const jwt = require('jsonwebtoken');
 const db = require('./db')
 const SQL = require('sql-template-strings');
 
+var AWS = require('aws-sdk'),
+    region = "us-east-2",
+    secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
+    secret,
+    decodedBinarySecret;
+
+var client = new AWS.SecretsManager({
+    region: region
+});
+
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
@@ -196,24 +206,119 @@ app.get("/toilets/search", (req, res) => {
 
 });
 
-app.listen(port, () => console.log(`Express is running at https://localhost:${port}!`));
+app.post("/review/:toiletId", authenticateToken, async (req, res) => {
+    const toiletId = req.params.toiletId;
+    const userId = req.user.id;
+    try {
+        await addToiletReview(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in creating review');
+    }
+    return res.sendStatus(200);
+})
+
+app.put("/review/:toiletId", authenticateToken, async (req, res) => {
+    const toiletId = req.params.toiletId;
+    const userId = req.user.id;
+    try {
+        await changeToiletReview(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in editing review');
+    }
+    return res.sendStatus(200);
+})
+
+app.post("/report/:toiletId", authenticateToken, async (req, res) => {
+    const toiletId = req.params.toiletId;
+    const userId = req.user.id;
+    try {
+        await addToiletReport(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in creating report');
+    }
+    return res.sendStatus(200);
+})
+
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
 
-    if (token == nul) {
+    if (token == null) {
         return res.sendStatus(401);
     }
 
-    jwt.verify(token, TOKEN_SECRET, (error, user) => {
-        if (error) {
-            console.log(error);
-            return res.sendStatus(403);
-        } 
-
-        req.user = user;
-        next();
-    })
+    jwt.verify(token, tokenSecret.ACCESS_TOKEN_SECRET, (error, user) => {
+            if (error) {
+                console.log(error);
+                return res.sendStatus(403);
+            } 
+            req.user = user;
+            next();
+        })
     
 }
+
+async function addToiletReview(userId, toiletId, review) {
+    let statement = SQL`
+    INSERT 
+    INTO reviews("user_id", "toilet_id", "cleanliness_rating", "title", "description", "queue")
+    VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue});`;
+
+    await db.query(statement);
+} 
+
+async function changeToiletReview(userId, toiletId, review) {
+    let statement = SQL`
+    UPDATE reviews
+    SET
+    cleanliness_rating= ${review.cleanlinessRating}, 
+    title = ${review.title},
+    description = ${review.description},
+    queue = ${review.queue}
+    WHERE
+    user_id = ${userId}
+    AND toilet_id = ${toiletId};`;
+
+    await db.query(statement);
+}
+
+async function addToiletReport(userId, toiletId, report) {
+    let statement = SQL`
+    INSERT 
+    INTO reports("user_id", "toilet_id", "issue", "items", "description")
+    VALUES (${userId}, ${toiletId}, ${report.issue}, ${report.items.join(", ")}, ${report.description});`;
+
+    await db.query(statement);
+} 
+
+async function getTokenSecrets() {
+    try {
+        var data = await client.getSecretValue({ SecretId: secretName }).promise();
+        
+        if ('SecretString' in data) {
+            secret = data.SecretString;
+            return secret;
+        } else {
+            let buff = Buffer.alloc(data.SecretBinary, 'base64');
+            decodedBinarySecret = buff.toString('ascii');
+            return decodedBinarySecret
+        }
+    } catch (err) {
+        if (err) {
+            throw err;
+        }
+    }
+}
+
+getTokenSecrets().then(data => {
+    tokenSecret = data;
+    tokenSecret = JSON.parse(tokenSecret)
+    app.listen(port)
+
+    console.log("Successfully initialised secret keys.")
+    console.log(`Now listening on port ${port}.`)
+
+}).catch(err => {
+    console.log('Server init failed: ' + err);
+})
