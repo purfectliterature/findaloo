@@ -154,51 +154,70 @@ app.post("/sign-up/management", async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  let result;
+    let result;
 
-  try {
-    let statement = SQL`
-      SELECT password
-      FROM native_auth_passwords
-      WHERE email = ${email}`;
+    try {
+        let statement = SQL`
+        SELECT password
+        FROM native_auth_passwords
+        WHERE email = ${email}`;
 
-    result = await db.query(statement);
-  } catch {
-    return res.status(500).send('Error retrieving user');
-  }
+        result = await db.query(statement);
+    } catch (err) {
+        return res.status(500).send('Error retrieving user');
+    }
 
-  if (!result.rowCount) {
-    return res.status(404).send('No such user found');
-  }
-  let hashedPassword = result.rows[0].password;
+    if (!result.rowCount) {
+        return res.status(404).send('No such user found');
+    }
+    let hashedPassword = result.rows[0].password;
 
-  if (!hashedPassword) {
-    return res.status(404).send('No such user found');
-  }
+    if (!hashedPassword) {
+        return res.status(404).send('No such user found');
+    }
 
-  const valid = await bcrypt.compare(password, hashedPassword)
+    const valid = await bcrypt.compare(password, hashedPassword)
 
-  if (!valid) {
-    return res.status(401).send('Incorrect password');
-  }
+    if (!valid) {
+        return res.status(401).send('Incorrect password');
+    }
 
-  try {
-    const user = { email: email };
+    let userId;
 
-    const accessToken = await generateAccessToken(user);
-    const refreshToken = await generateRefreshToken(user);
+    try {
+        let statement = SQL`
+        SELECT id
+        FROM users
+        WHERE email = ${email}
+        AND auth_type = 'native'`;
 
-    await addRefreshTokenToDb(refreshToken);
+        result = await db.query(statement);
+        userId = result.rows[0].id;
+    } catch (err) {
+        return res.status(500).send('Error retrieving user');
+    }
 
-    return res.status(200).json({
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-  } catch (err) {
-    return res.sendStatus(500);
-  }
+    try {
+        const user = {
+            id: userId,
+            email: email,
+            authType: 'native',
+        };
+
+        const accessToken = await generateAccessToken(user);
+        const refreshToken = await generateRefreshToken(user);
+
+        await addRefreshTokenToDb(refreshToken);
+
+        return res.status(200).json({
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        });
+    } catch (err) {
+        return res.sendStatus(500);
+    }
 });
 
 app.delete('/logout', async (req, res) => {
@@ -227,7 +246,7 @@ app.post('/token', async (req, res) => {
   let valid = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
 
   if (valid) {
-      let user = { email: valid.email }
+      let user = valid;
       const accessToken = await generateAccessToken(user)
       res.status(200).json({
           accessToken: accessToken,
@@ -239,23 +258,22 @@ app.post('/token', async (req, res) => {
 })
 
 async function getTokenSecrets() {
-
-  try {
-    var data = await client.getSecretValue({ SecretId: secretName }).promise();
-    
-    if ('SecretString' in data) {
-      secret = data.SecretString;
-      return secret;
-    } else {
-      let buff = Buffer.alloc(data.SecretBinary, 'base64');
-      decodedBinarySecret = buff.toString('ascii');
-      return decodedBinarySecret
+    try {
+        var data = await client.getSecretValue({ SecretId: secretName }).promise();
+        
+        if ('SecretString' in data) {
+            secret = data.SecretString;
+            return secret;
+        } else {
+            let buff = Buffer.alloc(data.SecretBinary, 'base64');
+            decodedBinarySecret = buff.toString('ascii');
+            return decodedBinarySecret
+        }
+    } catch (err) {
+        if (err) {
+            throw err;
+        }
     }
-  } catch (err) {
-    if (err) {
-      throw err;
-    }
-  }
 }
 
 async function getLastUserId() {
@@ -268,36 +286,36 @@ async function getLastUserId() {
 }
 
 async function addCustomerProfileToDb(customerProfile) {
-  let statement = SQL`
-    INSERT 
-    INTO customer_profiles("user_id", "name", "profile_picture")
-    VALUES (${customerProfile.userId}, ${customerProfile.name}, ${customerProfile.profilePicture})`;
+    let statement = SQL`
+        INSERT 
+        INTO customer_profiles("user_id", "name", "profile_picture")
+        VALUES (${customerProfile.userId}, ${customerProfile.name}, ${customerProfile.profilePicture})`;
 
-  await db.query(statement);
+    await db.query(statement);
 } 
 
 async function addManagementProfileToDb(managementProfile) {
-  let statement = SQL`
-    INSERT 
-    INTO management_profiles
-    VALUES (
-      ${managementProfile.userId},
-      ${managementProfile.companyName},
-      ${managementProfile.displayEmail},
-      ${managementProfile.companyLogo},
-      ${managementProfile.officeAddress}
-    )`;
+    let statement = SQL`
+        INSERT 
+        INTO management_profiles
+        VALUES (
+        ${managementProfile.userId},
+        ${managementProfile.companyName},
+        ${managementProfile.displayEmail},
+        ${managementProfile.companyLogo},
+        ${managementProfile.officeAddress}
+        )`;
 
-  await db.query(statement);
+    await db.query(statement);
 }
 
 async function addNativeAuthPasswordToDb(credentials) {
-  let statement = SQL`
-    INSERT 
-    INTO native_auth_passwords
-    VALUES (${credentials.email}, ${credentials.authType}, ${credentials.password})`;
+    let statement = SQL`
+        INSERT 
+        INTO native_auth_passwords
+        VALUES (${credentials.email}, ${credentials.authType}, ${credentials.password})`;
 
-  await db.query(statement);
+    await db.query(statement);
 }
 
 async function checkIfRefreshTokenExists(token) {
@@ -345,6 +363,7 @@ async function removeRefreshTokenFromDb(token) {
 
     return true;
 }
+
 
 async function generateAccessToken(user) {
     return jwt.sign(user, tokenSecret.ACCESS_TOKEN_SECRET, {
