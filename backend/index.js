@@ -130,23 +130,27 @@ async function getToiletFeatures() {
 
     for (row in rows) {
         let current = rows[row];
-        toilet_features[current.toilet_id] = {
-            is_free: (current.is_free == 't' ? true : false),
-            has_handheld_bidet: (current.has_handheld_bidet == 't' ? true : false),
-            has_seat_bidet: (current.has_seat_bidet == 't' ? true : false),
-            has_toilet_paper: (current.has_toilet_paper == 't' ? true : false),
-            has_seat_cleaner: (current.has_seat_cleaner == 't' ? true : false),
-            has_handicap: (current.has_handicap == 't' ? true : false),
-            has_water_heater: (current.has_water_heater == 't' ? true : false),
-            has_hand_dryer: (current.has_hand_dryer == 't' ? true : false),
-            has_hand_soap: (current.has_hand_soap == 't' ? true : false),
-            has_baby_change_station: (current.has_baby_change_station == 't' ? true : false),
-            has_female: (current.has_female == 't' ? true : false),
-            has_male:(current.has_male == 't' ? true : false),
-        }
+        toilet_features[current.toilet_id] = parseToiletFeatures(current)
     }
 
     return toilet_features;
+}
+
+function parseToiletFeatures(row) {
+    return {
+        is_free: row.is_free,
+        has_handheld_bidet: row.has_handheld_bidet,
+        has_seat_bidet: row.has_seat_bidet,
+        has_toilet_paper: row.has_toilet_paper,
+        has_seat_cleaner: row.has_seat_cleaner,
+        has_handicap: row.has_handicap,
+        has_water_heater: row.has_water_heater,
+        has_hand_dryer: row.has_hand_dryer,
+        has_hand_soap: row.has_hand_soap,
+        has_baby_change_station: row.has_baby_change_station,
+        has_female: row.has_female,
+        has_male: row.has_male,
+    }
 }
 
 async function getToiletImages() {
@@ -179,19 +183,103 @@ async function getToiletImages() {
 
 app.get("/toilets/:toiletid", async (req, res) => {
     const toiletid = parseInt(req.params.toiletid);
+    let rows;
 
-
+    // Retrieve features
     let statement = (SQL `
     SELECT *
-    FROM toilets
-    WHERE id = (${toiletid})`);
+    FROM toilet_features
+    WHERE toilet_id = (${toiletid})`);
 
     try {
-        const { rows } = await db.query(statement);
-        res.status(200).send(rows);
+        result = await db.query(statement);
+        rows = result.rows;
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send(error);
     }
+
+    let features = parseToiletFeatures(rows[0])
+
+    // Retrieve reviews  
+    let reviews = [];
+
+    statement = (SQL `
+    SELECT *
+    FROM ReviewSummary
+    WHERE toilet_id = (${toiletid})`);
+
+    try {
+        result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+    for (row in rows) {
+        let current = rows[row];
+        reviews.push({
+            name: current.name,
+            profile_picture_url: current.profile_picture_url,
+            cleanliness_rating: current.cleanliness_rating,
+            title: current.title,
+            description: current.description,
+            queue: current.queue,
+        })
+    }
+
+    // Retrieve images;
+    let images = [];
+
+    statement = (SQL `
+    SELECT *
+    FROM toilet_images
+    WHERE toilet_id = (${toiletid})`);
+
+    try {
+        result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+    for (row in rows) {
+        let current = rows[row]
+        images.push(current.image_url)
+    }
+
+    // Retrieve certifications
+    let certifications = [];
+
+    statement = (SQL `
+    SELECT *
+    FROM CertificationSummary
+    WHERE toilet_id = (${toiletid})`);
+
+    try {
+        result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+    for (row in rows) {
+        let current = rows[row];
+        certifications.push({
+            certification_authority: current.certification_authority,
+            certification_logo: current.certification_logo,
+            certification_webpage: current.certification_webpage,
+            rating: current.rating,
+        })
+    }
+
+    let data = {
+        features: features,
+        reviews: reviews,
+        toilet_images: images,
+        certifications: certifications,
+    }
+
+    return res.status(200).send(data);
 
 });
 

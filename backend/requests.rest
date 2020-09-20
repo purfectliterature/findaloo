@@ -1,8 +1,7 @@
 GET http://localhost:3000/toilets
 
-
 ###
-POST http://localhost:3000/review/1
+POST httxp://localhost:3000/review/1
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
 
@@ -38,3 +37,6 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "description": "Items are severly spoilt"
 }
 
+###
+
+GET http://localhost:3000/toilets/1
