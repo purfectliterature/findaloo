@@ -101,6 +101,7 @@ async function getToiletSummary() {
         let toilet = {
             toiletId: current.id,
             buildingId: current.building_id,
+            address: current.address,
             name: current.name,
             avg_review: (current.avg_review || 0),
             review_count: (current.review_count || 0),
@@ -181,15 +182,15 @@ async function getToiletImages() {
     return toilet_images;
 }
 
-app.get("/toilets/:toiletid", async (req, res) => {
-    const toiletid = parseInt(req.params.toiletid);
+app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
+    const toiletId = parseInt(req.params.toiletId);
     let rows;
 
     // Retrieve toilet data
-    let statement = (SQL `
-    SELECT *
-    FROM ToiletSummary
-    WHERE id = (${toiletid})`);
+    let statement = SQL`
+            SELECT *
+            FROM ToiletSummary
+            WHERE id = (${toiletId})`;
 
     try {
         result = await db.query(statement);
@@ -201,10 +202,10 @@ app.get("/toilets/:toiletid", async (req, res) => {
     let toilet = rows[0];
 
     // Retrieve features
-    statement = (SQL `
-    SELECT *
-    FROM toilet_features
-    WHERE toilet_id = (${toiletid})`);
+    statement = SQL`
+            SELECT *
+            FROM toilet_features
+            WHERE toilet_id = (${toiletId})`;
 
     try {
         result = await db.query(statement);
@@ -213,15 +214,15 @@ app.get("/toilets/:toiletid", async (req, res) => {
         res.status(500).send(error);
     }
 
-    let features = parseToiletFeatures(rows[0])
+    let features = parseToiletFeatures(rows[0]);
 
-    // Retrieve reviews  
+    // Retrieve reviews
     let reviews = [];
 
-    statement = (SQL `
-    SELECT *
-    FROM ReviewSummary
-    WHERE toilet_id = (${toiletid})`);
+    statement = SQL`
+            SELECT *
+            FROM ReviewSummary
+            WHERE toilet_id = (${toiletId})`;
 
     try {
         result = await db.query(statement);
@@ -233,22 +234,22 @@ app.get("/toilets/:toiletid", async (req, res) => {
     for (row in rows) {
         let current = rows[row];
         reviews.push({
-            name: current.name,
-            profile_picture_url: current.profile_picture_url,
-            cleanliness_rating: current.cleanliness_rating,
-            title: current.title,
-            description: current.description,
-            queue: current.queue,
-        })
+        name: current.name,
+        profile_picture_url: current.profile_picture_url,
+        cleanliness_rating: current.cleanliness_rating,
+        title: current.title,
+        description: current.description,
+        queue: current.queue,
+        });
     }
 
     // Retrieve images;
     let images = [];
 
-    statement = (SQL `
-    SELECT *
-    FROM toilet_images
-    WHERE toilet_id = (${toiletid})`);
+    statement = SQL`
+            SELECT *
+            FROM toilet_images
+            WHERE toilet_id = (${toiletId})`;
 
     try {
         result = await db.query(statement);
@@ -258,17 +259,17 @@ app.get("/toilets/:toiletid", async (req, res) => {
     }
 
     for (row in rows) {
-        let current = rows[row]
-        images.push(current.image_url)
+        let current = rows[row];
+        images.push(current.image_url);
     }
 
     // Retrieve certifications
     let certifications = [];
 
-    statement = (SQL `
-    SELECT *
-    FROM CertificationSummary
-    WHERE toilet_id = (${toiletid})`);
+    statement = SQL`
+            SELECT *
+            FROM CertificationSummary
+            WHERE toilet_id = (${toiletId})`;
 
     try {
         result = await db.query(statement);
@@ -280,11 +281,11 @@ app.get("/toilets/:toiletid", async (req, res) => {
     for (row in rows) {
         let current = rows[row];
         certifications.push({
-            certification_authority: current.certification_authority,
-            certification_logo: current.certification_logo,
-            certification_webpage: current.certification_webpage,
-            rating: current.rating,
-        })
+        certification_authority: current.certification_authority,
+        certification_logo: current.certification_logo,
+        certification_webpage: current.certification_webpage,
+        rating: current.rating,
+        });
     }
 
     let data = {
@@ -296,10 +297,9 @@ app.get("/toilets/:toiletid", async (req, res) => {
         reviews: reviews,
         toilet_images: images,
         certifications: certifications,
-    }
+    };
 
     return res.status(200).send(data);
-
 });
 
 
@@ -308,9 +308,21 @@ app.get("/toilets/nearest", (req, res) => {
 
 });
 
-app.get("/toilets/search", (req, res) => {
+app.get("/toilets/search", async (req, res) => {
     const {keyword, limit} = req.body;
-
+    
+    try {
+        let toilets = await getToiletSummary();
+        return res
+          .status(200)
+          .send(toilets.filter(
+            (toilet) =>
+              toilet.name.includes(keyword) || toilet.address.includes(keyword)
+          )
+          .slice(0, limit));
+    } catch {
+        res.status(500).send('Error in searching toilets');
+    }
 });
 
 app.post("/review/:toiletId", authenticateToken, async (req, res) => {
@@ -409,14 +421,14 @@ async function addToiletReport(userId, toiletId, report) {
 async function getTokenSecrets() {
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
-        
+
         if ('SecretString' in data) {
-            secret = data.SecretString;
-            return secret;
+        secret = data.SecretString;
+        return secret;
         } else {
-            let buff = Buffer.alloc(data.SecretBinary, 'base64');
-            decodedBinarySecret = buff.toString('ascii');
-            return decodedBinarySecret
+        let buff = Buffer.alloc(data.SecretBinary, 'base64');
+        decodedBinarySecret = buff.toString('ascii');
+        return decodedBinarySecret
         }
     } catch (err) {
         if (err) {
