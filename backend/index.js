@@ -86,6 +86,17 @@ app.put("/review/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
+app.post("/report/:toiletId", authenticateToken, async (req, res) => {
+    const toiletId = req.params.toiletId;
+    const userId = req.user.id;
+    try {
+        await addToiletReport(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in adding reviews' + err);
+    }
+    return res.sendStatus(200);
+})
+
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -100,7 +111,6 @@ function authenticateToken(req, res, next) {
                 console.log(error);
                 return res.sendStatus(403);
             } 
-
             req.user = user;
             next();
         })
@@ -111,7 +121,7 @@ async function addToiletReview(userId, toiletId, review) {
     let statement = SQL`
     INSERT 
     INTO reviews("user_id", "toilet_id", "cleanliness_rating", "title", "description", "queue")
-    VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue})`;
+    VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue});`;
 
     await db.query(statement);
 } 
@@ -126,7 +136,16 @@ async function changeToiletReview(userId, toiletId, review) {
     queue = ${review.queue}
     WHERE
     user_id = ${userId}
-    AND toilet_id = ${toiletId}`;
+    AND toilet_id = ${toiletId};`;
+
+    await db.query(statement);
+}
+
+async function addToiletReport(userId, toiletId, report) {
+    let statement = SQL`
+    INSERT 
+    INTO reports("user_id", "toilet_id", "issue", "items", "description")
+    VALUES (${userId}, ${toiletId}, ${report.issue}, ${report.items.join(", ")}, ${report.description});`;
 
     await db.query(statement);
 } 
