@@ -243,10 +243,9 @@ app.post('/token', async (req, res) => {
       return res.status(403).send('Invalid refresh token');
   }
 
-  let valid = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
+  let user = jwt.verify(refreshToken, tokenSecret.REFRESH_TOKEN_SECRET)
 
-  if (valid) {
-      let user = valid;
+  if (user) {
       const accessToken = await generateAccessToken(user)
       res.status(200).json({
           accessToken: accessToken,
