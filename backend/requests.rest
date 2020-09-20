@@ -1,3 +1,40 @@
 GET http://localhost:3000/toilets
 
+
 ###
+POST http://localhost:3000/review/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "cleanlinessRating": 5,
+    "title": "Very good toilet",
+    "description": "Good smell and very clean",
+    "queue": 1
+}
+
+###
+
+PUT http://localhost:3000/review/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "cleanlinessRating": 4,
+    "title": "Very good toilet",
+    "description": "Good smell and very clean, but long queue",
+    "queue": 5
+}
+
+###
+
+POST http://localhost:3000/report/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "issue": "broken",
+    "items": ["Toilet Paper", "Handicap"],
+    "description": "Items are severly spoilt"
+}
+
