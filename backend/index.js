@@ -346,7 +346,13 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
-app.post
+app.get("/report/profile", authenticateToken, async (req, res) => {
+
+})
+
+app.post("/report/profile", authenticateToken, async (req, res) => {
+    
+})
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
