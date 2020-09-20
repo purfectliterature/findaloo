@@ -68,10 +68,11 @@ app.post("/review/:toiletId", authenticateToken, async (req, res) => {
     const toiletId = req.params.toiletId;
     const userId = req.user.id;
     try {
-        await addReviewFromUserToDb(userId, toiletId, review);
-    } catch {
-        return res.status(500).send('Error in adding reviews');
+        await addReviewFromUserToDb(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in adding reviews' + err);
     }
+    return res.sendStatus(200);
 })
 
 
@@ -79,7 +80,7 @@ function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
 
-    if (token == nul) {
+    if (token == null) {
         return res.sendStatus(401);
     }
 
@@ -107,14 +108,14 @@ async function addReviewFromUserToDb(userId, toiletId, review) {
 async function getTokenSecrets() {
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
-
+        
         if ('SecretString' in data) {
-        secret = data.SecretString;
-        return secret;
+            secret = data.SecretString;
+            return secret;
         } else {
-        let buff = Buffer.alloc(data.SecretBinary, 'base64');
-        decodedBinarySecret = buff.toString('ascii');
-        return decodedBinarySecret
+            let buff = Buffer.alloc(data.SecretBinary, 'base64');
+            decodedBinarySecret = buff.toString('ascii');
+            return decodedBinarySecret
         }
     } catch (err) {
         if (err) {
