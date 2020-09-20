@@ -185,8 +185,23 @@ app.get("/toilets/:toiletid", async (req, res) => {
     const toiletid = parseInt(req.params.toiletid);
     let rows;
 
-    // Retrieve features
+    // Retrieve toilet data
     let statement = (SQL `
+    SELECT *
+    FROM ToiletSummary
+    WHERE id = (${toiletid})`);
+
+    try {
+        result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+    let toilet = rows[0];
+
+    // Retrieve features
+    statement = (SQL `
     SELECT *
     FROM toilet_features
     WHERE toilet_id = (${toiletid})`);
@@ -273,6 +288,10 @@ app.get("/toilets/:toiletid", async (req, res) => {
     }
 
     let data = {
+        toiletName: toilet.name,
+        avg_review: toilet.avg_review,
+        review_count: toilet.review_count,
+        distance: 0,
         features: features,
         reviews: reviews,
         toilet_images: images,
@@ -327,6 +346,7 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
+app.post
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
