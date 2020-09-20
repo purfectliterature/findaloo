@@ -64,3 +64,15 @@ Content-Type: application/json
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNjAzNTF9.hheOaQjt47ITNYcSOAg1MqYmYKYkqWy4sXVGUrMAyPg"
 }
+
+###
+POST http://localhost:3000/review/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "cleanlinessRating": 5,
+    "title": "Very good toilet",
+    "description": "Good smell and very clean",
+    "queue": 1
+}
