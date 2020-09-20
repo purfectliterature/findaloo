@@ -68,9 +68,20 @@ app.post("/review/:toiletId", authenticateToken, async (req, res) => {
     const toiletId = req.params.toiletId;
     const userId = req.user.id;
     try {
-        await addReviewFromUserToDb(userId, toiletId, req.body);
+        await addToiletReview(userId, toiletId, req.body);
     } catch (err) {
         return res.status(500).send('Error in adding reviews' + err);
+    }
+    return res.sendStatus(200);
+})
+
+app.put("/review/:toiletId", authenticateToken, async (req, res) => {
+    const toiletId = req.params.toiletId;
+    const userId = req.user.id;
+    try {
+        await changeToiletReview(userId, toiletId, req.body);
+    } catch (err) {
+        return res.status(500).send('Error in editing reviews' + err);
     }
     return res.sendStatus(200);
 })
@@ -96,11 +107,26 @@ function authenticateToken(req, res, next) {
     
 }
 
-async function addReviewFromUserToDb(userId, toiletId, review) {
+async function addToiletReview(userId, toiletId, review) {
     let statement = SQL`
     INSERT 
     INTO reviews("user_id", "toilet_id", "cleanliness_rating", "title", "description", "queue")
     VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue})`;
+
+    await db.query(statement);
+} 
+
+async function changeToiletReview(userId, toiletId, review) {
+    let statement = SQL`
+    UPDATE reviews
+    SET
+    cleanliness_rating= ${review.cleanlinessRating}, 
+    title = ${review.title},
+    description = ${review.description},
+    queue = ${review.queue}
+    WHERE
+    user_id = ${userId}
+    AND toilet_id = ${toiletId}`;
 
     await db.query(statement);
 } 
