@@ -84,8 +84,20 @@ const renderToilets = () => toilets.map((toilet) => (
 
 export default (props) => {
     const bottomSheetRef = useRef();
+    const [mapView, setMapView] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
+    const [currentLocation, setCurrentLocation] = useState(null);
+
+    const getCurrentLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                ({ coords: { latitude, longitude } }) => mapView.setCenter({ lat: latitude, lng: longitude })
+            , () => alert("ADUH"));
+        } else {
+            alert("not supported");
+        }
+    }
 
     const openBottomSheet = () => {
         bottomSheetRef.current.open(true);
@@ -202,12 +214,10 @@ export default (props) => {
             </Page>
         </Sheet>
 
-        {/* "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" */}
-
-        <div className="mapview">
+        <div className="mapview" id="mapview">
             <GoogleMapReact
-                bootstrapURLKeys={{ key: "" }}
-                defaultCenter={{ lat: 1.3521, lng: 103.8198 }}
+                bootstrapURLKeys={{ key: "" }}//"AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" }}
+                defaultCenter={{ lat: 36.778259, lng: 119.417931 }}
                 defaultZoom={12}
                 onDrag={hideBottomSheet}
                 options={{
@@ -215,8 +225,10 @@ export default (props) => {
                     fullscreenControl: false,
                     streetViewControl: false
                 }}
+                yesIWantToUseGoogleMapApiInternals
+                onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
             >
-                <AnyReactComponent lat={1.2966} lng={103.7764} text="NUS" />
+                {currentLocation ? <AnyReactComponent lat={1.2966} lng={103.7764} text="NUS" /> : null}
             </GoogleMapReact>
         </div>
     </>);
