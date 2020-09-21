@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import './styles.css';
 import UserProfile from '../../components/UserProfile';
 import UserRating from '../../components/UserRating';
 import UserInput from '../../components/UserInput';
 
 const CreateReviews = (props) => {
-  // TODO: Change to use props
-  // const { id, rating, postTitle } = props;
-  const id = 1;
-  const rating = 2;
-  const postTitle = 'peepoo peepoo';
+  const { id, rating, postTitle } = props;
   const currentUser = {
     name: 'Jin Ying',
     profile_image: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',

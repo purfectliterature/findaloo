@@ -1,6 +1,7 @@
 import React from 'react';
 import { Star, StarHalf, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
+import './styles.css'
 
 const Stars = ({ ratings }) => {
   let numFullStars = Math.floor(ratings);
