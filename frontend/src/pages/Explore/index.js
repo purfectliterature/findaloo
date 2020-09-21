@@ -8,7 +8,7 @@ import BuildingCard from "../../components/BuildingCard";
 import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 
-const AnyReactComponent = ({ text }) => <div onClick={() => alert(text)}>{text}</div>;
+const MyLocationMarker = ({ text }) => <div onClick={() => alert(text)} className="marker-my-location" />;
 
 const buildings = [
     { name: "NUS S15", lat: 0, lon: 0 },
@@ -92,7 +92,12 @@ export default (props) => {
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                ({ coords: { latitude, longitude } }) => mapView.setCenter({ lat: latitude, lng: longitude })
+                ({ coords: { latitude, longitude } }) => {
+                    const position = { lat: latitude, lng: longitude };
+                    mapView.setCenter(position);
+                    mapView.setZoom(15);
+                    setCurrentLocation(position);
+                }
             , () => alert("ADUH"));
         } else {
             alert("not supported");
@@ -216,8 +221,8 @@ export default (props) => {
 
         <div className="mapview" id="mapview">
             <GoogleMapReact
-                bootstrapURLKeys={{ key: "" }}//"AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" }}
-                defaultCenter={{ lat: 36.778259, lng: 119.417931 }}
+                bootstrapURLKeys={{ key: "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" }}
+                defaultCenter={{ lat: 1.2966, lng: 103.7764 }}
                 defaultZoom={12}
                 onDrag={hideBottomSheet}
                 options={{
@@ -228,7 +233,7 @@ export default (props) => {
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
             >
-                {currentLocation ? <AnyReactComponent lat={1.2966} lng={103.7764} text="NUS" /> : null}
+                {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
             </GoogleMapReact>
         </div>
     </>);
