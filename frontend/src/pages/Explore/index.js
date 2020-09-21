@@ -2,11 +2,11 @@ import React, { useRef, useEffect, useState } from 'react';
 import GoogleMapReact from "google-map-react";
 import Masonry from "masonry-layout";
 import { Page, Sheet, Button } from "framework7-react";
-import "./Explore.css";
+import "./styles.css";
 
-import BuildingCard from "../components/BuildingCard";
-import ToiletCard from "../components/ToiletCard";
-import SearchBox from "../components/SearchBox";
+import BuildingCard from "../../components/BuildingCard";
+import ToiletCard from "../../components/ToiletCard";
+import SearchBox from "../../components/SearchBox";
 
 const AnyReactComponent = ({ text }) => <div onClick={() => alert(text)}>{text}</div>;
 
