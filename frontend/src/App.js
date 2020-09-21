@@ -6,7 +6,6 @@ import Details from "./pages/Details";
 import CreateReviews from "./pages/CreateReview";
 import CreateReport from "./pages/CreateReport";
 import Explore from "./pages/Explore";
-import ListPage from "./pages/ListPage/index.js";
 import LoginPage from "./pages/LoginRegister/Login";
 import RegisterPage from "./pages/LoginRegister/Register";
 
@@ -36,10 +35,6 @@ const f7params = {
         {
             path: "/register/",
             component: RegisterPage,
-        },
-        {
-            path: "/list/",
-            component: ListPage,
         },
         {
             path: "/reports/create/",
