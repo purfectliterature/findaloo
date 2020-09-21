@@ -6,7 +6,7 @@
 
 .map-search-overlay {
     position: absolute;
-    z-index: 12;
+    z-index: 10002;
     top: 2rem;
     left: 1rem;
     right: 1rem;
@@ -17,7 +17,7 @@
     height: 100vh;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
-    z-index: 10;
+    z-index: 10000;
 
     box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
 
@@ -44,11 +44,6 @@
     height: 0;
 }
 
-.bottom-sheet.bs-opened .bottom-sheet-top .bldg-card {
-    transform: scale(0);
-    transition: all 0.3s ease-in-out;
-}
-
 .bottom-sheet.bs-opened .bottom-sheet-content .page-content {
     padding-top: 7rem;
 }
@@ -58,7 +53,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding-bottom: 1rem;
+    padding: 0 0 1rem 0;
 
     transition: all 0.2s ease-in-out;
 }
