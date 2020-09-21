@@ -31,11 +31,6 @@ export default (props) => {
     const [searchKeywords, setSearchKeywords] = useState("");
 
     useEffect(() => {
-        bottomSheetRef.current.open(true);
-        setBottomSheetState("normal");
-    }, []);
-
-    useEffect(() => {
         const grid = document.querySelector(".cards");
         const masonry = new Masonry(grid, {
             itemSelector: ".toil-card",
@@ -44,19 +39,21 @@ export default (props) => {
         });
     }, []);
 
-    useEffect(() => {
-        const sheet = document.getElementById("bottom-sheet");
-        const view = document.querySelector(".view.view-main");
+    const openBottomSheet = () => {
+        bottomSheetRef.current.open(true);
+        
+        setTimeout(() => {
+            const sheet = document.getElementById("bottom-sheet");
+            const view = document.querySelector(".view.view-main");        
+            view.appendChild(sheet);
+        }, 300);
 
-        console.log(sheet);
-        console.log(view);
-
-        view.appendChild(sheet);
-    }, []);
+        setBottomSheetState("normal");
+    }
 
     const expandBottomSheet = () => {
         if (bottomSheetState !== "expanded") {
-            bottomSheetRef.current.open(true);
+            openBottomSheet();
             const bottomSheet = document.getElementById("bottom-sheet");
             bottomSheet.classList.add("bs-opened");
             bottomSheet.classList.remove("modal-in-swipe-step");
@@ -104,8 +101,7 @@ export default (props) => {
             round
             className={`open-bottom-sheet ${bottomSheetState !== "hidden" ? "hidden" : ""}`}
             iconF7="arrow_up"
-            sheetOpen=".bottom-sheet"
-            onClick={() => setBottomSheetState("normal")}
+            onClick={openBottomSheet}
         >
             Explore toilets
         </Button>
