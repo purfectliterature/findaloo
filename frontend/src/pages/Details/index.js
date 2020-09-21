@@ -1,10 +1,10 @@
 import React from 'react';
 import { Page, Tabs, Tab, Toolbar, Link, f7 } from 'framework7-react';
 import './styles.css';
-import BasicInfoImageComponent from '../../components/details/BasicInfoImageComponent';
-import BasicInfoComponent from '../../components/details/BasicInfoComponent';
-import OverviewComponent from '../../components/details/OverviewComponent';
-import ReviewsComponent from '../../components/details/ReviewsComponent';
+import BasicInfoImage from '../../components/BasicInfoImage';
+import BasicInfo from '../../components/BasicInfo';
+import Overview from '../../components/Overview';
+import Reviews from '../../components/Reviews';
 
 const Details = () => {
   const data = {
@@ -96,13 +96,13 @@ const Details = () => {
 
   return (
     <Page className="white-background-skin">
-      <BasicInfoImageComponent
+      <BasicInfoImage
         images={data.images}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
       />
 
-      <BasicInfoComponent
+      <BasicInfo
         name={data.name}
         address={data.address}
         ratings={data.review_rating}
@@ -118,7 +118,7 @@ const Details = () => {
         </Toolbar>
         <Tabs animated>
           <Tab id="overview" className="page-content" tabActive>
-            <OverviewComponent
+            <Overview
               features={data.features}
               certificates={data.certificates}
             />
@@ -130,7 +130,7 @@ const Details = () => {
           </Tab>
 
           <Tab id="reviews" className="page-content" tabActive>
-            <ReviewsComponent
+            <Reviews
               reviews={data.reviews}
               handleOnReviewClick={handleOnReviewClick}
             />

@@ -1,0 +1,44 @@
+.feature-lists,
+.feature-detail {
+    font-size: 8px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-lists .icon {
+    font-size: inherit !important;
+    margin-right: 2px;
+}
+
+.feature-lists .has-feature-name {
+  color: var(--color-green-primary);
+}
+
+.feature-lists .no-feature-name {
+  color: var(--color-grey-3);
+}
+
+.feature-lists .check-icon {
+  color: var(--color-green-primary);
+}
+
+.feature-lists .cross-icon {
+  color: var(--color-grey-3);
+}
+
+.feature-detail .has-feature-name {
+  color: var(--color-primary-darker);
+}
+
+.feature-detail .check-icon {
+  color: var(--color-primary);
+}
+
+.feature-detail .no-feature-name {
+  color: var(--color-grey-3);
+}
+
+.feature-detail .cross-icon {
+  color: var(--color-grey-3);
+}

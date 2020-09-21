@@ -1,0 +1,28 @@
+.rating-container {
+    display: flex;
+    justify-content: flex-start;
+    justify-items: center;
+    font-size: 8px !important;
+}
+
+.stars {
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 0 4px;
+    font-size: inherit;
+
+}
+
+.rating-text {
+    color: var(--color-grey-3);
+}
+
+.star-filled {
+    font-size: inherit !important;
+    color: var(--color-secondary);
+}
+
+.star-empty {
+    font-size: inherit !important;
+    color: var(--color-border-grey);
+}

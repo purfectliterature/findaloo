@@ -1,0 +1,10 @@
+.toil-card {
+    width: calc(50% - 4rem);
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    
+    border-width: 0.05rem;
+    border-style: solid;
+    border-color: var(--color-border-grey);
+}
