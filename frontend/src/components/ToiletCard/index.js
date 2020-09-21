@@ -66,7 +66,7 @@ export default (props) => {
     );
 
     return (
-        <div className="toil-card">
+        <div className="toil-card ripple">
             <div className="card-image" style={{ backgroundImage: `url(${image})` }}>
                 <div className="gender-icon-container">
                     {renderMaleIcon()}
