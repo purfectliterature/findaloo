@@ -14,7 +14,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ISSUES, ISSUE_NOT_WORKING, FEATURE_TO_TEXT } from '../../strings';
 
-const Report = () => {
+const Report = (props) => {
   const { id, postTitle } = props;
 
   const [selectedItems, setSelectedItems] = useState([]);

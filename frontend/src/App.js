@@ -3,6 +3,7 @@ import { App, View } from 'framework7-react';
 import './App.css';
 import Details from './pages/Details';
 import CreateReviews from './pages/CreateReview';
+import CreateReport from './pages/CreateReport';
 
 const f7params = {
   root: '#app', // App root element
@@ -19,6 +20,10 @@ const f7params = {
       path: '/reviews/create/',
       component: CreateReviews,
     },
+    {
+      path: '/reports/create/',
+      component: CreateReport,
+    }
   ],
 };
 
