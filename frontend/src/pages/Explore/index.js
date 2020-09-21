@@ -166,13 +166,9 @@ export default (props) => {
         hideBottomSheet();
         setBuildingToShow(toilets); // TODO: change to building's toilets!
         setBuildingToiletsStripShowed(true);
-        
+
         setActiveMarker(marker.title);
-        if (bottomSheetState === "normal" || buildingToiletsStripShowed) {
-            mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
-        } else {
-            mapView.panTo({ lat: marker.lat, lng: marker.lng + 0.002 });
-        }
+        mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
         
         if (mapView.getZoom() < 16) mapView.setZoom(16);
     }
