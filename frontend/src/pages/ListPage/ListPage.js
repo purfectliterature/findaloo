@@ -5,7 +5,7 @@ import Card from "../../components/listPage/Card/Card.js";
 import FloatButton from "../../components/listPage/FloatButton/FloatButton.js";
 import MapIcon from "@material-ui/icons/Map";
 import Masonry from "react-masonry-css";
-import { Page } from "framework7-react";
+import { Page, f7 } from "framework7-react";
 
 const breakpointColumnsObj = {
     default: 4,
@@ -22,7 +22,7 @@ const toilet = {
     isFree: true,
     hasMale: true,
     hasFemale: true,
-    rating: 3.8,
+    review_rating: 3.8,
     ratingCount: 1000,
     hasBidet: true,
     hasToiletPaper: true,
@@ -50,12 +50,23 @@ class ListPage extends React.Component {
 
         this.handleSearch = this.handleSearch.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleCardClick = this.handleCardClick.bind(this);
+    }
+
+    handleCardClick(id) {
+        f7.views.main.router.navigate(`/toilets/${id}/`);
     }
 
     renderToiletList() {
         let list = [];
         for (const toilet of this.state.toiletList) {
-            list.push(<Card toilet={toilet} key={list.length}></Card>);
+            list.push(
+                <Card
+                    toilet={toilet}
+                    key={list.length}
+                    onClick={this.handleCardClick(toilet.id)}
+                ></Card>
+            );
         }
         return list;
     }
@@ -101,7 +112,6 @@ class ListPage extends React.Component {
                 //handle error
             });
     }
-
     render() {
         this.getLocation();
         return (
