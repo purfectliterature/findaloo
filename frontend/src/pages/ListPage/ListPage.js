@@ -45,7 +45,11 @@ class ListPage extends React.Component {
         this.state = {
             //toiletList: props.toiletList,
             toiletList: toilets,
+            searchKeyword: "",
         };
+
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     renderToiletList() {
@@ -56,12 +60,58 @@ class ListPage extends React.Component {
         return list;
     }
 
+    getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((location) =>
+                this.setState({
+                    location:
+                        location.coords.latitude +
+                        "," +
+                        location.coords.longitude,
+                })
+            );
+        } else {
+            this.setState({
+                location: "Geolocation is not supported by this browser.",
+            });
+        }
+    }
+
+    handleChange(e) {
+        var keyword = e.target.value;
+        this.setState({
+            searchKeyword: keyword,
+        });
+    }
+
+    handleSearch() {
+        fetch(
+            "/toilets/search?keyword=" + this.state.searchKeyword + "&limit=20"
+        )
+            .then((response) => {
+                if (response.ok) return response.json();
+                else throw Error();
+            })
+            .then((toiletList) => {
+                this.setState({
+                    toiletList: toiletList,
+                });
+            })
+            .catch((error) => {
+                //handle error
+            });
+    }
+
     render() {
+        this.getLocation();
         return (
             <Page className="white-background-skin">
                 <div className="list-page">
                     <div className="searchBar-container">
-                        <SearchBar></SearchBar>
+                        <SearchBar
+                            onSearch={this.handleSearch}
+                            onChange={this.handleChange}
+                        ></SearchBar>
                     </div>
                     <div className="title-container">
                         <h3>Is nature calling now?</h3>

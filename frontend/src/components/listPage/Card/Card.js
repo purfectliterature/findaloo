@@ -87,7 +87,7 @@ class Card extends React.Component {
                     <h2 className="card-title">{this.state.toilet.name}</h2>
                     {this.renderSubtitle()}
                     <Rating
-                        rating={this.state.toilet.rating}
+                        rating={this.state.toilet.review_rating}
                         count={this.state.toilet.ratingCount}
                     ></Rating>
                     {this.renderFeatures()}
