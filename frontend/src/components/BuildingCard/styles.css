@@ -16,4 +16,10 @@
         url("https://babyslingsandcarriers.com/pub/media/wysiwyg/pdt_combo_potty/combo-potty-training-toilet-seat-installed-with-child-seat-up.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    transform: scale(1);
+    transition: transform 0.1s ease-in-out;
+}
+
+.bldg-card:active {
+    transform: scale(0.95);
 }

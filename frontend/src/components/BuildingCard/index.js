@@ -8,7 +8,7 @@ export default (props) => {
     } = props;
 
     return (
-        <div className="bldg-card" onClick={onClick}>
+        <div className="bldg-card ripple" onClick={onClick}>
             <h3>{title}</h3>
         </div>
     )
