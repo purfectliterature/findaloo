@@ -3,7 +3,7 @@ import { App, View } from "framework7-react";
 import "./App.css";
 import Details from "./pages/Details";
 import CreateReviews from "./pages/CreateReview";
-import ListPage from "./pages/ListPage/ListPage.js";
+import ListPage from "./pages/ListPage/index.js";
 
 const f7params = {
     root: "#app", // App root element

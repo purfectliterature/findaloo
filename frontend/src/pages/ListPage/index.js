@@ -1,8 +1,8 @@
 import React from "react";
-import "./ListPage.css";
-import SearchBar from "../../components/listPage/SearchBar/SearchBar.js";
-import Card from "../../components/listPage/Card/Card.js";
-import FloatButton from "../../components/listPage/FloatButton/FloatButton.js";
+import "./styles.css";
+import SearchBar from "../../components/SearchBar/index.js";
+import Card from "../../components/Card/index.js";
+import FloatButton from "../../components/FloatButton/index.js";
 import MapIcon from "@material-ui/icons/Map";
 import Masonry from "react-masonry-css";
 import { Page, f7 } from "framework7-react";

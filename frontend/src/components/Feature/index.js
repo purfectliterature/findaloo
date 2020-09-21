@@ -1,5 +1,5 @@
 import React from "react";
-import "./Feature.css";
+import "./styles.css";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
 

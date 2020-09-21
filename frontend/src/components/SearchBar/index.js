@@ -1,7 +1,7 @@
 import React from "react";
-import "./SearchBar.css";
+import "./styles.css";
 import SearchIcon from "@material-ui/icons/Search";
-import Avatar from "../Avatar/Avatar.js";
+import Avatar from "../Avatar/index.js";
 
 class SearchBar extends React.Component {
     constructor(props) {

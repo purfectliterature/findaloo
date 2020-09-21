@@ -1,5 +1,5 @@
 import React from "react";
-import "./FloatButton.css";
+import "./styles.css";
 import { Button } from "framework7-react";
 
 class SearchBar extends React.Component {

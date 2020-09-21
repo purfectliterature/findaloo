@@ -1,10 +1,10 @@
 import React from "react";
-import "./Card.css";
-import Rating from "../Rating/Rating";
+import "./styles.css";
+import Rating from "../Rating";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import MoneyOffIcon from "@material-ui/icons/MoneyOff";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import Feature from "../Feature/Feature";
+import Feature from "../Feature";
 
 class Card extends React.Component {
     constructor(props) {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Rating.css";
+import "./styles.css";
 import StarIcon from "@material-ui/icons/Star";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 
