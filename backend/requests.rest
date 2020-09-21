@@ -68,3 +68,17 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "name": "Agnes",
     "profile_picture": "www.google.com"
 }
+GET http://localhost:3000/customer/reviews
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
+
+###
+PUT http://localhost:3000/customer/change-password
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
+
+{
+    "newPassword": "password4"
+}
+
+###

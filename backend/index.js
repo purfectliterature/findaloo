@@ -2,6 +2,8 @@ const { response } = require("express");
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./db')
 const SQL = require('sql-template-strings');
@@ -391,6 +393,69 @@ app.put("/customer/profile", authenticateToken, async (req, res) => {
 
     return res.sendStatus(200);
 })
+
+app.get("/customer/reviews", authenticateToken, async (req, res) => {
+    let userId = req.user.id;
+    let reviews = [];
+    let rows = null;
+
+    changePasswordStatement = SQL`
+            SELECT *
+            FROM ReviewSummary
+            WHERE email = (${userEmail})`;
+
+    try {
+        result = await db.query(changePasswordStatement);
+        rows = result.rows;
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+    for (row in rows) {
+        let current = rows[row];
+        reviews.push({
+            name: current.name,
+            profile_picture_url: current.profile_picture_url,
+            cleanliness_rating: current.cleanliness_rating,
+            title: current.title,
+            description: current.description,
+            queue: current.queue,
+        });
+    }
+    return res.status(200).send(reviews);
+})
+
+app.put("/customer/change-password", authenticateToken, async (req, res) => {
+    let userId = req.user.id;
+    let newPassword = req.body.newPassword;
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    let userEmail = null;
+    getEmailFromId = SQL`
+            SELECT email
+            FROM users
+            WHERE id = ${userId}`
+    try {
+        result = await db.query(getEmailFromId);
+        userEmail = result.rows[0].email;
+    } catch (err) {
+        return res.status(500).send('Error retrieving user');
+    }
+
+    statement = SQL`
+            UPDATE
+            native_auth_passwords
+            SET password = ${hashedPassword}
+            WHERE email = (${userEmail})`;
+
+    try {
+        result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+    return res.sendStatus(200);
+});
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
