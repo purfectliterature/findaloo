@@ -100,10 +100,14 @@ export default (props) => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 ({ coords: { latitude, longitude } }) => {
-                    const position = { lat: latitude, lng: longitude };
-                    mapView.panTo(position);
-                    mapView.setZoom(16);
-                    setCurrentLocation(position);
+                    if (bottomSheetState === "normal") {
+                        mapView.panTo({ lat: latitude - 0.0025, lng: longitude });
+                    } else {
+                        mapView.panTo({ lat: latitude, lng: longitude });
+                    }
+
+                    if (mapView.getZoom() < 16) mapView.setZoom(16);
+                    setCurrentLocation({ lat: latitude, lng: longitude });
                 }
             , () => alert("ADUH"));
         } else {
@@ -156,8 +160,12 @@ export default (props) => {
 
     const showMarkerOnMap = (marker) => {
         setActiveMarker(marker.title);
-        const position = { lat: marker.lat - 0.002, lng: marker.lng + 0.002 };
-        mapView.panTo(position);
+        if (bottomSheetState === "normal") {
+            mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
+        } else {
+            mapView.panTo({ lat: marker.lat, lng: marker.lng + 0.002 });
+        }
+        
         if (mapView.getZoom() < 16) mapView.setZoom(16);
     }
 
