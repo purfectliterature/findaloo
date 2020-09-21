@@ -137,6 +137,7 @@ export default (props) => {
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
+                rightButtonOnClick={() => {}}
             />
         </div>
 
@@ -148,6 +149,7 @@ export default (props) => {
             color="white"
             className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""}`}
             iconF7="location_fill"
+            onClick={getCurrentLocation}
         />
 
         <Button

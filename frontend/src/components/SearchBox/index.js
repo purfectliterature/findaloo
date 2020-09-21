@@ -10,7 +10,8 @@ export default (props) => {
         onChange,
         onFocus,
         value,
-        loggedIn
+        loggedIn,
+        rightButtonOnClick
     } = props;
 
     const [appendedClasses, setAppendedClasses] = useState("");
@@ -27,7 +28,7 @@ export default (props) => {
                 }} />
             );
         } else {
-            return <Button caption="Log in" />;
+            return <Button caption="Log in" onClick={rightButtonOnClick} />;
         }
     }
 
