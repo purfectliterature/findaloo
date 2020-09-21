@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Page, List, ListInput, Button } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import "../style.css";
+import "../styles.css";
 import { useFormik } from "formik";
 
 class LoginPage extends React.Component {
@@ -17,7 +17,7 @@ class LoginPage extends React.Component {
             <Page className="white-background-skin">
                 <div className="header-group">
                     <img
-                        src="toilet-marker.png"
+                        src="/toilet-marker.png"
                         alt="toilet"
                         className="toilet-marker"
                     ></img>

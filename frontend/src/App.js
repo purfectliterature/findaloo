@@ -35,6 +35,8 @@ const f7params = {
         {
             path: "/register/",
             component: RegisterPage,
+        },
+        {
             path: "/list/",
             component: ListPage,
         },
@@ -74,7 +76,7 @@ export default (props) => {
 
     return (
         <App params={f7params}>
-            <View main url="/" />
+            <View main url="/login/" />
         </App>
     );
 };
