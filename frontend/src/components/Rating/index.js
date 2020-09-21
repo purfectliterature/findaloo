@@ -9,6 +9,7 @@ class Rating extends React.Component {
         this.state = {
             rating: parseFloat(props.rating),
             count: parseInt(props.count),
+            mini: props.mini
         };
     }
 
@@ -49,7 +50,7 @@ class Rating extends React.Component {
 
     render() {
         return (
-            <div className="rating-container">
+            <div className={`rating-container ${this.state.mini ? "mini" : ""}`}>
                 <span className="rating-text">{this.state.rating}</span>
                 {this.renderStars()}
                 <span className="rating-text">
