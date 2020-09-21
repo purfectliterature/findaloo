@@ -377,7 +377,7 @@ app.get("/profile", authenticateToken, async (req, res) => {
     return res.status(200).json(row[0])
 })
 
-app.post("/profile", authenticateToken, async (req, res) => {
+app.put("/profile", authenticateToken, async (req, res) => {
     const { name, profile_picture } = req.body;
 })
 
