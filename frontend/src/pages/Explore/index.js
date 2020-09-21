@@ -261,7 +261,8 @@ export default (props) => {
                 options={{
                     zoomControl: false,
                     fullscreenControl: false,
-                    streetViewControl: false
+                    streetViewControl: false,
+                    clickableIcons: false
                 }}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
