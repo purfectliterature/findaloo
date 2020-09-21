@@ -358,12 +358,27 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
-app.get("/report/profile", authenticateToken, async (req, res) => {
+app.get("/profile", authenticateToken, async (req, res) => {
+    const userId = req.user.id;
+    let row;
 
+    const statement = (SQL `
+    SELECT *
+    FROM CustomerSummary
+    WHERE id = (${userId})`);
+
+    try {
+        let result = await db.query(statement);
+        row = result.rows;
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+
+    return res.status(200).json(row[0])
 })
 
-app.post("/report/profile", authenticateToken, async (req, res) => {
-    
+app.put("/profile", authenticateToken, async (req, res) => {
+    const { name, profile_picture } = req.body;
 })
 
 function authenticateToken(req, res, next) {
