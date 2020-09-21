@@ -4,6 +4,7 @@ import './App.css';
 
 import Details from './pages/Details';
 import CreateReviews from './pages/CreateReview';
+import CreateReport from './pages/CreateReport';
 import Explore from "./pages/Explore";
 import ListPage from "./pages/ListPage/index.js";
 
@@ -30,6 +31,10 @@ const f7params = {
             path: "/list/",
             component: ListPage,
         },
+        {
+          path: '/reports/create/',
+          component: CreateReport,
+        }
     ],
 };
 
