@@ -50,10 +50,21 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/profile
+GET http://localhost:3000/customer/profile
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
 
 ###
 
 GET http://localhost:3000/toilets/1
+
+###
+
+PUT http://localhost:3000/customer/profile
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
+
+{
+    "name": "Agnes",
+    "profile_picture": "www.google.com"
+}

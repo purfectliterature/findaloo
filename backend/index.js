@@ -358,7 +358,7 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
-app.get("/profile", authenticateToken, async (req, res) => {
+app.get("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     let row;
 
@@ -377,8 +377,19 @@ app.get("/profile", authenticateToken, async (req, res) => {
     return res.status(200).json(row[0])
 })
 
-app.put("/profile", authenticateToken, async (req, res) => {
+app.put("/customer/profile", authenticateToken, async (req, res) => {
+    const userId = req.user.id;
     const { name, profile_picture } = req.body;
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET name = (${name}), profile_picture = (${profile_picture})
+    WHERE user_id = (${userId})
+    `)
+
+    await db.query(statement);
+
+    return res.sendStatus(200);
 })
 
 function authenticateToken(req, res, next) {
@@ -411,6 +422,7 @@ async function addToiletReview(userId, toiletId, review) {
     statement = (SQL `
     UPDATE customer_profiles
     SET points = points + 15;
+    WHERE user_id = (${userId})
     `)
 
     await db.query(statement);
@@ -442,6 +454,7 @@ async function addToiletReport(userId, toiletId, report) {
     statement = (SQL `
     UPDATE customer_profiles
     SET points = points + 10;
+    WHERE user_id = (${userId})
     `)
 
     await db.query(statement);
