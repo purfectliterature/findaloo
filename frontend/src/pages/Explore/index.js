@@ -136,7 +136,7 @@ export default (props) => {
         
             <Page className="bottom-sheet-content">
                 <div className="cards">
-                    <div class="cards-gutter" />
+                    <div className="cards-gutter" />
                     
                     {renderToilets()}
                 </div>
