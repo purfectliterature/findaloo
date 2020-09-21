@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./TextBox.css";
+import "./styles.css";
 
 export default (props) => {
     const {
@@ -38,6 +38,7 @@ export default (props) => {
                     setAppendedClasses(value !== "" ? "filled" : "");
                     if (onBlur) onBlur();
                 }}
+                autoComplete="off"
             />
 
             {right || null}

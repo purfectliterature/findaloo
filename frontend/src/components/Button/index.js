@@ -1,5 +1,5 @@
 import React from "react";
-import "./Button.css";
+import "./styles.css";
 
 export default (props) => {
     const {
