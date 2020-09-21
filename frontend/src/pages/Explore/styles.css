@@ -161,3 +161,44 @@
 .my-location.bottom {
     bottom: 1rem;
 }
+
+.map-toilets-overlay {
+    position: absolute;
+    z-index: 10005;
+    bottom: 3.5rem;
+    width: 100%;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+.map-toilets-overlay.hidden {
+    opacity: 0;
+    bottom: -15rem;
+}
+
+.bldg-toilets {
+    height: 15rem;
+    margin-top: 1rem;
+
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 0rem;
+    grid-auto-columns: 10rem;
+    grid-auto-flow: column;
+
+    overflow-x: scroll;
+    scroll-snap-type: x proximity;
+
+    transform: scale(1);
+    transform-origin: top left;
+    transition: all 0.2s ease-in-out;
+}
+
+.bldg-toilets::before {
+    content: "";
+}
+
+.bldg-toilets::after {
+    content: "";
+    width: 0.1rem;
+}

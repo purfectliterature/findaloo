@@ -22,7 +22,7 @@ const toilets = [
     {
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
+        name: "National University Hospital",
         distance: "100m",
         isFree: true,
         isMaleToilet: true,
@@ -95,12 +95,14 @@ export default (props) => {
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
     const [activeMarker, setActiveMarker] = useState("");
+    const [buildingToShow, setBuildingToShow] = useState(null);
+    const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 ({ coords: { latitude, longitude } }) => {
-                    if (bottomSheetState === "normal") {
+                    if (bottomSheetState === "normal" || buildingToiletsStripShowed) {
                         mapView.panTo({ lat: latitude - 0.0025, lng: longitude });
                     } else {
                         mapView.panTo({ lat: latitude, lng: longitude });
@@ -116,6 +118,8 @@ export default (props) => {
     }
 
     const openBottomSheet = () => {
+        setBuildingToiletsStripShowed(false);
+
         bottomSheetRef.current.open(true);
         
         setTimeout(() => {
@@ -159,8 +163,12 @@ export default (props) => {
     });
 
     const showMarkerOnMap = (marker) => {
+        hideBottomSheet();
+        setBuildingToShow(toilets); // TODO: change to building's toilets!
+        setBuildingToiletsStripShowed(true);
+        
         setActiveMarker(marker.title);
-        if (bottomSheetState === "normal") {
+        if (bottomSheetState === "normal" || buildingToiletsStripShowed) {
             mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
         } else {
             mapView.panTo({ lat: marker.lat, lng: marker.lng + 0.002 });
@@ -180,6 +188,10 @@ export default (props) => {
         />
     ));
 
+    const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
+        <ToiletCard key={Math.random()} toilet={toilet} mini={true} />
+    ));
+
     return (<>
         <div className="map-search-overlay">
             <SearchBox
@@ -190,6 +202,14 @@ export default (props) => {
                 rightButtonOnClick={() => {}}
             />
         </div>
+
+        {buildingToShow ?
+            <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+                <div className="bldg-toilets">
+                    {renderBuildingToilets(buildingToShow)}
+                </div>
+            </div>
+        : null}
 
         <Button
             fill
