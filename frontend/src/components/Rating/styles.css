@@ -1,20 +1,19 @@
 .rating-container {
     display: flex;
-    justify-content: flex-start;
-    justify-items: center;
-    font-size: 8px !important;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .stars {
     display: inline-flex;
     justify-content: space-between;
-    padding: 0 4px;
+    padding: 0 0.5rem;
     font-size: inherit;
-
 }
 
 .rating-text {
-    color: var(--color-grey-3);
+    color: #acacac;
 }
 
 .star-filled {

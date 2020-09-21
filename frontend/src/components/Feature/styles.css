@@ -1,14 +1,15 @@
 .feature-lists,
 .feature-detail {
-    font-size: 8px !important;
+    font-size: 0.9rem;
+    font-weight: 500;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
 .feature-lists .icon {
-    font-size: inherit !important;
-    margin-right: 2px;
+    font-size: 1rem;
+    margin-right: 0.2rem;
 }
 
 .feature-lists .has-feature-name {
