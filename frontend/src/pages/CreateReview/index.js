@@ -3,9 +3,9 @@ import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
-import UserProfileComponent from '../../components/createReview/UserProfileComponent';
-import UserRatingComponent from '../../components/createReview/UserRatingComponent';
-import UserInputComponent from '../../components/createReview/UserInputComponent';
+import UserProfile from '../../components/UserProfile';
+import UserRating from '../../components/UserRating';
+import UserInput from '../../components/UserInput';
 
 const CreateReviews = (props) => {
   // TODO: Change to use props
@@ -66,12 +66,12 @@ const CreateReviews = (props) => {
           </NavRight>
         </Navbar>
 
-        <UserProfileComponent user={currentUser} />
-        <UserRatingComponent
+        <UserProfile user={currentUser} />
+        <UserRating
           ratings={userRatings}
           handleOnReviewClick={handleOnReviewClick}
         />
-        <UserInputComponent formik={formik} />
+        <UserInput formik={formik} />
       </form>
     </Page>
   );

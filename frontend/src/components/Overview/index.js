@@ -10,7 +10,7 @@ import {
   OpenInNew,
   Wc,
 } from '@material-ui/icons';
-import IconTextComponent from '../common/IconTextComponent';
+import IconText from '../IconText';
 import {
   FEATURE_TO_TEXT,
   FEATURE_BOTH_LAVATORIES,
@@ -30,19 +30,19 @@ const ImportantInformation = ({ features }) => {
   }
 
   let freeSection = (
-    <IconTextComponent icon={<AttachMoney />} text={FEATURE_PAID_TOILET} />
+    <IconText icon={<AttachMoney />} text={FEATURE_PAID_TOILET} />
   );
   if (features.is_free) {
     freeSection = (
-      <IconTextComponent icon={<MoneyOff />} text={FEATURE_FREE_TOILET} />
+      <IconText icon={<MoneyOff />} text={FEATURE_FREE_TOILET} />
     );
   }
 
   return (
     <div className="padding-vertical grey-bottom-border">
-      <IconTextComponent icon={<Wc />} text={genderText} />
+      <IconText icon={<Wc />} text={genderText} />
       {features.has_handicap && (
-        <IconTextComponent
+        <IconText
           icon={<AccessibleOutlined />}
           text={FEATURE_HANDICAP}
         />
@@ -63,11 +63,11 @@ const Features = ({ features }) => {
 
     if (features[key]) {
       featuresIncluded.push(
-        <IconTextComponent icon={<Check />} text={FEATURE_TO_TEXT[key]} />
+        <IconText icon={<Check />} text={FEATURE_TO_TEXT[key]} />
       );
     } else {
       featuresExcluded.push(
-        <IconTextComponent
+        <IconText
           icon={<Close />}
           iconColor="var(--color-grey-3)"
           text={FEATURE_TO_TEXT[key]}
