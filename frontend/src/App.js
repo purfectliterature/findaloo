@@ -76,7 +76,7 @@ export default (props) => {
 
     return (
         <App params={f7params}>
-            <View main url="/login/" />
+            <View main url="/register/" />
         </App>
     );
 };
