@@ -102,8 +102,8 @@
   background-color: inherit;
 }
 
-.tab-bar .tab-link-active {
-  border-bottom: 1px solid;
+.tab-bar .tab-link-highlight { /* fix f7 forgot to put bottom */
+  bottom: 0;
 }
 
 .tab-info {
