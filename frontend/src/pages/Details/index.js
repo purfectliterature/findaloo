@@ -76,8 +76,12 @@ const Details = () => {
   };
 
   const handleReportOnClick = () => {
-    // TODO: Change
-    console.log('Report');
+    f7.views.main.router.navigate('/reports/create/', {
+      props: {
+        id: data.id,
+        postTitle: data.name,
+      },
+    });
   };
 
   const handleOnReviewClick = (rating) => {
