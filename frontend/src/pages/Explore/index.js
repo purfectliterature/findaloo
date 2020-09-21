@@ -94,8 +94,8 @@ export default (props) => {
             navigator.geolocation.getCurrentPosition(
                 ({ coords: { latitude, longitude } }) => {
                     const position = { lat: latitude, lng: longitude };
-                    mapView.setCenter(position);
-                    mapView.setZoom(15);
+                    mapView.panTo(position);
+                    mapView.setZoom(16);
                     setCurrentLocation(position);
                 }
             , () => alert("ADUH"));
