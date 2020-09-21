@@ -80,13 +80,15 @@ for table in all_tables:
                 "address": address,
                 "key": "AIzaSyDsu6-lcKevLrFPVn1tmFYRdqHY11BEQcI"
             }
-        #r = requests.get(url, data)
-        #lat = (r.json().get("results")[0].get("geometry").get("location").get(
-        #    "lat"))
-        #lng = (r.json().get("results")[0].get("geometry").get("location").get(
-        #    "lng"))
-        lat = 100
-        lng = 150
+        r = requests.get(url, data)
+        if r.json().get("results"):
+          lat = (r.json().get("results")[0].get("geometry").get("location").get(
+              "lat"))
+          lng = (r.json().get("results")[0].get("geometry").get("location").get(
+              "lng"))
+        else:
+          lat = 100
+          lng = 150
         sql_query = f"INSERT INTO buildings values({building_count}, '{name}', '{regions[table_count-1]}', '{address}', {lat}, {lng});\n"
         queries.append(sql_query)
         image_count = len(images_url)
@@ -126,7 +128,6 @@ for table in all_tables:
                 sql_query = f"INSERT INTO toilet_images values({toilet_count}, '{image_url}');\n"
                 queries.append(sql_query)
             toilet_count += 1
-
         building_count += 1
     table_count += 1
 
