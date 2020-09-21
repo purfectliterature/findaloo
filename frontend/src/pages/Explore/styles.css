@@ -161,13 +161,3 @@
 .my-location.bottom {
     bottom: 1rem;
 }
-
-.marker-my-location {
-    width: 1rem;
-    height: 1rem;
-    background-color: var(--color-primary);
-    border-radius: 1rem;
-    border-style: solid;
-    border-color: white;
-    box-shadow: 0px 0.2rem 0.8rem 0px rgba(0,120,250,0.5);
-}

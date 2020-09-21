@@ -7,8 +7,7 @@ import "./styles.css";
 import BuildingCard from "../../components/BuildingCard";
 import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
-
-const MyLocationMarker = ({ text }) => <div onClick={() => alert(text)} className="marker-my-location" />;
+import Marker, { MyLocationMarker } from "../../components/Marker";
 
 const buildings = [
     { name: "NUS S15", lat: 0, lon: 0 },
@@ -74,6 +73,13 @@ const toilets = [
     }
 ];
 
+const markers = [
+    { title: "Yusof Ishak House", lat: 1.2982403, lng: 103.7760079 },
+    { title: "NUS Central Library", lat: 1.2969589, lng: 103.7744992 },
+    { title: "NUS S17", lat: 1.2948408, lng: 103.7759664 },
+    { title: "COM2-0108", lat: 1.2956401, lng: 103.7755801 }
+]
+
 const renderBuildings = () => buildings.map((building) => (
     <BuildingCard key={Math.random()} title={building.name} onClick={() => alert(building.name)} />
 ));
@@ -88,6 +94,7 @@ export default (props) => {
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
+    const [activeMarker, setActiveMarker] = useState("");
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -146,6 +153,24 @@ export default (props) => {
             percentPosition: true
         });
     });
+
+    const showMarkerOnMap = (marker) => {
+        setActiveMarker(marker.title);
+        const position = { lat: marker.lat - 0.002, lng: marker.lng + 0.002 };
+        mapView.panTo(position);
+        if (mapView.getZoom() < 16) mapView.setZoom(16);
+    }
+
+    const renderMarkers = () => markers.map((marker) => (
+        <Marker
+            key={marker.title}
+            title={marker.title}
+            lat={marker.lat}
+            lng={marker.lng}
+            onClick={() => showMarkerOnMap(marker)}
+            active={activeMarker === marker.title}
+        />
+    ));
 
     return (<>
         <div className="map-search-overlay">
@@ -234,6 +259,8 @@ export default (props) => {
                 onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
             >
                 {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
+                
+                {renderMarkers()}
             </GoogleMapReact>
         </div>
     </>);
