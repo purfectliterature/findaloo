@@ -407,6 +407,13 @@ async function addToiletReview(userId, toiletId, review) {
     VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue});`;
 
     await db.query(statement);
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET points = points + 15;
+    `)
+
+    await db.query(statement);
 } 
 
 async function changeToiletReview(userId, toiletId, review) {
@@ -429,6 +436,13 @@ async function addToiletReport(userId, toiletId, report) {
     INSERT 
     INTO reports("user_id", "toilet_id", "issue", "items", "description")
     VALUES (${userId}, ${toiletId}, ${report.issue}, ${report.items.join(", ")}, ${report.description});`;
+
+    await db.query(statement);
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET points = points + 10;
+    `)
 
     await db.query(statement);
 } 
