@@ -111,9 +111,6 @@
 .bottom-sheet-content .page-content {
     padding-top: 0rem;
     transition: all 0.2s ease-in-out;
-}
-
-.cards {
     padding: 0 1rem;
 }
 

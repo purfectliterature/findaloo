@@ -1,8 +1,8 @@
 .toil-card {
-    width: calc(50% - 4rem);
+    width: calc(50% - 0.5rem);
     border-radius: 1rem;
     margin-bottom: 1rem;
-    padding: 1rem;
+    box-sizing: border-box;
     
     border-width: 0.05rem;
     border-style: solid;
