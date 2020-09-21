@@ -12,7 +12,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <Page className="white-background-skin">
+            <Page className="padding white-background-skin">
                 <div className="header-group">
                     <img
                         src="/toilet-marker.png"
