@@ -359,7 +359,6 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
 })
 
 app.get("/report/profile", authenticateToken, async (req, res) => {
-<<<<<<< HEAD
     const userId = req.user.id;
     let row;
 
@@ -380,13 +379,6 @@ app.get("/report/profile", authenticateToken, async (req, res) => {
 
 app.post("/report/profile", authenticateToken, async (req, res) => {
     const { name, profile_picture } = req.body;
-=======
-
-})
-
-app.post("/report/profile", authenticateToken, async (req, res) => {
-    
->>>>>>> origin/master
 })
 
 function authenticateToken(req, res, next) {
