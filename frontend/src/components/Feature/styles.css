@@ -1,0 +1,45 @@
+.feature-lists,
+.feature-detail {
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-lists .icon {
+    font-size: 1rem;
+    margin-right: 0.2rem;
+}
+
+.feature-lists .has-feature-name {
+  color: var(--color-green-primary);
+}
+
+.feature-lists .no-feature-name {
+  color: var(--color-grey-3);
+}
+
+.feature-lists .check-icon {
+  color: var(--color-green-primary);
+}
+
+.feature-lists .cross-icon {
+  color: var(--color-grey-3);
+}
+
+.feature-detail .has-feature-name {
+  color: var(--color-primary-darker);
+}
+
+.feature-detail .check-icon {
+  color: var(--color-primary);
+}
+
+.feature-detail .no-feature-name {
+  color: var(--color-grey-3);
+}
+
+.feature-detail .cross-icon {
+  color: var(--color-grey-3);
+}

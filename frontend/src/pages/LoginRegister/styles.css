@@ -1,0 +1,77 @@
+.white-background-skin {
+    background-color: #fff;
+}
+
+.header-group {
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 3rem 0;
+}
+
+.toilet-marker {
+    height: 1.8rem;
+    margin-right: 0.3rem;
+}
+
+.list .item-content {
+    padding: 0;
+}
+
+.list .item-inner {
+    padding: 0.3rem 0;
+}
+
+.header {
+    margin: 0;
+    padding: 0;
+}
+
+.login-form.list {
+    margin: 0.3rem 0;
+}
+
+.visibility-icon {
+    color: var(--color-border-grey) !important;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.3rem;
+}
+
+.visibility-icon:active {
+    color: var(--color-grey-3) !important;
+}
+
+.btn {
+    text-transform: none;
+    font-size: 1rem;
+    border-width: 0.1rem;
+    margin: 0.8rem 0;
+}
+
+.bottom-group {
+    margin-top: 3rem;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+}
+
+.form-link {
+    float: right;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.terms-text {
+    color: var(--color-grey-3);
+    font-size: 0.7rem;
+}
+
+.terms-link {
+    text-decoration: underline;
+}
+
+.error-message {
+    font-size: 0.7rem;
+    color: red;
+}

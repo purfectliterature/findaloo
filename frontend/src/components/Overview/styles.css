@@ -1,0 +1,18 @@
+.certificate-icon {
+  margin-right: 1rem;
+}
+
+.certificate-logo {
+  width: 50px;
+}
+
+.learn-more-btn {
+  width: 9rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0.5rem;
+}
+
+.learn-more-btn .MuiSvgIcon-root {
+  font-size: 1.2rem;
+}

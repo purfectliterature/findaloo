@@ -1,0 +1,38 @@
+.px-button {
+    font-family: "Inter" !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border: none !important;
+    border-radius: 1rem !important;
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    padding: 0.7rem 1.5rem !important;
+    transition: ease-in 0.1s !important;
+    outline: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    cursor: pointer !important;
+}
+
+.px-button.outlined {
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+.px-button:active {
+    transform: scale(0.9);
+}
+
+.px-button:hover {
+    opacity: 0.8;
+}
+
+.px-button svg {
+    margin-left: 0.5rem;
+}
+
+.anchor-button-container {
+    text-decoration: none;
+}
