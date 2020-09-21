@@ -23,4 +23,19 @@ code {
     --color-grey-3: #828282;
     --color-green-primary: #219653;
     --color-green-secondary: #27AE60;
-  }
+}
+
+h2 {
+    margin: 0;
+    font-family: "Work Sans";
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+}
+
+h3 {
+    margin: 0;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 1.3rem;
+}
