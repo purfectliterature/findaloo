@@ -360,7 +360,7 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
-app.get("/profile", authenticateToken, async (req, res) => {
+app.get("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     let row;
 
@@ -379,8 +379,19 @@ app.get("/profile", authenticateToken, async (req, res) => {
     return res.status(200).json(row[0])
 })
 
-app.put("/profile", authenticateToken, async (req, res) => {
+app.put("/customer/profile", authenticateToken, async (req, res) => {
+    const userId = req.user.id;
     const { name, profile_picture } = req.body;
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET name = (${name}), profile_picture = (${profile_picture})
+    WHERE user_id = (${userId})
+    `)
+
+    await db.query(statement);
+
+    return res.sendStatus(200);
 })
 
 app.get("/customer/reviews", authenticateToken, async (req, res) => {
@@ -472,6 +483,14 @@ async function addToiletReview(userId, toiletId, review) {
     VALUES (${userId}, ${toiletId}, ${review.cleanlinessRating}, ${review.title}, ${review.description}, ${review.queue});`;
 
     await db.query(statement);
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET points = points + 15;
+    WHERE user_id = (${userId})
+    `)
+
+    await db.query(statement);
 } 
 
 async function changeToiletReview(userId, toiletId, review) {
@@ -494,6 +513,14 @@ async function addToiletReport(userId, toiletId, report) {
     INSERT 
     INTO reports("user_id", "toilet_id", "issue", "items", "description")
     VALUES (${userId}, ${toiletId}, ${report.issue}, ${report.items.join(", ")}, ${report.description});`;
+
+    await db.query(statement);
+
+    statement = (SQL `
+    UPDATE customer_profiles
+    SET points = points + 10;
+    WHERE user_id = (${userId})
+    `)
 
     await db.query(statement);
 } 
