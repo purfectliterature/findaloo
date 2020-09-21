@@ -20,6 +20,7 @@ import {
   FEATURE_FREE_TOILET,
   FEATURE_PAID_TOILET,
 } from '../../strings';
+import './styles.css';
 
 const ImportantInformation = ({ features }) => {
   let genderText = FEATURE_MALE_LAVATORIES;
@@ -103,7 +104,7 @@ const Certificates = ({ certificates }) => {
         >
           <div className="margin-right-half display-flex flex-direction-row align-items-flex-start flex-80">
             <div
-              className="certificate-icon certificate-icon-skin"
+              className="certificate-icon primary-skin"
               style={{ visibility: index !== 0 ? 'hidden' : 'visible' }}
             >
               <VerifiedUserOutlined />

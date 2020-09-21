@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { Button } from 'framework7-react';
 import { Star, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
+import './styles.css';
 
 const CreateReview = ({ currentUser, handleOnReviewClick }) => {
   return (

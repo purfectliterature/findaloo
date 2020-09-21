@@ -1,0 +1,19 @@
+.user-profile-image-section {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.create-review-btn .MuiSvgIcon-root {
+  font-size: 2rem;
+}
+
+.review-user-profile-image-section {
+  width: 40px;
+  height: 40px;
+  margin: 0 1rem 0.5rem 0;
+}
+
+.review-stars .MuiSvgIcon-root {
+  font-size: 1.1rem;
+}

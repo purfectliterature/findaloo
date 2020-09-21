@@ -1,6 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide, Button } from 'framework7-react';
 import { Report, Share, ArrowBack } from '@material-ui/icons';
+import './styles.css';
 
 const BasicInfoImage = ({
   images,
@@ -9,7 +10,7 @@ const BasicInfoImage = ({
 }) => {
   return (
     <div
-      className="image-section"
+      className="swiper-image-section"
       style={{ height: images.length > 0 ? '200px' : '20px' }}
     >
       {images.length > 0 && (
