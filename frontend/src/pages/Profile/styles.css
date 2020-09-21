@@ -1,0 +1,4 @@
+.red-outline-skin {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
