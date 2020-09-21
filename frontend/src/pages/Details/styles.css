@@ -1,0 +1,173 @@
+.flex-80 {
+  flex: 80;
+}
+
+.flex-20 {
+  flex: 20;
+}
+
+.header-margin {
+  margin-block-start: 0;
+  margin-block-end: 0.25em;
+}
+
+.margin-right-half {
+  margin-right: 8px;
+}
+
+.user-profile-image {
+  border-radius: 50%;
+}
+
+.grey-text {
+  color: var(--color-grey-3);
+}
+
+.grey-bottom-border {
+  border-bottom: 1px solid var(--color-border-grey);
+}
+
+.main-outlined-button-skin {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.description-skin {
+  color: var(--color-grey-3);
+  line-height: 1.5;
+}
+
+.white-skin {
+  color: #fff;
+}
+
+.primary-skin {
+  color: var(--color-primary);
+}
+
+.secondary-skin {
+  color: var(--color-secondary);
+}
+
+.grey-skin {
+  color: var(--color-grey-3);
+}
+
+.white-background-skin {
+  background-color: #fff;
+}
+
+/* ============== Basic Info Image ================= */
+
+.swiper {
+  height: 100%;
+}
+
+.image-section {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.actions {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.actions-btn {
+  margin: 0.75rem 0;
+  display: inline-block;
+}
+
+/* ============== Basic Info ================= */
+
+.ratings-text {
+  margin: 0.1rem 0;
+}
+
+.stars-section {
+  margin: 0 0.5rem;
+}
+
+/* ============== Tabs ================= */
+
+.tab-bar-skin {
+  background-color: inherit;
+}
+
+.tab-bar .tab-link-active {
+  border-bottom: 1px solid;
+}
+
+.tab-info {
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+/* ============== Overview ================= */
+
+.certificate-icon {
+  margin-right: 1rem;
+}
+
+.certificate-icon-skin {
+  color: var(--color-primary);
+}
+
+.certificate-logo {
+  width: 50px;
+}
+
+.learn-more-btn {
+  width: 7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.learn-more-btn {
+  width: 9rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0.5rem;
+}
+
+.learn-more-btn .MuiSvgIcon-root {
+  font-size: 1.2rem;
+}
+
+/* ============== Reviews ================= */
+
+.user-profile-image-section {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.create-review-btn .MuiSvgIcon-root {
+  font-size: 2rem;
+}
+
+.review-user-profile-image-section {
+  width: 40px;
+  height: 40px;
+  margin: 0 1rem 0.5rem 0;
+}
+
+.review-header-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.review-stars .MuiSvgIcon-root {
+  font-size: 1.1rem;
+}
