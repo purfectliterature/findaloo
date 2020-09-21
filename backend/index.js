@@ -358,7 +358,7 @@ app.post("/report/:toiletId", authenticateToken, async (req, res) => {
     return res.sendStatus(200);
 })
 
-app.get("/report/profile", authenticateToken, async (req, res) => {
+app.get("/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     let row;
 
@@ -377,7 +377,7 @@ app.get("/report/profile", authenticateToken, async (req, res) => {
     return res.status(200).json(row[0])
 })
 
-app.post("/report/profile", authenticateToken, async (req, res) => {
+app.post("/profile", authenticateToken, async (req, res) => {
     const { name, profile_picture } = req.body;
 })
 
