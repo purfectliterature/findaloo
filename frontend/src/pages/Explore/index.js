@@ -30,15 +30,6 @@ export default (props) => {
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
 
-    useEffect(() => {
-        const grid = document.querySelector(".cards");
-        const masonry = new Masonry(grid, {
-            itemSelector: ".toil-card",
-            gutter: ".cards-gutter",
-            percentPosition: true
-        });
-    }, []);
-
     const openBottomSheet = () => {
         bottomSheetRef.current.open(true);
         
@@ -73,13 +64,14 @@ export default (props) => {
         openBottomSheet();
     }, []);
 
-    const renderBuildings = () => buildings.map((building) => (
-        <BuildingCard title={building.name} onClick={() => alert(building.name)} />
-    ));
-    
-    const renderToilets = () => toilets.map((toilet) => (
-        <ToiletCard>{toilet}</ToiletCard>
-    ));
+    useEffect(() => {
+        const grid = document.querySelector(".cards");
+        const masonry = new Masonry(grid, {
+            itemSelector: ".toil-card",
+            gutter: ".cards-gutter",
+            percentPosition: true
+        });
+    });
 
     return (<>
         <div className="map-search-overlay">
