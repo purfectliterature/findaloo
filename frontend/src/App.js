@@ -5,6 +5,7 @@ import './App.css';
 import Details from './pages/Details';
 import CreateReviews from './pages/CreateReview';
 import Explore from "./pages/Explore";
+import ListPage from "./pages/ListPage/index.js";
 
 const f7params = {
     root: '#app', // App root element
@@ -24,7 +25,11 @@ const f7params = {
         {
             path: '/reviews/create/',
             component: CreateReviews,
-        }
+        },
+        {
+            path: "/list/",
+            component: ListPage,
+        },
     ],
 };
 
