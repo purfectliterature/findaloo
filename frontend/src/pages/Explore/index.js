@@ -63,10 +63,15 @@ export default (props) => {
 
     const hideBottomSheet = () => {
         if (bottomSheetState !== "hidden") {
+            document.getElementById("bottom-sheet").classList.remove("bs-opened");
             bottomSheetRef.current.close(true);
             setBottomSheetState("hidden");
         }
     }
+
+    useEffect(() => {
+        openBottomSheet();
+    }, []);
 
     const renderBuildings = () => buildings.map((building) => (
         <BuildingCard title={building.name} onClick={() => alert(building.name)} />
@@ -122,11 +127,8 @@ export default (props) => {
                 document.getElementById("search").blur();
                 setBottomSheetState("normal");
             }}
-            onSheetClose={() => {
-                setBottomSheetState("hidden")
-            }}
-            onSheetClosed={() => console.log("ahsf")}
-            onSheetStepProgress={(event) => console.log(event)}
+            onSheetClose={hideBottomSheet}
+            onSheetClosed={hideBottomSheet}
         >
             <div className="sheet-modal-swipe-step">
                 <div className="bottom-sheet-top">
