@@ -44,6 +44,16 @@ export default (props) => {
         });
     }, []);
 
+    useEffect(() => {
+        const sheet = document.getElementById("bottom-sheet");
+        const view = document.querySelector(".view.view-main");
+
+        console.log(sheet);
+        console.log(view);
+
+        view.appendChild(sheet);
+    }, []);
+
     const expandBottomSheet = () => {
         if (bottomSheetState !== "expanded") {
             bottomSheetRef.current.open(true);
