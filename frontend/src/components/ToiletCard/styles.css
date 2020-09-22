@@ -3,13 +3,28 @@
     border-radius: 1.2rem;
     margin-bottom: 1rem;
     box-sizing: border-box;
-    
+    background-color: white;
     border-width: 0.05rem;
     border-style: solid;
     border-color: var(--color-border-grey);
     overflow: hidden;
     transform: scale(1);
     transition: transform 0.1s ease-in-out;
+}
+
+.toil-card.mini {
+    width: 10rem;
+    height: 13rem;
+    margin-bottom: 0;
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0,0,0,0.2);
+    border: none;
+}
+
+.toil-card.mini h3 {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .toil-card:active {
@@ -55,6 +70,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    border-top-left-radius: 1.2rem;
+    border-top-right-radius: 1.2rem;
 }
 
 .gender-icon {

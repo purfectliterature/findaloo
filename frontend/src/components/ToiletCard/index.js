@@ -66,7 +66,7 @@ export default (props) => {
     );
 
     return (
-        <div className="toil-card ripple">
+        <div className={`toil-card ripple ${props.mini ? "mini" : ""}`}>
             <div className="card-image" style={{ backgroundImage: `url(${image})` }}>
                 <div className="gender-icon-container">
                     {renderMaleIcon()}
@@ -79,9 +79,9 @@ export default (props) => {
 
                 {renderSubtitle()}
 
-                <Rating rating={reviewRating} count={ratingCount} />
+                <Rating rating={reviewRating} count={ratingCount} mini={props.mini === true ? true : false} />
 
-                {renderFeatures()}
+                {props.mini === true ? null : renderFeatures()}
             </div>
         </div>
     );

@@ -1,0 +1,53 @@
+.marker-my-location {
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: var(--color-primary);
+    border-radius: 2rem;
+    border-style: solid;
+    border-color: white;
+    border-width: 0.25rem;
+    box-shadow: 0px 0.2rem 0.8rem 0px rgba(0,120,250,0.5);
+    z-index: 10;
+}
+
+.marker-toilet {
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+}
+
+.marker-toilet p {
+    display: none;
+}
+
+.marker-toilet img {
+    width: 1.8rem;
+    filter: drop-shadow(0 0.1rem 0.3rem rgba(109,192,107,0.5));
+}
+
+.marker-toilet.active {
+    background-color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 1rem;
+    width: max-content;
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0,0,0,0.15);
+    z-index: 12;
+}
+
+.marker-toilet.active img {
+    filter: none;
+}
+
+.marker-toilet.active p {
+    display: block;
+    flex-shrink: 0;
+    font-family: "Work Sans";
+    font-size: 1.3rem;
+    margin: 0 0 0 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 13rem;
+}

@@ -7,8 +7,7 @@ import "./styles.css";
 import BuildingCard from "../../components/BuildingCard";
 import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
-
-const AnyReactComponent = ({ text }) => <div onClick={() => alert(text)}>{text}</div>;
+import Marker, { MyLocationMarker } from "../../components/Marker";
 
 const buildings = [
     { name: "NUS S15", lat: 0, lon: 0 },
@@ -23,7 +22,7 @@ const toilets = [
     {
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
+        name: "National University Hospital",
         distance: "100m",
         isFree: true,
         isMaleToilet: true,
@@ -74,6 +73,13 @@ const toilets = [
     }
 ];
 
+const markers = [
+    { title: "Yusof Ishak House", lat: 1.2982403, lng: 103.7760079 },
+    { title: "NUS Central Library", lat: 1.2969589, lng: 103.7744992 },
+    { title: "NUS S17", lat: 1.2948408, lng: 103.7759664 },
+    { title: "COM2-0108", lat: 1.2956401, lng: 103.7755801 }
+]
+
 const renderBuildings = () => buildings.map((building) => (
     <BuildingCard key={Math.random()} title={building.name} onClick={() => alert(building.name)} />
 ));
@@ -84,10 +90,36 @@ const renderToilets = () => toilets.map((toilet) => (
 
 export default (props) => {
     const bottomSheetRef = useRef();
+    const [mapView, setMapView] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
+    const [currentLocation, setCurrentLocation] = useState(null);
+    const [activeMarker, setActiveMarker] = useState("");
+    const [buildingToShow, setBuildingToShow] = useState(null);
+    const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
+
+    const getCurrentLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                ({ coords: { latitude, longitude } }) => {
+                    if (bottomSheetState === "normal" || buildingToiletsStripShowed) {
+                        mapView.panTo({ lat: latitude - 0.0025, lng: longitude });
+                    } else {
+                        mapView.panTo({ lat: latitude, lng: longitude });
+                    }
+
+                    if (mapView.getZoom() < 16) mapView.setZoom(16);
+                    setCurrentLocation({ lat: latitude, lng: longitude });
+                }
+            , () => alert("ADUH"));
+        } else {
+            alert("not supported");
+        }
+    }
 
     const openBottomSheet = () => {
+        setBuildingToiletsStripShowed(false);
+
         bottomSheetRef.current.open(true);
         
         setTimeout(() => {
@@ -130,6 +162,32 @@ export default (props) => {
         });
     });
 
+    const showMarkerOnMap = (marker) => {
+        hideBottomSheet();
+        setBuildingToShow(toilets); // TODO: change to building's toilets!
+        setBuildingToiletsStripShowed(true);
+
+        setActiveMarker(marker.title);
+        mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
+        
+        if (mapView.getZoom() < 16) mapView.setZoom(16);
+    }
+
+    const renderMarkers = () => markers.map((marker) => (
+        <Marker
+            key={marker.title}
+            title={marker.title}
+            lat={marker.lat}
+            lng={marker.lng}
+            onClick={() => showMarkerOnMap(marker)}
+            active={activeMarker === marker.title}
+        />
+    ));
+
+    const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
+        <ToiletCard key={Math.random()} toilet={toilet} mini={true} />
+    ));
+
     return (<>
         <div className="map-search-overlay">
             <SearchBox
@@ -137,8 +195,17 @@ export default (props) => {
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
+                rightButtonOnClick={() => {}}
             />
         </div>
+
+        {buildingToShow ?
+            <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+                <div className="bldg-toilets">
+                    {renderBuildingToilets(buildingToShow)}
+                </div>
+            </div>
+        : null}
 
         <Button
             fill
@@ -148,6 +215,7 @@ export default (props) => {
             color="white"
             className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""}`}
             iconF7="location_fill"
+            onClick={getCurrentLocation}
         />
 
         <Button
@@ -200,21 +268,24 @@ export default (props) => {
             </Page>
         </Sheet>
 
-        {/* "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" */}
-
-        <div className="mapview">
+        <div className="mapview" id="mapview">
             <GoogleMapReact
-                bootstrapURLKeys={{ key: "" }}
-                defaultCenter={{ lat: 1.3521, lng: 103.8198 }}
+                bootstrapURLKeys={{ key: "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" }}
+                defaultCenter={{ lat: 1.2966, lng: 103.7764 }}
                 defaultZoom={12}
                 onDrag={hideBottomSheet}
                 options={{
                     zoomControl: false,
                     fullscreenControl: false,
-                    streetViewControl: false
+                    streetViewControl: false,
+                    clickableIcons: false
                 }}
+                yesIWantToUseGoogleMapApiInternals
+                onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
             >
-                <AnyReactComponent lat={1.2966} lng={103.7764} text="NUS" />
+                {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
+                
+                {renderMarkers()}
             </GoogleMapReact>
         </div>
     </>);
