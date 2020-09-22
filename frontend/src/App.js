@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
 import Rewards from "./pages/Rewards";
+import ManageReviews from "./pages/ManageReviews";
 
 const f7params = {
     root: "#app", // App root element
@@ -59,6 +60,10 @@ const f7params = {
         {
           path: "/rewards/",
           component: Rewards,
+        },
+        {
+          path: "/manage-reviews/",
+          component: ManageReviews,
         },
     ],
 };
