@@ -68,6 +68,10 @@
   overflow: hidden;
 }
 
+.simple-shadow-skin {
+  box-shadow: 0 4px 11px var(--color-grey-3);
+}
+
 /* ============== Tabs ================= */
 
 .tab-bar-skin {

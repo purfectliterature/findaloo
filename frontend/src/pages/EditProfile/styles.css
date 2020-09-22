@@ -1,0 +1,34 @@
+.edit-profile-page .page-content {
+  padding: 0;
+}
+
+.edit-profile-profile-picture {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.edit-profile-edit-btn-section {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+}
+
+.edit-profile-edit-btn {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+
+.edit-profile-name-input .list ul:before {
+  background-color: inherit;
+}
+
+.edit-profile-name-input .list ul:after {
+  background-color: inherit;
+}
+
+.edit-profile-file-input {
+  display: none;
+}
