@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./db')
 const SQL = require('sql-template-strings');
+const fetch = require("node-fetch");
+const constants = require("./constants.js");
 
 var AWS = require('aws-sdk'),
     region = "us-east-2",
@@ -306,7 +308,8 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 
 
 app.get("/toilets/nearest", (req, res) => {
-    const {lat, lon, limit, offset} = req.body;
+    const { lat, lon, limit, offset } = req.body;
+    
 
 });
 
@@ -525,7 +528,69 @@ async function addToiletReport(userId, toiletId, report) {
     await db.query(statement);
 } 
 
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+
+async function getToiletsNearest(lat, lon) {
+    var latLonCollections = constants.latLonCollections;
+    latLonCollections = latLonCollections.sort(function (
+      currentLatLon,
+      nextLatLon
+    ) {
+        return (
+            getDistanceFromLatLonInKm(currentLatLon[0], currentLatLon[1], lat, lon) - getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
+        );
+    });
+
+    var destinationsString = latLonCollections
+      .slice(0, 25)
+        .map(function (latLon) { return latLon })
+        .join("|")
+        ;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
+    var response = await fetch(url);
+    var response_json = await response.json();
+    var indexAndActualDistances = response_json.rows[0].elements.map(function (el, i) {
+      return { index: i, value: el };
+    });
+
+    indexAndActualDistances.sort(
+      (currentDistanceDuration, nextDistanceDuration) => {
+        return (
+          currentDistanceDuration.value.duration.value -
+          nextDistanceDuration.value.duration.value
+        );
+      }
+    );
+    var result = indexAndActualDistances.map(function(indexAndActualDistance) {
+        return {
+          latLon: latLonCollections[indexAndActualDistance.index],
+          distance: indexAndActualDistance.value.distance.value,
+          duration: indexAndActualDistance.value.duration.value,
+        };
+    });
+    return result;
+}
+
 async function getTokenSecrets() {
+    /*
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
 
@@ -541,7 +606,14 @@ async function getTokenSecrets() {
         if (err) {
             throw err;
         }
-    }
+    }*/
+    return `{ 
+        "ACCESS_TOKEN_SECRET": "0a710fe939d213e3319b5d58f051bdf2d55612b66deeef891221eb93ecea55201ffb58a91412e0222870348fde0a6b423a2b9e1ebce1464d2e8c37d7a094d68f",
+        "REFRESH_TOKEN_SECRET": "8c09cf68285bd6064b4c59bdc81ae6a43f4959e64f3f25af51e8479f8fe68d0da4b7f129785a73da6669331c9d1a36a780852747c2c52cf977a2b6b3dea83f06" ,
+        "GOOGLE_AUTH_CLIENT_ID": "826519287927-ovrrna8gfqle7sdiet1oai3h8vr99j8o.apps.googleusercontent.com",
+        "GOOGLE_AUTH_SECRET_KEY": "70_NvjKTmCMPkOLUIKWReBY4",
+        "GOOGLE_MAPS_API_KEY": "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E"
+    }`
 }
 
 getTokenSecrets().then(data => {
