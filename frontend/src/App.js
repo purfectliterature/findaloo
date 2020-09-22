@@ -8,6 +8,7 @@ import CreateReport from "./pages/CreateReport";
 import Explore from "./pages/Explore";
 import LoginPage from "./pages/LoginRegister/Login";
 import RegisterPage from "./pages/LoginRegister/Register";
+import Profile from "./pages/Profile";
 
 const f7params = {
     root: "#app", // App root element
@@ -40,6 +41,10 @@ const f7params = {
             path: "/reports/create/",
             component: CreateReport,
         },
+        {
+            path: "/profile", 
+            component: Profile,  
+        }
     ],
 };
 
