@@ -57,6 +57,10 @@
   background-color: #fff;
 }
 
+.secondary-background-skin {
+  background-color: var(--color-secondary);
+}
+
 .image {
   width: 100%;
   height: 100%;
