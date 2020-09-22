@@ -101,7 +101,7 @@ const EditProfile = (props) => {
           </div>
 
           <div className="text-align-center margin-bottom edit-profile-name-input">
-            <List>
+            <List noHairlines>
               <ListInput
                 outline
                 floatingLabel

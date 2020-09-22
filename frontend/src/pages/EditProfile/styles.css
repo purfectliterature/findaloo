@@ -21,14 +21,6 @@
   height: 35px;
 }
 
-.edit-profile-name-input .list ul:before {
-  background-color: inherit;
-}
-
-.edit-profile-name-input .list ul:after {
-  background-color: inherit;
-}
-
 .edit-profile-file-input {
   display: none;
 }
