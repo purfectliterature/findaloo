@@ -307,9 +307,10 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.get("/toilets/nearest", (req, res) => {
-    const { lat, lon, limit, offset } = req.body;
-    
+app.get("/toilets/nearest", async (req, res) => {
+    const { lat, lon } = req.body;
+
+    var nearestToilets = await getNearestToilets(lat, lon);
 
 });
 
@@ -548,29 +549,43 @@ function deg2rad(deg) {
 }
 
 
-async function getToiletsNearest(lat, lon) {
-    var latLonCollections = constants.latLonCollections;
-    latLonCollections = latLonCollections.sort(function (
-      currentLatLon,
-      nextLatLon
+async function getNearestToilets(lat, lon) {
+    var idAndLatLons = constants.idAndLatLons;
+    // list of all lat lons from db, sort it according to approximated distance
+    idAndLatLons = idAndLatLons.sort(function (
+      currentIndexLatLon,
+      nextIndexLatLon
     ) {
-        return (
-            getDistanceFromLatLonInKm(currentLatLon[0], currentLatLon[1], lat, lon) - getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
-        );
+      var currentLatlon = currentIndexLatLon[1];
+      var nextLatLon = nextIndexLatLon[1];
+      return (
+        getDistanceFromLatLonInKm(
+          currentLatlon[0],
+          currentLatlon[1],
+          lat,
+          lon
+        ) - getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
+      );
     });
 
-    var destinationsString = latLonCollections
+    // join the string for query to google maps API
+    var destinationsString = idAndLatLons
       .slice(0, 25)
-        .map(function (latLon) { return latLon })
-        .join("|")
+      .map(function (latLon) {
+        return latLon[1];
+      })
+      .join("|");
         ;
+    console.log(destinationsString)
     const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
     var response = await fetch(url);
     var response_json = await response.json();
+    // result from the google maps API, put index besides it
     var indexAndActualDistances = response_json.rows[0].elements.map(function (el, i) {
       return { index: i, value: el };
     });
-
+    
+    // sort the result using the duration 
     indexAndActualDistances.sort(
       (currentDistanceDuration, nextDistanceDuration) => {
         return (
@@ -579,18 +594,23 @@ async function getToiletsNearest(lat, lon) {
         );
       }
     );
-    var result = indexAndActualDistances.map(function(indexAndActualDistance) {
+
+    // from the sorted, get the index and get the original id and lat lon from the unsorted array
+    var result = indexAndActualDistances.map(function (indexAndActualDistance) {
+        var indexAndLatLon = idAndLatLons[indexAndActualDistance.index];
         return {
-          latLon: latLonCollections[indexAndActualDistance.index],
-          distance: indexAndActualDistance.value.distance.value,
-          duration: indexAndActualDistance.value.duration.value,
+            toiletId: indexAndLatLon[0],
+            latLon: indexAndLatLon[1],
+            distance: indexAndActualDistance.value.distance.value,
+            duration: indexAndActualDistance.value.duration.value,
         };
     });
+
+    // result in the form of [{toiletId: .., latLon: [ .., .. ], distance: .., duration: ..}]
     return result;
 }
 
 async function getTokenSecrets() {
-    /*
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
 
@@ -606,14 +626,7 @@ async function getTokenSecrets() {
         if (err) {
             throw err;
         }
-    }*/
-    return `{ 
-        "ACCESS_TOKEN_SECRET": "0a710fe939d213e3319b5d58f051bdf2d55612b66deeef891221eb93ecea55201ffb58a91412e0222870348fde0a6b423a2b9e1ebce1464d2e8c37d7a094d68f",
-        "REFRESH_TOKEN_SECRET": "8c09cf68285bd6064b4c59bdc81ae6a43f4959e64f3f25af51e8479f8fe68d0da4b7f129785a73da6669331c9d1a36a780852747c2c52cf977a2b6b3dea83f06" ,
-        "GOOGLE_AUTH_CLIENT_ID": "826519287927-ovrrna8gfqle7sdiet1oai3h8vr99j8o.apps.googleusercontent.com",
-        "GOOGLE_AUTH_SECRET_KEY": "70_NvjKTmCMPkOLUIKWReBY4",
-        "GOOGLE_MAPS_API_KEY": "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E"
-    }`
+    }
 }
 
 getTokenSecrets().then(data => {
@@ -623,6 +636,7 @@ getTokenSecrets().then(data => {
 
     console.log("Successfully initialised secret keys.")
     console.log(`Now listening on port ${port}.`)
+    getNearestToilets(1.3397977, 103.6368124);
 
 }).catch(err => {
     console.log('Server init failed: ' + err);
