@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import GoogleMapReact from "google-map-react";
 import Masonry from "masonry-layout";
+import ReactGA from "react-ga";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -97,6 +98,8 @@ export default (props) => {
     const [activeMarker, setActiveMarker] = useState("");
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
+
+    useEffect(() => { ReactGA.pageview("/"); });
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
