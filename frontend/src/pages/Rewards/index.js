@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Page, Navbar, NavRight, Button } from 'framework7-react';
+import { Page, Navbar } from 'framework7-react';
 import './styles.css';
 
 const RewardCard = ({ reward }) => {
@@ -18,7 +18,7 @@ const RewardCard = ({ reward }) => {
   )
 }
 
-const ChangePassword = (props) => {
+const Rewards = (props) => {
   const { userId, points } = props;
 
   const [rewards, setRewards] = useState([]);
@@ -65,4 +65,4 @@ const ChangePassword = (props) => {
   );
 };
 
-export default ChangePassword;
+export default Rewards;
