@@ -97,8 +97,8 @@ async function getToiletSummary() {
         throw error;
     }
 
-    let toiletFeatures = await getToiletFeatures();
-    let toiletImages = await getToiletImages();
+    let toiletFeatures = await getToiletFeatures('');
+    let toiletImages = await getToiletImages('');
 
     for (row in rows) {
         let current = rows[row];
@@ -118,13 +118,14 @@ async function getToiletSummary() {
     return toilets;
 }
 
-async function getToiletFeatures() {
+async function getToiletFeatures(condition) {
     let toilet_features = {}
 
     let rows;
     let statement = (SQL `
     SELECT * 
-    FROM toilet_features`);
+    FROM toilet_features
+    ${condition}`);
 
     try {
         let result = await db.query(statement);
@@ -158,13 +159,15 @@ function parseToiletFeatures(row) {
     }
 }
 
-async function getToiletImages() {
+async function getToiletImages(condition) {
     let toilet_images = {}
 
     let rows;
     let statement = (SQL `
     SELECT * 
-    FROM toilet_images`);
+    FROM toilet_images
+    ${condition}
+    `);
 
     try {
         let result = await db.query(statement);
@@ -311,7 +314,42 @@ app.get("/toilets/nearest", async (req, res) => {
     const { lat, lon } = req.body;
 
     var nearestToilets = await getNearestToilets(lat, lon);
+    var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(`","`);
+    console.log(toiletIds)
+    statement = (SQL`
+    SELECT *
+    FROM ToiletSummary
+    WHERE id IN (${toiletIds})
+    `);
 
+    let toilets = [];
+
+    try {
+        let result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        throw error;
+    }
+
+    let toiletFeatures = await getToiletFeatures(`WHERE id IN ${toiletIds}`);
+    let toiletImages = await getToiletImages(`WHERE id IN ${toiletIds}`);
+
+    for (row in rows) {
+        let current = rows[row];
+        let toilet = {
+            toiletId: current.id,
+            buildingId: current.building_id,
+            address: current.address,
+            name: current.name,
+            avg_review: (current.avg_review || 0),
+            review_count: (current.review_count || 0),
+            toilet_features: toiletFeatures[current.id],
+            toilet_images: toiletImages[current.id],
+        };
+        toilets.push(toilet);
+    }
+
+    return res.status(200).send(toilets);
 });
 
 app.get("/toilets/search", async (req, res) => {
@@ -636,7 +674,6 @@ getTokenSecrets().then(data => {
 
     console.log("Successfully initialised secret keys.")
     console.log(`Now listening on port ${port}.`)
-    getNearestToilets(1.3397977, 103.6368124);
 
 }).catch(err => {
     console.log('Server init failed: ' + err);
