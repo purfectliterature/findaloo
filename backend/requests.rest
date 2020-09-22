@@ -1,7 +1,7 @@
 GET http://localhost:3000/toilets
 
 ###
-POST httxp://localhost:3000/review/1
+POST http://localhost:3000/review/1
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
 
@@ -52,7 +52,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 GET http://localhost:3000/customer/profile
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDc4NzAyMSwiZXhwIjoxNjAwNzkwNjIxfQ.NKGb-rs4ouT9VD7-ZoqlFYBwTVBIo3gdzC_WK0jznH0
 
 ###
 
@@ -68,6 +68,9 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "name": "Agnes",
     "profile_picture": "www.google.com"
 }
+
+###
+
 GET http://localhost:3000/customer/reviews
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
@@ -82,3 +85,5 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 }
 
 ###
+
+GET http://localhost:4000/testcall
