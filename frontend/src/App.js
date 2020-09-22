@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { App, View } from "framework7-react";
+import ReactGA from "react-ga";
 import "./App.css";
 
 import Details from "./pages/Details";
@@ -13,6 +14,9 @@ import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
 import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
+
+const trackingId = "UA-178628413-1";
+ReactGA.initialize(trackingId);
 
 const f7params = {
     root: "#app", // App root element
