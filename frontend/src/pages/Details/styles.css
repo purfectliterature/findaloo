@@ -11,6 +11,10 @@
   margin-block-end: 0.25em;
 }
 
+.margin-bottom-double {
+  margin-bottom: 32px;
+}
+
 .margin-right-half {
   margin-right: 8px;
 }

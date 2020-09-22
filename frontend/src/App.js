@@ -11,6 +11,7 @@ import RegisterPage from "./pages/LoginRegister/Register";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
+import Rewards from "./pages/Rewards";
 
 const f7params = {
     root: "#app", // App root element
@@ -54,7 +55,11 @@ const f7params = {
         {
           path: "/change-password/",
           component: ChangePassword,
-      }
+        },
+        {
+          path: "/rewards/",
+          component: Rewards,
+        },
     ],
 };
 
