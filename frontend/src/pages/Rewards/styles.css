@@ -1,0 +1,22 @@
+.reward-card {
+  position: relative;
+  border-radius: 5px;
+  height: 7rem;
+}
+
+.reward-image-section {
+  width: 4rem;
+  height: 4rem; 
+}
+
+.reward-image {
+  border-radius: 5px;
+  
+}
+
+.reward-points {
+  position: absolute;
+  bottom: 6px;
+  right: 10px;
+  font-size: 10px;
+}

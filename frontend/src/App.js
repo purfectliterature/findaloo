@@ -9,6 +9,11 @@ import CreateReport from "./pages/CreateReport";
 import Explore from "./pages/Explore";
 import LoginPage from "./pages/LoginRegister/Login";
 import RegisterPage from "./pages/LoginRegister/Register";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
+import ChangePassword from "./pages/ChangePassword";
+import Rewards from "./pages/Rewards";
+import ManageReviews from "./pages/ManageReviews";
 
 const trackingId = "UA-178628413-1";
 ReactGA.initialize(trackingId);
@@ -43,6 +48,26 @@ const f7params = {
         {
             path: "/reports/create/",
             component: CreateReport,
+        },
+        {
+            path: "/profile/", 
+            component: Profile,  
+        }, 
+        {
+            path: "/edit-profile/",
+            component: EditProfile,
+        },
+        {
+          path: "/change-password/",
+          component: ChangePassword,
+        },
+        {
+          path: "/rewards/",
+          component: Rewards,
+        },
+        {
+          path: "/manage-reviews/",
+          component: ManageReviews,
         },
     ],
 };

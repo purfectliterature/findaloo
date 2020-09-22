@@ -1,0 +1,8 @@
+.profile-page {
+  min-height: 85vh;
+}
+
+.red-outline-skin {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
