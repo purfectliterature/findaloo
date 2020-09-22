@@ -9,7 +9,9 @@ for line in Lines:
         lat = splitted_line[-2].strip()
         lon = splitted_line[-1].strip()[:-2]
         location = [float(lat), float(lon)]
-        result.append(location)
+    if "INSERT INTO toilets values" in line:
+        after_bracket = (line.split('('))[1]
+        toilet_id = int(after_bracket.split(',')[0])
+        result.append([toilet_id, location])
 
 print(result)
-
