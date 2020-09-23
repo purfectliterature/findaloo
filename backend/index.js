@@ -566,7 +566,7 @@ getTokenSecrets().then(data => {
     console.log("Successfully initialised secret keys.")
 
     let httpsServer = https.createServer(credentials, app);
-
+    httpsServer.listen(port);
     console.log(`Now listening on port ${port}.`)
 
 }).catch(err => {
