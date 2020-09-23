@@ -42,17 +42,17 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/login 
+POST https://a3.dawo.me:4000/login 
 Content-Type: application/json
 
 {
     "email": "agnes2@gmail.com",
-    "password": "password2"
+    "password": "P@ssw0rd1234"
 }
 
 ###
 
-POST http://localhost:4000/login 
+POST https://a3.dawo.me:4000/login 
 Content-Type: application/json
 
 {
@@ -91,9 +91,9 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/token
+POST http://a3.dawo.me:4000/token
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNjAzNTF9.hheOaQjt47ITNYcSOAg1MqYmYKYkqWy4sXVGUrMAyPg"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNn0.pXEgN_GdJm0ntufK_LhemPpsicva-nt7FeO2KyT-pWY"
 }
