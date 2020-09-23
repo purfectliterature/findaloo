@@ -224,13 +224,14 @@ app.post('/login', async (req, res) => {
 });
 
 app.delete('/logout', async (req, res) => {
-  try {
-    const refreshToken = req.body.refreshToken;
-    await removeRefreshTokenFromDb(refreshToken);
-    res.sendStatus(204);
-  } catch (err) {
-    res.sendStatus(500);
-  }
+    try {
+        const refreshToken = req.body.refreshToken;
+        if (!refreshToken) res.sendStatus(403);
+        await removeRefreshTokenFromDb(refreshToken);
+        res.sendStatus(204);
+    } catch (err) {
+        res.sendStatus(500);
+    }
 })
 
 app.post('/token', async (req, res) => {
