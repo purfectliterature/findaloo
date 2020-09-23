@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import GoogleMapReact from "google-map-react";
+import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import { Page, Sheet, Button } from "framework7-react";
@@ -21,6 +22,7 @@ const buildings = [
 
 const toilets = [
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "National University Hospital",
@@ -34,6 +36,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
@@ -47,6 +50,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
@@ -60,6 +64,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
@@ -92,6 +97,7 @@ const renderToilets = () => toilets.map((toilet) => (
 export default (props) => {
     const bottomSheetRef = useRef();
     const [mapView, setMapView] = useState();
+    const [mapsApi, setMapsApi] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -191,6 +197,26 @@ export default (props) => {
         <ToiletCard key={Math.random()} toilet={toilet} mini={true} />
     ));
 
+    useEffect(() => {
+        if (buildings) {
+            const markers = buildings.map((building) => {
+                const position = new mapsApi.LatLng({
+                    lat: parseFloat(building.lat),
+                    lng: parseFloat(building.lon) 
+                });
+                
+                return new mapsApi.Marker({
+                    position,
+                    icon: require("../../assets/marker-toilet.svg")
+                });
+            });
+            
+            const markerCluster = new MarkerClusterer(mapView, markers, {
+                imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+            });
+        }
+    }, [buildings, mapView, mapsApi])
+
     return (<>
         <div className="map-search-overlay">
             <SearchBox
@@ -284,11 +310,14 @@ export default (props) => {
                     clickableIcons: false
                 }}
                 yesIWantToUseGoogleMapApiInternals
-                onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
+                onGoogleApiLoaded={({ map, maps }) => {
+                    setMapView(map);
+                    setMapsApi(maps);
+                }}
             >
                 {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
                 
-                {renderMarkers()}
+                {/* {buildings ? renderMarkers() : null} */}
             </GoogleMapReact>
         </div>
     </>);

@@ -43,12 +43,11 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/toilets/search
+GET https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDYyMjY5OCwiZXhwIjoxNjAwNjI2Mjk4fQ.QXmR_P2F-rZSuA62_NgPtwCT8rXnEyTaPyHr9LL9qWw
 
 {
-    "keyword": "MRT",
     "limit": 20
 }
 
@@ -56,7 +55,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 GET https://a3.dawo.me:3000/customer/profile
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDE1NCwiZXhwIjoxNjAwODYzNzU0fQ.SS6Hp4yKGbGRH1kXZnHnsdkiDvx6Wb55C8yZE16UIFI
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2NDAyMiwiZXhwIjoxNjAwODY3NjIyfQ.JgWOD7L57q6mFnKEcH1B3yCuQPnbOcqHBzBkRfJyW2Y
 
 ###
 
@@ -74,10 +73,9 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 }
 
 ###
-
 GET http://localhost:3000/customer/reviews
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MzU2NCwiZXhwIjoxNjAwODY3MTY0fQ.ZxQCeFL6aAzEOdapYk6lHYJUb-rgNpDyOVghOlR9phA
 
 ###
 PUT http://localhost:3000/customer/change-password
@@ -99,9 +97,8 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "lon": 103.6368124
 
 }
-<<<<<<< HEAD
+
 ###
 GET http://localhost:3000/toilets
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU
-=======
->>>>>>> acaf9b7d83cf5e493152cc5d18d0e5e8e90f0a29
+

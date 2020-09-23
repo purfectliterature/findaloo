@@ -1,7 +1,7 @@
 import React from 'react';
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import MoneyOffIcon from "@material-ui/icons/MoneyOff";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import { f7 } from "framework7-react";
 import "./styles.css";
 
 import Rating from "../Rating";
@@ -9,6 +9,7 @@ import Feature from "../Feature";
 
 export default (props) => {
     const {
+        id,
         ratingCount,
         reviewRating,
         hasBidet,
@@ -18,8 +19,13 @@ export default (props) => {
         isFree,
         distance,
         name,
-        image
+        image,
     } = props.toilet;
+
+    const {
+        mini,
+        onClick
+    } = props;
 
     const renderMaleIcon = () => {
         if (isMaleToilet) return (
@@ -65,8 +71,13 @@ export default (props) => {
         </div>
     );
 
+    const openToiletDetails = () => {
+        f7.views.main.router.navigate(`/toilets/${id}/`);
+        if (onClick) onClick();
+    }
+
     return (
-        <div className={`toil-card ripple ${props.mini ? "mini" : ""}`}>
+        <div className={`toil-card ripple ${props.mini ? "mini" : ""}`} onClick={openToiletDetails}>
             <div className="card-image" style={{ backgroundImage: `url(${image})` }}>
                 <div className="gender-icon-container">
                     {renderMaleIcon()}
@@ -79,7 +90,7 @@ export default (props) => {
 
                 {renderSubtitle()}
 
-                <Rating rating={reviewRating} count={ratingCount} mini={props.mini === true ? true : false} />
+                <Rating rating={reviewRating} count={ratingCount} mini={mini === true ? true : false} />
 
                 {props.mini === true ? null : renderFeatures()}
             </div>
