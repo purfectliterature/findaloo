@@ -10,14 +10,21 @@ import Reviews from '../../components/Reviews';
 
 const Details = (props) => {
   const { id } = props;
+  const authKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU';
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${authKey}`,
+  };
 
   const defaultInfo = {
     features: [],
     toilet_images: [],
     reviews: [],
     certifications: [],
-  }
+  };
   const [details, setDetails] = useState(defaultInfo);
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     axios.get(`${endpoints.databaseApi}/toilets/${id}`).then((res) => {
@@ -25,6 +32,16 @@ const Details = (props) => {
         setDetails(res.data);
       }
     });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${endpoints.databaseApi}/customer/profile`, { headers: headers })
+      .then((response) => {
+        if (response.status === 200) {
+          setCurrentUser(response.data);
+        }
+      });
   }, []);
 
   const handleShareOnClick = () => {
@@ -81,12 +98,7 @@ const Details = (props) => {
             />
 
             <div className="text-align-center">
-              {/* #TODO: Change link */}
-              <Button
-                external
-                href="https://www.google.com"
-                target="_blank"
-              >
+              <Button external href="https://toilet.org.sg/" target="_blank">
                 <span>How did we obtain this data?</span>
               </Button>
             </div>
@@ -94,6 +106,7 @@ const Details = (props) => {
 
           <Tab id="reviews" className="page-content" tabActive>
             <Reviews
+              currentUser={currentUser}
               reviews={details.reviews}
               handleOnReviewClick={handleOnReviewClick}
             />
