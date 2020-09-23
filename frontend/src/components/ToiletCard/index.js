@@ -8,19 +8,31 @@ import Rating from "../Rating";
 import Feature from "../Feature";
 
 export default (props) => {
+    console.log(props.toilet);
+    
     const {
-        id,
-        ratingCount,
-        reviewRating,
-        hasBidet,
-        hasToiletPaper,
-        isMaleToilet,
-        isFemaleToilet,
-        isFree,
-        distance,
+        toiletId,
+        address,
         name,
-        image,
+        avg_review,
+        review_count,
+        toilet_images
     } = props.toilet;
+
+    const {
+        is_free,
+        has_handheld_bidet,
+        has_seat_bidet,
+        has_toilet_paper,
+        has_seat_cleaner,
+        has_handicap,
+        has_water_heater,
+        has_hand_dryer,
+        has_hand_soap,
+        has_baby_change_station,
+        has_female,
+        has_male
+    } = props.toilet.toilet_features;
 
     const {
         mini,
@@ -28,24 +40,25 @@ export default (props) => {
     } = props;
 
     const renderMaleIcon = () => {
-        if (isMaleToilet) return (
+        if (has_male) return (
             <img alt="male" className="gender-icon" src={require("../../assets/icon-male.svg")} />
         );
     }
 
     const renderFemaleIcon = () => {
-        if (isFemaleToilet) return (
+        if (has_female) return (
             <img alt="female" className="gender-icon" src={require("../../assets/icon-female.svg")} />
         );
     }
 
     const renderSubtitle = () => (
         <div className="card-subtitle">
-            <p>{distance}</p>
+            {!mini ? <>
+                <p>{"STRING"}</p>
+                <div className="card-subtitle-dot" />
+            </> : null}
 
-            <div className="card-subtitle-dot" />
-
-            {isFree ? <MoneyOffIcon /> : <AttachMoneyIcon />}
+            {is_free ? <MoneyOffIcon /> : <AttachMoneyIcon />}
         </div>
     );
 
@@ -53,32 +66,32 @@ export default (props) => {
         <div className="features">
             <Feature
                 featureName="Bidet"
-                has={hasBidet}
+                has={has_handheld_bidet}
                 className="feature-lists"
             />
 
             <Feature
                 featureName="Bombs"
-                has={hasToiletPaper}
+                has={has_handicap}
                 className="feature-lists"
             />
             
             <Feature
                 featureName="Toilet paper"
-                has={hasToiletPaper}
+                has={has_toilet_paper}
                 className="feature-lists"
             />
         </div>
     );
 
     const openToiletDetails = () => {
-        f7.views.main.router.navigate(`/toilets/${id}/`);
+        f7.views.main.router.navigate(`/toilets/${toiletId}/`);
         if (onClick) onClick();
     }
 
     return (
-        <div className={`toil-card ripple ${props.mini ? "mini" : ""}`} onClick={openToiletDetails}>
-            <div className="card-image" style={{ backgroundImage: `url(${image})` }}>
+        <div className={`toil-card ripple ${mini ? "mini" : ""}`} onClick={openToiletDetails}>
+            <div className="card-image" style={{ backgroundImage: `url(${toilet_images[0]})` }}>
                 <div className="gender-icon-container">
                     {renderMaleIcon()}
                     {renderFemaleIcon()}
@@ -90,9 +103,9 @@ export default (props) => {
 
                 {renderSubtitle()}
 
-                <Rating rating={reviewRating} count={ratingCount} mini={mini === true ? true : false} />
+                <Rating rating={avg_review} count={review_count} mini={mini === true ? true : false} />
 
-                {props.mini === true ? null : renderFeatures()}
+                {mini === true ? null : renderFeatures()}
             </div>
         </div>
     );

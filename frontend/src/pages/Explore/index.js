@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
+import { useDispatch } from "react-redux";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -11,9 +12,8 @@ import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
 
-const renderToilets = () => toilets.map((toilet) => (
-    <ToiletCard key={Math.random()} toilet={toilet} />
-));
+import { addBuildings } from "../../store/toilets";
+import { fetchToilets } from "../../utils/toilets";
 
 export default (props) => {
     const bottomSheetRef = useRef();
@@ -26,7 +26,20 @@ export default (props) => {
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
+    const [buildings, setBuildings] = useState(null);
+    const dispatch = useDispatch();
+    
     useEffect(() => { ReactGA.pageview("/"); });
+
+    useEffect(() => {
+        fetchToilets((buildings) => {
+            dispatch(addBuildings(buildings));
+            setBuildings(buildings);
+        }, (error) => {
+            console.log("ERR: Explore");
+            console.error(error);
+        });
+    }, []);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -92,30 +105,39 @@ export default (props) => {
         });
     });
 
-    const showMarkerOnMap = (marker) => {
+    const renderBuildings = () => buildings.map((building) => (
+        <BuildingCard
+            key={building.buildingId}
+            title={building.buildingName}
+            toilets={building.toilets}
+            onClick={() => showMarkerOnMap(building)}
+        />
+    ));
+
+    const showMarkerOnMap = (building) => {
         hideBottomSheet();
-        setBuildingToShow(toilets); // TODO: change to building's toilets!
+        setBuildingToShow(building.toilets);
         setBuildingToiletsStripShowed(true);
 
-        setActiveMarker(marker.title);
-        mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
+        setActiveMarker(building.buildingId);
+        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
         
         if (mapView.getZoom() < 16) mapView.setZoom(16);
     }
 
-    const renderMarkers = () => markers.map((marker) => (
+    const renderMarkers = () => buildings.map((building) => (
         <Marker
-            key={marker.title}
-            title={marker.title}
-            lat={marker.lat}
-            lng={marker.lng}
-            onClick={() => showMarkerOnMap(marker)}
-            active={activeMarker === marker.title}
+            key={building.buildingId}
+            title={building.buildingName}
+            lat={building.lat}
+            lng={building.lon}
+            onClick={() => showMarkerOnMap(building)}
+            active={activeMarker === building.buildingId}
         />
     ));
 
     const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
-        <ToiletCard key={Math.random()} toilet={toilet} mini={true} />
+        <ToiletCard key={toilet.toiletId} toilet={toilet} mini={true} />
     ));
 
     useEffect(() => {
@@ -204,7 +226,7 @@ export default (props) => {
                     <h2>Is nature calling now?</h2>
 
                     <div className="buildings">
-                        {renderBuildings()}
+                        {buildings ? renderBuildings() : null}
                     </div>
                 </div>
             </div>
@@ -213,7 +235,7 @@ export default (props) => {
                 <div className="cards">
                     <div className="cards-gutter" />
                     
-                    {renderToilets()}
+                    {/* {buildings ? renderToilets() : null} */}
                 </div>
             </Page>
         </Sheet>
