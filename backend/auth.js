@@ -22,6 +22,8 @@ const credentials = {
 	ca: ca
 };
 
+const cors = require('cors')
+
 var tokenSecret;
 
 var AWS = require('aws-sdk'),
@@ -35,6 +37,7 @@ var client = new AWS.SecretsManager({
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/sign-up/customer', async (req, res) => {
   try {

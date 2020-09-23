@@ -91,7 +91,7 @@ Content-Type: application/json
 
 ###
 
-POST https://a3.dawo.me:4000/token
+POST http://a3.dawo.me:4000/token
 Content-Type: application/json
 
 {
