@@ -349,8 +349,9 @@ app.get("/toilets/nearest", async (req, res) => {
     return res.status(200).send(toilets);
 });
 
-app.get("/toilets/search", async (req, res) => {
-    const {keyword, limit} = req.body;
+app.get("/toilets/search/:keyword", async (req, res) => {
+    const { keyword } = req.params.keyword;
+    const { limit } = req.body;
     
     try {
         let toilets = await getToiletSummary();
@@ -362,7 +363,7 @@ app.get("/toilets/search", async (req, res) => {
           )
           .slice(0, limit));
     } catch {
-        res.status(500).send('Error in searching toilets');
+        res.status(500).send('Error in searching for toilets');
     }
 });
 
