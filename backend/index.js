@@ -333,15 +333,22 @@ app.get("/toilets/nearest", async (req, res) => {
 
     for (row in rows) {
         let current = rows[row];
+        
         let toilet = {
-            toiletId: current.id,
-            buildingId: current.building_id,
-            address: current.address,
-            name: current.name,
-            avg_review: (current.avg_review || 0),
-            review_count: (current.review_count || 0),
-            toilet_features: toiletFeatures[current.id],
-            toilet_images: toiletImages[current.id],
+          toiletId: current.id,
+          buildingId: current.building_id,
+          duration: nearestToilets.filter(
+            (nearestToilet) => nearestToilet.toiletId === current.id
+          )[0].duration,
+          distance: nearestToilets.filter(
+            (nearestToilet) => nearestToilet.toiletId === current.id
+          )[0].distance,
+          address: current.address,
+          name: current.name,
+          avg_review: current.avg_review || 0,
+          review_count: current.review_count || 0,
+          toilet_features: toiletFeatures[current.id],
+          toilet_images: toiletImages[current.id],
         };
         toilets.push(toilet);
     }
@@ -441,13 +448,13 @@ app.get("/customer/reviews", authenticateToken, async (req, res) => {
     changePasswordStatement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE email = (${userEmail})`;
+            WHERE user_id = (${userId})`;
 
     try {
         result = await db.query(changePasswordStatement);
         rows = result.rows;
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 
     for (row in rows) {
@@ -585,64 +592,63 @@ function deg2rad(deg) {
 
 
 async function getNearestToilets(lat, lon) {
-    var idAndLatLons = constants.idAndLatLons;
-    // list of all lat lons from db, sort it according to approximated distance
-    idAndLatLons = idAndLatLons.sort(function (
-      currentIndexLatLon,
-      nextIndexLatLon
-    ) {
-      var currentLatlon = currentIndexLatLon[1];
-      var nextLatLon = nextIndexLatLon[1];
-      return (
-        getDistanceFromLatLonInKm(
-          currentLatlon[0],
-          currentLatlon[1],
-          lat,
-          lon
-        ) - getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
-      );
-    });
-
-    // join the string for query to google maps API
-    var destinationsString = idAndLatLons
-      .slice(0, 25)
-      .map(function (latLon) {
-        return latLon[1];
-      })
-      .join("|");
-        ;
-    console.log(destinationsString)
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
-    var response = await fetch(url);
-    var response_json = await response.json();
-    // result from the google maps API, put index besides it
-    var indexAndActualDistances = response_json.rows[0].elements.map(function (el, i) {
-      return { index: i, value: el };
-    });
-    
-    // sort the result using the duration 
-    indexAndActualDistances.sort(
-      (currentDistanceDuration, nextDistanceDuration) => {
-        return (
-          currentDistanceDuration.value.duration.value -
-          nextDistanceDuration.value.duration.value
-        );
-      }
+  var idAndLatLons = constants.idAndLatLons;
+  // list of all lat lons from db, sort it according to approximated distance
+  idAndLatLons = idAndLatLons.sort(function (
+    currentIndexLatLon,
+    nextIndexLatLon
+  ) {
+    var currentLatlon = currentIndexLatLon[1];
+    var nextLatLon = nextIndexLatLon[1];
+    return (
+      getDistanceFromLatLonInKm(currentLatlon[0], currentLatlon[1], lat, lon) -
+      getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
     );
+  });
 
-    // from the sorted, get the index and get the original id and lat lon from the unsorted array
-    var result = indexAndActualDistances.map(function (indexAndActualDistance) {
-        var indexAndLatLon = idAndLatLons[indexAndActualDistance.index];
-        return {
-            toiletId: indexAndLatLon[0],
-            latLon: indexAndLatLon[1],
-            distance: indexAndActualDistance.value.distance.value,
-            duration: indexAndActualDistance.value.duration.value,
-        };
-    });
+  // join the string for query to google maps API
+  var destinationsString = idAndLatLons
+    .slice(0, 25)
+    .map(function (latLon) {
+      return latLon[1];
+    })
+    .join("|");
+  console.log(destinationsString);
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
+  var response = await fetch(url);
+  var response_json = await response.json();
+  // result from the google maps API, put index besides it
+  var indexAndActualDistances = response_json.rows[0].elements.map(function (
+    el,
+    i
+  ) {
+    return { index: i, value: el };
+  });
 
-    // result in the form of [{toiletId: .., latLon: [ .., .. ], distance: .., duration: ..}]
-    return result;
+  // sort the result using the duration
+  indexAndActualDistances.sort(
+    (currentDistanceDuration, nextDistanceDuration) => {
+      return (
+        currentDistanceDuration.value.duration.value -
+        nextDistanceDuration.value.duration.value
+      );
+    }
+  );
+
+  // from the sorted, get the index and get the original id and lat lon from the unsorted array
+  var result = indexAndActualDistances.map(function (indexAndActualDistance) {
+    var indexAndLatLon = idAndLatLons[indexAndActualDistance.index];
+    toiletId = indexAndLatLon[0].toString();
+    return {
+        toiletId: toiletId,
+        latLon: indexAndLatLon[1],
+        distance: indexAndActualDistance.value.distance.value,
+        duration: indexAndActualDistance.value.duration.value,
+      };
+  });
+
+  // result in the form of [{toiletId: .., latLon: [ .., .. ], distance: .., duration: ..}]
+  return result;
 }
 
 async function getTokenSecrets() {
