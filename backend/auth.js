@@ -325,7 +325,7 @@ async function checkIfRefreshTokenExists(token) {
 
     const { rows } = await db.query(statement)
 
-    if (rows[0].token && rows[0].token === token) {
+    if (rows[0]?.token && rows[0].token === token) {
         return true;
     }
     
