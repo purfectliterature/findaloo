@@ -10,8 +10,17 @@ const db = require('./db')
 const SQL = require('sql-template-strings');
 
 const fs = require('fs');
-const http = require('http');
 const https = require('https');
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 var AWS = require('aws-sdk'),
     region = "us-east-2",
@@ -551,12 +560,15 @@ async function getTokenSecrets() {
     }
 }
 
+const httpsServer = https.createServer(credentials, app);
+
 getTokenSecrets().then(data => {
     tokenSecret = data;
-    tokenSecret = JSON.parse(tokenSecret)
-    app.listen(port)
-
+    tokenSecret = JSON.parse(tokenSecret);
     console.log("Successfully initialised secret keys.")
+
+    httpsServer = https.createServer(credentials, app);
+
     console.log(`Now listening on port ${port}.`)
 
 }).catch(err => {
