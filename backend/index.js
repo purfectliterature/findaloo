@@ -447,13 +447,13 @@ app.get("/customer/reviews", authenticateToken, async (req, res) => {
     changePasswordStatement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE email = (${userEmail})`;
+            WHERE user_id = (${userId})`;
 
     try {
         result = await db.query(changePasswordStatement);
         rows = result.rows;
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 
     for (row in rows) {
