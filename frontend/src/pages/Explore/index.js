@@ -21,6 +21,7 @@ const buildings = [
 
 const toilets = [
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "National University Hospital",
@@ -34,6 +35,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
@@ -47,6 +49,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
@@ -60,6 +63,7 @@ const toilets = [
         hasToiletPaper: true,
     },
     {
+        id: 2,
         image:
             "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
         name: "NUS LT27",
