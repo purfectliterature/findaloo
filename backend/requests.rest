@@ -1,4 +1,4 @@
-GET http://localhost:3000/toilets
+GET https://a3.dawo.me:3000/toilets
 
 ###
 POST http://localhost:3000/review/1
@@ -27,7 +27,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/report/1
+POST https://a3.dawo.me:3000/report/1
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
 
@@ -39,24 +39,23 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/toilets/search
+GET https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDYyMjY5OCwiZXhwIjoxNjAwNjI2Mjk4fQ.QXmR_P2F-rZSuA62_NgPtwCT8rXnEyTaPyHr9LL9qWw
 
 {
-    "keyword": "MRT",
     "limit": 20
 }
 
 ###
 
-GET http://localhost:3000/customer/profile
+GET https://a3.dawo.me:3000/customer/profile
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDc4NzAyMSwiZXhwIjoxNjAwNzkwNjIxfQ.NKGb-rs4ouT9VD7-ZoqlFYBwTVBIo3gdzC_WK0jznH0
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2NDAyMiwiZXhwIjoxNjAwODY3NjIyfQ.JgWOD7L57q6mFnKEcH1B3yCuQPnbOcqHBzBkRfJyW2Y
 
 ###
 
-GET http://localhost:3000/toilets/1
+GET https://a3.dawo.me:3000/toilets/1
 
 ###
 
@@ -73,7 +72,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 GET http://localhost:3000/customer/reviews
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MzU2NCwiZXhwIjoxNjAwODY3MTY0fQ.ZxQCeFL6aAzEOdapYk6lHYJUb-rgNpDyOVghOlR9phA
 
 ###
 PUT http://localhost:3000/customer/change-password
@@ -83,3 +82,19 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 {
     "newPassword": "password4"
 }
+
+###
+
+GET http://localhost:3000/toilets/nearest
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDc5OTI0NSwiZXhwIjoxNjAwODAyODQ1fQ.iBaxt4qXLce2MLTjRsKZbeoD517FriPSXimhyL7VXEE
+
+{
+    "lat": 1.3397977, 
+    "lon": 103.6368124
+
+}
+
+###
+GET http://localhost:3000/toilets
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU

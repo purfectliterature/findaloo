@@ -1,74 +1,49 @@
-import React from 'react';
-import { Page, Tabs, Tab, Toolbar, Link, f7 } from 'framework7-react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Page, Tabs, Tab, Toolbar, Link, Button, f7 } from 'framework7-react';
+import { endpoints } from '../../utils/routes';
 import './styles.css';
 import BasicInfoImage from '../../components/BasicInfoImage';
 import BasicInfo from '../../components/BasicInfo';
 import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
 
-const Details = () => {
-  const data = {
-    id: 1,
-    images: [
-      'https://images.unsplash.com/flagged/photo-1570737231926-4d67558ff216?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2843&q=80',
-      'https://images.unsplash.com/photo-1550503194-e24e63cfffa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80',
-    ],
-    name: 'Changi Airport T4 dept - FC Lounge',
-    address: '69 Changi Highlands Rd, T4-04-102 Singapore 169420',
-    review_rating: 2.2,
-    numberOfReviews: 3300,
-    region: 'east',
-    features: {
-      has_handheld_bidet: true,
-      has_seat_bidet: false,
-      has_toilet_paper: true,
-      has_seat_cleaner: true,
-      has_handicap: true,
-      is_free: true,
-      has_water_heater: true,
-      has_hand_dryer: true,
-      has_hand_soap: true,
-      has_baby_change_station: false,
-      has_female: true,
-      has_male: false,
-    },
-    certificates: [
-      {
-        certification_authority: 'Restroom Association (Singapore)',
-        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
-        url: 'https://toilet.org.sg/',
-      },
-      {
-        certification_authority: 'Restroom Association (Singapore)',
-        logo: 'https://www.toilet.org.sg/images/RestroomLogo.png',
-        url: 'https://toilet.org.sg/',
-      },
-    ],
-    reviews: [
-      {
-        user: {
-          name: 'Ronald McDonalds',
-          profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
-        },
-        cleanliness_rating: 4,
-        title: 'Tip-top cleanliness',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        created_at: 1600253600,
-      },
-      {
-        user: {
-          name: 'Ketucky',
-          profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
-        },
-        cleanliness_rating: 2,
-        title: 'Dirty',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        created_at: 1600253600,
-      },
-    ],
+const Details = (props) => {
+  const { id } = props;
+  // TODO: Change
+  const authKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU';
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${authKey}`,
   };
+
+  const defaultInfo = {
+    features: [],
+    toilet_images: [],
+    reviews: [],
+    certifications: [],
+  };
+  const [details, setDetails] = useState(defaultInfo);
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    axios.get(`${endpoints.databaseApi}/toilets/${id}`).then((res) => {
+      if (res.status === 200) {
+        setDetails(res.data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${endpoints.databaseApi}/customer/profile`, { headers: headers })
+      .then((response) => {
+        if (response.status === 200) {
+          setCurrentUser(response.data);
+        }
+      });
+  }, []);
 
   const handleShareOnClick = () => {
     // TODO: Change
@@ -78,8 +53,8 @@ const Details = () => {
   const handleReportOnClick = () => {
     f7.views.main.router.navigate('/reports/create/', {
       props: {
-        id: data.id,
-        postTitle: data.name,
+        id: id,
+        postTitle: details.toiletName,
       },
     });
   };
@@ -87,9 +62,9 @@ const Details = () => {
   const handleOnReviewClick = (rating) => {
     f7.views.main.router.navigate('/reviews/create/', {
       props: {
-        id: data.id,
+        id: id,
         rating: rating,
-        postTitle: data.name,
+        postTitle: details.toiletName,
       },
     });
   };
@@ -97,16 +72,16 @@ const Details = () => {
   return (
     <Page className="white-background-skin">
       <BasicInfoImage
-        images={data.images}
+        images={details.toilet_images}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
       />
 
       <BasicInfo
-        name={data.name}
-        address={data.address}
-        ratings={data.review_rating}
-        numberOfReviews={data.numberOfReviews}
+        name={details.toiletName}
+        address={details.address}
+        ratings={details.avg_review}
+        numberOfReviews={details.review_count}
       />
 
       <div className="padding">
@@ -119,19 +94,21 @@ const Details = () => {
         <Tabs animated>
           <Tab id="overview" className="page-content" tabActive>
             <Overview
-              features={data.features}
-              certificates={data.certificates}
+              features={details.features}
+              certificates={details.certifications}
             />
 
             <div className="text-align-center">
-              {/* #TODO: Change link */}
-              <a href="https://www.google.com">How did we obtain this data?</a>
+              <Button external href="https://toilet.org.sg/" target="_blank">
+                <span>How did we obtain this data?</span>
+              </Button>
             </div>
           </Tab>
 
           <Tab id="reviews" className="page-content" tabActive>
             <Reviews
-              reviews={data.reviews}
+              currentUser={currentUser}
+              reviews={details.reviews}
               handleOnReviewClick={handleOnReviewClick}
             />
           </Tab>

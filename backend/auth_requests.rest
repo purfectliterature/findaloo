@@ -42,17 +42,17 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/login 
+POST https://a3.dawo.me:4000/login 
 Content-Type: application/json
 
 {
     "email": "agnes2@gmail.com",
-    "password": "password2"
+    "password": "P@ssw0rd1234"
 }
 
 ###
 
-POST http://localhost:4000/login 
+POST https://a3.dawo.me:4000/login 
 Content-Type: application/json
 
 {
@@ -91,7 +91,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/token
+POST http://a3.dawo.me:4000/token
 Content-Type: application/json
 
 {
