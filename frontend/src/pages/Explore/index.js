@@ -3,7 +3,8 @@ import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {  } from "redux-persist";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -12,7 +13,7 @@ import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
 
-import { addBuildings } from "../../store/toilets";
+import { addBuildings, getBuildings } from "../../store/toilets";
 import { fetchToilets } from "../../utils/toilets";
 
 export default (props) => {
@@ -28,6 +29,7 @@ export default (props) => {
 
     const [buildings, setBuildings] = useState(null);
     const dispatch = useDispatch();
+    const buildingsFromStore = useSelector(getBuildings);
     
     useEffect(() => { ReactGA.pageview("/"); });
 
@@ -36,8 +38,9 @@ export default (props) => {
             dispatch(addBuildings(buildings));
             setBuildings(buildings);
         }, (error) => {
-            console.log("ERR: Explore");
-            console.error(error);
+            console.log("NO INTERNET LA DEY");
+            console.log(buildingsFromStore);
+            setBuildings(buildingsFromStore);
         });
     }, []);
 
@@ -141,22 +144,26 @@ export default (props) => {
     ));
 
     useEffect(() => {
-        if (buildings) {
-            const markers = buildings.map((building) => {
-                const position = new mapsApi.LatLng({
-                    lat: parseFloat(building.lat),
-                    lng: parseFloat(building.lon) 
+        try {
+            if (buildings) {
+                const markers = buildings.map((building) => {
+                    const position = new mapsApi.LatLng({
+                        lat: parseFloat(building.lat),
+                        lng: parseFloat(building.lon) 
+                    });
+                    
+                    return new mapsApi.Marker({
+                        position,
+                        icon: require("../../assets/marker-toilet.svg")
+                    });
                 });
                 
-                return new mapsApi.Marker({
-                    position,
-                    icon: require("../../assets/marker-toilet.svg")
+                const markerCluster = new MarkerClusterer(mapView, markers, {
+                    imagePath: "/static/cluster/m"
                 });
-            });
-            
-            const markerCluster = new MarkerClusterer(mapView, markers, {
-                imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
-            });
+            }
+        } catch (error) {
+            console.log("WHOOPS NO MAPS");
         }
     }, [buildings, mapView, mapsApi])
 
