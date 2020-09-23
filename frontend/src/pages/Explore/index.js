@@ -136,7 +136,7 @@ export default (props) => {
     }
 
     const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
-        <ToiletCard key={toilet.toiletId} toilet={toilet} mini={true} />
+        <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
     ));
 
     useEffect(() => {
