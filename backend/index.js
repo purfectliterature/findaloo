@@ -381,6 +381,7 @@ app.post("/review/:toiletId", authenticateToken, async (req, res) => {
     try {
         await addToiletReview(userId, toiletId, req.body);
     } catch (err) {
+        console.log(err);
         return res.status(500).send('Error in creating review');
     }
     return res.sendStatus(200);
