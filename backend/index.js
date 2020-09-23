@@ -1,5 +1,6 @@
 const { response } = require("express");
 const express = require("express");
+const cors = require('cors')
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -19,6 +20,7 @@ var client = new AWS.SecretsManager({
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
 
@@ -294,6 +296,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
         toiletName: toilet.name,
         avg_review: toilet.avg_review,
         review_count: toilet.review_count,
+        address: toilet.address,
         distance: 0,
         features: features,
         reviews: reviews,
