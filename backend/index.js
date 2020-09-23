@@ -237,8 +237,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 
     for (row in rows) {
         let current = rows[row];
-            reviews.push(current);
-        );
+        reviews.push(current);
     }
 
     // Retrieve images;
