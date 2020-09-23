@@ -1,4 +1,4 @@
-GET http://a3.dawo.me:3000/toilets
+GET https://a3.dawo.me:3000/toilets
 
 ###
 POST http://localhost:3000/review/1
