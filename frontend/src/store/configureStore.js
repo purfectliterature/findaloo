@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 
 import userReducer from "./user";
+import toiletsReducer from "./toilets";
 
 const persistConfig = {
     key: "root",
@@ -19,7 +20,8 @@ const persistConfig = {
 };
 
 const reducer = persistReducer(persistConfig, combineReducers({
-    user: userReducer
+    user: userReducer,
+    toilet: toiletsReducer
 }));
 
 export default () => {
