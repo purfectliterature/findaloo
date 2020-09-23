@@ -30,7 +30,6 @@ const s3 = new AWS.S3();
 app.get("/customer/profile/imageUrl", authenticateToken, async (req, res) => {
     try {
         const uploadUrl = await getUploadUrl();
-        console.log(uploadUrl)
         return res.status(200).send(uploadUrl);
     } catch (error) {
         return res.status(500).send(error);
