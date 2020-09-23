@@ -413,11 +413,11 @@ app.get("/customer/profile", authenticateToken, async (req, res) => {
 
 app.put("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
-    const { name, profile_picture } = req.body;
+    const { name, profilePicture } = req.body;
 
     statement = (SQL `
     UPDATE customer_profiles
-    SET name = (${name}), profile_picture = (${profile_picture})
+    SET name = (${name}), profile_picture = (${profilePicture})
     WHERE user_id = (${userId})
     `)
 
@@ -492,6 +492,8 @@ app.put("/customer/change-password", authenticateToken, async (req, res) => {
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
+
+    console.log(token);
 
     if (token == null) {
         return res.sendStatus(401);

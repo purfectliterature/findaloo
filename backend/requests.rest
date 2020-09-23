@@ -27,7 +27,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/report/1
+POST https://a3.dawo.me:3000/report/1
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
 
@@ -50,9 +50,9 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/customer/profile
+GET https://a3.dawo.me:3000/customer/profile
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDE1NCwiZXhwIjoxNjAwODYzNzU0fQ.SS6Hp4yKGbGRH1kXZnHnsdkiDvx6Wb55C8yZE16UIFI
 
 ###
 
