@@ -1171,6 +1171,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
+"@googlemaps/markerclustererplus@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/markerclustererplus/-/markerclustererplus-1.0.2.tgz#6739f2ea27505f9ea753342aef108176a7a5ff5a"
+  integrity sha512-AmoLW+KwRapYFZnosBkdVItSasJS+hmfNbZzqMvxrPxi6fLzT+WcoIno6VWlLPBXg6t4PFKra4PkYmD5XOjUlw==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
