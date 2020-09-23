@@ -7,7 +7,9 @@ export default {
     getToiletsFromSearchKeywords: `${DATABASE}/toilets/search`,
     toiletReviews: `${DATABASE}/review`,
     toiletReports: `${DATABASE}/report`,
-    getUserProfile: `${DATABASE}/profile`,    
+    getUserProfile: `${DATABASE}/customer/profile`,
+    updatePassword: `${DATABASE}/customer/change-password`,
+    getUserReviews: `${DATABASE}/customer/reviews`, 
 
     login: `${AUTHENTICATION}/login`,
     logout: `${AUTHENTICATION}/logout`,
