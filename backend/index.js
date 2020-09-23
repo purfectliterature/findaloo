@@ -296,6 +296,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
         toiletName: toilet.name,
         avg_review: toilet.avg_review,
         review_count: toilet.review_count,
+        address: toilet.address,
         distance: 0,
         features: features,
         reviews: reviews,
