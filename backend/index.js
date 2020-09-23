@@ -348,7 +348,7 @@ app.get("/toilets/nearest", async (req, res) => {
     return res.status(200).send(toilets);
 });
 
-app.get("/toilets/search", async (req, res) => {
+app.get("/toilets/search/:keyword", async (req, res) => {
     const { limit } = req.body;
     const keyword = req.params.keyword;
     
