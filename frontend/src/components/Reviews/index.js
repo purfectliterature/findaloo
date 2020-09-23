@@ -55,7 +55,7 @@ const Reviews = ({ reviews }) => {
               />
             </div>
             <div>
-              <h3 className="header-margin">{review.user.name}</h3>
+              <h3 className="header-margin">{review.name}</h3>
               <div className="display-flex flex-direction-row justify-content-space-between">
                 <ReviewStars reviewCount={review.cleanliness_rating} />
                 <span className="grey-text margin-left">
