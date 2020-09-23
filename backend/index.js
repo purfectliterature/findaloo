@@ -350,7 +350,8 @@ app.get("/toilets/nearest", async (req, res) => {
 });
 
 app.get("/toilets/search", async (req, res) => {
-    const {keyword, limit} = req.body;
+    const { limit } = req.body;
+    const keyword = req.params.keyword;
     
     try {
         let toilets = await getToiletSummary();
