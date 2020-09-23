@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import {
   Page,
   Navbar,
@@ -6,29 +7,47 @@ import {
   Button,
   List,
   ListInput,
+  f7,
 } from 'framework7-react';
 import { Edit } from '@material-ui/icons';
+import { endpoints } from '../../utils/routes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
 
 const EditProfile = (props) => {
-  const { userId, userName, userProfilePicture } = props;
+  const { userName, userProfilePicture } = props;
+  const authKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDMzNSwiZXhwIjoxNjAwODYzOTM1fQ.1utFZBr9qBkPFQbMImlm_9gLMACh2Py2Z0BLkUv9u-8';
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${authKey}`,
+  };
 
   const [profilePicture, setProfilePicture] = useState(null);
   const fileInput = useRef(null);
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-    console.log('name: ', name);
-    console.log(profilePicture);
-
-    // TODO: API CALL
-
-    formik.setSubmitting(false);
-
-    // TODO: Routing
-    // f7.views.main.router.navigate(`/profile/`);
+    axios
+      .put(
+        `${endpoints.databaseApi}/customer/profile`,
+        {
+          name: name,
+          profile_picture: profilePicture,
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => {
+        formik.setSubmitting(false);
+        f7.views.main.router.navigate(`/profile/`);
+      })
+      .catch((err) => {
+        console.log(err);
+        formik.setSubmitting(false);
+      });
   };
 
   const handleEditProfileOnClick = (event) => {
@@ -37,7 +56,7 @@ const EditProfile = (props) => {
 
   const handleUploadProfilePicture = (file) => {
     formik.setFieldValue('profilePicture', file);
-  }
+  };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Required').min(1, 'Name must be provided'),
@@ -93,9 +112,15 @@ const EditProfile = (props) => {
               <input
                 type="file"
                 ref={fileInput}
-                name={formik.values.profilePicture ? formik.values.profilePicture.name : ''}
+                name={
+                  formik.values.profilePicture
+                    ? formik.values.profilePicture.name
+                    : ''
+                }
                 className="edit-profile-file-input"
-                onChange={(event) => handleUploadProfilePicture(event.currentTarget.files[0])}
+                onChange={(event) =>
+                  handleUploadProfilePicture(event.currentTarget.files[0])
+                }
               />
             </div>
           </div>
