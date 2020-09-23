@@ -120,13 +120,8 @@ async function getToiletSummary() {
 
 async function getToiletFeatures(condition) {
     let toilet_features = {}
-
+    let statement = "SELECT * FROM toilet_features " + condition;
     let rows;
-    let statement = (SQL `
-    SELECT * 
-    FROM toilet_features
-    ${condition}`);
-
     try {
         let result = await db.query(statement);
         rows = result.rows;
@@ -163,11 +158,7 @@ async function getToiletImages(condition) {
     let toilet_images = {}
 
     let rows;
-    let statement = (SQL `
-    SELECT * 
-    FROM toilet_images
-    ${condition}
-    `);
+    let statement = "SELECT * FROM toilet_images " + condition;
 
     try {
         let result = await db.query(statement);
@@ -314,9 +305,8 @@ app.get("/toilets/nearest", async (req, res) => {
     const { lat, lon } = req.body;
 
     var nearestToilets = await getNearestToilets(lat, lon);
-    var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(`","`);
-    console.log(toiletIds)
-    statement = (SQL`
+    var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(',');
+    statement = (`
     SELECT *
     FROM ToiletSummary
     WHERE id IN (${toiletIds})
@@ -331,8 +321,8 @@ app.get("/toilets/nearest", async (req, res) => {
         throw error;
     }
 
-    let toiletFeatures = await getToiletFeatures(`WHERE id IN ${toiletIds}`);
-    let toiletImages = await getToiletImages(`WHERE id IN ${toiletIds}`);
+    let toiletFeatures = await getToiletFeatures(`WHERE toilet_id IN (${toiletIds})`);
+    let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
 
     for (row in rows) {
         let current = rows[row];
