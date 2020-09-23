@@ -30,7 +30,6 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
 
-
 app.get("/toilets", async (req, res) => {
 
     try {
@@ -350,7 +349,7 @@ app.get("/toilets/nearest", async (req, res) => {
 });
 
 app.get("/toilets/search/:keyword", async (req, res) => {
-    const { keyword } = req.params.keyword;
+    const { keyword } = req.params;
     const { limit } = req.body;
     
     try {
