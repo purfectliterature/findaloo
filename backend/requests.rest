@@ -56,7 +56,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/toilets/1
+GET https://a3.dawo.me:3000/toilets/1
 
 ###
 
