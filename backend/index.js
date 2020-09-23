@@ -535,7 +535,7 @@ async function addToiletReview(userId, toiletId, review) {
 
     statement = (SQL `
     UPDATE customer_profiles
-    SET points = points + 15;
+    SET points = points + 15
     WHERE user_id = (${userId})
     `)
 
