@@ -359,7 +359,8 @@ app.get("/toilets/nearest", async (req, res) => {
 });
 
 app.get("/toilets/search", async (req, res) => {
-    const {keyword, limit} = req.body;
+    const { limit } = req.body;
+    const keyword = req.params.keyword;
     
     try {
         let toilets = await getToiletSummary();
@@ -367,7 +368,8 @@ app.get("/toilets/search", async (req, res) => {
           .status(200)
           .send(toilets.filter(
             (toilet) =>
-              toilet.name.includes(keyword) || toilet.address.includes(keyword)
+                toilet.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                toilet.address.toLowerCase().includes(keyword.toLowerCase())
           )
           .slice(0, limit));
     } catch {
@@ -432,15 +434,21 @@ app.put("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     const { name, profilePicture } = req.body;
 
-    statement = (SQL `
-    UPDATE customer_profiles
-    SET name = (${name}), profile_picture = (${profilePicture})
-    WHERE user_id = (${userId})
-    `)
+    try {
+        statement = (SQL `
+        UPDATE customer_profiles
+        SET name = (${name}), profile_picture = (${profilePicture})
+        WHERE user_id = (${userId})
+        `)
+    
+        await db.query(statement);
+    
+        return res.sendStatus(200);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 
-    await db.query(statement);
-
-    return res.sendStatus(200);
+    
 })
 
 app.get("/customer/reviews", authenticateToken, async (req, res) => {
@@ -451,13 +459,13 @@ app.get("/customer/reviews", authenticateToken, async (req, res) => {
     changePasswordStatement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE email = (${userEmail})`;
+            WHERE user_id = (${userId})`;
 
     try {
         result = await db.query(changePasswordStatement);
         rows = result.rows;
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 
     for (row in rows) {
