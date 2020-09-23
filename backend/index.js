@@ -8,6 +8,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./db')
 const SQL = require('sql-template-strings');
+const fetch = require("node-fetch");
+const constants = require("./constants.js");
+
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 
 var AWS = require('aws-sdk'),
     region = "us-east-2",
@@ -23,7 +29,6 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
-
 
 app.get("/toilets", async (req, res) => {
 
@@ -97,8 +102,8 @@ async function getToiletSummary() {
         throw error;
     }
 
-    let toiletFeatures = await getToiletFeatures();
-    let toiletImages = await getToiletImages();
+    let toiletFeatures = await getToiletFeatures('');
+    let toiletImages = await getToiletImages('');
 
     for (row in rows) {
         let current = rows[row];
@@ -118,14 +123,10 @@ async function getToiletSummary() {
     return toilets;
 }
 
-async function getToiletFeatures() {
+async function getToiletFeatures(condition) {
     let toilet_features = {}
-
+    let statement = "SELECT * FROM toilet_features " + condition;
     let rows;
-    let statement = (SQL `
-    SELECT * 
-    FROM toilet_features`);
-
     try {
         let result = await db.query(statement);
         rows = result.rows;
@@ -158,13 +159,11 @@ function parseToiletFeatures(row) {
     }
 }
 
-async function getToiletImages() {
+async function getToiletImages(condition) {
     let toilet_images = {}
 
     let rows;
-    let statement = (SQL `
-    SELECT * 
-    FROM toilet_images`);
+    let statement = "SELECT * FROM toilet_images " + condition;
 
     try {
         let result = await db.query(statement);
@@ -237,14 +236,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 
     for (row in rows) {
         let current = rows[row];
-        reviews.push({
-        name: current.name,
-        profile_picture_url: current.profile_picture_url,
-        cleanliness_rating: current.cleanliness_rating,
-        title: current.title,
-        description: current.description,
-        queue: current.queue,
-        });
+        reviews.push(current);
     }
 
     // Retrieve images;
@@ -308,13 +300,57 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.get("/toilets/nearest", (req, res) => {
-    const {lat, lon, limit, offset} = req.body;
+app.get("/toilets/nearest", async (req, res) => {
+    const { lat, lon } = req.body;
 
+    var nearestToilets = await getNearestToilets(lat, lon);
+    var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(',');
+    statement = (`
+    SELECT *
+    FROM ToiletSummary
+    WHERE id IN (${toiletIds})
+    `);
+
+    let toilets = [];
+
+    try {
+        let result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        throw error;
+    }
+
+    let toiletFeatures = await getToiletFeatures(`WHERE toilet_id IN (${toiletIds})`);
+    let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
+
+    for (row in rows) {
+        let current = rows[row];
+        
+        let toilet = {
+          toiletId: current.id,
+          buildingId: current.building_id,
+          duration: nearestToilets.filter(
+            (nearestToilet) => nearestToilet.toiletId === current.id
+          )[0].duration,
+          distance: nearestToilets.filter(
+            (nearestToilet) => nearestToilet.toiletId === current.id
+          )[0].distance,
+          address: current.address,
+          name: current.name,
+          avg_review: current.avg_review || 0,
+          review_count: current.review_count || 0,
+          toilet_features: toiletFeatures[current.id],
+          toilet_images: toiletImages[current.id],
+        };
+        toilets.push(toilet);
+    }
+
+    return res.status(200).send(toilets);
 });
 
-app.get("/toilets/search", async (req, res) => {
-    const {keyword, limit} = req.body;
+app.get("/toilets/search/:keyword", async (req, res) => {
+    const { limit } = req.body;
+    const keyword = req.params.keyword;
     
     try {
         let toilets = await getToiletSummary();
@@ -322,11 +358,12 @@ app.get("/toilets/search", async (req, res) => {
           .status(200)
           .send(toilets.filter(
             (toilet) =>
-              toilet.name.includes(keyword) || toilet.address.includes(keyword)
+                toilet.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                toilet.address.toLowerCase().includes(keyword.toLowerCase())
           )
           .slice(0, limit));
     } catch {
-        res.status(500).send('Error in searching toilets');
+        res.status(500).send('Error in searching for toilets');
     }
 });
 
@@ -384,17 +421,23 @@ app.get("/customer/profile", authenticateToken, async (req, res) => {
 
 app.put("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
-    const { name, profile_picture } = req.body;
+    const { name, profilePicture } = req.body;
 
-    statement = (SQL `
-    UPDATE customer_profiles
-    SET name = (${name}), profile_picture = (${profile_picture})
-    WHERE user_id = (${userId})
-    `)
+    try {
+        statement = (SQL `
+        UPDATE customer_profiles
+        SET name = (${name}), profile_picture = (${profilePicture})
+        WHERE user_id = (${userId})
+        `)
+    
+        await db.query(statement);
+    
+        return res.sendStatus(200);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 
-    await db.query(statement);
-
-    return res.sendStatus(200);
+    
 })
 
 app.get("/customer/reviews", authenticateToken, async (req, res) => {
@@ -405,13 +448,13 @@ app.get("/customer/reviews", authenticateToken, async (req, res) => {
     changePasswordStatement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE email = (${userEmail})`;
+            WHERE user_id = (${userId})`;
 
     try {
         result = await db.query(changePasswordStatement);
         rows = result.rows;
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 
     for (row in rows) {
@@ -521,12 +564,92 @@ async function addToiletReport(userId, toiletId, report) {
 
     statement = (SQL `
     UPDATE customer_profiles
-    SET points = points + 10;
+    SET points = points + 10
     WHERE user_id = (${userId})
     `)
 
     await db.query(statement);
 } 
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+
+async function getNearestToilets(lat, lon) {
+  var idAndLatLons = constants.idAndLatLons;
+  // list of all lat lons from db, sort it according to approximated distance
+  idAndLatLons = idAndLatLons.sort(function (
+    currentIndexLatLon,
+    nextIndexLatLon
+  ) {
+    var currentLatlon = currentIndexLatLon[1];
+    var nextLatLon = nextIndexLatLon[1];
+    return (
+      getDistanceFromLatLonInKm(currentLatlon[0], currentLatlon[1], lat, lon) -
+      getDistanceFromLatLonInKm(nextLatLon[0], nextLatLon[1], lat, lon)
+    );
+  });
+
+  // join the string for query to google maps API
+  var destinationsString = idAndLatLons
+    .slice(0, 25)
+    .map(function (latLon) {
+      return latLon[1];
+    })
+    .join("|");
+  console.log(destinationsString);
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
+  var response = await fetch(url);
+  var response_json = await response.json();
+  // result from the google maps API, put index besides it
+  var indexAndActualDistances = response_json.rows[0].elements.map(function (
+    el,
+    i
+  ) {
+    return { index: i, value: el };
+  });
+
+  // sort the result using the duration
+  indexAndActualDistances.sort(
+    (currentDistanceDuration, nextDistanceDuration) => {
+      return (
+        currentDistanceDuration.value.duration.value -
+        nextDistanceDuration.value.duration.value
+      );
+    }
+  );
+
+  // from the sorted, get the index and get the original id and lat lon from the unsorted array
+  var result = indexAndActualDistances.map(function (indexAndActualDistance) {
+    var indexAndLatLon = idAndLatLons[indexAndActualDistance.index];
+    toiletId = indexAndLatLon[0].toString();
+    return {
+        toiletId: toiletId,
+        latLon: indexAndLatLon[1],
+        distance: indexAndActualDistance.value.distance.value,
+        duration: indexAndActualDistance.value.duration.value,
+      };
+  });
+
+  // result in the form of [{toiletId: .., latLon: [ .., .. ], distance: .., duration: ..}]
+  return result;
+}
 
 async function getTokenSecrets() {
     try {

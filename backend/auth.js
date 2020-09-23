@@ -8,6 +8,8 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const cors = require('cors')
+
 var tokenSecret;
 
 var AWS = require('aws-sdk'),
@@ -21,6 +23,7 @@ var client = new AWS.SecretsManager({
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/sign-up/customer', async (req, res) => {
   try {
@@ -221,13 +224,14 @@ app.post('/login', async (req, res) => {
 });
 
 app.delete('/logout', async (req, res) => {
-  try {
-    const refreshToken = req.body.refreshToken;
-    await removeRefreshTokenFromDb(refreshToken);
-    res.sendStatus(204);
-  } catch (err) {
-    res.sendStatus(500);
-  }
+    try {
+        const refreshToken = req.body.refreshToken;
+        if (!refreshToken) res.sendStatus(403);
+        await removeRefreshTokenFromDb(refreshToken);
+        res.sendStatus(204);
+    } catch (err) {
+        res.sendStatus(500);
+    }
 })
 
 app.post('/token', async (req, res) => {
@@ -325,7 +329,7 @@ async function checkIfRefreshTokenExists(token) {
 
     const { rows } = await db.query(statement)
 
-    if (rows[0].token && rows[0].token === token) {
+    if (rows[0]?.token && rows[0].token === token) {
         return true;
     }
     
