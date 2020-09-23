@@ -23,7 +23,6 @@ export default (props) => {
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
-    const [activeMarker, setActiveMarker] = useState("");
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
@@ -128,25 +127,13 @@ export default (props) => {
 
     const showMarkerOnMap = (building) => {
         hideBottomSheet();
-        setBuildingToShow(building.toilets);
+        setBuildingToShow(building);
         setBuildingToiletsStripShowed(true);
 
-        setActiveMarker(building.buildingId);
         mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
         
         if (mapView.getZoom() < 16) mapView.setZoom(16);
     }
-
-    const renderMarkers = () => buildings.map((building) => (
-        <Marker
-            key={building.buildingId}
-            title={building.buildingName}
-            lat={building.lat}
-            lng={building.lon}
-            onClick={() => showMarkerOnMap(building)}
-            active={activeMarker === building.buildingId}
-        />
-    ));
 
     const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
         <ToiletCard key={toilet.toiletId} toilet={toilet} mini={true} />
@@ -155,16 +142,23 @@ export default (props) => {
     useEffect(() => {
         try {
             if (buildings) {
-                const markers = buildings.map((building) => {
-                    const position = new mapsApi.LatLng({
-                        lat: parseFloat(building.lat),
-                        lng: parseFloat(building.lon) 
+                const markers = buildings.map((building) => {                    
+                    const marker = new mapsApi.Marker({
+                        position: {
+                            lat: parseFloat(building.lat),
+                            lng: parseFloat(building.lon)
+                        },
+                        icon: {
+                            url: require("../../assets/marker-toilet.svg"),
+                            anchor: new mapsApi.Point(0, 0)
+                        }
                     });
-                    
-                    return new mapsApi.Marker({
-                        position,
-                        icon: require("../../assets/marker-toilet.svg")
+
+                    marker.addListener("click", () => {
+                        showMarkerOnMap(building)
                     });
+
+                    return marker;
                 });
                 
                 const markerCluster = new MarkerClusterer(mapView, markers, {
@@ -173,6 +167,7 @@ export default (props) => {
             }
         } catch (error) {
             console.log("WHOOPS NO MAPS");
+            console.error(error);
         }
     }, [buildings, mapView, mapsApi])
 
@@ -190,7 +185,7 @@ export default (props) => {
         {buildingToShow ?
             <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
                 <div className="bldg-toilets">
-                    {renderBuildingToilets(buildingToShow)}
+                    {renderBuildingToilets(buildingToShow.toilets)}
                 </div>
             </div>
         : null}
@@ -276,7 +271,16 @@ export default (props) => {
             >
                 {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
                 
-                {/* {buildings ? renderMarkers() : null} */}
+                {buildingToShow ? 
+                    <Marker
+                        key={buildingToShow.buildingId}
+                        title={buildingToShow.buildingName}
+                        lat={buildingToShow.lat}
+                        lng={buildingToShow.lon}
+                        onClick={() => {}}
+                        active={true}
+                    />
+                : null}
             </GoogleMapReact>
         </div>
     </>);
