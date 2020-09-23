@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@googlemaps/markerclustererplus": "^1.0.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.20.0",
     "formik": "^2.1.5",
     "framework7": "^5.7.12",
     "framework7-icons": "^3.0.1",
@@ -20,9 +22,11 @@
     "react-dom": "^16.13.1",
     "react-ga": "^3.1.2",
     "react-helmet": "^6.1.0",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux-persist": "^6.0.0",
+    "reselect": "^4.0.0",
     "yup": "^0.29.3"
   },
   "scripts": {
