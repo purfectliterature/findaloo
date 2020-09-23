@@ -497,14 +497,7 @@ app.get("/customer/reviews", authenticateToken, async (req, res) => {
 
     for (row in rows) {
         let current = rows[row];
-        reviews.push({
-            name: current.name,
-            profile_picture_url: current.profile_picture_url,
-            cleanliness_rating: current.cleanliness_rating,
-            title: current.title,
-            description: current.description,
-            queue: current.queue,
-        });
+        reviews.push(current);
     }
     return res.status(200).send(reviews);
 })
