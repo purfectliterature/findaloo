@@ -12,6 +12,7 @@ import BuildingCard from "../../components/BuildingCard";
 import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
+import FetchLoading from "../../components/FetchLoading";
 
 import { addBuildings, getBuildings } from "../../store/toilets";
 import { fetchToilets } from "../../utils/toilets";
@@ -153,8 +154,8 @@ export default (props) => {
     });
     
     useEffect(() => {
-        openBottomSheet();
-    }, []);
+        if (buildings) openBottomSheet();
+    }, [buildings]);
 
     useEffect(() => {
         try {
@@ -188,6 +189,10 @@ export default (props) => {
             console.error(error);
         }
     }, [buildings, mapView, mapsApi]);
+
+    if (buildings === null) {
+        return <FetchLoading />;
+    }
 
     return (<>
         <div className="map-search-overlay">
