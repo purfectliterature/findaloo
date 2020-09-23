@@ -27,7 +27,6 @@ const BasicInfoImage = ({
         <div>
           <Button
             back
-            href="false"
             className={`actions-btn ${
               images.length > 0 ? 'white-skin' : 'primary-skin'
             } `}
@@ -37,7 +36,6 @@ const BasicInfoImage = ({
         </div>
         <div>
           <Button
-            href="false"
             onClick={handleShareOnClick}
             className={`actions-btn ${
               images.length > 0 ? 'white-skin' : 'primary-skin'
@@ -46,7 +44,6 @@ const BasicInfoImage = ({
             <Share />
           </Button>
           <Button
-            href="false"
             onClick={handleReportOnClick}
             className={`actions-btn ${
               images.length > 0 ? 'white-skin' : 'primary-skin'
