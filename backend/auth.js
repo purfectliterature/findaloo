@@ -386,7 +386,7 @@ function createGoogleConnection(redirect) {
 }
 
 app.get('/google/sign-in-url', (req, res) => {
-    let { redirect } = res.body;
+    let { redirect } = req.body;
 
     let url = generateGoogleLoginUrl(redirect);
 
@@ -394,7 +394,7 @@ app.get('/google/sign-in-url', (req, res) => {
 })
 
 
-function generateGoogleLoginUrl() {
+function generateGoogleLoginUrl(redirect) {
     const auth = createGoogleConnection(redirect);
     return auth.generateAuthUrl({
         access_type: 'offline',
