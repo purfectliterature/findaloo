@@ -243,8 +243,8 @@ const Form = () => {
 
 const TermOfServicesBlock = () => (
     <Block>
-        Last updated 23 September 2020
-        <BlockTitle medium>AGREEMENT TO TERMS</BlockTitle>
+        <p>Last updated 23 September 2020</p>
+        <h4>AGREEMENT TO TERMS</h4>
         <p>
             These Terms of Service constitute a legally binding agreement made
             between you, whether personally or on behalf of an entity (“you”)
@@ -301,7 +301,7 @@ const TermOfServicesBlock = () => (
             you are a minor, you must have your parent or guardian read and
             agree to these Terms of Service prior to you using the Site.
         </p>
-        <BlockTitle medium>USER REPRESENTATIONS</BlockTitle>
+        <h4>USER REPRESENTATIONS</h4>
         <p>By using the Site, you represent and warrant that:</p>
         <ol>
             <li>
@@ -340,7 +340,7 @@ const TermOfServicesBlock = () => (
             your account and refuse any and all current or future use of the
             Site (or any portion thereof).
         </p>
-        <BlockTitle medium>USER REGISTRATION</BlockTitle>
+        <h4>USER REGISTRATION</h4>
         <p>
             You may be required to register with the Site. You agree to keep
             your password confidential and will be responsible for all use of
@@ -349,7 +349,7 @@ const TermOfServicesBlock = () => (
             discretion, that such username is inappropriate, obscene, or
             otherwise objectionable.
         </p>
-        <BlockTitle medium>PROHIBITED ACTIVITIES</BlockTitle>
+        <h4>PROHIBITED ACTIVITIES</h4>
         <p>
             You may not access or use the Site for any purpose other than that
             for which we make the Site available. The Site may not be used in
@@ -411,7 +411,7 @@ const TermOfServicesBlock = () => (
             opinion, us and/or the Site. use the Site in a manner inconsistent
             with any applicable laws or regulations.
         </p>
-        <BlockTitle medium>USER GENERATED CONTRIBUTIONS</BlockTitle>
+        <h4>USER GENERATED CONTRIBUTIONS</h4>
         <p>
             The Site may invite you to chat, contribute to, or participate in
             blogs, message boards, online forums, and other functionality, and
@@ -470,7 +470,7 @@ const TermOfServicesBlock = () => (
             result in, among other things, termination or suspension of your
             rights to use the Site.
         </p>
-        <BlockTitle medium>GUIDELINES FOR REVIEWS</BlockTitle>
+        <h4>GUIDELINES FOR REVIEWS</h4>
         <p>
             We may provide you areas on the Site to leave reviews or ratings.
             When posting a review, you must comply with the following criteria:
@@ -506,5 +506,41 @@ const TermOfServicesBlock = () => (
             means, display, perform, and/or distribute all content relating to
             reviews.
         </p>
+        <h4>SITE MANAGEMENT</h4>
+        <p>We reserve the right, but not the obligation, to:</p>
+        <p>
+            (1) monitor the Site for violations of these Terms of Service; (2)
+            take appropriate legal action against anyone who, in our sole
+            discretion, violates the law or these Terms of Service, including
+            without limitation, reporting such user to law enforcement
+            authorities; (3) in our sole discretion and without limitation,
+            refuse, restrict access to, limit the availability of, or disable
+            (to the extent technologically feasible) any of your Contributions
+            or any portion thereof; (4) in our sole discretion and without
+            limitation, notice, or liability, to remove from the Site or
+            otherwise disable all files and content that are excessive in size
+            or are in any way burdensome to our systems; (5) otherwise manage
+            the Site in a manner designed to protect our rights and property and
+            to facilitate the proper functioning of the Site.
+        </p>
+        <h4>PRIVACY POLICY</h4>
+        <p>
+            We care about data privacy and security. By using the Site, you
+            agree to be bound by our Privacy Policy, which is incorporated into
+            these Terms of Service. Please be advised the Site is hosted in the
+            United States. If you access the Site from the European Union, Asia,
+            or any other region of the world with laws or other requirements
+            governing personal data collection, use, or disclosure that differ
+            from applicable laws in the United States, then through your
+            continued use of the Site, you are transferring your data to the
+            United States, and you expressly consent to have your data
+            transferred to and processed in the United States.
+        </p>
+        <h4>CONTACT US</h4>
+        <p>
+            In order to resolve a complaint regarding the Site or to receive
+            further information regarding use of the Site, please contact us at:
+        </p>
+        <p>Tel: +65 9900 1111</p>
     </Block>
 );
