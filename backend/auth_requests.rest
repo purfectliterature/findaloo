@@ -82,7 +82,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:4000/logout
+DELETE https://a3.dawo.me:4000/logout
 Content-Type: application/json
 
 {
@@ -100,7 +100,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/google/sign-in-url
+GET https://a3.dawo.me:4000/google/sign-in-url
 Content-Type: application/json
 
 {

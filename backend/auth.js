@@ -239,11 +239,13 @@ app.post('/login', async (req, res) => {
 app.delete('/logout', async (req, res) => {
     try {
         const refreshToken = req.body.refreshToken;
-        if (!refreshToken) res.sendStatus(403);
+        if (!refreshToken) {
+            return res.sendStatus(403);
+        }
         await removeRefreshTokenFromDb(refreshToken);
-        res.sendStatus(204);
+        return res.sendStatus(204);
     } catch (err) {
-        res.sendStatus(500);
+        return res.sendStatus(500);
     }
 })
 
