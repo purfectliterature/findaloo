@@ -45,9 +45,9 @@ const BasicInfoComponent = ({ name, address, ratings, numberOfReviews }) => {
       <div className="description-skin">
         <p>{address}</p>
         <div className="display-flex flex-direction-row align-content-center">
-          <p className="ratings-text">{ratings}</p>
+          <p className="ratings-text">{ratings ? ratings : 0}</p>
           <Stars ratings={ratings} />
-          <p className="ratings-text">({numberOfReviews})</p>
+          <p className="ratings-text">({numberOfReviews ? numberOfReviews : 0})</p>
         </div>
       </div>
     </div>
