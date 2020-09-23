@@ -560,14 +560,12 @@ async function getTokenSecrets() {
     }
 }
 
-const httpsServer = https.createServer(credentials, app);
-
 getTokenSecrets().then(data => {
     tokenSecret = data;
     tokenSecret = JSON.parse(tokenSecret);
     console.log("Successfully initialised secret keys.")
 
-    httpsServer = https.createServer(credentials, app);
+    let httpsServer = https.createServer(credentials, app);
 
     console.log(`Now listening on port ${port}.`)
 
