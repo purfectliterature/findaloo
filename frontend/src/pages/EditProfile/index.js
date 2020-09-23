@@ -45,7 +45,28 @@ const EditProfile = () => {
     fileInput.current.click();
   };
 
-  const handleUploadProfilePicture = (file) => {
+  const handleUploadProfilePicture = async (file) => {
+    try {
+      var response = await axios
+        .get(
+          `${endpoints.databaseApi}/customer/profile/imageUrl`,
+          {
+            headers: headers,
+          }
+      )
+      let binary = atob(this.image.split(',')[1])
+      let array = []
+      for (var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i))
+      }
+      let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
+      console.log('Uploading to: ', response.data.uploadURL)
+      const result = await axios.put(response.data.uploadURL, {
+        body: blobData
+      })
+    } catch (err) {
+      console.log(err);
+    }
     formik.setFieldValue('profilePicture', file);
   };
 
