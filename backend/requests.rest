@@ -67,7 +67,9 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "name": "Agnes",
     "profile_picture": "www.google.com"
 }
+
 ###
+
 GET http://localhost:3000/customer/reviews
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MzU2NCwiZXhwIjoxNjAwODY3MTY0fQ.ZxQCeFL6aAzEOdapYk6lHYJUb-rgNpDyOVghOlR9phA

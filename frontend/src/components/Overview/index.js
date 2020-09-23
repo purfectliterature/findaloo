@@ -34,21 +34,20 @@ const ImportantInformation = ({ features }) => {
     <IconText icon={<AttachMoney />} text={FEATURE_PAID_TOILET} />
   );
   if (features.is_free) {
-    freeSection = (
-      <IconText icon={<MoneyOff />} text={FEATURE_FREE_TOILET} />
-    );
+    freeSection = <IconText icon={<MoneyOff />} text={FEATURE_FREE_TOILET} />;
   }
 
   return (
     <div className="padding-vertical grey-bottom-border">
-      <IconText icon={<Wc />} text={genderText} />
-      {features.has_handicap && (
-        <IconText
-          icon={<AccessibleOutlined />}
-          text={FEATURE_HANDICAP}
-        />
+      {(features.has_female || features.has_male) && (
+        <IconText icon={<Wc />} text={genderText} />
       )}
-      {freeSection}
+      {features.has_handicap && (
+        <IconText icon={<AccessibleOutlined />} text={FEATURE_HANDICAP} />
+      )}
+      {typeof features.is_free !== 'undefined' && 
+        freeSection
+      }
     </div>
   );
 };

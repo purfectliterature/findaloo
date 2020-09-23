@@ -8,9 +8,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./db')
 const SQL = require('sql-template-strings');
+const uuidv4 = require('uuid/v4')
 const fetch = require("node-fetch");
 const constants = require("./constants.js");
-
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
@@ -29,6 +29,34 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
+
+const s3 = new AWS.S3();
+
+app.get("/customer/profile/imageUrl", authenticateToken, async (req, res) => {
+    try {
+        const uploadUrl = await getUploadUrl();
+        return res.status(200).send(uploadUrl);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+})
+
+async function getUploadUrl() {
+  const actionId = uuidv4()
+  const s3Params = {
+    Bucket: "cs3216-a3-profile-picture",
+    Key: `${actionId}.jpg`,
+    ContentType: "image/jpeg",
+    ACL: "public-read",
+  };
+  return new Promise((resolve, reject) => {
+    let uploadURL = s3.getSignedUrl('putObject', s3Params)
+    resolve({
+        "uploadURL": uploadURL,
+        "photoFilename": `${actionId}.jpg`
+    })
+  })
+}
 
 app.get("/toilets", async (req, res) => {
 
