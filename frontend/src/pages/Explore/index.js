@@ -16,6 +16,8 @@ import Marker, { MyLocationMarker } from "../../components/Marker";
 import { addBuildings, getBuildings } from "../../store/toilets";
 import { fetchToilets } from "../../utils/toilets";
 
+const MAX_BUILDINGS_FEATURED = 20;
+
 export default (props) => {
     const bottomSheetRef = useRef();
     const [mapView, setMapView] = useState();
@@ -107,23 +109,38 @@ export default (props) => {
         });
     });
 
-    const renderBuildings = () => buildings.map((building) => {
-        let image;
+    const renderBuildings = () => {
+        let sliced = buildings.slice(0, MAX_BUILDINGS_FEATURED).map((building) => {
+            let image;
+    
+            try {
+                image = building.toilets[0].toilet_images[0];
+            } catch (error) { }
+    
+            return (
+                <BuildingCard
+                    key={building.buildingId}
+                    title={building.buildingName}
+                    toilets={building.toilets}
+                    image={image}
+                    onClick={() => showMarkerOnMap(building)}
+                />
+            );
+        });
 
-        try {
-            image = building.toilets[0].toilet_images[0];
-        } catch (error) { }
 
-        return (
-            <BuildingCard
-                key={building.buildingId}
-                title={building.buildingName}
-                toilets={building.toilets}
-                image={image}
-                onClick={() => showMarkerOnMap(building)}
-            />
-        );
-    });
+        if (buildings.length > MAX_BUILDINGS_FEATURED) {
+            sliced.push(
+                <BuildingCard
+                    key={"showAllBuildings"}
+                    onClick={() => {}}
+                    isShowAllBuildingsButton={true}
+                />
+            );
+        }
+
+        return sliced;
+    }
 
     const showMarkerOnMap = (building) => {
         hideBottomSheet();
@@ -162,7 +179,8 @@ export default (props) => {
                 });
                 
                 const markerCluster = new MarkerClusterer(mapView, markers, {
-                    imagePath: "/static/cluster/m"
+                    imagePath: "/static/cluster/m",
+                    minimumClusterSize: 3
                 });
             }
         } catch (error) {
