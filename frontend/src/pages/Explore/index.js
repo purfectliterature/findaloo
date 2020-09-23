@@ -196,7 +196,7 @@ export default (props) => {
             round
             iconSize="1.6rem"
             color="white"
-            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""}`}
+            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""} ${currentLocation ? "location-found" : ""}`}
             onClick={getCurrentLocation}
         ><MyLocationIcon /></Button>
 
