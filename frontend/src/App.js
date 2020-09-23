@@ -54,24 +54,24 @@ const f7params = {
             component: CreateReport,
         },
         {
-            path: "/profile/", 
-            component: Profile,  
-        }, 
+            path: "/profile/",
+            component: Profile,
+        },
         {
             path: "/edit-profile/",
             component: EditProfile,
         },
         {
-          path: "/change-password/",
-          component: ChangePassword,
+            path: "/change-password/",
+            component: ChangePassword,
         },
         {
-          path: "/rewards/",
-          component: Rewards,
+            path: "/rewards/",
+            component: Rewards,
         },
         {
-          path: "/manage-reviews/",
-          component: ManageReviews,
+            path: "/manage-reviews/",
+            component: ManageReviews,
         },
     ],
 };
