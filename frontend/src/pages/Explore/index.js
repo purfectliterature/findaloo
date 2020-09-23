@@ -31,19 +31,6 @@ export default (props) => {
     const [buildings, setBuildings] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
-    
-    useEffect(() => { ReactGA.pageview("/"); });
-
-    useEffect(() => {
-        fetchToilets((buildings) => {
-            dispatch(addBuildings(buildings));
-            setBuildings(buildings);
-        }, (error) => {
-            console.log("NO INTERNET LA DEY");
-            console.log(buildingsFromStore);
-            setBuildings(buildingsFromStore);
-        });
-    }, []);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -95,19 +82,16 @@ export default (props) => {
             setBottomSheetState("hidden");
         }
     }
+    
+    const showMarkerOnMap = (building) => {
+        hideBottomSheet();
+        setBuildingToShow(building);
+        setBuildingToiletsStripShowed(true);
 
-    useEffect(() => {
-        openBottomSheet();
-    }, []);
-
-    useEffect(() => {
-        const grid = document.querySelector(".cards");
-        const masonry = new Masonry(grid, {
-            itemSelector: ".toil-card",
-            gutter: ".cards-gutter",
-            percentPosition: true
-        });
-    });
+        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
+        
+        if (mapView.getZoom() < 16) mapView.setZoom(16);
+    }
 
     const renderBuildings = () => {
         let sliced = buildings.slice(0, MAX_BUILDINGS_FEATURED).map((building) => {
@@ -142,19 +126,35 @@ export default (props) => {
         return sliced;
     }
 
-    const showMarkerOnMap = (building) => {
-        hideBottomSheet();
-        setBuildingToShow(building);
-        setBuildingToiletsStripShowed(true);
-
-        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
-        
-        if (mapView.getZoom() < 16) mapView.setZoom(16);
-    }
-
     const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
         <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
     ));
+    
+    useEffect(() => { ReactGA.pageview("/"); });
+
+    useEffect(() => {
+        fetchToilets((buildings) => {
+            dispatch(addBuildings(buildings));
+            setBuildings(buildings);
+        }, (error) => {
+            console.log("NO INTERNET LA DEY");
+            console.log(buildingsFromStore);
+            setBuildings(buildingsFromStore);
+        });
+    }, []);
+
+    useEffect(() => {
+        const grid = document.querySelector(".cards");
+        const masonry = new Masonry(grid, {
+            itemSelector: ".toil-card",
+            gutter: ".cards-gutter",
+            percentPosition: true
+        });
+    });
+    
+    useEffect(() => {
+        openBottomSheet();
+    }, []);
 
     useEffect(() => {
         try {
@@ -187,7 +187,7 @@ export default (props) => {
             console.log("WHOOPS NO MAPS");
             console.error(error);
         }
-    }, [buildings, mapView, mapsApi])
+    }, [buildings, mapView, mapsApi]);
 
     return (<>
         <div className="map-search-overlay">
