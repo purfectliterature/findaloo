@@ -1,11 +1,7 @@
 GET https://a3.dawo.me:3000/toilets
 
 ###
-<<<<<<< HEAD
 POST https://a3.dawo.me:3000/review/1
-=======
-POST http://localhost:3000/review/1
->>>>>>> acaf9b7d83cf5e493152cc5d18d0e5e8e90f0a29
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU
 
@@ -45,7 +41,6 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 GET https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDYyMjY5OCwiZXhwIjoxNjAwNjI2Mjk4fQ.QXmR_P2F-rZSuA62_NgPtwCT8rXnEyTaPyHr9LL9qWw
 
 {
     "limit": 20
@@ -72,7 +67,9 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "profile_picture": "www.google.com"
 }
 
-GET http://localhost:3000/customer/reviews
+###
+
+GET https://a3.dawo.me:3000/customer/reviews
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MzU2NCwiZXhwIjoxNjAwODY3MTY0fQ.ZxQCeFL6aAzEOdapYk6lHYJUb-rgNpDyOVghOlR9phA
 
