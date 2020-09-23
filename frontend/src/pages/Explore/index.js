@@ -108,14 +108,23 @@ export default (props) => {
         });
     });
 
-    const renderBuildings = () => buildings.map((building) => (
-        <BuildingCard
-            key={building.buildingId}
-            title={building.buildingName}
-            toilets={building.toilets}
-            onClick={() => showMarkerOnMap(building)}
-        />
-    ));
+    const renderBuildings = () => buildings.map((building) => {
+        let image;
+
+        try {
+            image = building.toilets[0].toilet_images[0];
+        } catch (error) { }
+
+        return (
+            <BuildingCard
+                key={building.buildingId}
+                title={building.buildingName}
+                toilets={building.toilets}
+                image={image}
+                onClick={() => showMarkerOnMap(building)}
+            />
+        );
+    });
 
     const showMarkerOnMap = (building) => {
         hideBottomSheet();
