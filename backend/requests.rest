@@ -52,7 +52,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 GET https://a3.dawo.me:3000/customer/profile
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDE1NCwiZXhwIjoxNjAwODYzNzU0fQ.SS6Hp4yKGbGRH1kXZnHnsdkiDvx6Wb55C8yZE16UIFI
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2NDAyMiwiZXhwIjoxNjAwODY3NjIyfQ.JgWOD7L57q6mFnKEcH1B3yCuQPnbOcqHBzBkRfJyW2Y
 
 ###
 
@@ -92,6 +92,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
     "lon": 103.6368124
 
 }
+
 ###
 GET http://localhost:3000/toilets
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU

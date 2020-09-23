@@ -422,15 +422,21 @@ app.put("/customer/profile", authenticateToken, async (req, res) => {
     const userId = req.user.id;
     const { name, profilePicture } = req.body;
 
-    statement = (SQL `
-    UPDATE customer_profiles
-    SET name = (${name}), profile_picture = (${profilePicture})
-    WHERE user_id = (${userId})
-    `)
+    try {
+        statement = (SQL `
+        UPDATE customer_profiles
+        SET name = (${name}), profile_picture = (${profilePicture})
+        WHERE user_id = (${userId})
+        `)
+    
+        await db.query(statement);
+    
+        return res.sendStatus(200);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 
-    await db.query(statement);
-
-    return res.sendStatus(200);
+    
 })
 
 app.get("/customer/reviews", authenticateToken, async (req, res) => {
