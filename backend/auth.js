@@ -22,14 +22,6 @@ var client = new AWS.SecretsManager({
     region: region
 });
 
-function createGoogleConnection() {
-    return new google.auth.OAuth2(
-        tokenSecret.GOOGLE_AUTH_CLIENT_ID,
-        tokenSecret.GOOGLE_AUTH_SECRET_KEY,
-        'redirect'
-    );
-  }
-
 app.use(express.json());
 
 app.post('/sign-up/customer', async (req, res) => {
@@ -384,25 +376,35 @@ async function generateRefreshToken(user) {
     return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
 
-app.get('/testcall', async (req, res) => {
-    let statement = (SQL `
-    SELECT 1 
-    FROM users
-    WHERE email = 'agnes2@gmail.com'`);
+function createGoogleConnection(redirect) {
+    return new google.auth.OAuth2(
+        tokenSecret.GOOGLE_AUTH_CLIENT_ID,
+        tokenSecret.GOOGLE_AUTH_SECRET_KEY,
+        redirect
+    );
+}
 
-    let result = await db.query(statement);
+app.get('/google/sign-in-url', (req, res) => {
+    let { redirect } = res.body;
 
-    console.log(result);
-    res.sendStatus(200);
-})
-
-app.get('/google/sign-in', (req, res) => {
-    let url = generateGoogleLoginUrl;
+    let url = generateGoogleLoginUrl(redirect);
 
     res.status(200).send(url);
 })
 
-app.post('/google/sign-in', async (req, res) => {
+
+function generateGoogleLoginUrl() {
+    const auth = createGoogleConnection(redirect);
+    return auth.generateAuthUrl({
+        access_type: 'offline',
+        prompt: 'consent',
+        scope: [
+            'https://www.googleapis.com/auth/userinfo.email',
+        ]
+    })
+}
+
+app.post('/google/exchange-token', async (req, res) => {
     const { token } = req.body;
 
     let email = await getGoogleEmail(token);
@@ -433,8 +435,8 @@ app.post('/google/sign-in', async (req, res) => {
         await addRefreshTokenToDb(refreshToken);
 
         return res.status(200).json({
-        accessToken: accessToken,
-        refreshToken: refreshToken,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
         });
     }
 
@@ -459,16 +461,6 @@ async function getGoogleEmail(token) {
     return email = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 }
 
-function generateGoogleLoginUrl() {
-    const auth = createGoogleConnection();
-    return auth.generateAuthUrl({
-        access_type: 'offline',
-        prompt: 'consent',
-        scope: [
-            'https://www.googleapis.com/auth/userinfo.email',
-        ]
-    })
-}
 
 getTokenSecrets().then(data => {
     tokenSecret = data;

@@ -97,3 +97,7 @@ Content-Type: application/json
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNjAzNTF9.hheOaQjt47ITNYcSOAg1MqYmYKYkqWy4sXVGUrMAyPg"
 }
+
+###
+
+GET http://localhost:4000/google/sign-in

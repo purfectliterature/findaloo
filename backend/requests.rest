@@ -83,7 +83,3 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 {
     "newPassword": "password4"
 }
-
-###
-
-GET http://localhost:4000/testcall
