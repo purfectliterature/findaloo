@@ -2,11 +2,25 @@ require('dotenv').config();
 
 const db = require('./db');
 const SQL = require('sql-template-strings');
+const port = process.env.PORT || 4000;
 
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
+const fs = require('fs');
+const https = require('https');
+
+const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
+const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 var tokenSecret;
 
@@ -377,9 +391,10 @@ async function generateRefreshToken(user) {
 getTokenSecrets().then(data => {
     tokenSecret = data;
     tokenSecret = JSON.parse(tokenSecret)
-    app.listen(4000)
-
     console.log("Successfully initialised secret keys.")
+
+    let httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(port);
     console.log("Now listening on port 4000.")
 
 }).catch(err => { 
