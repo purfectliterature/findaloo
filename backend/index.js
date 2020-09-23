@@ -246,14 +246,8 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 
     for (row in rows) {
         let current = rows[row];
-        reviews.push({
-        name: current.name,
-        profile_picture_url: current.profile_picture_url,
-        cleanliness_rating: current.cleanliness_rating,
-        title: current.title,
-        description: current.description,
-        queue: current.queue,
-        });
+            reviews.push(current);
+        );
     }
 
     // Retrieve images;
@@ -567,7 +561,7 @@ async function addToiletReport(userId, toiletId, report) {
 
     statement = (SQL `
     UPDATE customer_profiles
-    SET points = points + 10;
+    SET points = points + 10
     WHERE user_id = (${userId})
     `)
 
