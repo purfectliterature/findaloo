@@ -238,6 +238,7 @@ app.post('/login', async (req, res) => {
 
 app.delete('/logout', async (req, res) => {
     try {
+        console.log(req.body);
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) {
             return res.sendStatus(403);

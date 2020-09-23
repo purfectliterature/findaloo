@@ -86,7 +86,7 @@ DELETE https://a3.dawo.me:4000/logout
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNTk3MzJ9.rAffCYolapyQKOUs7Vm0X6-vGXiZ5hpqXi4lrDuqBeY"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg4MzA1NX0.bCy_zS49k3SWKwFBVE4ciK0eZaAxqvo65naemBgBTAQ"
 }
 
 ###
