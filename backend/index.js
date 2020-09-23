@@ -359,8 +359,8 @@ app.get("/toilets/search", async (req, res) => {
           .status(200)
           .send(toilets.filter(
             (toilet) =>
-                toilet.name.toLoweCase().includes(keyword.toLoweCase()) ||
-                toilet.address.toLowerCase().includes(keyword.toLoweCase())
+                toilet.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                toilet.address.toLowerCase().includes(keyword.toLowerCase())
           )
           .slice(0, limit));
     } catch {
