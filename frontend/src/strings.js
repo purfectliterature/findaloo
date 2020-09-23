@@ -24,4 +24,10 @@ export const ISSUE_MISSING = 'Missing';
 export const ISSUE_EMPTY = 'Empty';
 export const ISSUE_DIRTY = 'Dirty';
 export const ISSUE_OTHERS = 'Others';
-export const ISSUES = [ISSUE_NOT_WORKING, ISSUE_MISSING, ISSUE_EMPTY, ISSUE_DIRTY, ISSUE_OTHERS];
+export const ISSUES = [
+  ISSUE_NOT_WORKING,
+  ISSUE_MISSING,
+  ISSUE_EMPTY,
+  ISSUE_DIRTY,
+  ISSUE_OTHERS,
+];
