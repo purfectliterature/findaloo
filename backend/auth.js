@@ -24,7 +24,6 @@ const credentials = {
 };
 
 var tokenSecret;
-
 var AWS = require('aws-sdk'),
     region = "us-east-2",
     secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
