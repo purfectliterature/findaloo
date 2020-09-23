@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import GoogleMapReact from "google-map-react";
+import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
+import ReactGA from "react-ga";
+import { useDispatch } from "react-redux";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -9,94 +12,34 @@ import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
 
-const buildings = [
-    { name: "NUS S15", lat: 0, lon: 0 },
-    { name: "NUS S16", lat: 0, lon: 0 },
-    { name: "NUS LT27", lat: 0, lon: 0 },
-    { name: "NUS Computing", lat: 0, lon: 0 },
-    { name: "National University Hospital asdwfewef we  ef  dsfdsfwrgqwrg   rgwrg   rg", lat: 0, lon: 0 },
-    { name: "Kent Ridge MRT", lat: 0, lon: 0 },
-];
-
-const toilets = [
-    {
-        image:
-            "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "National University Hospital",
-        distance: "100m",
-        isFree: true,
-        isMaleToilet: true,
-        isFemaleToilet: true,
-        reviewRating: 3.8,
-        ratingCount: 1000,
-        hasBidet: true,
-        hasToiletPaper: true,
-    },
-    {
-        image:
-            "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
-        distance: "100m",
-        isFree: true,
-        isMaleToilet: true,
-        isFemaleToilet: true,
-        reviewRating: 3.8,
-        ratingCount: 1000,
-        hasBidet: true,
-        hasToiletPaper: true,
-    },
-    {
-        image:
-            "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
-        distance: "100m",
-        isFree: true,
-        isMaleToilet: true,
-        isFemaleToilet: true,
-        reviewRating: 3.8,
-        ratingCount: 1000,
-        hasBidet: true,
-        hasToiletPaper: true,
-    },
-    {
-        image:
-            "https://www.alsco.com.sg/wp-content/uploads/2016/09/alsco-sg-greenroom-9most-overlooked-washroom-design-details-and-why-you-should-care.jpg",
-        name: "NUS LT27",
-        distance: "100m",
-        isFree: true,
-        isMaleToilet: true,
-        isFemaleToilet: true,
-        reviewRating: 3.8,
-        ratingCount: 1000,
-        hasBidet: true,
-        hasToiletPaper: true,
-    }
-];
-
-const markers = [
-    { title: "Yusof Ishak House", lat: 1.2982403, lng: 103.7760079 },
-    { title: "NUS Central Library", lat: 1.2969589, lng: 103.7744992 },
-    { title: "NUS S17", lat: 1.2948408, lng: 103.7759664 },
-    { title: "COM2-0108", lat: 1.2956401, lng: 103.7755801 }
-]
-
-const renderBuildings = () => buildings.map((building) => (
-    <BuildingCard key={Math.random()} title={building.name} onClick={() => alert(building.name)} />
-));
-
-const renderToilets = () => toilets.map((toilet) => (
-    <ToiletCard key={Math.random()} toilet={toilet} />
-));
+import { addBuildings } from "../../store/toilets";
+import { fetchToilets } from "../../utils/toilets";
 
 export default (props) => {
     const bottomSheetRef = useRef();
     const [mapView, setMapView] = useState();
+    const [mapsApi, setMapsApi] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
     const [activeMarker, setActiveMarker] = useState("");
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
+
+    const [buildings, setBuildings] = useState(null);
+    const dispatch = useDispatch();
+    
+    useEffect(() => { ReactGA.pageview("/"); });
+
+    useEffect(() => {
+        fetchToilets((buildings) => {
+            dispatch(addBuildings(buildings));
+            setBuildings(buildings);
+        }, (error) => {
+            console.log("ERR: Explore");
+            console.error(error);
+        });
+    }, []);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -162,31 +105,60 @@ export default (props) => {
         });
     });
 
-    const showMarkerOnMap = (marker) => {
+    const renderBuildings = () => buildings.map((building) => (
+        <BuildingCard
+            key={building.buildingId}
+            title={building.buildingName}
+            toilets={building.toilets}
+            onClick={() => showMarkerOnMap(building)}
+        />
+    ));
+
+    const showMarkerOnMap = (building) => {
         hideBottomSheet();
-        setBuildingToShow(toilets); // TODO: change to building's toilets!
+        setBuildingToShow(building.toilets);
         setBuildingToiletsStripShowed(true);
 
-        setActiveMarker(marker.title);
-        mapView.panTo({ lat: marker.lat - 0.0025, lng: marker.lng + 0.002 });
+        setActiveMarker(building.buildingId);
+        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
         
         if (mapView.getZoom() < 16) mapView.setZoom(16);
     }
 
-    const renderMarkers = () => markers.map((marker) => (
+    const renderMarkers = () => buildings.map((building) => (
         <Marker
-            key={marker.title}
-            title={marker.title}
-            lat={marker.lat}
-            lng={marker.lng}
-            onClick={() => showMarkerOnMap(marker)}
-            active={activeMarker === marker.title}
+            key={building.buildingId}
+            title={building.buildingName}
+            lat={building.lat}
+            lng={building.lon}
+            onClick={() => showMarkerOnMap(building)}
+            active={activeMarker === building.buildingId}
         />
     ));
 
     const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
-        <ToiletCard key={Math.random()} toilet={toilet} mini={true} />
+        <ToiletCard key={toilet.toiletId} toilet={toilet} mini={true} />
     ));
+
+    useEffect(() => {
+        if (buildings) {
+            const markers = buildings.map((building) => {
+                const position = new mapsApi.LatLng({
+                    lat: parseFloat(building.lat),
+                    lng: parseFloat(building.lon) 
+                });
+                
+                return new mapsApi.Marker({
+                    position,
+                    icon: require("../../assets/marker-toilet.svg")
+                });
+            });
+            
+            const markerCluster = new MarkerClusterer(mapView, markers, {
+                imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+            });
+        }
+    }, [buildings, mapView, mapsApi])
 
     return (<>
         <div className="map-search-overlay">
@@ -254,7 +226,7 @@ export default (props) => {
                     <h2>Is nature calling now?</h2>
 
                     <div className="buildings">
-                        {renderBuildings()}
+                        {buildings ? renderBuildings() : null}
                     </div>
                 </div>
             </div>
@@ -263,7 +235,7 @@ export default (props) => {
                 <div className="cards">
                     <div className="cards-gutter" />
                     
-                    {renderToilets()}
+                    {/* {buildings ? renderToilets() : null} */}
                 </div>
             </Page>
         </Sheet>
@@ -281,11 +253,14 @@ export default (props) => {
                     clickableIcons: false
                 }}
                 yesIWantToUseGoogleMapApiInternals
-                onGoogleApiLoaded={({ map, maps }) => setMapView(map)}
+                onGoogleApiLoaded={({ map, maps }) => {
+                    setMapView(map);
+                    setMapsApi(maps);
+                }}
             >
                 {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
                 
-                {renderMarkers()}
+                {/* {buildings ? renderMarkers() : null} */}
             </GoogleMapReact>
         </div>
     </>);
