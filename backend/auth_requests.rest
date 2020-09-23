@@ -91,7 +91,11 @@ Content-Type: application/json
 
 ###
 
+<<<<<<< HEAD
 POST https://a3.dawo.me:4000/token
+=======
+POST http://a3.dawo.me:4000/token
+>>>>>>> origin/master
 Content-Type: application/json
 
 {
