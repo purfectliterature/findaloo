@@ -3,8 +3,8 @@ import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
+import MyLocationIcon from "@material-ui/icons/MyLocation";
 import { useDispatch, useSelector } from "react-redux";
-import {  } from "redux-persist";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -197,9 +197,8 @@ export default (props) => {
             iconSize="1.6rem"
             color="white"
             className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""}`}
-            iconF7="location_fill"
             onClick={getCurrentLocation}
-        />
+        ><MyLocationIcon /></Button>
 
         <Button
             fill
