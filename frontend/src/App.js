@@ -117,7 +117,7 @@ export default (props) => {
         <Provider store={store}>
             <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/" />
+                    <View main url="/profile/" />
                 </App>
             </PersistGate>
         </Provider>

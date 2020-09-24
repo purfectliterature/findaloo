@@ -1,7 +1,9 @@
 import React from 'react';
 import "./styles.css";
 
-export const MyLocationMarker = (props) => <div onClick={() => alert(props.text)} className="marker-my-location" />;
+export const MyLocationMarker = (props) => (
+    <div onClick={() => {}} className={`marker-my-location ${props.pastLocation ? "past" : ""}`} />
+);
 
 export default ({ title, onClick, active }) => (
     <div onClick={onClick} className={`marker-toilet ${active ? "active" : ""}`}>

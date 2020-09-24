@@ -6,7 +6,8 @@ const slice = createSlice({
     initialState: {
         toilets: { },
         buildings: [],
-        toiletsHash: null
+        toiletsHash: null,
+        nearestToilets: []
     },
     reducers: {
         buildingsAdded: (toilets, action) => {
@@ -19,6 +20,10 @@ const slice = createSlice({
 
         toiletsHashUpdated: (toilets, action) => {
             toilets.toiletsHash = action.payload;
+        },
+
+        nearestToiletsCached: (toilets, action) => {
+            toilets.nearestToilets = action.payload;
         }
     }
 });
@@ -26,7 +31,8 @@ const slice = createSlice({
 const {
     buildingsAdded,
     toiletAdded,
-    toiletsHashUpdated
+    toiletsHashUpdated,
+    nearestToiletsCached
 } = slice.actions;
 
 export default slice.reducer;
@@ -34,6 +40,7 @@ export default slice.reducer;
 export const addBuildings = (buildings) => buildingsAdded(buildings);
 export const addToilet = (id, data) => toiletAdded({ id, data });
 export const updateToiletsHash = (hash) => toiletsHashUpdated(hash);
+export const cacheNearestToilets = (toilets) => nearestToiletsCached(toilets);
 
 export const getBuildings = createSelector(
     state => state.toilets,
@@ -48,4 +55,9 @@ export const getToiletDetails = (id) => createSelector(
 export const getToiletsHash = createSelector(
     state => state.toilets,
     toilets => toilets.toiletsHash
+);
+
+export const getCachedNearestToilets = createSelector(
+    state => state.toilets,
+    toilets => toilets.nearestToilets
 );
