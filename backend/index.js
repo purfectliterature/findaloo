@@ -348,7 +348,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.get("/toilets/nearest", async (req, res) => {
+app.post("/toilets/nearest", async (req, res) => {
     const { lat, lon } = req.body;
 
     var nearestToilets = await getNearestToilets(lat, lon);
