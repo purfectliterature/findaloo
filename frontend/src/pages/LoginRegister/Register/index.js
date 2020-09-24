@@ -45,6 +45,9 @@ class LoginPage extends React.Component {
                     Create a new<br></br>account!
                 </h1>
                 <Form></Form>
+                <Button onClick={() => f7.views.main.router.back()}>
+                    Cancel
+                </Button>
             </Page>
         );
     }
@@ -227,8 +230,8 @@ const Form = () => {
 
             <div className="bottom-group">
                 <div className="terms-text">
-                    When you click on Create account, you are agreeing to App
-                    Name’s{" "}
+                    When you click on Create account, you are agreeing to
+                    findaloo's{" "}
                     <Link
                         className="terms-link"
                         sheetOpen=".demo-sheet-swipe-to-close"
