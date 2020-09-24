@@ -193,7 +193,7 @@ export default (props) => {
 
     useEffect(() => {
         const grid = document.querySelector(".cards");
-        const masonry = new Masonry(grid, {
+        new Masonry(grid, {
             itemSelector: ".toil-card",
             gutter: ".cards-gutter",
             percentPosition: true
@@ -226,7 +226,7 @@ export default (props) => {
                     return marker;
                 });
                 
-                const markerCluster = new MarkerClusterer(mapView, markers, {
+                new MarkerClusterer(mapView, markers, {
                     imagePath: "/static/cluster/m",
                     minimumClusterSize: 3
                 });
