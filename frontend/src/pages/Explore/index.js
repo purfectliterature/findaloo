@@ -17,7 +17,7 @@ import SheetDialog from "../../components/SheetDialog";
 import BasicButton from "../../components/BasicButton";
 
 import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
-import { getTokens, getUserInfo } from "../../store/user";
+import { getTokens, getUserInfo, getLastLocation, saveLocation } from "../../store/user";
 import { fetchToilets, fetchToiletsHash } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
@@ -264,6 +264,7 @@ export default (props) => {
                 onClickProfilePicture={() => {f7.views.main.router.navigate('/profile/')}}
                 onClickLogInButton={() => {f7.views.main.router.navigate('/login/')}}
                 loggedIn={isUserLoggedIn}
+                profilePicture={userInfoFromStore.profilePicture}
             />
         </div>
 

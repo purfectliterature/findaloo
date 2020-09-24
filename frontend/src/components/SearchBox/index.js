@@ -11,7 +11,8 @@ export default (props) => {
         value,
         loggedIn,
         onClickProfilePicture,
-        onClickLogInButton
+        onClickLogInButton,
+        profilePicture
     } = props;
 
     const [appendedClasses, setAppendedClasses] = useState("");
@@ -21,14 +22,12 @@ export default (props) => {
             return (
                 <div
                     onClick={onClickProfilePicture}
-                    className="ripple"
-                    style={{height:"2.5rem",
-                        width:"2.5rem",
-                        backgroundColor: "red",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        flexShrink: 0
-                    }} 
+                    className="sb-profile-picture ripple"
+                    style={{
+                        background: `url("${profilePicture}"), #828282`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover"
+                    }}
                 />
             );
         } else {
