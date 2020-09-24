@@ -17,7 +17,7 @@ export const createReview = (
 
   axios
     .post(
-      `${Routes.toiletReviews}/${toiletId}`,
+      `${Routes.toiletReview}/${toiletId}`,
       {
         cleanlinessRating: rating,
         title: title,

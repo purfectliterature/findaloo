@@ -17,7 +17,7 @@ export const createReport = (
 
   axios
     .post(
-      `${Routes.toiletReports}/${toiletId}`,
+      `${Routes.toiletReport}/${toiletId}`,
       {
         issue,
         items,

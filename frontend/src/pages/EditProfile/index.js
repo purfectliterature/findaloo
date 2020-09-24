@@ -49,7 +49,7 @@ const EditProfile = () => {
     // try {
     //   var response = await axios
     //     .get(
-    //       `${endpoints.databaseApi}/customer/profile/imageUrl`,
+    //       Routes.userProfilePicture,
     //       {
     //         headers: headers,
     //       }

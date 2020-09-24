@@ -5,9 +5,10 @@ export default {
     getToilets: `${DATABASE}/toilets`,
     getNearestToilets: `${DATABASE}/toilets/nearest`,
     getToiletsFromSearchKeywords: `${DATABASE}/toilets/search`,
-    toiletReviews: `${DATABASE}/review`,
-    toiletReports: `${DATABASE}/report`,
+    toiletReview: `${DATABASE}/review`,
+    toiletReport: `${DATABASE}/report`,
     getUserProfile: `${DATABASE}/customer/profile`,
+    userProfilePicture: `${DATABASE}/customer/profile/imageUrl`,
     updatePassword: `${DATABASE}/customer/change-password`,
     getUserReviews: `${DATABASE}/customer/reviews`, 
 
