@@ -44,7 +44,7 @@ class LoginPage extends React.Component {
                         className="toilet-marker"
                     ></img>
                     <div>
-                        <h4 className="header">Palo Alto</h4>
+                        <h4 className="header">Findaloo</h4>
                         <h3 className="header">Lavatories System</h3>
                     </div>
                 </div>

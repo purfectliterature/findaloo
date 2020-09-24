@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
                         className="toilet-marker"
                     ></img>
                     <div>
-                        <h4 className="header">Palo Alto</h4>
+                        <h4 className="header">Findaloo</h4>
                         <h3 className="header">Lavatories System</h3>
                     </div>
                 </div>
@@ -271,11 +271,10 @@ const TermOfServicesBlock = () => (
         <p>
             These Terms of Service constitute a legally binding agreement made
             between you, whether personally or on behalf of an entity (“you”)
-            and [business entity name] (“we,” “us” or “our”), concerning your
-            access to and use of the [website name.com] website as well as any
-            other media form, media channel, mobile website or mobile
-            application related, linked, or otherwise connected thereto
-            (collectively, the “Site”).
+            and Findaloo (“we,” “us” or “our”), concerning your access to and
+            use of the findaloo.netlify.app website as well as any other media
+            form, media channel, mobile website or mobile application related,
+            linked, or otherwise connected thereto (collectively, the “Site”).
         </p>
         <p>
             You agree that by accessing the Site, you have read, understood, and
@@ -565,5 +564,6 @@ const TermOfServicesBlock = () => (
             further information regarding use of the Site, please contact us at:
         </p>
         <p>Tel: +65 9900 1111</p>
+        <p>Email: askus@findaloo.com</p>
     </Block>
 );
