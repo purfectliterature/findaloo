@@ -70,7 +70,6 @@ async function getUploadUrl() {
 app.get("/toilets", async (req, res) => {
 
     try {
-        let version = await getVersion();
 
         let buildings = await getBuildings();
 
