@@ -86,9 +86,8 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 
 ###
 
-POST https://a3.dawo.me:3000/toilets/nearest
+POST http://localhost:3000/toilets/nearest
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk3MjY1MywiZXhwIjoxNjAwOTc2MjUzfQ.BbZclxMqH8htjldmRUWVM8PDL7KymVH5MAJ9WCjUuq8
 
 {
     "lat": 1.306708, 
