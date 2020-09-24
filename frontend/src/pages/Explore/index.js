@@ -228,7 +228,8 @@ export default (props) => {
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
-                rightButtonOnClick={() => {}}
+                onClickProfilePicture={() => {}}
+                onClickLogInButton={() => {}}
             />
         </div>
 

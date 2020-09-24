@@ -11,7 +11,8 @@ export default (props) => {
         onFocus,
         value,
         loggedIn,
-        rightButtonOnClick
+        onClickProfilePicture,
+        onClickLogInButton
     } = props;
 
     const [appendedClasses, setAppendedClasses] = useState("");
@@ -19,16 +20,19 @@ export default (props) => {
     const renderRightFragment = () => {
         if (loggedIn) {
             return (
-                <div style={{height:"2.5rem",
-                    width:"2.5rem",
-                    backgroundColor: "red",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    flexShrink: 0
-                }} />
+                <div
+                    onClick={onClickProfilePicture}
+                    className="ripple"
+                    style={{height:"2.5rem",
+                        width:"2.5rem",
+                        backgroundColor: "red",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        flexShrink: 0
+                    }} />
             );
         } else {
-            return <Button caption="Log in" onClick={rightButtonOnClick} />;
+            return <Button caption="Log in" onClick={onClickLogInButton} />;
         }
     }
 
