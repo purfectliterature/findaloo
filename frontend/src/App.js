@@ -18,6 +18,7 @@ import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
 
 import configureStore from "./store/configureStore";
+import GoogleLoginPage from "./pages/GoogleLogin";
 
 const trackingId = "UA-178628413-1";
 ReactGA.initialize(trackingId);
@@ -73,6 +74,10 @@ const f7params = {
             path: "/manage-reviews/",
             component: ManageReviews,
         },
+        {
+            path: "/google-login/",
+            component: GoogleLoginPage,
+        },
     ],
 };
 
@@ -113,7 +118,7 @@ export default (props) => {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/" />
+                    <View main url="/login/" />
                 </App>
             </PersistGate>
         </Provider>

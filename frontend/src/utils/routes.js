@@ -7,11 +7,13 @@ export default {
     getToiletsFromSearchKeywords: `${DATABASE}/toilets/search`,
     toiletReviews: `${DATABASE}/review`,
     toiletReports: `${DATABASE}/report`,
-    getUserProfile: `${DATABASE}/profile`,    
+    getUserProfile: `${DATABASE}/customer/profile`,
 
     login: `${AUTHENTICATION}/login`,
     logout: `${AUTHENTICATION}/logout`,
     customerSignUp: `${AUTHENTICATION}/sign-up/customer`,
     managementSignUp: `${AUTHENTICATION}/sign-up/management`,
-    getUserToken: `${AUTHENTICATION}/token`
+    getUserToken: `${AUTHENTICATION}/token`,
+    googleSignInUrl: `${AUTHENTICATION}/google/sign-in-url`,
+    googleExchangeToken: `${AUTHENTICATION}/google/exchange-token`,
 };
