@@ -41,7 +41,6 @@ app.post("/customer/profile/imageUrl", async (req, res) => {
   const fileType = req.body.fileType;
   // Set up the payload of what we are sending to the S3 api
   const S3_BUCKET = 'cs3216-a3-profile-picture';
-  console.log(fileName)
   const s3Params = {
     Bucket: S3_BUCKET,
     Key: fileName,
@@ -113,7 +112,6 @@ app.get("/toilets/version", async (req, res) => {
     FROM toilet_version`)
 
     let result = await db.query(statement);
-    console.log(result.rows);
     version = result.version;
 
     return res.status(200).send(version);
@@ -377,7 +375,6 @@ app.post("/toilets/nearest", async (req, res) => {
 
     let toiletFeatures = await getToiletFeatures(`WHERE toilet_id IN (${toiletIds})`);
     let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
-    console.log(nearestToilets)
     nearestToilets.forEach(nearestToilet => {
         let currentToiletId = nearestToilet.toiletId;
         let currentToilet = rows.filter(row => row.id === currentToiletId);
@@ -657,7 +654,6 @@ async function getNearestToilets(lat, lon) {
       return latLon[1];
     })
     .join("|");
-  console.log(destinationsString);
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
   var response = await fetch(url);
   var response_json = await response.json();
