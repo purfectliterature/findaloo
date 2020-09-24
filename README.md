@@ -3,12 +3,12 @@
 
 ## It doesn't always have to stink.
 
-Findaloo is a progressive web application designed to help you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available. Are you a parent? Find the nearest nursing rooms with hot water dispensors and baby change stations around you.
+Findaloo is a progressive web application designed to help you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available. Are you a parent? Find the nearest nursing rooms with hot water dispensers and baby change stations around you.
 
 Just had the most wonderful experience in your lifetime so far? Leave a review! Upset that something broke? 
 File a report to let management know.
 
-With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at https://findaloo.netlify.app today
+With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at https://findaloo.netlify.app today!
 
 ## Installation guide
 
@@ -17,7 +17,7 @@ The application is divided into two main folders: the frontend and the backend. 
 
 ### Before you begin:
 1. `git clone https://github.com/cs3216/2020-a3-mobile-cloud-2020-group-3.git` to clone the repo
-2. Ensure that node.js >v11 and PostgreSQL >v12 is installed on the system
+2. Ensure that node.js `>v11.` and PostgreSQL `> v12.` is installed on the system
 3. Ensure that the yarn package manager is installed
 4. `yarn add nodemon` to install nodemon, which is required to launch the package scripts.
 
@@ -28,7 +28,7 @@ We recommend that you deploy on netlify. However, for local deployment, follow t
 3. `yarn start` to launch the application. The application will be available on localhost:3000.
 
 ### Backend:
-Deployment of the backend happens in multiple stages.
+Deployment of the backend happens in multiple stages, listed below.
 
 #### Database setup
 1. `psql` to launch an interactive postgres shell
@@ -50,8 +50,8 @@ Deployment of the backend happens in multiple stages.
 #### Running the server
 1. `cd ../` to return to the backend folder
 2. `yarn install` to install the required packages for the application
-3. `yarn start` to launch the API server. It will be available on localhost:3000.
-4. `yarn startAuth` to launch the Auth server. It will be available on localhost:4000.
+3. `yarn start` to launch the API server. It will be available on `localhost:3000`.
+4. `yarn startAuth` to launch the Auth server. It will be available on `localhost:4000`.
 
 ## Screenshots
 
