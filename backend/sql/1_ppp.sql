@@ -125,7 +125,7 @@ CREATE TABLE "reports" (
 
 CREATE TABLE "toilet_version" (
   "version" BIGSERIAL PRIMARY KEY
-)
+);
 
 ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
