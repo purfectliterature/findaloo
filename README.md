@@ -55,3 +55,4 @@ Deployment of the backend happens in multiple stages.
 
 ## Screenshots
 
+<img src ="./screenshots/app.png" width="600">
