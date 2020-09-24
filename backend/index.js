@@ -30,33 +30,39 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
 
-const s3 = new AWS.S3();
+const s3 = new AWS.S3({
+    signatureVersion: 'v4',
+    region: 'us-east-2'
+});
 
-app.get("/customer/profile/imageUrl", authenticateToken, async (req, res) => {
-    try {
-        const uploadUrl = await getUploadUrl();
-        return res.status(200).send(uploadUrl);
-    } catch (error) {
-        return res.status(500).send(error);
-    }
-})
 
-async function getUploadUrl() {
-  const actionId = uuidv4()
+app.post("/customer/profile/imageUrl", async (req, res) => {
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+  // Set up the payload of what we are sending to the S3 api
+  const S3_BUCKET = 'cs3216-a3-profile-picture';
   const s3Params = {
-    Bucket: "cs3216-a3-profile-picture",
-    Key: `${actionId}.jpg`,
-    ContentType: "image/jpeg",
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    ContentType: fileType,
     ACL: "public-read",
   };
-  return new Promise((resolve, reject) => {
-    let uploadURL = s3.getSignedUrl('putObject', s3Params)
-    resolve({
-        "uploadURL": uploadURL,
-        "photoFilename": `${actionId}.jpg`
-    })
-  })
-}
+  // Make a request to the S3 API to get a signed URL which we can use to upload our file
+  s3.getSignedUrl("putObject", s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false, error: err });
+    }
+    // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+    };
+    console.log(returnData)
+    // Send it all back
+    res.json({ success: true, data: { returnData } });
+  });
+});
 
 app.get("/buildings", async (req, res) => {
     let rows;
@@ -106,7 +112,6 @@ app.get("/toilets/version", async (req, res) => {
     FROM toilet_version`)
 
     let result = await db.query(statement);
-    console.log(result.rows);
     version = result.version;
 
     return res.status(200).send(version);
@@ -370,28 +375,23 @@ app.post("/toilets/nearest", async (req, res) => {
 
     let toiletFeatures = await getToiletFeatures(`WHERE toilet_id IN (${toiletIds})`);
     let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
-
-    for (row in rows) {
-        let current = rows[row];
-        
+    nearestToilets.forEach(nearestToilet => {
+        let currentToiletId = nearestToilet.toiletId;
+        let currentToilet = rows.filter(row => row.id === currentToiletId);
         let toilet = {
-          toiletId: current.id,
-          buildingId: current.building_id,
-          duration: nearestToilets.filter(
-            (nearestToilet) => nearestToilet.toiletId === current.id
-          )[0].duration,
-          distance: nearestToilets.filter(
-            (nearestToilet) => nearestToilet.toiletId === current.id
-          )[0].distance,
-          address: current.address,
-          name: current.name,
-          avg_review: current.avg_review || 0,
-          review_count: current.review_count || 0,
-          toilet_features: toiletFeatures[current.id],
-          toilet_images: toiletImages[current.id],
+            toiletId: currentToiletId,
+            buildingId: currentToilet.building_id,
+            duration: nearestToilet.duration,
+            distance: nearestToilet.distance,
+            address: currentToilet.address,
+            name: currentToilet.name,
+            avg_review: currentToilet.avg_review || 0,
+            review_count: currentToilet.review_count || 0,
+            toilet_features: toiletFeatures[currentToiletId],
+            toilet_images: toiletImages[currentToiletId],
         };
         toilets.push(toilet);
-    }
+    });
 
     return res.status(200).send(toilets);
 });
@@ -654,7 +654,6 @@ async function getNearestToilets(lat, lon) {
       return latLon[1];
     })
     .join("|");
-  console.log(destinationsString);
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lon}&destinations=${destinationsString}&mode=walking&key=${tokenSecret.GOOGLE_MAPS_API_KEY}`;
   var response = await fetch(url);
   var response_json = await response.json();
@@ -670,8 +669,8 @@ async function getNearestToilets(lat, lon) {
   indexAndActualDistances.sort(
     (currentDistanceDuration, nextDistanceDuration) => {
       return (
-        currentDistanceDuration.value.duration.value -
-        nextDistanceDuration.value.duration.value
+        currentDistanceDuration.value.distance.value -
+        nextDistanceDuration.value.distance.value
       );
     }
   );
