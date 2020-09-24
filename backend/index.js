@@ -61,6 +61,8 @@ async function getUploadUrl() {
 app.get("/toilets", async (req, res) => {
 
     try {
+        let version = await getVersion();
+
         let buildings = await getBuildings();
 
         let toilets = await getToiletSummary();
@@ -81,19 +83,26 @@ app.get("/toilets", async (req, res) => {
 
 });
 
+app.get("/toilets/version", async (req, res) => {
+    let version;
+    let statement = (SQL `
+    SELECT *
+    FROM toilet_version`)
+
+    let result = await db.query(statement);
+    version = result.rows[0];
+
+    return res.status(200).send(version);
+})
+
 async function getBuildings() {
     let rows;
     let statement = (SQL `
     SELECT * 
     FROM buildings`);
 
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
+    let result = await db.query(statement);
+    rows = result.rows;
     
     let buildings = {};
 
@@ -123,12 +132,9 @@ async function getToiletSummary() {
 
     let toilets = [];
 
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        throw error;
-    }
+    let result = await db.query(statement);
+    rows = result.rows;
+
 
     let toiletFeatures = await getToiletFeatures('');
     let toiletImages = await getToiletImages('');
@@ -155,12 +161,9 @@ async function getToiletFeatures(condition) {
     let toilet_features = {}
     let statement = "SELECT * FROM toilet_features " + condition;
     let rows;
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        throw error;
-    }
+
+    let result = await db.query(statement);
+    rows = result.rows;
 
     for (row in rows) {
         let current = rows[row];
