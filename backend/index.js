@@ -67,6 +67,23 @@ async function getUploadUrl() {
   })
 }
 
+app.get("/buildings", async (req, res) => {
+    let rows;
+    let statement = (SQL `
+    SELECT * 
+    FROM buildings`);
+
+    try {
+        let result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+
+    res.status(200).json(rows)
+})
+
 app.get("/toilets", async (req, res) => {
 
     try {
