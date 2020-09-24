@@ -55,7 +55,7 @@ const Profile = () => {
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink />
+      <Navbar backLink backLinkUrl='/' backLinkForce />
 
       <div className="margin display-flex flex-direction-column justify-content-space-between profile-page">
         <div>

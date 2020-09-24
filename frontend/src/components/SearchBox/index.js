@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import { Button } from "framework7-react";
 import "./styles.css";
-
-import Button from '../Button';
 
 export default (props) => {
     const {
@@ -11,7 +10,9 @@ export default (props) => {
         onFocus,
         value,
         loggedIn,
-        rightButtonOnClick
+        onClickProfilePicture,
+        onClickLogInButton,
+        profilePicture
     } = props;
 
     const [appendedClasses, setAppendedClasses] = useState("");
@@ -19,16 +20,18 @@ export default (props) => {
     const renderRightFragment = () => {
         if (loggedIn) {
             return (
-                <div style={{height:"2.5rem",
-                    width:"2.5rem",
-                    backgroundColor: "red",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    flexShrink: 0
-                }} />
+                <div
+                    onClick={onClickProfilePicture}
+                    className="sb-profile-picture ripple"
+                    style={{
+                        background: `url("${profilePicture}"), #828282`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover"
+                    }}
+                />
             );
         } else {
-            return <Button caption="Log in" onClick={rightButtonOnClick} />;
+            return <Button fill onClick={onClickLogInButton} className="sb-button">Log in</Button>;
         }
     }
 

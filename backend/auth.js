@@ -353,7 +353,7 @@ async function checkIfRefreshTokenExists(token) {
 
     const { rows } = await db.query(statement)
 
-    if (rows[0]?.token && rows[0].token === token) {
+    if (rows[0].token && rows[0].token === token) {
         return true;
     }
     
@@ -447,11 +447,6 @@ app.post('/google/exchange-token', async (req, res) => {
     let rows = result.rows;
 
     if (rows.length == 0) {    
-        const user = {
-            roleId: 2,
-            email: email,
-            authType: 'google',
-        };
         
         try {
             await db.query("BEGIN");

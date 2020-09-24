@@ -18,20 +18,18 @@ class LoginPage extends React.Component {
         this.state = {
             google_login_url: "",
         };
+        this.navigateToGoogleLogin = this.navigateToGoogleLogin.bind(this);
     }
 
     componentDidMount() {
         const that = this;
-        getGoogleSignInUrl(
-            {
-                params: {
-                    redirect: "/",
-                },
-            },
-            (data) => {
-                that.setState({ google_login_url: data });
-            }
-        );
+        getGoogleSignInUrl((data) => {
+            that.setState({ google_login_url: data });
+        });
+    }
+
+    navigateToGoogleLogin() {
+        f7.views.main.router.navigate(this.state.google_login_url);
     }
 
     render() {
@@ -44,7 +42,7 @@ class LoginPage extends React.Component {
                         className="toilet-marker"
                     ></img>
                     <div>
-                        <h4 className="header">Palo Alto</h4>
+                        <h4 className="header">Findaloo</h4>
                         <h3 className="header">Lavatories System</h3>
                     </div>
                 </div>
@@ -58,10 +56,20 @@ class LoginPage extends React.Component {
                 <Button
                     outline
                     className="btn"
-                    href={this.state.google_login_url}
+                    onClick={this.navigateToGoogleLogin}
                 >
                     Sign in with Google
                 </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() => {
+                            f7.views.main.router.back("/", { force: true });
+                        }}
+                        className="text-minor"
+                    >
+                        Continue without login
+                    </a>
+                </div>
             </Page>
         );
     }
@@ -169,7 +177,7 @@ const Form = () => {
                         className="visibility-icon"
                         onClick={toggleVisibility}
                     >
-                        {visible ? (
+                        {!visible ? (
                             <VisibilityOffIcon></VisibilityOffIcon>
                         ) : (
                             <VisibilityIcon></VisibilityIcon>

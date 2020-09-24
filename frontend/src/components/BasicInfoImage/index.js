@@ -7,6 +7,7 @@ const BasicInfoImage = ({
   images,
   handleShareOnClick,
   handleReportOnClick,
+  handleBackOnClick,
 }) => {
   return (
     <div
@@ -26,7 +27,7 @@ const BasicInfoImage = ({
       <div className="display-flex flex-direction-row justify-content-space-between actions">
         <div>
           <Button
-            back
+            onClick={handleBackOnClick}
             className={`actions-btn ${
               images.length > 0 ? 'white-skin' : 'primary-skin'
             } `}

@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 import './styles.css';
 
 import { getUserInfo, getTokens } from '../../store/user';
-import { updateUserInfo } from '../../utils/user';
+import { updateProfilePicture, updateUserInfo } from '../../utils/user';
 
 const EditProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -25,11 +25,18 @@ const EditProfile = () => {
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-
-    updateUserInfo(
+    console.log(profilePicture)
+    let imageUrl = userInfo.profilePicture;
+    if (profilePicture) {
+      imageUrl = await updateProfilePicture(profilePicture);
+    }
+    console.log(imageUrl);
+  
+    try {
+      updateUserInfo(
       userTokens.authToken,
       name,
-      profilePicture,
+      imageUrl,
       (data) => {
         formik.setSubmitting(false);
         f7.views.main.router.navigate(`/profile/`);
@@ -37,8 +44,10 @@ const EditProfile = () => {
       (err) => {
         console.log(err);
         formik.setSubmitting(false);
-      }
-    );
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleEditProfileOnClick = (event) => {
@@ -46,27 +55,6 @@ const EditProfile = () => {
   };
 
   const handleUploadProfilePicture = async (file) => {
-    // try {
-    //   var response = await axios
-    //     .get(
-    //       Routes.userProfilePicture,
-    //       {
-    //         headers: headers,
-    //       }
-    //   )
-    //   let binary = atob(this.image.split(',')[1])
-    //   let array = []
-    //   for (var i = 0; i < binary.length; i++) {
-    //     array.push(binary.charCodeAt(i))
-    //   }
-    //   let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
-    //   console.log('Uploading to: ', response.data.uploadURL)
-    //   const result = await axios.put(response.data.uploadURL, {
-    //     body: blobData
-    //   })
-    // } catch (err) {
-    //   console.log(err);
-    // }
     formik.setFieldValue('profilePicture', file);
   };
 
@@ -102,7 +90,9 @@ const EditProfile = () => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title="Edit Profile">
           <NavRight>
-            <Button type="submit">Update</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Update
+            </Button>
           </NavRight>
         </Navbar>
 
@@ -127,7 +117,7 @@ const EditProfile = () => {
                 name={
                   formik.values.profilePicture
                     ? formik.values.profilePicture.name
-                    : ''
+                    : ""
                 }
                 className="edit-profile-file-input"
                 onChange={(event) =>
@@ -150,11 +140,11 @@ const EditProfile = () => {
                 errorMessage={
                   formik.touched.name && formik.errors.name
                     ? formik.errors.name
-                    : ''
+                    : ""
                 }
                 errorMessageForce
                 disabled={formik.isSubmitting}
-                {...formik.getFieldProps('name')}
+                {...formik.getFieldProps("name")}
               />
             </List>
           </div>
