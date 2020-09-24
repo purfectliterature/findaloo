@@ -59,8 +59,8 @@ export default (props) => {
         
         setTimeout(() => {
             const sheet = document.getElementById("bottom-sheet");
-            const view = document.querySelector(".view.view-main");        
-            view.appendChild(sheet);
+            const page = document.querySelector("#explore .page-content");        
+            page.appendChild(sheet);
         }, 300);
 
         setBottomSheetState("normal");
@@ -127,9 +127,21 @@ export default (props) => {
         return sliced;
     }
 
-    const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
-        <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
-    ));
+    const renderBuildingToilets = () => {
+        if (buildingToShow && buildingToShow.toilets) {
+            const toilets = buildingToShow.toilets.map((toilet) => (
+                <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
+            ));
+
+            return (
+                <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+                    <div className="bldg-toilets">
+                        {toilets}
+                    </div>
+                </div>
+            );
+        }
+    }
     
     useEffect(() => { ReactGA.pageview("/"); });
 
@@ -194,7 +206,7 @@ export default (props) => {
         return <FetchLoading />;
     }
 
-    return (<>
+    return (<Page className="white-background-skin" id="explore">
         <div className="map-search-overlay">
             <SearchBox
                 mode={bottomSheetState === "expanded" ? "flat" : ""}
@@ -205,13 +217,7 @@ export default (props) => {
             />
         </div>
 
-        {buildingToShow ?
-            <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
-                <div className="bldg-toilets">
-                    {renderBuildingToilets(buildingToShow.toilets)}
-                </div>
-            </div>
-        : null}
+        {renderBuildingToilets()}
 
         <Button
             fill
@@ -305,5 +311,5 @@ export default (props) => {
                 : null}
             </GoogleMapReact>
         </div>
-    </>);
+    </Page>);
 }
