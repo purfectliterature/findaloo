@@ -73,3 +73,15 @@
     font-size: 0.7rem;
     color: red;
 }
+
+.text-minor {
+    font-size: 1rem;
+    color: var(--color-grey-3);
+    text-align:center;
+}
+
+.center-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

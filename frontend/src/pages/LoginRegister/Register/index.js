@@ -45,9 +45,16 @@ class LoginPage extends React.Component {
                     Create a new<br></br>account!
                 </h1>
                 <Form></Form>
-                <Button onClick={() => f7.views.main.router.back()}>
-                    Cancel
-                </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() =>
+                            f7.views.main.router.back("/", { force: true })
+                        }
+                        className="text-minor"
+                    >
+                        Continue without login
+                    </a>
+                </div>
             </Page>
         );
     }

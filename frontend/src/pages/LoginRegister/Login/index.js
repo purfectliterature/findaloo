@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Page, Button, f7, List, ListInput } from "framework7-react";
+import { Page, Button, f7, List, ListInput, Link } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles.css";
@@ -60,6 +60,16 @@ class LoginPage extends React.Component {
                 >
                     Sign in with Google
                 </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() => {
+                            f7.views.main.router.back("/", { force: true });
+                        }}
+                        className="text-minor"
+                    >
+                        Continue without login
+                    </a>
+                </div>
             </Page>
         );
     }
