@@ -18,7 +18,7 @@ import './styles.css';
 const EditProfile = (props) => {
   const { userName, userProfilePicture } = props;
   const authKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDMzNSwiZXhwIjoxNjAwODYzOTM1fQ.1utFZBr9qBkPFQbMImlm_9gLMACh2Py2Z0BLkUv9u-8';
+   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDkxODcyMywiZXhwIjoxNjAwOTIyMzIzfQ.G5EKLjj4m0xEnsgt62MyQxrVKG8V9gECNMDr-cSA73c";
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${authKey}`,
@@ -56,23 +56,74 @@ const EditProfile = (props) => {
 
   const handleUploadProfilePicture = async (file) => {
     try {
-      var response = await axios
+      var login = await axios.post(`${endpoints.authenticationApi}/login`, {
+          email: "agnes2@gmail.com",
+          password: "P@ssw0rd12",
+        });
+      console.log(login)
+      console.log(file)
+      let fileParts = file.name.split(".");
+      let fileName = fileParts[0];
+      let fileType = fileParts[1];
+      console.log("Preparing the upload");
+      axios
+        .post(`${endpoints.databaseApi}/customer/profile/imageUrl`, {
+          fileName: fileName,
+          fileType: fileType,
+          file: file
+        })
+        .then((response) => {
+          console.log(response)
+          var returnData = response.data.data.returnData;
+          var signedRequest = returnData.signedRequest;
+          var url = returnData.url;
+          console.log("Recieved a signed request " + signedRequest);
+
+          // Put the fileType in the headers for the upload
+          var options = {
+            headers: {
+              Key: fileName,
+              ContentType: fileType,
+              ACL: "public-read",
+            },
+          };
+          axios
+            .put(signedRequest, file, options)
+            .then((result) => {
+              console.log("Response from s3");
+            })
+            .catch((error) => {
+              alert("ERROR " + JSON.stringify(error));
+            });
+        })
+        .catch((error) => {
+          alert(JSON.stringify(error));
+        });
+      /*const data = new FormData();
+      data.append("file", file);
+      var response = await axios.post(
+        `${endpoints.databaseApi}/customer/profile/imageUrl`, data, {headers: headers,}
+      );*/
+      /*var response = await axios
         .get(
           `${endpoints.databaseApi}/customer/profile/imageUrl`,
           {
             headers: headers,
           }
       )
-      let binary = atob(this.image.split(',')[1])
-      let array = []
-      for (var i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i))
-      }
-      let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
-      console.log('Uploading to: ', response.data.uploadURL)
-      const result = await axios.put(response.data.uploadURL, {
-        body: blobData
-      })
+      console.log(response.data.uploadURL);
+      const result = await axios.put(
+        response.data.uploadURL,
+        {
+          body: file,
+        },
+        {
+          headers: {
+            "Content-Type": "png",
+            "x-amz-acl": "public-read"
+          },
+        }
+      );*/
     } catch (err) {
       console.log(err);
     }
