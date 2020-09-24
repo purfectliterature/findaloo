@@ -51,7 +51,7 @@ class Rating extends React.Component {
     render() {
         return (
             <div className={`rating-container ${this.state.mini ? "mini" : ""}`}>
-                <span className="rating-text">{this.state.rating}</span>
+                <span className="rating-text">{Math.round(this.state.rating * 100) / 100}</span>
                 {this.renderStars()}
                 <span className="rating-text">
                     ({this.state.count.toLocaleString()})
