@@ -1,0 +1,16 @@
+.fd-button {
+    font-family: "Inter";
+    font-weight: 600;
+    text-transform: none;
+    font-size: 1.1rem;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.8rem;
+    letter-spacing: normal;
+}
+
+.fd-button + .fd-button {
+    margin-top: 1rem;
+}
