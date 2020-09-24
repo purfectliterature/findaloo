@@ -8,6 +8,7 @@ const initialState = {
     authToken: "",
     refreshToken: "",
     points: 0,
+    lastLocation: null
 };
 
 const slice = createSlice({
@@ -26,18 +27,28 @@ const slice = createSlice({
             user.points = action.payload.points;
         },
 
+        locationSaved: (user, action) => {
+            user.lastLocation = action.payload;
+        },
+
         reset: (user, action) => {
             user = initialState;
         },
     },
 });
 
-const { tokensSet, userInfoSet, reset } = slice.actions;
+const {
+    tokensSet,
+    userInfoSet,
+    locationSaved,
+    reset
+} = slice.actions;
 
 export default slice.reducer;
 
 export const setTokens = (tokens) => tokensSet(tokens);
 export const setUserInfo = (userInfo) => userInfoSet(userInfo);
+export const saveLocation = (lat, lng) => locationSaved({ lat, lng });
 export const resetUserState = () => reset();
 
 export const getTokens = createSelector(
@@ -46,11 +57,11 @@ export const getTokens = createSelector(
 );
 
 export const getUserInfo = createSelector(
-    (state) => state.user,
-    ({ name, profilePicture, email, points }) => ({
-        name,
-        profilePicture,
-        email,
-        points,
-    })
+    state => state.user,
+    ({ name, profilePicture, email, points }) => ({ name, profilePicture, email, points })
+);
+
+export const getLastLocation = createSelector(
+    state => state.user,
+    ({ lat, lng }) => ({ lat, lng })
 );

@@ -27,3 +27,14 @@ export const fetchToiletDetails = (id, onSuccess, onError) => {
     })
     .catch(onError);
 };
+
+export const fetchToiletsHash = (onSuccess, onError) => {
+    axios.get(Routes.getToiletsHash).then((response) => {
+        if (response.status === 200) {
+            onSuccess(response.data.version);
+        } else {
+            console.log("fetchToiletsHash: Invalid response received");
+            console.log(response);
+        }
+    }).catch(onError);
+}

@@ -5,7 +5,7 @@ import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
 import { useDispatch, useSelector } from "react-redux";
-import { Page, Sheet, Button } from "framework7-react";
+import { Page, Sheet, Button, f7 } from "framework7-react";
 import "./styles.css";
 
 import BuildingCard from "../../components/BuildingCard";
@@ -13,9 +13,12 @@ import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
 import FetchLoading from "../../components/FetchLoading";
+import SheetDialog from "../../components/SheetDialog";
+import BasicButton from "../../components/BasicButton";
 
-import { addBuildings, getBuildings } from "../../store/toilets";
-import { fetchToilets } from "../../utils/toilets";
+import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
+import { getTokens, getUserInfo, getLastLocation, saveLocation } from "../../store/user";
+import { fetchToilets, fetchToiletsHash } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
 
@@ -30,8 +33,12 @@ export default (props) => {
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
     const [buildings, setBuildings] = useState(null);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
+    const toiletsHashFromStore = useSelector(getToiletsHash);
+    const tokensFromStore = useSelector(getTokens);
+    const userInfoFromStore = useSelector(getUserInfo);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -146,19 +153,47 @@ export default (props) => {
     useEffect(() => { ReactGA.pageview("/"); });
 
     useEffect(() => {
-        fetchToilets((buildings) => {
-            dispatch(addBuildings(buildings));
-            setBuildings(buildings);
+        fetchToiletsHash((hash) => {
+            if (toiletsHashFromStore === hash) {
+                console.log("Hash is the same as server, using local storage");
+                setBuildings(buildingsFromStore);
+            } else {
+                console.log("Hash is different from server, retrieving");
+                fetchToilets((buildings) => {
+                    console.log("Retrieving buildings from server");
+                    dispatch(addBuildings(buildings));
+                    dispatch(updateToiletsHash(hash));
+                    setBuildings(buildings);
+                }, (error) => {
+                    if (error.message === "Network Error" && buildingsFromStore) {
+                        console.log("No network, using local storage");
+                        setBuildings(buildingsFromStore);
+                    } else {
+                        console.log("No network and no local storage, go fly kite");
+                    }
+                });
+            }
         }, (error) => {
-            console.log("NO INTERNET LA DEY");
-            console.log(buildingsFromStore);
-            setBuildings(buildingsFromStore);
+            if (error.message === "Network Error" && buildingsFromStore) {
+                console.log("No network, using local storage");
+                setBuildings(buildingsFromStore);
+            } else {
+                console.log("No network and no local storage, go fly kite");
+            }
         });
     }, []);
 
     useEffect(() => {
+        if (tokensFromStore && tokensFromStore.authToken) {
+            setIsUserLoggedIn(true);
+        } else {
+            setIsUserLoggedIn(false);
+        }
+    }, [tokensFromStore]);
+
+    useEffect(() => {
         const grid = document.querySelector(".cards");
-        const masonry = new Masonry(grid, {
+        new Masonry(grid, {
             itemSelector: ".toil-card",
             gutter: ".cards-gutter",
             percentPosition: true
@@ -171,7 +206,7 @@ export default (props) => {
 
     useEffect(() => {
         try {
-            if (buildings) {
+            if (buildings && mapsApi && mapView) {
                 const markers = buildings.map((building) => {                    
                     const marker = new mapsApi.Marker({
                         position: {
@@ -191,7 +226,7 @@ export default (props) => {
                     return marker;
                 });
                 
-                const markerCluster = new MarkerClusterer(mapView, markers, {
+                new MarkerClusterer(mapView, markers, {
                     imagePath: "/static/cluster/m",
                     minimumClusterSize: 3
                 });
@@ -207,13 +242,29 @@ export default (props) => {
     }
 
     return (<Page className="white-background-skin" id="explore">
+        <SheetDialog
+            id="new-user-modal"
+            title="It’s now easier to deal with your business!"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            image={require("../../assets/persons-peeing.svg")}
+            imageAlt="Persons peeing"
+            opened={!isUserLoggedIn}
+        >            
+            <BasicButton fill type="submit">Log in or Sign Up</BasicButton>
+
+            <BasicButton outline>Continue to app</BasicButton>
+        </SheetDialog>
+
         <div className="map-search-overlay">
             <SearchBox
                 mode={bottomSheetState === "expanded" ? "flat" : ""}
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
-                rightButtonOnClick={() => {}}
+                onClickProfilePicture={() => {f7.views.main.router.navigate('/profile/')}}
+                onClickLogInButton={() => {f7.views.main.router.navigate('/login/')}}
+                loggedIn={isUserLoggedIn}
+                profilePicture={userInfoFromStore.profilePicture}
             />
         </div>
 
