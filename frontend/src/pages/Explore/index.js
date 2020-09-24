@@ -206,7 +206,7 @@ export default (props) => {
 
     useEffect(() => {
         try {
-            if (buildings) {
+            if (buildings && mapsApi && mapView) {
                 const markers = buildings.map((building) => {                    
                     const marker = new mapsApi.Marker({
                         position: {
