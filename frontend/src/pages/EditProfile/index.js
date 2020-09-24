@@ -69,28 +69,22 @@ const EditProfile = (props) => {
         })
         .then((response) => {
           console.log(response)
-          response = response.data.data;
-          console.log(response);
-          const formData = new FormData();
-          Object.keys(response.fields).forEach((key) => {
-            formData.append(key, response.fields[key]);
-          });
-
-          // Actual file has to be appended last.
-          formData.append("file", file);
-
+          var returnData = response.data.data.returnData;
+          var signedRequest = returnData.signedRequest;
+          console.log(signedRequest)
+          var url = returnData.url;
+          console.log("Recieved a signed request " + signedRequest);
           console.log(fileName);
           console.log(fileType)
           // Put the fileType in the headers for the upload
           var options = {
             headers: {
-              Key: fileName,
               "Content-Type": fileType,
-              "x-amz-acl": "public-read",
+              ACL: "public-read",
             },
           };
           axios
-            .post(response.url, formData)
+            .put(signedRequest, file, options)
             .then((result) => {
               console.log("Response from s3");
             })
