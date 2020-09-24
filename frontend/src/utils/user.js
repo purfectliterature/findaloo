@@ -54,7 +54,12 @@ export const fetchUserInfo = (authToken, onSuccess, onError) => {
         .get(Routes.getUserProfile, { headers: headers })
         .then((res) => {
             if (res.status === 200) {
-                onSuccess(res.data);
+                onSuccess({
+                    name: res.data.name,
+                    profilePicture: res.data.profile_picture,
+                    email: res.data.email,
+                    points: parseInt(res.data.points)
+                });
             }
         })
         .catch(onError);
