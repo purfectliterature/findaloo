@@ -84,13 +84,13 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/toilets/nearest
+POST https://a3.dawo.me:3000/toilets/nearest
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDc5OTI0NSwiZXhwIjoxNjAwODAyODQ1fQ.iBaxt4qXLce2MLTjRsKZbeoD517FriPSXimhyL7VXEE
 
 {
-    "lat": 1.3397977, 
-    "lon": 103.6368124
+    "lat": 1.306708, 
+    "lon": 103.829595
 
 }
 
