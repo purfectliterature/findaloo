@@ -34,23 +34,30 @@ const Details = (props) => {
       },
       (err) => {
         console.log(err);
-        
-        if (err.message === "Network Error") {
+
+        if (err.message === 'Network Error') {
           if (typeof storeDetails !== 'undefined') {
-            setDetails(storeDetails)
-          } 
+            setDetails(storeDetails);
+          }
         }
       }
     );
   }, []);
 
   const handleBackOnClick = () => {
-    f7.views.main.router.back('/', { force: true })
-  }
+    f7.views.main.router.back('/', { force: true });
+  };
 
   const handleShareOnClick = () => {
-    // TODO: Change
-    console.log('Share');
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `${details.title}`,
+          url: `https://findaloo.netlify.app/toilets/${id}`,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }
   };
 
   const handleReportOnClick = () => {
