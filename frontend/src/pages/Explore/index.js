@@ -4,6 +4,7 @@ import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { Page, Sheet, Button, f7 } from "framework7-react";
 import "./styles.css";
@@ -41,6 +42,7 @@ export default (props) => {
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
     const [liveLocation, setLiveLocation] = useState(null);
+    const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
     const [buildings, setBuildings] = useState(null);
     const [featuredToilets, setFeaturedToilets] = useState(null);
@@ -55,6 +57,8 @@ export default (props) => {
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
+            setIsLoadingLocation(true);
+
             navigator.geolocation.getCurrentPosition(
                 ({ coords: { latitude, longitude } }) => {
                     if (bottomSheetState === "normal" || buildingToiletsStripShowed) {
@@ -80,8 +84,9 @@ export default (props) => {
                     if (mapView.getZoom() < 16) mapView.setZoom(16);
                     setCurrentLocation({ lat: latitude, lng: longitude });
                     setLiveLocation(true);
+                    setIsLoadingLocation(false);
                 }
-            , () => alert("ADUH"));
+            , () => alert("Location services may be turned off. Please turn it back on."));
         } else {
             alert("not supported");
         }
@@ -335,7 +340,9 @@ export default (props) => {
             color="white"
             className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""} ${liveLocation ? "location-found" : ""}`}
             onClick={getCurrentLocation}
-        ><MyLocationIcon /></Button>
+        >
+            {isLoadingLocation ? <ClipLoader size={30} /> : <MyLocationIcon />}
+        </Button>
 
         <Button
             fill
