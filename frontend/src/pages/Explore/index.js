@@ -40,6 +40,7 @@ export default (props) => {
     const [currentLocation, setCurrentLocation] = useState(null);
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
+    const [liveLocation, setLiveLocation] = useState(null);
 
     const [buildings, setBuildings] = useState(null);
     const [featuredToilets, setFeaturedToilets] = useState(null);
@@ -78,6 +79,7 @@ export default (props) => {
 
                     if (mapView.getZoom() < 16) mapView.setZoom(16);
                     setCurrentLocation({ lat: latitude, lng: longitude });
+                    setLiveLocation(true);
                 }
             , () => alert("ADUH"));
         } else {
@@ -331,7 +333,7 @@ export default (props) => {
             round
             iconSize="1.6rem"
             color="white"
-            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""} ${currentLocation ? "location-found" : ""}`}
+            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""} ${liveLocation ? "location-found" : ""}`}
             onClick={getCurrentLocation}
         ><MyLocationIcon /></Button>
 
@@ -403,7 +405,13 @@ export default (props) => {
                     setMapsApi(maps);
                 }}
             >
-                {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
+                {currentLocation ?
+                    <MyLocationMarker
+                        lat={currentLocation.lat}
+                        lng={currentLocation.lng}
+                        pastLocation={!liveLocation}
+                    />
+                : null}
                 
                 {buildingToShow ? 
                     <Marker
