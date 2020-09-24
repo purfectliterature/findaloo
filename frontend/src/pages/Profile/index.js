@@ -5,7 +5,7 @@ import UserInfo from '../../components/UserInfo';
 import UserActions from '../../components/UserActions';
 import './styles.css';
 
-import { setUserInfo, getTokens } from '../../store/user';
+import { setUserInfo, getTokens, resetUserState } from '../../store/user';
 import { fetchUserInfo } from '../../utils/user';
 import { logout } from '../../utils/auth';
 
@@ -25,6 +25,7 @@ const Profile = () => {
     logout(
       userTokens.refreshToken,
       (data) => {
+        dispatch(resetUserState);
         f7.views.main.router.navigate('/');
       },
       (err) => {
