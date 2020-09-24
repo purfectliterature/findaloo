@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 import './styles.css';
 
 import { getUserInfo, getTokens } from '../../store/user';
-import { updateUserInfo } from '../../utils/user';
+import { updateProfilePicture, updateUserInfo } from '../../utils/user';
 
 const EditProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -25,11 +25,16 @@ const EditProfile = () => {
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-
-    updateUserInfo(
+    let imageUrl = userInfo.profilePicture;
+    if (profilePicture) {
+      imageUrl = await updateProfilePicture(profilePicture);
+    }
+  
+    try {
+      updateUserInfo(
       userTokens.authToken,
       name,
-      profilePicture,
+      imageUrl,
       (data) => {
         formik.setSubmitting(false);
         f7.views.main.router.navigate(`/profile/`);
@@ -37,8 +42,10 @@ const EditProfile = () => {
       (err) => {
         console.log(err);
         formik.setSubmitting(false);
-      }
-    );
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleEditProfileOnClick = (event) => {
@@ -46,74 +53,6 @@ const EditProfile = () => {
   };
 
   const handleUploadProfilePicture = async (file) => {
-    try {
-      let fileParts = file.name.split(".");
-      let fileName = fileParts[0];
-      let fileType = fileParts[1];
-      console.log(fileName);
-      console.log(fileType);
-      console.log("Preparing the upload");
-      axios
-        .post(`${endpoints.databaseApi}/customer/profile/imageUrl`, {
-          fileName: fileName,
-          fileType: fileType,
-        })
-        .then((response) => {
-          console.log(response)
-          var returnData = response.data.data.returnData;
-          var signedRequest = returnData.signedRequest;
-          console.log(signedRequest)
-          var url = returnData.url;
-          console.log("Recieved a signed request " + signedRequest);
-          console.log(fileName);
-          console.log(fileType)
-          // Put the fileType in the headers for the upload
-          var options = {
-            headers: {
-              "Content-Type": fileType,
-              ACL: "public-read",
-            },
-          };
-          axios
-            .put(signedRequest, file, options)
-            .then((result) => {
-              console.log("Response from s3");
-            })
-            .catch((error) => {
-              alert("ERROR " + JSON.stringify(error));
-            });
-        })
-        .catch((error) => {
-          alert(JSON.stringify(error));
-        });
-      /*const data = new FormData();
-      data.append("file", file);
-      var response = await axios.post(
-        `${endpoints.databaseApi}/customer/profile/imageUrl`, data, {headers: headers,}
-      );*/
-      /*var response = await axios
-        .get(
-          `${endpoints.databaseApi}/customer/profile/imageUrl`,
-          {
-            headers: headers,
-          }
-      )
-      console.log(response.data.uploadURL);
-      const result = await axios.put(
-        response.data.uploadURL,
-        {
-          body: file,
-        },
-        {
-          headers: {
-            "Content-Type": "png",
-            "x-amz-acl": "public-read"
-          },
-        }
-      );*/
-    } catch (err) {
-      console.log(err);
-    }
     formik.setFieldValue('profilePicture', file);
   };
 
