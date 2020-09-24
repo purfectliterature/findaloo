@@ -16,7 +16,10 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles.css";
 import { useFormik } from "formik";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setTokens, setUserInfo } from "../../../store/user.js";
+import { register } from "../../../utils/user";
+import { login, getProfile } from "../../../utils/user.js";
 
 class LoginPage extends React.Component {
     toggleVisibility() {
@@ -92,6 +95,7 @@ const navigateToLogin = () => {
 };
 
 const Form = () => {
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -101,21 +105,42 @@ const Form = () => {
         },
         validate,
         onSubmit: (values, { setFieldError }) => {
-            axios
-                .post("https://a3.dawo.me:4000/sign-up/customer", {
+            register(
+                {
                     name: values.name,
                     email: values.email,
                     password: values.password,
                     authType: "native",
-                })
-                .then((response) => {
-                    f7.views.main.router.navigate("/");
-                })
-                .catch((error) => {
+                },
+                (data) => {
+                    login(
+                        {
+                            email: values.email,
+                            password: values.password,
+                        },
+                        (data) => {
+                            f7.views.main.router.navigate("/");
+                            dispatch(setTokens(data));
+                            getProfile(
+                                {
+                                    accessToken: data.accessToken,
+                                },
+
+                                (data) => {
+                                    dispatch(setUserInfo(data));
+                                }
+                            );
+                            f7.views.main.router.navigate("/");
+                        },
+                        (error) => {}
+                    );
+                },
+                (error) => {
                     if (error.response.status === 409) {
                         setFieldError("email", "This user already exists.");
                     }
-                });
+                }
+            );
         },
     });
 
