@@ -163,7 +163,7 @@ export default (props) => {
     const renderBuildingToilets = () => {
         if (buildingToShow && buildingToShow.toilets) {
             const toilets = buildingToShow.toilets.map((toilet) => (
-                <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
+                <ToiletCard key={"tm-" + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
             ));
 
             return (
@@ -177,11 +177,9 @@ export default (props) => {
     }
 
     const renderToilets = () => {
-        console.log(featuredToilets);
-
         if (featuredToilets) {
             return featuredToilets.map((toilet) => (
-                <ToiletCard toilet={toilet} key={toilet.toiledId + Math.floor(Math.random()*(999-100+1)+100)} />
+                <ToiletCard toilet={toilet} key={"tl-" + Math.floor(Math.random()*(999-100+1)+200)} />
             ));
         }
     }

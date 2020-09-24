@@ -68,6 +68,7 @@ export default (props) => {
 
     const createFeature = (name, has) => (
         <Feature
+            key={"ft-" + Math.floor(Math.random()*(999-100+1)+100)}
             featureName={name}
             has={has}
             className="feature-lists"
