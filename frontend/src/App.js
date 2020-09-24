@@ -16,9 +16,10 @@ import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
 import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
-
-import configureStore from "./store/configureStore";
 import GoogleLoginPage from "./pages/GoogleLogin";
+import FetchLoading from "./components/FetchLoading";
+
+import { store, persistor } from "./store/configureStore";
 
 const trackingId = "UA-178628413-1";
 ReactGA.initialize(trackingId);
@@ -81,8 +82,6 @@ const f7params = {
     ],
 };
 
-const { store, persistor } = configureStore();
-
 export default (props) => {
     useEffect(() => {
         let viewport = document.querySelector("meta[name=viewport]");
@@ -116,9 +115,9 @@ export default (props) => {
 
     return (
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+            <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/login/" />
+                    <View main url="/" />
                 </App>
             </PersistGate>
         </Provider>
