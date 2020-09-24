@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import UserRating from '../../components/UserRating';
 import UserInput from '../../components/UserInput';
 
 import { getUserInfo, getTokens } from '../../store/user';
-import { createReview } from '../../utils/reviews';
+import { addNewReviews } from '../../store/reviews';
 
 const CreateReviews = (props) => {
   const { id, rating, postTitle } = props;
@@ -16,25 +16,20 @@ const CreateReviews = (props) => {
   const [userRatings, setUserRatings] = useState(rating);
   const currentUser = useSelector(getUserInfo);
   const userTokens = useSelector(getTokens);
+  const dispatch = useDispatch();
 
   const handleFormSubmission = async (values) => {
     const { reviewTitle, reviewDescription } = values;
 
-    createReview(
-      userTokens.authToken,
-      id,
-      reviewTitle,
-      reviewDescription,
-      rating,
-      (data) => {
-        formik.setSubmitting(false);
-        f7.views.main.router.navigate(`/toilets/${id}/`);
-      },
-      (err) => {
-        formik.setSubmitting(false);
-        console.log(err);
-      }
-    );
+    const review = {
+      title: reviewTitle,
+      rating: rating,
+      description: reviewDescription,
+    };
+    dispatch(addNewReviews(id, userTokens.authToken, review));
+    
+    formik.setSubmitting(false);
+    f7.views.main.router.navigate(`/toilets/${id}/`);
   };
 
   const handleOnReviewClick = (newRating) => {
