@@ -197,7 +197,7 @@ const Form = () => {
                         className="visibility-icon"
                         onClick={toggleVisibility}
                     >
-                        {visible ? (
+                        {!visible ? (
                             <VisibilityOffIcon></VisibilityOffIcon>
                         ) : (
                             <VisibilityIcon></VisibilityIcon>
