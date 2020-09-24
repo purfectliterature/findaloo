@@ -98,7 +98,8 @@ app.get("/toilets/version", async (req, res) => {
     FROM toilet_version`)
 
     let result = await db.query(statement);
-    version = result.rows[0];
+    console.log(result.rows);
+    version = result.version;
 
     return res.status(200).send(version);
 })

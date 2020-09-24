@@ -158,3 +158,5 @@ CREATE UNIQUE INDEX ON "users" ("email", "auth_type");
 ALTER TABLE "native_auth_passwords" ADD FOREIGN KEY ("email", "auth_type") REFERENCES "users" ("email", "auth_type");
 
 CREATE UNIQUE INDEX ON "toilet_images" ("toilet_id", "image_url");
+
+INSERT INTO "toilet_version" VALUES (1);
