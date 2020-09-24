@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
+import Routes from '../utils/routes';
 
 const initialState = {
     name: "",
@@ -8,7 +9,8 @@ const initialState = {
     authToken: "",
     refreshToken: "",
     points: 0,
-    lastLocation: null
+    lastLocation: null,
+    newPasswordRequest: {},
 };
 
 const slice = createSlice({
@@ -34,6 +36,36 @@ const slice = createSlice({
         reset: (user, action) => {
             user = initialState;
         },
+        addNewPasswordRequest: {
+            reducer(state, action) {
+                state.newPasswordRequest["new"] = action.payload.newPassword;
+                state.newPasswordRequest["current"] = action.payload.currentPassword;
+            },
+            prepare(authToken, currentPassword, newPassword) {
+                return {
+                    payload: { currentPassword, newPassword },
+                    meta: {
+                        offline: {
+                            effect: {
+                                url: `${Routes.updatePassword}`,
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    newPassword
+                                }),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bearer ${authToken}`,
+                                },
+                            },
+                            commit: { type: 'user/clearNewPasswordRequest' },
+                        },
+                    },
+                };
+            },
+        },
+        clearNewPasswordRequest: (state, action) => {
+            state.newPasswordRequest = {}
+        }
     },
 });
 
@@ -41,7 +73,12 @@ const {
     tokensSet,
     userInfoSet,
     locationSaved,
-    reset
+    reset,
+} = slice.actions;
+
+export const {
+    addNewPasswordRequest,
+    clearNewPasswordRequest,
 } = slice.actions;
 
 export default slice.reducer;
