@@ -7,7 +7,7 @@ const initialState = {
     email: "",
     authToken: "",
     refreshToken: "",
-    points: 0
+    points: 0,
 };
 
 const slice = createSlice({
@@ -15,7 +15,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         tokensSet: (user, action) => {
-            user.authToken = action.payload.authToken;
+            user.authToken = action.payload.accessToken;
             user.refreshToken = action.payload.refreshToken;
         },
 
@@ -28,15 +28,11 @@ const slice = createSlice({
 
         reset: (user, action) => {
             user = initialState;
-        }
-    }
+        },
+    },
 });
 
-const {
-    tokensSet,
-    userInfoSet,
-    reset
-} = slice.actions;
+const { tokensSet, userInfoSet, reset } = slice.actions;
 
 export default slice.reducer;
 
@@ -45,11 +41,16 @@ export const setUserInfo = (userInfo) => userInfoSet(userInfo);
 export const resetUserState = () => reset();
 
 export const getTokens = createSelector(
-    state => state.user,
+    (state) => state.user,
     ({ authToken, refreshToken }) => ({ authToken, refreshToken })
 );
 
 export const getUserInfo = createSelector(
-    state => state.user,
-    ({ name, profilePicture, email, points }) => ({ name, profilePicture, email, points })
+    (state) => state.user,
+    ({ name, profilePicture, email, points }) => ({
+        name,
+        profilePicture,
+        email,
+        points,
+    })
 );

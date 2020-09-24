@@ -1,17 +1,39 @@
 import React, { useState } from "react";
-import { Page, List, ListInput, Button } from "framework7-react";
+import { Page, Button, f7, List, ListInput } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles.css";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { setTokens, setUserInfo } from "../../../store/user.js";
+import {
+    login,
+    getGoogleSignInUrl,
+    fetchUserInfo,
+} from "../../../utils/user.js";
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
+            google_login_url: "",
         };
     }
+
+    componentDidMount() {
+        const that = this;
+        getGoogleSignInUrl(
+            {
+                params: {
+                    redirect: "/",
+                },
+            },
+            (data) => {
+                that.setState({ google_login_url: data });
+            }
+        );
+    }
+
     render() {
         return (
             <Page className="padding white-background-skin">
@@ -32,12 +54,24 @@ class LoginPage extends React.Component {
                 </h1>
 
                 <Form></Form>
+
+                <Button
+                    outline
+                    className="btn"
+                    href={this.state.google_login_url}
+                >
+                    Sign in with Google
+                </Button>
             </Page>
         );
     }
 }
 
 export default LoginPage;
+
+const navigateToRegister = () => {
+    f7.views.main.router.navigate("/register/");
+};
 
 const validate = (values) => {
     const errors = {};
@@ -57,14 +91,39 @@ const validate = (values) => {
 };
 
 const Form = () => {
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
         validate,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: (values, { setFieldError }) => {
+            login(
+                {
+                    email: values.email,
+                    password: values.password,
+                },
+                (data) => {
+                    f7.views.main.router.navigate("/");
+                    dispatch(setTokens(data));
+                    fetchUserInfo(
+                        data.accessToken,
+                        (data) => {
+                            dispatch(setUserInfo(data));
+                        },
+                        (error) => {}
+                    );
+                    f7.views.main.router.navigate("/");
+                },
+                (error) => {
+                    if (error.response.status === 401) {
+                        setFieldError("password", "Incorrect password");
+                    } else if (error.response.status === 404) {
+                        setFieldError("email", "No such user found.");
+                    }
+                }
+            );
         },
     });
 
@@ -120,16 +179,13 @@ const Form = () => {
                         {formik.errors.password}
                     </div>
                 </ListInput>
-                <div className="form-link">
-                    <a href="#">Having trouble signing in?</a>
-                </div>
             </List>
 
             <div className="bottom-group">
                 <Button fill className="btn" type="submit">
                     Log in
                 </Button>
-                <Button outline className="btn">
+                <Button outline className="btn" onClick={navigateToRegister}>
                     Create an account
                 </Button>
             </div>
