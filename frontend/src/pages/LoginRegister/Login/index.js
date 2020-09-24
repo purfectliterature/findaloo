@@ -22,16 +22,9 @@ class LoginPage extends React.Component {
 
     componentDidMount() {
         const that = this;
-        getGoogleSignInUrl(
-            {
-                params: {
-                    redirect: "/",
-                },
-            },
-            (data) => {
-                that.setState({ google_login_url: data });
-            }
-        );
+        getGoogleSignInUrl((data) => {
+            that.setState({ google_login_url: data });
+        });
     }
 
     render() {

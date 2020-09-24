@@ -9,7 +9,6 @@ export default () => {
     const dispatch = useDispatch();
     const url = window.location.href;
     var token = new URL(url).searchParams.get("code");
-    token = "123";
     exchangeToken(
         { token: token },
         (data) => {
