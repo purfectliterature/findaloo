@@ -312,9 +312,14 @@ export default (props) => {
             imageAlt="Persons peeing"
             opened={!isUserLoggedIn}
         >            
-            <BasicButton fill type="submit">Log in or Sign Up</BasicButton>
+            <BasicButton
+                fill
+                type="submit"
+                sheetClose="#new-user-modal"
+                onClick={() => f7.views.main.router.navigate('/login/')}
+            >Log in or Sign Up</BasicButton>
 
-            <BasicButton outline>Continue to app</BasicButton>
+            <BasicButton outline sheetClose="#new-user-modal">Continue to app</BasicButton>
         </SheetDialog>
 
         <div className="map-search-overlay">
@@ -323,8 +328,8 @@ export default (props) => {
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
-                onClickProfilePicture={() => {f7.views.main.router.navigate('/profile/')}}
-                onClickLogInButton={() => {f7.views.main.router.navigate('/login/')}}
+                onClickProfilePicture={() => f7.views.main.router.navigate('/profile/')}
+                onClickLogInButton={() => f7.views.main.router.navigate('/login/')}
                 loggedIn={isUserLoggedIn}
                 profilePicture={userInfoFromStore.profilePicture}
             />
