@@ -45,8 +45,6 @@ export const exchangeToken = (params, onSuccess, onError) => {
 };
 
 export const fetchUserInfo = (authToken, onSuccess, onError) => {
-    authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2NzA2NSwiZXhwIjoxNjAwOTcwNjY1fQ.kfsWP1H67KgOrAS6IkSVJpsMVNeI-pREGwT31HUajqU";
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
@@ -108,8 +106,6 @@ export const updateUserInfo = (
     onSuccess,
     onError
 ) => {
- authToken =
-   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2NzA2NSwiZXhwIjoxNjAwOTcwNjY1fQ.kfsWP1H67KgOrAS6IkSVJpsMVNeI-pREGwT31HUajqU";
 
     const headers = {
         "Content-Type": "application/json",
