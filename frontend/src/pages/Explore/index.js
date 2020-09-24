@@ -5,7 +5,7 @@ import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
 import { useDispatch, useSelector } from "react-redux";
-import { Page, Sheet, Button } from "framework7-react";
+import { Page, Sheet, Button, f7 } from "framework7-react";
 import "./styles.css";
 
 import BuildingCard from "../../components/BuildingCard";
@@ -228,8 +228,8 @@ export default (props) => {
                 onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
                 value={searchKeywords}
-                onClickProfilePicture={() => {}}
-                onClickLogInButton={() => {}}
+                onClickProfilePicture={() => {f7.views.main.router.navigate('/profile/')}}
+                onClickLogInButton={() => {f7.views.main.router.navigate('/login/')}}
             />
         </div>
 
