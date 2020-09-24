@@ -30,33 +30,40 @@ app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello Agnes!"));
 
-const s3 = new AWS.S3();
+const s3 = new AWS.S3({
+    signatureVersion: 'v4',
+    region: 'us-east-2'
+});
 
-app.get("/customer/profile/imageUrl", authenticateToken, async (req, res) => {
-    try {
-        const uploadUrl = await getUploadUrl();
-        return res.status(200).send(uploadUrl);
-    } catch (error) {
-        return res.status(500).send(error);
-    }
-})
 
-async function getUploadUrl() {
-  const actionId = uuidv4()
+app.post("/customer/profile/imageUrl", async (req, res) => {
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+  // Set up the payload of what we are sending to the S3 api
+  const S3_BUCKET = 'cs3216-a3-profile-picture';
+  console.log(fileName)
   const s3Params = {
-    Bucket: "cs3216-a3-profile-picture",
-    Key: `${actionId}.jpg`,
-    ContentType: "image/jpeg",
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    ContentType: fileType,
     ACL: "public-read",
   };
-  return new Promise((resolve, reject) => {
-    let uploadURL = s3.getSignedUrl('putObject', s3Params)
-    resolve({
-        "uploadURL": uploadURL,
-        "photoFilename": `${actionId}.jpg`
-    })
-  })
-}
+  // Make a request to the S3 API to get a signed URL which we can use to upload our file
+  s3.getSignedUrl("putObject", s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false, error: err });
+    }
+    // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+    };
+    console.log(returnData)
+    // Send it all back
+    res.json({ success: true, data: { returnData } });
+  });
+});
 
 app.get("/buildings", async (req, res) => {
     let rows;
