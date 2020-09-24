@@ -380,7 +380,7 @@ app.post("/toilets/nearest", async (req, res) => {
         let currentToilet = rows.filter(row => row.id === currentToiletId);
         let toilet = {
             toiletId: currentToiletId,
-            name: currentToilet.name
+            name: currentToilet.name,
             buildingId: currentToilet.building_id,
             duration: nearestToilet.duration,
             distance: nearestToilet.distance,
