@@ -7,9 +7,7 @@ import "./styles.css";
 import Rating from "../Rating";
 import Feature from "../Feature";
 
-export default (props) => {
-    console.log(props.toilet);
-    
+export default (props) => {    
     const {
         toiletId,
         address,
@@ -38,6 +36,12 @@ export default (props) => {
         mini,
         onClick
     } = props;
+
+    let image;
+
+    try {
+        image = toilet_images[0];
+    } catch (error) { }
 
     const renderMaleIcon = () => {
         if (has_male) return (
@@ -91,7 +95,12 @@ export default (props) => {
 
     return (
         <div className={`toil-card ripple ${mini ? "mini" : ""}`} onClick={openToiletDetails}>
-            <div className="card-image" style={{ backgroundImage: `url(${toilet_images[0]})` }}>
+            <div className="card-image" style={{
+                background: `url("${image}") #828282`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center"
+            }}>
                 <div className="gender-icon-container">
                     {renderMaleIcon()}
                     {renderFemaleIcon()}

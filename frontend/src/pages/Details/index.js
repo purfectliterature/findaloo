@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Page, Tabs, Tab, Toolbar, Link, Button, f7 } from 'framework7-react';
-import { endpoints } from '../../utils/routes';
+import Routes from '../../utils/routes';
 import './styles.css';
 import BasicInfoImage from '../../components/BasicInfoImage';
 import BasicInfo from '../../components/BasicInfo';
@@ -28,7 +28,7 @@ const Details = (props) => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    axios.get(`${endpoints.databaseApi}/toilets/${id}`).then((res) => {
+    axios.get(`${Routes.getToilets}/${id}`).then((res) => {
       if (res.status === 200) {
         setDetails(res.data);
       }
@@ -37,7 +37,7 @@ const Details = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${endpoints.databaseApi}/customer/profile`, { headers: headers })
+      .get(Routes.getUserProfile, { headers: headers })
       .then((response) => {
         if (response.status === 200) {
           setCurrentUser(response.data);

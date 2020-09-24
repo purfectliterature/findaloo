@@ -10,7 +10,7 @@ import {
   f7,
 } from 'framework7-react';
 import { Edit } from '@material-ui/icons';
-import { endpoints } from '../../utils/routes';
+import Routes from '../../utils/routes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
@@ -31,7 +31,7 @@ const EditProfile = (props) => {
     const { name, profilePicture } = values;
     axios
       .put(
-        `${endpoints.databaseApi}/customer/profile`,
+        Routes.getUserProfile,
         {
           name: name,
           profile_picture: profilePicture,
@@ -58,7 +58,7 @@ const EditProfile = (props) => {
     try {
       var response = await axios
         .get(
-          `${endpoints.databaseApi}/customer/profile/imageUrl`,
+          Routes.userProfilePicture,
           {
             headers: headers,
           }

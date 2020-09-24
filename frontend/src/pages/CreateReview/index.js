@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
-import { endpoints } from '../../utils/routes';
+import Routes from '../../utils/routes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import UserProfile from '../../components/UserProfile';
@@ -23,7 +23,7 @@ const CreateReviews = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${endpoints.databaseApi}/customer/profile`, { headers: headers })
+      .get(Routes.getUserProfile, { headers: headers })
       .then((response) => {
         if (response.status === 200) {
           setCurrentUser(response.data);
@@ -36,7 +36,7 @@ const CreateReviews = (props) => {
 
     axios
       .post(
-        `${endpoints.databaseApi}/review/${id}`,
+        `${Routes.toiletReview}/${id}`,
         {
           cleanlinessRating: rating,
           title: reviewTitle,
