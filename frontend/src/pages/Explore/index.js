@@ -3,7 +3,8 @@ import GoogleMapReact from "google-map-react";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
-import { useDispatch } from "react-redux";
+import MyLocationIcon from "@material-ui/icons/MyLocation";
+import { useDispatch, useSelector } from "react-redux";
 import { Page, Sheet, Button } from "framework7-react";
 import "./styles.css";
 
@@ -11,9 +12,12 @@ import BuildingCard from "../../components/BuildingCard";
 import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
+import FetchLoading from "../../components/FetchLoading";
 
-import { addBuildings } from "../../store/toilets";
+import { addBuildings, getBuildings } from "../../store/toilets";
 import { fetchToilets } from "../../utils/toilets";
+
+const MAX_BUILDINGS_FEATURED = 20;
 
 export default (props) => {
     const bottomSheetRef = useRef();
@@ -22,24 +26,12 @@ export default (props) => {
     const [bottomSheetState, setBottomSheetState] = useState("normal");
     const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
-    const [activeMarker, setActiveMarker] = useState("");
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
     const [buildings, setBuildings] = useState(null);
     const dispatch = useDispatch();
-    
-    useEffect(() => { ReactGA.pageview("/"); });
-
-    useEffect(() => {
-        fetchToilets((buildings) => {
-            dispatch(addBuildings(buildings));
-            setBuildings(buildings);
-        }, (error) => {
-            console.log("ERR: Explore");
-            console.error(error);
-        });
-    }, []);
+    const buildingsFromStore = useSelector(getBuildings);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -67,8 +59,8 @@ export default (props) => {
         
         setTimeout(() => {
             const sheet = document.getElementById("bottom-sheet");
-            const view = document.querySelector(".view.view-main");        
-            view.appendChild(sheet);
+            const page = document.querySelector("#explore .page-content");        
+            page.appendChild(sheet);
         }, 300);
 
         setBottomSheetState("normal");
@@ -91,9 +83,77 @@ export default (props) => {
             setBottomSheetState("hidden");
         }
     }
+    
+    const showMarkerOnMap = (building) => {
+        hideBottomSheet();
+        setBuildingToShow(building);
+        setBuildingToiletsStripShowed(true);
+
+        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
+        
+        if (mapView.getZoom() < 16) mapView.setZoom(16);
+    }
+
+    const renderBuildings = () => {
+        let sliced = buildings.slice(0, MAX_BUILDINGS_FEATURED).map((building) => {
+            let image;
+    
+            try {
+                image = building.toilets[0].toilet_images[0];
+            } catch (error) { }
+    
+            return (
+                <BuildingCard
+                    key={building.buildingId}
+                    title={building.buildingName}
+                    toilets={building.toilets}
+                    image={image}
+                    onClick={() => showMarkerOnMap(building)}
+                />
+            );
+        });
+
+
+        if (buildings.length > MAX_BUILDINGS_FEATURED) {
+            sliced.push(
+                <BuildingCard
+                    key={"showAllBuildings"}
+                    onClick={() => {}}
+                    isShowAllBuildingsButton={true}
+                />
+            );
+        }
+
+        return sliced;
+    }
+
+    const renderBuildingToilets = () => {
+        if (buildingToShow && buildingToShow.toilets) {
+            const toilets = buildingToShow.toilets.map((toilet) => (
+                <ToiletCard key={toilet.toiletId + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
+            ));
+
+            return (
+                <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+                    <div className="bldg-toilets">
+                        {toilets}
+                    </div>
+                </div>
+            );
+        }
+    }
+    
+    useEffect(() => { ReactGA.pageview("/"); });
 
     useEffect(() => {
-        openBottomSheet();
+        fetchToilets((buildings) => {
+            dispatch(addBuildings(buildings));
+            setBuildings(buildings);
+        }, (error) => {
+            console.log("NO INTERNET LA DEY");
+            console.log(buildingsFromStore);
+            setBuildings(buildingsFromStore);
+        });
     }, []);
 
     useEffect(() => {
@@ -104,63 +164,49 @@ export default (props) => {
             percentPosition: true
         });
     });
-
-    const renderBuildings = () => buildings.map((building) => (
-        <BuildingCard
-            key={building.buildingId}
-            title={building.buildingName}
-            toilets={building.toilets}
-            onClick={() => showMarkerOnMap(building)}
-        />
-    ));
-
-    const showMarkerOnMap = (building) => {
-        hideBottomSheet();
-        setBuildingToShow(building.toilets);
-        setBuildingToiletsStripShowed(true);
-
-        setActiveMarker(building.buildingId);
-        mapView.panTo({ lat: building.lat - 0.0025, lng: building.lon + 0.002 });
-        
-        if (mapView.getZoom() < 16) mapView.setZoom(16);
-    }
-
-    const renderMarkers = () => buildings.map((building) => (
-        <Marker
-            key={building.buildingId}
-            title={building.buildingName}
-            lat={building.lat}
-            lng={building.lon}
-            onClick={() => showMarkerOnMap(building)}
-            active={activeMarker === building.buildingId}
-        />
-    ));
-
-    const renderBuildingToilets = (toilets) => toilets.map((toilet) => (
-        <ToiletCard key={toilet.toiletId} toilet={toilet} mini={true} />
-    ));
+    
+    useEffect(() => {
+        if (buildings) openBottomSheet();
+    }, [buildings]);
 
     useEffect(() => {
-        if (buildings) {
-            const markers = buildings.map((building) => {
-                const position = new mapsApi.LatLng({
-                    lat: parseFloat(building.lat),
-                    lng: parseFloat(building.lon) 
+        try {
+            if (buildings) {
+                const markers = buildings.map((building) => {                    
+                    const marker = new mapsApi.Marker({
+                        position: {
+                            lat: parseFloat(building.lat),
+                            lng: parseFloat(building.lon)
+                        },
+                        icon: {
+                            url: require("../../assets/marker-toilet.svg"),
+                            anchor: new mapsApi.Point(0, 0)
+                        }
+                    });
+
+                    marker.addListener("click", () => {
+                        showMarkerOnMap(building)
+                    });
+
+                    return marker;
                 });
                 
-                return new mapsApi.Marker({
-                    position,
-                    icon: require("../../assets/marker-toilet.svg")
+                const markerCluster = new MarkerClusterer(mapView, markers, {
+                    imagePath: "/static/cluster/m",
+                    minimumClusterSize: 3
                 });
-            });
-            
-            const markerCluster = new MarkerClusterer(mapView, markers, {
-                imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
-            });
+            }
+        } catch (error) {
+            console.log("WHOOPS NO MAPS");
+            console.error(error);
         }
-    }, [buildings, mapView, mapsApi])
+    }, [buildings, mapView, mapsApi]);
 
-    return (<>
+    if (buildings === null) {
+        return <FetchLoading />;
+    }
+
+    return (<Page className="white-background-skin" id="explore">
         <div className="map-search-overlay">
             <SearchBox
                 mode={bottomSheetState === "expanded" ? "flat" : ""}
@@ -171,13 +217,7 @@ export default (props) => {
             />
         </div>
 
-        {buildingToShow ?
-            <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
-                <div className="bldg-toilets">
-                    {renderBuildingToilets(buildingToShow)}
-                </div>
-            </div>
-        : null}
+        {renderBuildingToilets()}
 
         <Button
             fill
@@ -185,10 +225,9 @@ export default (props) => {
             round
             iconSize="1.6rem"
             color="white"
-            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""}`}
-            iconF7="location_fill"
+            className={`my-location ${bottomSheetState === "hidden" ? "bottom" : ""} ${currentLocation ? "location-found" : ""}`}
             onClick={getCurrentLocation}
-        />
+        ><MyLocationIcon /></Button>
 
         <Button
             fill
@@ -260,8 +299,17 @@ export default (props) => {
             >
                 {currentLocation ? <MyLocationMarker lat={currentLocation.lat} lng={currentLocation.lng} text="NUS" /> : null}
                 
-                {/* {buildings ? renderMarkers() : null} */}
+                {buildingToShow ? 
+                    <Marker
+                        key={buildingToShow.buildingId}
+                        title={buildingToShow.buildingName}
+                        lat={buildingToShow.lat}
+                        lng={buildingToShow.lon}
+                        onClick={() => {}}
+                        active={true}
+                    />
+                : null}
             </GoogleMapReact>
         </div>
-    </>);
+    </Page>);
 }
