@@ -17,6 +17,7 @@ import SheetDialog from "../../components/SheetDialog";
 import BasicButton from "../../components/BasicButton";
 
 import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
+import { getTokens, getUserInfo } from "../../store/user";
 import { fetchToilets, fetchToiletsHash } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
@@ -32,9 +33,12 @@ export default (props) => {
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
     const [buildings, setBuildings] = useState(null);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
     const toiletsHashFromStore = useSelector(getToiletsHash);
+    const tokensFromStore = useSelector(getTokens);
+    const userInfoFromStore = useSelector(getUserInfo);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -180,6 +184,14 @@ export default (props) => {
     }, []);
 
     useEffect(() => {
+        if (tokensFromStore && tokensFromStore.authToken) {
+            setIsUserLoggedIn(true);
+        } else {
+            setIsUserLoggedIn(false);
+        }
+    }, [tokensFromStore]);
+
+    useEffect(() => {
         const grid = document.querySelector(".cards");
         const masonry = new Masonry(grid, {
             itemSelector: ".toil-card",
@@ -251,6 +263,7 @@ export default (props) => {
                 value={searchKeywords}
                 onClickProfilePicture={() => {f7.views.main.router.navigate('/profile/')}}
                 onClickLogInButton={() => {f7.views.main.router.navigate('/login/')}}
+                loggedIn={isUserLoggedIn}
             />
         </div>
 
