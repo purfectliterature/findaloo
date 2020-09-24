@@ -357,28 +357,24 @@ app.get("/toilets/nearest", async (req, res) => {
 
     let toiletFeatures = await getToiletFeatures(`WHERE toilet_id IN (${toiletIds})`);
     let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
-
-    for (row in rows) {
-        let current = rows[row];
-        
+    console.log(nearestToilets)
+    nearestToilets.forEach(nearestToilet => {
+        let currentToiletId = nearestToilet.toiletId;
+        let currentToilet = rows.filter(row => row.id === currentToiletId);
         let toilet = {
-          toiletId: current.id,
-          buildingId: current.building_id,
-          duration: nearestToilets.filter(
-            (nearestToilet) => nearestToilet.toiletId === current.id
-          )[0].duration,
-          distance: nearestToilets.filter(
-            (nearestToilet) => nearestToilet.toiletId === current.id
-          )[0].distance,
-          address: current.address,
-          name: current.name,
-          avg_review: current.avg_review || 0,
-          review_count: current.review_count || 0,
-          toilet_features: toiletFeatures[current.id],
-          toilet_images: toiletImages[current.id],
+            toiletId: currentToiletId,
+            buildingId: currentToilet.building_id,
+            duration: nearestToilet.duration,
+            distance: nearestToilet.distance,
+            address: currentToilet.address,
+            name: currentToilet.name,
+            avg_review: currentToilet.avg_review || 0,
+            review_count: currentToilet.review_count || 0,
+            toilet_features: toiletFeatures[currentToiletId],
+            toilet_images: toiletImages[currentToiletId],
         };
         toilets.push(toilet);
-    }
+    });
 
     return res.status(200).send(toilets);
 });
@@ -657,8 +653,8 @@ async function getNearestToilets(lat, lon) {
   indexAndActualDistances.sort(
     (currentDistanceDuration, nextDistanceDuration) => {
       return (
-        currentDistanceDuration.value.duration.value -
-        nextDistanceDuration.value.duration.value
+        currentDistanceDuration.value.distance.value -
+        nextDistanceDuration.value.distance.value
       );
     }
   );
