@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Page,
   Navbar,
@@ -14,10 +15,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ISSUES, ISSUE_NOT_WORKING, FEATURE_TO_TEXT } from '../../strings';
 
+import { getTokens } from '../../store/user';
+import { createReport } from '../../utils/reports';
+
 const Report = (props) => {
   const { id, postTitle } = props;
 
   const [selectedItems, setSelectedItems] = useState([]);
+  const userTokens = useSelector(getTokens);
 
   const onItemClicked = (item) => {
     if (selectedItems.includes(item)) {
@@ -34,15 +39,22 @@ const Report = (props) => {
 
   const handleFormSubmission = async (values) => {
     const { reportIssue, reportItems, reportDescription } = values;
-    console.log('reportIssue', reportIssue);
-    console.log('reportItems', reportItems);
-    console.log('reportDescription', reportDescription);
 
-    // TODO: API CALL
-
-    formik.setSubmitting(false);
-
-    // TODO: Routing
+    createReport(
+      userTokens.authToken,
+      id,
+      reportIssue,
+      reportItems,
+      reportDescription,
+      (data) => {
+        formik.setSubmitting(false);
+        f7.views.main.router.navigate(`/toilets/${id}/`);
+      },
+      (err) => {
+        formik.setSubmitting(false);
+        console.log(err);
+      }
+    )
   };
 
   const validationSchema = Yup.object().shape({

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 import {
   Page,
   Navbar,
@@ -10,44 +10,35 @@ import {
   f7,
 } from 'framework7-react';
 import { Edit } from '@material-ui/icons';
-import { endpoints } from '../../utils/routes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
 
-const EditProfile = (props) => {
-  const { userName, userProfilePicture } = props;
-  const authKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2MDMzNSwiZXhwIjoxNjAwODYzOTM1fQ.1utFZBr9qBkPFQbMImlm_9gLMACh2Py2Z0BLkUv9u-8';
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${authKey}`,
-  };
+import { getUserInfo, getTokens } from '../../store/user';
+import { updateUserInfo } from '../../utils/user';
 
+const EditProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
+  const userInfo = useSelector(getUserInfo);
+  const userTokens = useSelector(getTokens);
   const fileInput = useRef(null);
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-    axios
-      .put(
-        `${endpoints.databaseApi}/customer/profile`,
-        {
-          name: name,
-          profile_picture: profilePicture,
-        },
-        {
-          headers: headers,
-        }
-      )
-      .then((res) => {
+
+    updateUserInfo(
+      userTokens.authToken,
+      name,
+      profilePicture,
+      (data) => {
         formik.setSubmitting(false);
         f7.views.main.router.navigate(`/profile/`);
-      })
-      .catch((err) => {
+      },
+      (err) => {
         console.log(err);
         formik.setSubmitting(false);
-      });
+      }
+    );
   };
 
   const handleEditProfileOnClick = (event) => {
@@ -55,27 +46,27 @@ const EditProfile = (props) => {
   };
 
   const handleUploadProfilePicture = async (file) => {
-    try {
-      var response = await axios
-        .get(
-          `${endpoints.databaseApi}/customer/profile/imageUrl`,
-          {
-            headers: headers,
-          }
-      )
-      let binary = atob(this.image.split(',')[1])
-      let array = []
-      for (var i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i))
-      }
-      let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
-      console.log('Uploading to: ', response.data.uploadURL)
-      const result = await axios.put(response.data.uploadURL, {
-        body: blobData
-      })
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   var response = await axios
+    //     .get(
+    //       Routes.userProfilePicture,
+    //       {
+    //         headers: headers,
+    //       }
+    //   )
+    //   let binary = atob(this.image.split(',')[1])
+    //   let array = []
+    //   for (var i = 0; i < binary.length; i++) {
+    //     array.push(binary.charCodeAt(i))
+    //   }
+    //   let blobData = new Blob([new Uint8Array(array)], { type: 'image/jpeg' })
+    //   console.log('Uploading to: ', response.data.uploadURL)
+    //   const result = await axios.put(response.data.uploadURL, {
+    //     body: blobData
+    //   })
+    // } catch (err) {
+    //   console.log(err);
+    // }
     formik.setFieldValue('profilePicture', file);
   };
 
@@ -86,7 +77,7 @@ const EditProfile = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      name: userName,
+      name: userInfo.name,
       profilePicture: null,
     },
     validationSchema: validationSchema,
@@ -119,7 +110,7 @@ const EditProfile = (props) => {
           <div className="margin-bottom edit-profile-profile-picture">
             <img
               className="image user-profile-image"
-              src={profilePicture || userProfilePicture}
+              src={profilePicture || userInfo.profilePicture}
               alt="profile"
             />
             <div className="edit-profile-edit-btn-section">
@@ -161,7 +152,6 @@ const EditProfile = (props) => {
                     ? formik.errors.name
                     : ''
                 }
-                errorMessage={formik.errors.name}
                 errorMessageForce
                 disabled={formik.isSubmitting}
                 {...formik.getFieldProps('name')}

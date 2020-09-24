@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Page,
   Navbar,
@@ -6,31 +7,39 @@ import {
   Button,
   List,
   ListInput,
+  f7,
 } from 'framework7-react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
 
-const ChangePassword = (props) => {
-  const { userId } = props;
+import { getTokens } from '../../store/user';
+import { updatePassword } from '../../utils/user';
 
+const ChangePassword = () => {
   const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] = useState(
     false
   );
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
+  const userTokens = useSelector(getTokens);
 
   const handleFormSubmission = async (values) => {
     const { currentPassword, newPassword } = values;
-    console.log('currentPassword: ', currentPassword);
-    console.log('newPassword: ', newPassword);
 
-    // TODO: API CALL
-
-    formik.setSubmitting(false);
-
-    // TODO: Routing
-    // f7.views.main.router.navigate(`/profile/`);
+    updatePassword(
+      userTokens.authToken,
+      currentPassword,
+      newPassword,
+      (data) => {
+        formik.setSubmitting(false);
+        f7.views.main.router.navigate(`/profile/`);
+      },
+      (err) => {
+        console.log(err);
+        formik.setSubmitting(false);
+      }
+    );
   };
 
   const toggleCurrentPasswordVisibility = () => {

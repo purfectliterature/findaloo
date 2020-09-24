@@ -21,7 +21,7 @@ const persistConfig = {
 
 const reducer = persistReducer(persistConfig, combineReducers({
     user: userReducer,
-    toilet: toiletsReducer
+    toilets: toiletsReducer
 }));
 
 export default () => {
