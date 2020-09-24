@@ -8,7 +8,7 @@ import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
 
 import { addToilet, getToiletDetails } from '../../store/toilets';
-import { getUserInfo } from '../../store/user';
+import { getUserInfo, getTokens } from '../../store/user';
 import { fetchToiletDetails } from '../../utils/toilets';
 
 const Details = (props) => {
@@ -21,9 +21,17 @@ const Details = (props) => {
     certifications: [],
   };
   const [details, setDetails] = useState(defaultInfo);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(getUserInfo);
+  const userTokens = useSelector(getTokens);
   const storeDetails = useSelector(getToiletDetails(id));
+
+  useEffect(() => {
+    if (userTokens && userTokens.authToken) {
+      setIsUserLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     fetchToiletDetails(
@@ -79,9 +87,14 @@ const Details = (props) => {
     });
   };
 
+  const handleOnLoginClick = () => {
+    f7.views.main.router.navigate('/login/');
+  }
+
   return (
     <Page className="white-background-skin">
       <BasicInfoImage
+        isUserLoggedIn={isUserLoggedIn}
         images={details.toilet_images}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
@@ -118,9 +131,11 @@ const Details = (props) => {
 
           <Tab id="reviews" className="page-content" tabActive>
             <Reviews
+              isUserLoggedIn={isUserLoggedIn}
               currentUser={currentUser}
               reviews={details.reviews}
               handleOnReviewClick={handleOnReviewClick}
+              handleOnLoginClick={handleOnLoginClick}
             />
           </Tab>
         </Tabs>
