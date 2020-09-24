@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import { Button } from "framework7-react";
 import "./styles.css";
-
-import Button from '../Button';
 
 export default (props) => {
     const {
@@ -29,10 +28,11 @@ export default (props) => {
                         borderRadius: "50%",
                         display: "inline-block",
                         flexShrink: 0
-                    }} />
+                    }} 
+                />
             );
         } else {
-            return <Button caption="Log in" onClick={onClickLogInButton} />;
+            return <Button fill onClick={onClickLogInButton} className="sb-button">Log in</Button>;
         }
     }
 
