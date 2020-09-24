@@ -60,6 +60,16 @@ class LoginPage extends React.Component {
                 >
                     Sign in with Google
                 </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() => {
+                            f7.views.main.router.back("/", { force: true });
+                        }}
+                        className="text-minor"
+                    >
+                        Continue without login
+                    </a>
+                </div>
             </Page>
         );
     }

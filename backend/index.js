@@ -58,9 +58,27 @@ async function getUploadUrl() {
   })
 }
 
+app.get("/buildings", async (req, res) => {
+    let rows;
+    let statement = (SQL `
+    SELECT * 
+    FROM buildings`);
+
+    try {
+        let result = await db.query(statement);
+        rows = result.rows;
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+
+    res.status(200).json(rows)
+})
+
 app.get("/toilets", async (req, res) => {
 
     try {
+
         let buildings = await getBuildings();
 
         let toilets = await getToiletSummary();
@@ -72,7 +90,7 @@ app.get("/toilets", async (req, res) => {
                 currentBuildingToilets.push(currentToilet);
             }
         }
-    
+
         return res.status(200).send(Object.values(buildings));
     } catch (error) {
         console.log(error);
@@ -81,19 +99,27 @@ app.get("/toilets", async (req, res) => {
 
 });
 
+app.get("/toilets/version", async (req, res) => {
+    let version;
+    let statement = (SQL `
+    SELECT *
+    FROM toilet_version`)
+
+    let result = await db.query(statement);
+    console.log(result.rows);
+    version = result.version;
+
+    return res.status(200).send(version);
+})
+
 async function getBuildings() {
     let rows;
     let statement = (SQL `
     SELECT * 
     FROM buildings`);
 
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
+    let result = await db.query(statement);
+    rows = result.rows;
     
     let buildings = {};
 
@@ -123,12 +149,9 @@ async function getToiletSummary() {
 
     let toilets = [];
 
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        throw error;
-    }
+    let result = await db.query(statement);
+    rows = result.rows;
+
 
     let toiletFeatures = await getToiletFeatures('');
     let toiletImages = await getToiletImages('');
@@ -155,12 +178,9 @@ async function getToiletFeatures(condition) {
     let toilet_features = {}
     let statement = "SELECT * FROM toilet_features " + condition;
     let rows;
-    try {
-        let result = await db.query(statement);
-        rows = result.rows;
-    } catch (error) {
-        throw error;
-    }
+
+    let result = await db.query(statement);
+    rows = result.rows;
 
     for (row in rows) {
         let current = rows[row];
@@ -328,7 +348,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.get("/toilets/nearest", async (req, res) => {
+app.post("/toilets/nearest", async (req, res) => {
     const { lat, lon } = req.body;
 
     var nearestToilets = await getNearestToilets(lat, lon);
