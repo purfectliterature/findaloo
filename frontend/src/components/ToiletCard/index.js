@@ -19,15 +19,6 @@ export default (props) => {
 
     const {
         is_free,
-        has_handheld_bidet,
-        has_seat_bidet,
-        has_toilet_paper,
-        has_seat_cleaner,
-        has_handicap,
-        has_water_heater,
-        has_hand_dryer,
-        has_hand_soap,
-        has_baby_change_station,
         has_female,
         has_male
     } = props.toilet.toilet_features;
@@ -55,38 +46,61 @@ export default (props) => {
         );
     }
 
-    const renderSubtitle = () => (
-        <div className="card-subtitle">
-            {!mini ? <>
-                <p>{"STRING"}</p>
-                <div className="card-subtitle-dot" />
-            </> : null}
+    const renderSubtitle = () => {
+        let distance = parseInt(props.toilet.distance);
+        if (distance >= 1000) {
+            distance = (Math.round((distance / 1000) * 100) / 100) + "km";
+        } else {
+            distance = distance + "m";
+        }
 
-            {is_free ? <MoneyOffIcon /> : <AttachMoneyIcon />}
-        </div>
+        return (
+            <div className="card-subtitle">
+                {!mini ? <>
+                    <p>{distance}</p>
+                    <div className="card-subtitle-dot" />
+                </> : null}
+
+                {is_free ? <MoneyOffIcon /> : <AttachMoneyIcon />}
+            </div>
+        );
+    }
+
+    const createFeature = (name, has) => (
+        <Feature
+            featureName={name}
+            has={has}
+            className="feature-lists"
+        />
     );
 
-    const renderFeatures = () => (
-        <div className="features">
-            <Feature
-                featureName="Bidet"
-                has={has_handheld_bidet}
-                className="feature-lists"
-            />
+    const renderFeatures = () => {
+        const {
+            has_handheld_bidet,
+            has_seat_bidet,
+            has_toilet_paper,
+            has_seat_cleaner,
+            has_handicap,
+            has_water_heater,
+            has_hand_dryer,
+            has_hand_soap,
+            has_baby_change_station
+        } = props.toilet.toilet_features;
 
-            <Feature
-                featureName="Bombs"
-                has={has_handicap}
-                className="feature-lists"
-            />
-            
-            <Feature
-                featureName="Toilet paper"
-                has={has_toilet_paper}
-                className="feature-lists"
-            />
-        </div>
-    );
+        let featuresToRender = [];
+
+        if (has_handheld_bidet) featuresToRender.push(createFeature("Bidet", true));
+        if (has_hand_soap) featuresToRender.push(createFeature("Soap", true));
+        if (has_seat_bidet) featuresToRender.push(createFeature("Seat bidet", true));
+        if (has_toilet_paper) featuresToRender.push(createFeature("Toilet paper", true));
+        if (has_seat_cleaner) featuresToRender.push(createFeature("Seat cleaner", true));
+        if (has_handicap) featuresToRender.push(createFeature("Handicap", true));
+        if (has_water_heater) featuresToRender.push(createFeature("Water heater", true));
+        if (has_hand_dryer) featuresToRender.push(createFeature("Hand dryer", true));
+        if (has_baby_change_station) featuresToRender.push(createFeature("Baby changing station", true));
+
+        return <div className="features">{featuresToRender.slice(0, 3)}</div>;
+    }
 
     const openToiletDetails = () => {
         f7.views.main.router.navigate(`/toilets/${toiletId}/`);

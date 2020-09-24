@@ -18,7 +18,7 @@ import BasicButton from "../../components/BasicButton";
 
 import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
 import { getTokens, getUserInfo, getLastLocation, saveLocation } from "../../store/user";
-import { fetchToilets, fetchToiletsHash } from "../../utils/toilets";
+import { fetchToilets, fetchToiletsHash, fetchNearestToilets } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
 
@@ -33,12 +33,14 @@ export default (props) => {
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
 
     const [buildings, setBuildings] = useState(null);
+    const [featuredToilets, setFeaturedToilets] = useState(null);
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
     const toiletsHashFromStore = useSelector(getToiletsHash);
     const tokensFromStore = useSelector(getTokens);
     const userInfoFromStore = useSelector(getUserInfo);
+    const locationFromStore = useSelector(getLastLocation);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -49,6 +51,8 @@ export default (props) => {
                     } else {
                         mapView.panTo({ lat: latitude, lng: longitude });
                     }
+
+                    dispatch(saveLocation(latitude, longitude));
 
                     if (mapView.getZoom() < 16) mapView.setZoom(16);
                     setCurrentLocation({ lat: latitude, lng: longitude });
@@ -149,6 +153,16 @@ export default (props) => {
             );
         }
     }
+
+    const renderToilets = () => {
+        console.log(featuredToilets);
+
+        if (featuredToilets) {
+            return featuredToilets.map((toilet) => (
+                <ToiletCard toilet={toilet} key={toilet.toiledId + Math.floor(Math.random()*(999-100+1)+100)} />
+            ));
+        }
+    }
     
     useEffect(() => { ReactGA.pageview("/"); });
 
@@ -190,6 +204,19 @@ export default (props) => {
             setIsUserLoggedIn(false);
         }
     }, [tokensFromStore]);
+
+    useEffect(() => {
+        if (locationFromStore) {
+            setCurrentLocation(locationFromStore);
+            
+            fetchNearestToilets(locationFromStore, (toilets) => {
+                setFeaturedToilets(toilets);
+            }, (error) => {
+                console.log("Featured toilets");
+                console.log(error);
+            })
+        }
+    }, []);
 
     useEffect(() => {
         const grid = document.querySelector(".cards");
@@ -325,7 +352,7 @@ export default (props) => {
                 <div className="cards">
                     <div className="cards-gutter" />
                     
-                    {/* {buildings ? renderToilets() : null} */}
+                    {renderToilets()}
                 </div>
             </Page>
         </Sheet>
