@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
                         className="toilet-marker"
                     ></img>
                     <div>
-                        <h4 className="header">Palo Alto</h4>
+                        <h4 className="header">Findaloo</h4>
                         <h3 className="header">Lavatories System</h3>
                     </div>
                 </div>
@@ -45,6 +45,16 @@ class LoginPage extends React.Component {
                     Create a new<br></br>account!
                 </h1>
                 <Form></Form>
+                <div className="center-item">
+                    <a
+                        onClick={() =>
+                            f7.views.main.router.back("/", { force: true })
+                        }
+                        className="text-minor"
+                    >
+                        Continue without login
+                    </a>
+                </div>
             </Page>
         );
     }
@@ -197,7 +207,7 @@ const Form = () => {
                         className="visibility-icon"
                         onClick={toggleVisibility}
                     >
-                        {visible ? (
+                        {!visible ? (
                             <VisibilityOffIcon></VisibilityOffIcon>
                         ) : (
                             <VisibilityIcon></VisibilityIcon>
@@ -227,8 +237,8 @@ const Form = () => {
 
             <div className="bottom-group">
                 <div className="terms-text">
-                    When you click on Create account, you are agreeing to App
-                    Name’s{" "}
+                    When you click on Create account, you are agreeing to
+                    findaloo's{" "}
                     <Link
                         className="terms-link"
                         sheetOpen=".demo-sheet-swipe-to-close"
@@ -271,11 +281,10 @@ const TermOfServicesBlock = () => (
         <p>
             These Terms of Service constitute a legally binding agreement made
             between you, whether personally or on behalf of an entity (“you”)
-            and [business entity name] (“we,” “us” or “our”), concerning your
-            access to and use of the [website name.com] website as well as any
-            other media form, media channel, mobile website or mobile
-            application related, linked, or otherwise connected thereto
-            (collectively, the “Site”).
+            and Findaloo (“we,” “us” or “our”), concerning your access to and
+            use of the findaloo.netlify.app website as well as any other media
+            form, media channel, mobile website or mobile application related,
+            linked, or otherwise connected thereto (collectively, the “Site”).
         </p>
         <p>
             You agree that by accessing the Site, you have read, understood, and
@@ -565,5 +574,6 @@ const TermOfServicesBlock = () => (
             further information regarding use of the Site, please contact us at:
         </p>
         <p>Tel: +65 9900 1111</p>
+        <p>Email: askus@findaloo.com</p>
     </Block>
 );

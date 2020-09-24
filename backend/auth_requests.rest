@@ -1,7 +1,7 @@
 
 ###
 
-POST http://localhost:4000/sign-up/customer
+POST https://a3.dawo.me:4000/sign-up/customer
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 
 {
     "email": "agnes2@gmail.com",
-    "password": "P@ssw0rd12"
+    "password": "password2"
 }
 
 ###

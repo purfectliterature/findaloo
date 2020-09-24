@@ -100,5 +100,5 @@ export const getUserInfo = createSelector(
 
 export const getLastLocation = createSelector(
     state => state.user,
-    ({ lat, lng }) => ({ lat, lng })
+    ({ lastLocation }) => lastLocation
 );

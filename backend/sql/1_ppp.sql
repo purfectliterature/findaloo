@@ -123,6 +123,10 @@ CREATE TABLE "reports" (
   "last_updated_at" timestamp DEFAULT (now())
 );
 
+CREATE TABLE "toilet_version" (
+  "version" BIGSERIAL PRIMARY KEY
+);
+
 ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
 ALTER TABLE "customer_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
@@ -154,3 +158,5 @@ CREATE UNIQUE INDEX ON "users" ("email", "auth_type");
 ALTER TABLE "native_auth_passwords" ADD FOREIGN KEY ("email", "auth_type") REFERENCES "users" ("email", "auth_type");
 
 CREATE UNIQUE INDEX ON "toilet_images" ("toilet_id", "image_url");
+
+INSERT INTO "toilet_version" VALUES (1);
