@@ -56,12 +56,6 @@
     bottom: 1rem;
 }
 
-.form-link {
-    float: right;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
 .terms-text {
     color: var(--color-grey-3);
     font-size: 0.7rem;
@@ -69,6 +63,10 @@
 
 .terms-link {
     text-decoration: underline;
+}
+
+.modal-sheet {
+    height: 90%;
 }
 
 .error-message {

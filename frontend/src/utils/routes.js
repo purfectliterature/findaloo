@@ -10,11 +10,13 @@ export default {
     getUserProfile: `${DATABASE}/customer/profile`,
     userProfilePicture: `${DATABASE}/customer/profile/imageUrl`,
     updatePassword: `${DATABASE}/customer/change-password`,
-    getUserReviews: `${DATABASE}/customer/reviews`, 
+    getUserReviews: `${DATABASE}/customer/reviews`,
 
     login: `${AUTHENTICATION}/login`,
     logout: `${AUTHENTICATION}/logout`,
     customerSignUp: `${AUTHENTICATION}/sign-up/customer`,
     managementSignUp: `${AUTHENTICATION}/sign-up/management`,
-    getUserToken: `${AUTHENTICATION}/token`
+    getUserToken: `${AUTHENTICATION}/token`,
+    googleSignInUrl: `${AUTHENTICATION}/google/sign-in-url`,
+    googleExchangeToken: `${AUTHENTICATION}/google/exchange-token`,
 };

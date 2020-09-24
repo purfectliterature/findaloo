@@ -16,6 +16,7 @@ import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
 import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
+import GoogleLoginPage from "./pages/GoogleLogin";
 import FetchLoading from "./components/FetchLoading";
 
 import { store, persistor } from "./store/configureStore";
@@ -55,24 +56,28 @@ const f7params = {
             component: CreateReport,
         },
         {
-            path: "/profile/", 
-            component: Profile,  
-        }, 
+            path: "/profile/",
+            component: Profile,
+        },
         {
             path: "/edit-profile/",
             component: EditProfile,
         },
         {
-          path: "/change-password/",
-          component: ChangePassword,
+            path: "/change-password/",
+            component: ChangePassword,
         },
         {
-          path: "/rewards/",
-          component: Rewards,
+            path: "/rewards/",
+            component: Rewards,
         },
         {
-          path: "/manage-reviews/",
-          component: ManageReviews,
+            path: "/manage-reviews/",
+            component: ManageReviews,
+        },
+        {
+            path: "/google-login/",
+            component: GoogleLoginPage,
         },
     ],
 };
