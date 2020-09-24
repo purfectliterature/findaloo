@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Page,
   Navbar,
@@ -16,13 +16,14 @@ import * as Yup from 'yup';
 import { ISSUES, ISSUE_NOT_WORKING, FEATURE_TO_TEXT } from '../../strings';
 
 import { getTokens } from '../../store/user';
-import { createReport } from '../../utils/reports';
+import { addNewReport } from '../../store/reports';
 
 const Report = (props) => {
   const { id, postTitle } = props;
 
   const [selectedItems, setSelectedItems] = useState([]);
   const userTokens = useSelector(getTokens);
+  const dispatch = useDispatch();
 
   const onItemClicked = (item) => {
     if (selectedItems.includes(item)) {
@@ -40,21 +41,15 @@ const Report = (props) => {
   const handleFormSubmission = async (values) => {
     const { reportIssue, reportItems, reportDescription } = values;
 
-    createReport(
-      userTokens.authToken,
-      id,
-      reportIssue,
-      reportItems,
-      reportDescription,
-      (data) => {
-        formik.setSubmitting(false);
-        f7.views.main.router.navigate(`/toilets/${id}/`);
-      },
-      (err) => {
-        formik.setSubmitting(false);
-        console.log(err);
-      }
-    )
+    const report = {
+      issue: reportIssue,
+      items: reportItems,
+      description: reportDescription,
+    };
+    dispatch(addNewReport(id, userTokens.authToken, report));
+
+    formik.setSubmitting(false);
+    f7.views.main.router.navigate(`/toilets/${id}/`);
   };
 
   const validationSchema = Yup.object().shape({
@@ -82,7 +77,9 @@ const Report = (props) => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title={postTitle}>
           <NavRight>
-            <Button type="submit">Report</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Report
+            </Button>
           </NavRight>
         </Navbar>
 
