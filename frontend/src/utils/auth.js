@@ -4,7 +4,7 @@ import Routes from './routes';
 export const logout = (refreshToken, onSuccess, onError) => {
   axios
     .delete(Routes.logout, {
-      data: {
+      params: {
         refreshToken: refreshToken,
       },
     })

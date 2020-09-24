@@ -22,8 +22,15 @@ const Profile = () => {
   }, []);
 
   const handleLogoutOnClick = () => {
-    logout(userTokens.refreshToken);
-    f7.views.main.router.navigate('/');
+    logout(
+      userTokens.refreshToken,
+      (data) => {
+        f7.views.main.router.navigate('/');
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
 
   const handleEditProfileOnClick = () => {
