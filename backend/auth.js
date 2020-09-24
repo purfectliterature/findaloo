@@ -487,8 +487,23 @@ app.post('/google/exchange-token', async (req, res) => {
             await db.query("ROLLBACK");
             return res.status(500).send('Error in adding user');
         }
-    
-        return res.sendStatus(200);
+
+        const user = {
+            id: lastUserId,
+            email: email,
+            authType: 'google',
+        };
+
+        const accessToken = await generateAccessToken(user);
+        const refreshToken = await generateRefreshToken(user);
+
+        await addRefreshTokenToDb(refreshToken);
+
+        return res.status(200).json({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+        });
+
     } else {
         let userId = rows[0].id;
 
