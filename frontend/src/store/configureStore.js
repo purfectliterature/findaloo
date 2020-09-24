@@ -16,6 +16,7 @@ import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
 import userReducer from "./user";
 import toiletsReducer from "./toilets";
 import reviewsReducer from "./reviews";
+import reportsReducer from "./reports"
 
 const persistConfig = {
     key: "root",
@@ -26,6 +27,7 @@ const reducer = persistReducer(persistConfig, combineReducers({
     user: userReducer,
     toilets: toiletsReducer,
     reviews: reviewsReducer,
+    reports: reportsReducer,
 }));
 
 
