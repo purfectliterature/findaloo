@@ -90,7 +90,9 @@ const EditProfile = () => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title="Edit Profile">
           <NavRight>
-            <Button type="submit">Update</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Update
+            </Button>
           </NavRight>
         </Navbar>
 
@@ -115,7 +117,7 @@ const EditProfile = () => {
                 name={
                   formik.values.profilePicture
                     ? formik.values.profilePicture.name
-                    : ''
+                    : ""
                 }
                 className="edit-profile-file-input"
                 onChange={(event) =>
@@ -138,11 +140,11 @@ const EditProfile = () => {
                 errorMessage={
                   formik.touched.name && formik.errors.name
                     ? formik.errors.name
-                    : ''
+                    : ""
                 }
                 errorMessageForce
                 disabled={formik.isSubmitting}
-                {...formik.getFieldProps('name')}
+                {...formik.getFieldProps("name")}
               />
             </List>
           </div>
