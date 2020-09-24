@@ -244,11 +244,11 @@ export default (props) => {
     return (<Page className="white-background-skin" id="explore">
         <SheetDialog
             id="new-user-modal"
-            opened={false}
             title="It’s now easier to deal with your business!"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             image={require("../../assets/persons-peeing.svg")}
             imageAlt="Persons peeing"
+            opened={!isUserLoggedIn}
         >            
             <BasicButton fill type="submit">Log in or Sign Up</BasicButton>
 
