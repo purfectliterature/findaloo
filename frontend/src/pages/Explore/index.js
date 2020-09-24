@@ -16,11 +16,20 @@ import FetchLoading from "../../components/FetchLoading";
 import SheetDialog from "../../components/SheetDialog";
 import BasicButton from "../../components/BasicButton";
 
-import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
+import {
+    addBuildings,
+    updateToiletsHash,
+    cacheNearestToilets,
+    getBuildings,
+    getToiletsHash,
+    getCachedNearestToilets
+} from "../../store/toilets";
+
 import { getTokens, getUserInfo, getLastLocation, saveLocation } from "../../store/user";
 import { fetchToilets, fetchToiletsHash, fetchNearestToilets } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
+const INITIAL_POSITION = { lat: 1.2966, lng: 103.7764 };
 
 export default (props) => {
     const bottomSheetRef = useRef();
@@ -41,6 +50,7 @@ export default (props) => {
     const tokensFromStore = useSelector(getTokens);
     const userInfoFromStore = useSelector(getUserInfo);
     const locationFromStore = useSelector(getLastLocation);
+    const cachedNearestToiletsFromStore = useSelector(getCachedNearestToilets);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -51,6 +61,18 @@ export default (props) => {
                     } else {
                         mapView.panTo({ lat: latitude, lng: longitude });
                     }
+
+                    fetchNearestToilets({ lat: latitude, lng: longitude }, (toilets) => {
+                        dispatch(cacheNearestToilets(toilets));
+                        setFeaturedToilets(toilets);
+                    }, (error) => {
+                        if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
+                            console.log("No network, using local storage");
+                            setFeaturedToilets(cachedNearestToiletsFromStore);
+                        } else {
+                            console.log("No network and no local storage, go fly kite");
+                        }
+                    });
 
                     dispatch(saveLocation(latitude, longitude));
 
@@ -206,16 +228,24 @@ export default (props) => {
     }, [tokensFromStore]);
 
     useEffect(() => {
+        let positionToFetch = INITIAL_POSITION;
+        
         if (locationFromStore) {
-            setCurrentLocation(locationFromStore);
-            
-            fetchNearestToilets(locationFromStore, (toilets) => {
-                setFeaturedToilets(toilets);
-            }, (error) => {
-                console.log("Featured toilets");
-                console.log(error);
-            })
+            positionToFetch = locationFromStore;
         }
+
+        fetchNearestToilets(positionToFetch, (toilets) => {
+            setFeaturedToilets(toilets);
+        }, (error) => {
+            if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
+                console.log("No network, using local storage");
+                setFeaturedToilets(cachedNearestToiletsFromStore);
+            } else {
+                console.log("No network and no local storage, go fly kite");
+            }
+        });
+
+        setCurrentLocation(positionToFetch);
     }, []);
 
     useEffect(() => {
@@ -360,7 +390,7 @@ export default (props) => {
         <div className="mapview" id="mapview">
             <GoogleMapReact
                 bootstrapURLKeys={{ key: "AIzaSyB2XApF_YJNLUrfs7avQLSgGeTAEt4_z_E" }}
-                defaultCenter={{ lat: 1.2966, lng: 103.7764 }}
+                defaultCenter={INITIAL_POSITION}
                 defaultZoom={12}
                 onDrag={hideBottomSheet}
                 options={{
