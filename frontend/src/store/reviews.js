@@ -46,5 +46,3 @@ const slice = createSlice({
 export const { addNewReviews, clearReview } = slice.actions;
 
 export default slice.reducer;
-
-const clearReviewAction = () => clearReview();
