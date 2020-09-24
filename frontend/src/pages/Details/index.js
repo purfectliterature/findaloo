@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Page, Tabs, Tab, Toolbar, Link, Button, f7 } from 'framework7-react';
 import './styles.css';
@@ -6,6 +6,8 @@ import BasicInfoImage from '../../components/BasicInfoImage';
 import BasicInfo from '../../components/BasicInfo';
 import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
+import SheetDialog from '../../components/SheetDialog';
+import BasicButton from '../../components/BasicButton';
 
 import { addToilet, getToiletDetails } from '../../store/toilets';
 import { getUserInfo, getTokens } from '../../store/user';
@@ -22,6 +24,7 @@ const Details = (props) => {
   };
   const [details, setDetails] = useState(defaultInfo);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const reportNotLoggedInRef = useRef();
   const dispatch = useDispatch();
   const currentUser = useSelector(getUserInfo);
   const userTokens = useSelector(getTokens);
@@ -69,12 +72,16 @@ const Details = (props) => {
   };
 
   const handleReportOnClick = () => {
-    f7.views.main.router.navigate('/reports/create/', {
-      props: {
-        id: id,
-        postTitle: details.toiletName,
-      },
-    });
+    if (isUserLoggedIn) {
+      f7.views.main.router.navigate('/reports/create/', {
+        props: {
+          id: id,
+          postTitle: details.toiletName,
+        },
+      });
+    } else {
+      reportNotLoggedInRef.current.open(true);
+    }
   };
 
   const handleOnReviewClick = (rating) => {
@@ -89,7 +96,7 @@ const Details = (props) => {
 
   const handleOnLoginClick = () => {
     f7.views.main.router.navigate('/login/');
-  }
+  };
 
   return (
     <Page className="white-background-skin">
@@ -140,6 +147,19 @@ const Details = (props) => {
           </Tab>
         </Tabs>
       </div>
+
+      <SheetDialog
+        id="report-not-logged-in"
+        setRef={reportNotLoggedInRef}
+        title="Whoops, seems like you're out not logged in!"
+        description="You need to logged it to send us a report :)"
+        image={require('../../assets/undraw_unlock_24mb.svg')}
+        imageAlt="Please log in"
+      >
+        <BasicButton fill sheetClose="#report-not-logged-in" onClick={handleOnLoginClick}>
+          Log In
+        </BasicButton>
+      </SheetDialog>
     </Page>
   );
 };
