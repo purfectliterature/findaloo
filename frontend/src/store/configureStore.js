@@ -10,9 +10,13 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
+import { offline } from '@redux-offline/redux-offline';
+import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
 
 import userReducer from "./user";
 import toiletsReducer from "./toilets";
+import reviewsReducer from "./reviews";
+import reportsReducer from "./reports"
 
 const persistConfig = {
     key: "root",
@@ -21,7 +25,9 @@ const persistConfig = {
 
 const reducer = persistReducer(persistConfig, combineReducers({
     user: userReducer,
-    toilets: toiletsReducer
+    toilets: toiletsReducer,
+    reviews: reviewsReducer,
+    reports: reportsReducer,
 }));
 
 
@@ -33,7 +39,8 @@ export const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
         })
-    ]
+    ],
+    enhancers: [offline(offlineConfig)],
 });
     
 export const persistor = persistStore(store);

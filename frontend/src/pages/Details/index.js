@@ -7,7 +7,7 @@ import BasicInfo from '../../components/BasicInfo';
 import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
 
-import { addToilet } from '../../store/toilets';
+import { addToilet, getToiletDetails } from '../../store/toilets';
 import { getUserInfo } from '../../store/user';
 import { fetchToiletDetails } from '../../utils/toilets';
 
@@ -23,6 +23,7 @@ const Details = (props) => {
   const [details, setDetails] = useState(defaultInfo);
   const dispatch = useDispatch();
   const currentUser = useSelector(getUserInfo);
+  const storeDetails = useSelector(getToiletDetails(id));
 
   useEffect(() => {
     fetchToiletDetails(
@@ -33,18 +34,30 @@ const Details = (props) => {
       },
       (err) => {
         console.log(err);
-        // TODO: Network get from store
+
+        if (err.message === 'Network Error') {
+          if (typeof storeDetails !== 'undefined') {
+            setDetails(storeDetails);
+          }
+        }
       }
     );
   }, []);
 
   const handleBackOnClick = () => {
-    f7.views.main.router.back('/', { force: true })
-  }
+    f7.views.main.router.back('/', { force: true });
+  };
 
   const handleShareOnClick = () => {
-    // TODO: Change
-    console.log('Share');
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `${details.title}`,
+          url: `https://findaloo.netlify.app/toilets/${id}`,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }
   };
 
   const handleReportOnClick = () => {

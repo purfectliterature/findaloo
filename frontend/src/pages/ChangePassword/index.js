@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Page,
   Navbar,
@@ -14,8 +14,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
 
-import { getTokens } from '../../store/user';
-import { updatePassword } from '../../utils/user';
+import { getTokens, addNewPasswordRequest } from '../../store/user';
 
 const ChangePassword = () => {
   const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] = useState(
@@ -23,23 +22,16 @@ const ChangePassword = () => {
   );
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
   const userTokens = useSelector(getTokens);
+  const dispatch = useDispatch();
 
   const handleFormSubmission = async (values) => {
     const { currentPassword, newPassword } = values;
-
-    updatePassword(
-      userTokens.authToken,
-      currentPassword,
-      newPassword,
-      (data) => {
-        formik.setSubmitting(false);
-        f7.views.main.router.navigate(`/profile/`);
-      },
-      (err) => {
-        console.log(err);
-        formik.setSubmitting(false);
-      }
+    dispatch(
+      addNewPasswordRequest(userTokens.authToken, currentPassword, newPassword)
     );
+
+    formik.setSubmitting(false);
+    f7.views.main.router.navigate(`/profile/`);
   };
 
   const toggleCurrentPasswordVisibility = () => {
@@ -76,7 +68,9 @@ const ChangePassword = () => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title="Change Password">
           <NavRight>
-            <Button type="submit">Update</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Update
+            </Button>
           </NavRight>
         </Navbar>
 
