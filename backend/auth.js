@@ -6,9 +6,11 @@ const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { google } = require('googleapis');
 const cors = require('cors')
 
+const { google } = require('googleapis');
+
+var googleRedirect = 'https://findaloo.netlify.app/google-login'
 var tokenSecret;
 
 var AWS = require('aws-sdk'),
@@ -90,6 +92,7 @@ app.post('/sign-up/customer', async (req, res) => {
         res.status(500).send('Error in adding user');
   }
 });
+
 
 app.post("/sign-up/management", async (req, res) => {
     try {
@@ -383,34 +386,36 @@ function createGoogleConnection(redirect) {
     return new google.auth.OAuth2(
         tokenSecret.GOOGLE_AUTH_CLIENT_ID,
         tokenSecret.GOOGLE_AUTH_SECRET_KEY,
-        redirect
+        googleRedirect
     );
 }
 
 app.get('/google/sign-in-url', (req, res) => {
-    let { redirect } = req.body;
-
-    let url = generateGoogleLoginUrl(redirect);
+    let url = generateGoogleLoginUrl();
 
     res.status(200).send(url);
 })
 
 
-function generateGoogleLoginUrl(redirect) {
-    const auth = createGoogleConnection(redirect);
+function generateGoogleLoginUrl() {
+    const auth = createGoogleConnection();
     return auth.generateAuthUrl({
         access_type: 'offline',
         prompt: 'consent',
         scope: [
             'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile'
         ]
     })
 }
 
 app.post('/google/exchange-token', async (req, res) => {
-    const { token } = req.body;
+    const { code } = req.body;
 
-    let email = await getGoogleEmail(token);
+
+    let email = await getGoogleData(code);
+    let name = "name";
+    let profilePicture = "google.com";
 
     let statement = (SQL `
     SELECT id
@@ -421,8 +426,49 @@ app.post('/google/exchange-token', async (req, res) => {
     let result = await db.query(statement);
     let rows = result.rows;
 
-    if (rows.length == 0) {
-
+    if (rows.length == 0) {    
+        const user = {
+            roleId: 2,
+            email: email,
+            authType: 'google',
+        };
+        
+        try {
+            await db.query("BEGIN");
+            let statement = SQL`
+                INSERT 
+                INTO users("role_id", "email", "auth_type")
+                VALUES (${user.roleId}, ${user.email}, ${user.authType})`;
+            await db.query(statement);
+        } catch (error) {
+            console.log("db.query():", error);
+            console.log("Transaction ROLLBACK called");
+            await db.query("ROLLBACK");
+            return res.status(409).send('User already exist');
+        }
+        
+        try {
+            const lastRow = await getLastUserId();
+            const lastUserId = lastRow.rows[0].id;
+            
+            const customerProfile = {
+                userId: lastUserId,
+                name: name,
+                profilePicture: profilePicture
+            };
+    
+            await addCustomerProfileToDb(customerProfile)
+    
+            await db.query("COMMIT");
+    
+        } catch (error) {
+            console.log("db.query():", error);
+            console.log("Transaction ROLLBACK called");
+            await db.query("ROLLBACK");
+            return res.status(500).send('Error in adding user');
+        }
+    
+        return res.sendStatus(200);
     } else {
         let userId = rows[0].id;
 
@@ -445,23 +491,26 @@ app.post('/google/exchange-token', async (req, res) => {
 
 })
 
-async function getGoogleEmail(token) {
+async function getGoogleData(code) {
     const auth = createGoogleConnection();
-    auth.setCredentials(tokens);
-
     const data = await auth.getToken(code);
     const tokens = data.tokens;
 
-    const plus = google.plus({
+    auth.setCredentials(tokens);
+
+    const people = google.people({
         version: 'v1',
         auth
     })
 
-    const me = await plus.people.get({
-        userId: 'me'
+    const res = await people.people.get({
+        resourceName: 'people/me',
+        personFields: 'emailAddresses, names, photos',
     });
+    
+    console.log(res.data);
 
-    return email = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+    return 'test@gmail.com';
 }
 
 
