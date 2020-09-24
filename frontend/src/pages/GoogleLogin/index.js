@@ -1,6 +1,6 @@
 import React from "react";
 import { Page, f7, Col, Preloader } from "framework7-react";
-import { exchangeToken, getProfile } from "../../utils/user.js";
+import { exchangeToken, fetchUserInfo } from "../../utils/user.js";
 import { useDispatch } from "react-redux";
 import { setTokens, setUserInfo } from "../../store/user.js";
 import "./styles.css";
@@ -15,14 +15,12 @@ export default () => {
         (data) => {
             dispatch(setTokens(data));
 
-            getProfile(
-                {
-                    accessToken: data.accessToken,
-                },
-
+            fetchUserInfo(
+                data.accessToken,
                 (data) => {
                     dispatch(setUserInfo(data));
-                }
+                },
+                (error) => {}
             );
             f7.views.main.router.navigate("/");
         },

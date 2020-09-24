@@ -19,7 +19,7 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { setTokens, setUserInfo } from "../../../store/user.js";
 import { register } from "../../../utils/user";
-import { login, getProfile } from "../../../utils/user.js";
+import { login, fetchUserInfo } from "../../../utils/user.js";
 
 class LoginPage extends React.Component {
     toggleVisibility() {
@@ -121,14 +121,12 @@ const Form = () => {
                         (data) => {
                             f7.views.main.router.navigate("/");
                             dispatch(setTokens(data));
-                            getProfile(
-                                {
-                                    accessToken: data.accessToken,
-                                },
-
+                            fetchUserInfo(
+                                data.accessToken,
                                 (data) => {
                                     dispatch(setUserInfo(data));
-                                }
+                                },
+                                (error) => {}
                             );
                             f7.views.main.router.navigate("/");
                         },

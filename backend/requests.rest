@@ -1,0 +1,99 @@
+GET https://a3.dawo.me:3000/toilets
+
+###
+POST http://localhost:3000/review/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "cleanlinessRating": 5,
+    "title": "Very good toilet",
+    "description": "Good smell and very clean",
+    "queue": 1
+}
+
+###
+
+PUT http://localhost:3000/review/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+
+{
+    "cleanlinessRating": 4,
+    "title": "Very good toilet",
+    "description": "Good smell and very clean, but long queue",
+    "queue": 5
+}
+
+###
+
+POST https://a3.dawo.me:3000/report/1
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
+
+{
+    "issue": "broken",
+    "items": ["Toilet Paper", "Handicap"],
+    "description": "Items are severly spoilt"
+}
+
+###
+
+GET https://a3.dawo.me:3000/toilets/search/MRT
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDYyMjY5OCwiZXhwIjoxNjAwNjI2Mjk4fQ.QXmR_P2F-rZSuA62_NgPtwCT8rXnEyTaPyHr9LL9qWw
+
+{
+    "limit": 20
+}
+
+###
+
+GET https://a3.dawo.me:3000/customer/profile
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg2NDAyMiwiZXhwIjoxNjAwODY3NjIyfQ.JgWOD7L57q6mFnKEcH1B3yCuQPnbOcqHBzBkRfJyW2Y
+
+###
+
+GET https://a3.dawo.me:3000/toilets/1
+
+###
+
+PUT http://localhost:3000/customer/profile
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDY5OTgwOSwiZXhwIjoxNjAwNzAzNDA5fQ.EmRRfVWAAEIQUM-Se6sayTaVPuvXVAXXauZXco15XqY
+
+{
+    "name": "Agnes",
+    "profile_picture": "www.google.com"
+}
+
+###
+
+GET http://localhost:3000/customer/reviews
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg3OTAzMSwiZXhwIjoxNjAwODgyNjMxfQ.mirUYWEeNWozALTsXL7prgn9eHZaEtAmV35AXJaS44k
+
+###
+PUT http://localhost:3000/customer/change-password
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6ImFnbmVzM0BnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDcwMjQ2OSwiZXhwIjoxNjAwNzA2MDY5fQ.b2vs8Ju17rTGT9R4vcfu7d-vnXFFWcq1K7zMe2FjoUc
+
+{
+    "newPassword": "password4"
+}
+
+###
+
+GET http://localhost:3000/toilets/nearest
+Content-Type: application/json
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDc5OTI0NSwiZXhwIjoxNjAwODAyODQ1fQ.iBaxt4qXLce2MLTjRsKZbeoD517FriPSXimhyL7VXEE
+
+{
+    "lat": 1.3397977, 
+    "lon": 103.6368124
+
+}
+
+###
+GET http://localhost:3000/toilets

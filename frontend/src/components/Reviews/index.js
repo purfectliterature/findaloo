@@ -11,7 +11,7 @@ const CreateReview = ({ currentUser, handleOnReviewClick }) => {
       <div className="user-profile-image-section">
         <img
           className="image user-profile-image"
-          src={currentUser.profileImage}
+          src={currentUser.profilePicture}
           alt={`${currentUser.name} profile`}
         />
       </div>
@@ -49,17 +49,17 @@ const Reviews = ({ reviews }) => {
           <div className="margin-bottom display-flex flex-direction-row">
             <div className="review-user-profile-image-section">
               <img
-                src={review.user.profileImage}
-                alt={`${review.user.name} profile`}
+                src={review.profile_picture_url}
+                alt={`${review.name} profile`}
                 className="image user-profile-image"
               />
             </div>
             <div>
-              <h3 className="header-margin">{review.user.name}</h3>
+              <h3 className="header-margin">{review.name}</h3>
               <div className="display-flex flex-direction-row justify-content-space-between">
                 <ReviewStars reviewCount={review.cleanliness_rating} />
                 <span className="grey-text margin-left">
-                  {moment.unix(review.created_at).fromNow()}
+                  {moment(review.created_at).fromNow()}
                 </span>
               </div>
             </div>
@@ -98,14 +98,11 @@ const ReviewStars = ({ reviewCount }) => {
   );
 };
 
-const ReviewsComponent = ({ reviews, handleOnReviewClick }) => {
+const ReviewsComponent = ({ currentUser, reviews, handleOnReviewClick }) => {
   return (
     <div className="tab-info">
       <CreateReview
-        currentUser={{
-          name: 'Yuen Jian',
-          profileImage: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
-        }}
+        currentUser={currentUser}
         handleOnReviewClick={handleOnReviewClick}
       />
       <Reviews reviews={reviews} />

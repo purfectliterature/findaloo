@@ -1,0 +1,108 @@
+
+###
+
+POST http://localhost:4000/sign-up/customer
+Content-Type: application/json
+
+{
+    "email": "agnes2@gmail.com",
+    "authType": "native",
+    "name": "Agnes",
+    "password": "password2",
+    "profilePicture": "www.google.com"
+}
+
+###
+
+POST http://localhost:4000/sign-up/customer
+Content-Type: application/json
+
+{
+    "email": "agnes3@gmail.com",
+    "authType": "native",
+    "name": "Agnes",
+    "password": "password3",
+    "profilePicture": "www.google.com"
+}
+
+###
+
+POST http://localhost:4000/sign-up/management
+Content-Type: application/json
+
+{
+    "email": "customer_relations@smrt.com.sg",
+    "authType": "native",
+    "companyName": "SMRT Corporation Ltd",
+    "password": "passwordSMRT",
+    "displayEmail": "customer_relations@smrt.com.sg",
+    "companyLogo": "https://www.smrt.com.sg/Portals/0/SMRT_Corp_Logo.png?ver=2018-01-11-143632-557",
+    "officeAddress": "2 Tanjong Katong Road, #08-01, Tower 3, Paya Lebar Quarter, Singapore 437161"
+}
+
+###
+
+POST https://a3.dawo.me:4000/login 
+Content-Type: application/json
+
+{
+    "email": "agnes2@gmail.com",
+    "password": "P@ssw0rd12"
+}
+
+###
+
+POST https://a3.dawo.me:4000/login 
+Content-Type: application/json
+
+{
+    "email": "agnes3@gmail.com",
+    "password": "password3"
+}
+
+###
+
+
+POST http://localhost:4000/change-password
+Content-Type: application/json
+
+{
+    "newPassword": "password4"
+}
+
+###
+
+POST http://localhost:4000/login 
+Content-Type: application/json
+
+{
+    "email": "retail@capitaland.com",
+    "password": "passwordCapitaLand"
+}
+
+###
+
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNTk3MzJ9.rAffCYolapyQKOUs7Vm0X6-vGXiZ5hpqXi4lrDuqBeY"
+}
+
+###
+
+POST http://a3.dawo.me:4000/token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDAzNjAzNTF9.hheOaQjt47ITNYcSOAg1MqYmYKYkqWy4sXVGUrMAyPg"
+}
+
+###
+
+GET http://localhost:4000/google/sign-in-url
+Content-Type: application/json
+
+{
+    "redirect": "findaloo.netlify.com"
+}

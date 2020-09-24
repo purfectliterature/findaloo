@@ -24,6 +24,12 @@ code {
     --color-green-primary: #219653;
     --color-green-secondary: #27AE60;
     --color-red: #EB5757;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 h2 {

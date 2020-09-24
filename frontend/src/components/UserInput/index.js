@@ -17,7 +17,6 @@ const UserInputComponent = ({ formik }) => {
               ? formik.errors.reviewTitle
               : ''
           }
-          errorMessage={formik.errors.reviewTitle}
           errorMessageForce
           disabled={formik.isSubmitting}
           {...formik.getFieldProps('reviewTitle')}
