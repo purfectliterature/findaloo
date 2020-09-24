@@ -13,6 +13,8 @@ import ToiletCard from "../../components/ToiletCard";
 import SearchBox from "../../components/SearchBox";
 import Marker, { MyLocationMarker } from "../../components/Marker";
 import FetchLoading from "../../components/FetchLoading";
+import SheetDialog from "../../components/SheetDialog";
+import BasicButton from "../../components/BasicButton";
 
 import { addBuildings, getBuildings } from "../../store/toilets";
 import { fetchToilets } from "../../utils/toilets";
@@ -207,6 +209,19 @@ export default (props) => {
     }
 
     return (<Page className="white-background-skin" id="explore">
+        <SheetDialog
+            id="new-user-modal"
+            opened={true}
+            title="It’s now easier to deal with your business!"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            image={require("../../assets/persons-peeing.svg")}
+            imageAlt="Persons peeing"
+        >            
+            <BasicButton fill type="submit">Log in or Sign Up</BasicButton>
+
+            <BasicButton outline>Continue to app</BasicButton>
+        </SheetDialog>
+
         <div className="map-search-overlay">
             <SearchBox
                 mode={bottomSheetState === "expanded" ? "flat" : ""}
