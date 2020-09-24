@@ -40,8 +40,10 @@ app.use(cors());
 
 app.post('/sign-up/customer', async (req, res) => {
   try {
-    const { email, password, authType } = req.body;
+    let { email } = req.body;
+    const { password, authType } = req.body;
     const { name, profilePicture } = req.body;
+    email = email.toLowerCase();
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -170,8 +172,10 @@ app.post("/sign-up/management", async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-
+    let { email } = req.body;
+    const { password } = req.body;
+    email = email.toLowerCase()
+    
     let result;
 
     try {

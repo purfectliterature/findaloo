@@ -14,15 +14,15 @@ const constants = require("./constants.js");
 const fs = require('fs');
 const https = require('https');
 
-const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
-const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
+// const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
+// const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
 var AWS = require('aws-sdk'),
     region = "us-east-2",
@@ -706,8 +706,10 @@ getTokenSecrets().then(data => {
     tokenSecret = JSON.parse(tokenSecret);
     console.log("Successfully initialised secret keys.")
 
-    let httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(port);
+    app.listen(3000);
+
+    // let httpsServer = https.createServer(credentials, app);
+    // httpsServer.listen(port);
     console.log(`Now listening on port ${port}.`)
 
 }).catch(err => {
