@@ -123,6 +123,10 @@ CREATE TABLE "reports" (
   "last_updated_at" timestamp DEFAULT (now())
 );
 
+CREATE TABLE "toilet_version" (
+  "version" BIGSERIAL PRIMARY KEY
+)
+
 ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
 ALTER TABLE "customer_profiles" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");

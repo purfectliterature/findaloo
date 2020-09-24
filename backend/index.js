@@ -72,7 +72,7 @@ app.get("/toilets", async (req, res) => {
                 currentBuildingToilets.push(currentToilet);
             }
         }
-    
+
         return res.status(200).send(Object.values(buildings));
     } catch (error) {
         console.log(error);
