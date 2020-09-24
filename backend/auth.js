@@ -236,10 +236,10 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.delete('/logout/:refreshToken', async (req, res) => {
+app.delete('/logout', async (req, res) => {
     try {
-        console.log(req.params);
-        const refreshToken = req.params.refreshToken;
+        console.log(req.query);
+        const refreshToken = req.query.refreshToken;
         if (!refreshToken) {
             return res.sendStatus(403);
         }
