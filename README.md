@@ -52,3 +52,6 @@ Deployment of the backend happens in multiple stages.
 2. `yarn install` to install the required packages for the application
 3. `yarn start` to launch the API server. It will be available on localhost:3000.
 4. `yarn startAuth` to launch the Auth server. It will be available on localhost:4000.
+
+## Screenshots
+
