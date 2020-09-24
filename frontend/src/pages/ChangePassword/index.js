@@ -76,7 +76,7 @@ const ChangePassword = () => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title="Change Password">
           <NavRight>
-            <Button type="submit">Update</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>Update</Button>
           </NavRight>
         </Navbar>
 

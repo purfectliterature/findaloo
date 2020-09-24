@@ -82,7 +82,7 @@ const Report = (props) => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title={postTitle}>
           <NavRight>
-            <Button type="submit">Report</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>Report</Button>
           </NavRight>
         </Navbar>
 

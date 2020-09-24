@@ -60,7 +60,7 @@ const CreateReviews = (props) => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar backLink title={postTitle}>
           <NavRight>
-            <Button type="submit">Post</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>Post</Button>
           </NavRight>
         </Navbar>
 
