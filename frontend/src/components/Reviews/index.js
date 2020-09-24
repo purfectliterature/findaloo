@@ -59,7 +59,7 @@ const Reviews = ({ reviews }) => {
               <div className="display-flex flex-direction-row justify-content-space-between">
                 <ReviewStars reviewCount={review.cleanliness_rating} />
                 <span className="grey-text margin-left">
-                  {moment.unix(review.created_at).fromNow()}
+                  {moment(review.created_at).fromNow()}
                 </span>
               </div>
             </div>

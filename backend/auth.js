@@ -2,12 +2,11 @@ require('dotenv').config();
 
 const db = require('./db');
 const SQL = require('sql-template-strings');
-
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const { google } = require('googleapis');
 const cors = require('cors')
 
 var tokenSecret;
@@ -225,12 +224,14 @@ app.post('/login', async (req, res) => {
 
 app.delete('/logout', async (req, res) => {
     try {
-        const refreshToken = req.body.refreshToken;
-        if (!refreshToken) res.sendStatus(403);
+        const refreshToken = req.query.refreshToken;
+        if (!refreshToken) {
+            return res.sendStatus(403);
+        }
         await removeRefreshTokenFromDb(refreshToken);
-        res.sendStatus(204);
+        return res.sendStatus(204);
     } catch (err) {
-        res.sendStatus(500);
+        return res.sendStatus(500);
     }
 })
 
@@ -377,6 +378,92 @@ async function generateAccessToken(user) {
 async function generateRefreshToken(user) {
     return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
+
+function createGoogleConnection(redirect) {
+    return new google.auth.OAuth2(
+        tokenSecret.GOOGLE_AUTH_CLIENT_ID,
+        tokenSecret.GOOGLE_AUTH_SECRET_KEY,
+        redirect
+    );
+}
+
+app.get('/google/sign-in-url', (req, res) => {
+    let { redirect } = req.body;
+
+    let url = generateGoogleLoginUrl(redirect);
+
+    res.status(200).send(url);
+})
+
+
+function generateGoogleLoginUrl(redirect) {
+    const auth = createGoogleConnection(redirect);
+    return auth.generateAuthUrl({
+        access_type: 'offline',
+        prompt: 'consent',
+        scope: [
+            'https://www.googleapis.com/auth/userinfo.email',
+        ]
+    })
+}
+
+app.post('/google/exchange-token', async (req, res) => {
+    const { token } = req.body;
+
+    let email = await getGoogleEmail(token);
+
+    let statement = (SQL `
+    SELECT id
+    FROM users
+    WHERE email = (${email})
+    AND auth_type = 'google'`)
+
+    let result = await db.query(statement);
+    let rows = result.rows;
+
+    if (rows.length == 0) {
+
+    } else {
+        let userId = rows[0].id;
+
+        const user = {
+            id: userId,
+            email: email,
+            authType: 'google',
+        };
+
+        const accessToken = await generateAccessToken(user);
+        const refreshToken = await generateRefreshToken(user);
+
+        await addRefreshTokenToDb(refreshToken);
+
+        return res.status(200).json({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+        });
+    }
+
+})
+
+async function getGoogleEmail(token) {
+    const auth = createGoogleConnection();
+    auth.setCredentials(tokens);
+
+    const data = await auth.getToken(code);
+    const tokens = data.tokens;
+
+    const plus = google.plus({
+        version: 'v1',
+        auth
+    })
+
+    const me = await plus.people.get({
+        userId: 'me'
+    });
+
+    return email = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+}
+
 
 getTokenSecrets().then(data => {
     tokenSecret = data;

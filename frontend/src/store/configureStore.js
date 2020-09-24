@@ -21,22 +21,19 @@ const persistConfig = {
 
 const reducer = persistReducer(persistConfig, combineReducers({
     user: userReducer,
-    toilet: toiletsReducer
+    toilets: toiletsReducer
 }));
 
-export default () => {
-    const store = configureStore({
-        reducer,
-        middleware: [
-            ...getDefaultMiddleware({
-                serializableCheck: {
-                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-                }
-            })
-        ]
-    });
-    
-    const persistor = persistStore(store);
 
-    return { store, persistor };
-}
+export const store = configureStore({
+    reducer,
+    middleware: [
+        ...getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            }
+        })
+    ]
+});
+    
+export const persistor = persistStore(store);

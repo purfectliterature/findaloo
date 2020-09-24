@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as moment from 'moment';
 import { Page, Navbar } from 'framework7-react';
 import { Star, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 import './styles.css';
+
+import { getTokens } from '../../store/user';
+import { fetchUserReviews } from '../../utils/reviews';
 
 const ReviewDetails = ({ review }) => {
   return (
@@ -14,7 +18,7 @@ const ReviewDetails = ({ review }) => {
           <div className="display-flex flex-direction-row">
             <ReviewStars reviewCount={review.cleanliness_rating} />
             <span className="grey-text margin-left">
-              {moment.unix(review.created_at).fromNow()}
+              {moment(review.created_at).fromNow()}
             </span>
           </div>
         </div>
@@ -50,33 +54,15 @@ const ReviewStars = ({ reviewCount }) => {
 };
 
 const ManageReviews = (props) => {
-  const { userId } = props;
-
   const [reviews, setReviews] = useState([]);
-
-  const reviewsStub = [
-    {
-      toilet: 'MBS Level 2',
-      cleanliness_rating: 4,
-      title: 'Tip-top cleanliness',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      created_at: 1600253600,
-    },
-    {
-      toilet: 'Changi Airport T4 L4',
-      cleanliness_rating: 2,
-      title: 'Dirty',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      created_at: 1600253600,
-    },
-  ];
+  const userTokens = useSelector(getTokens);
 
   useEffect(() => {
-    // TODO: API CALL
-
-    setReviews(reviewsStub);
+    fetchUserReviews(userTokens.authToken, (data) => {
+      setReviews(data);
+    }, (err) => {
+      console.log(err)
+    })
   }, []);
 
   return (

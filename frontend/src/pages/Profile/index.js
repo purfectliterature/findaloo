@@ -1,68 +1,65 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Page, Navbar, Button, f7 } from 'framework7-react';
 import UserInfo from '../../components/UserInfo';
 import UserActions from '../../components/UserActions';
 import './styles.css';
 
-const Profile = () => {
-  const userInfoStub = {
-    id: 1,
-    name: 'Yuen Jian',
-    profilePicture: 'https://www.comp.nus.edu.sg/stfphotos/sooyj_2.jpg',
-    email: 'sooyj@comp.nus.edu.sg',
-    points: 10346,
-  };
+import { setUserInfo, getTokens } from '../../store/user';
+import { fetchUserInfo } from '../../utils/user';
+import { logout } from '../../utils/auth';
 
-  const [userInfo, setUserInfo] = useState({});
+const Profile = () => {
+  const [userDetails, setUserDetails] = useState({});
+  const userTokens = useSelector(getTokens);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // TODO: Fetch from backend
-
-    setUserInfo(userInfoStub);
+    fetchUserInfo(userTokens.authToken, (data) => {
+      setUserDetails(data);
+      dispatch(setUserInfo(data));
+    });
   }, []);
 
-  const handleEditProfileOnClick = () => {
-    f7.views.main.router.navigate('/edit-profile/', {
-      props: {
-        userId: userInfo.id,
-        userName: userInfo.name,
-        userProfilePicture: userInfo.profilePicture,
+  const handleLogoutOnClick = () => {
+    logout(
+      userTokens.refreshToken,
+      (data) => {
+        f7.views.main.router.navigate('/');
       },
-    });
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  const handleEditProfileOnClick = () => {
+    f7.views.main.router.navigate('/edit-profile/');
   };
 
   const handleChangePasswordOnClick = () => {
-    f7.views.main.router.navigate('/change-password/', {
-      props: {
-        userId: userInfo.id,
-      },
-    });
+    f7.views.main.router.navigate('/change-password/');
   };
 
   const handleRewardsOnClick = () => {
     f7.views.main.router.navigate('/rewards/', {
       props: {
-        userId: userInfo.id,
-        points: userInfo.points,
+        points: userDetails.points,
       },
     });
   };
 
   const handleManageReviewsOnClick = () => {
-    f7.views.main.router.navigate('/manage-reviews/', {
-      props: {
-        userId: userInfo.id,
-      },
-    });
+    f7.views.main.router.navigate('/manage-reviews/');
   };
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink />
+      <Navbar backLink backLinkUrl='/' backLinkForce />
 
       <div className="margin display-flex flex-direction-column justify-content-space-between profile-page">
         <div>
-          <UserInfo userInfo={userInfo} />
+          <UserInfo userInfo={userDetails} />
           <UserActions
             handleEditProfileOnClick={handleEditProfileOnClick}
             handleChangePasswordOnClick={handleChangePasswordOnClick}
@@ -73,6 +70,7 @@ const Profile = () => {
         <Button
           outline
           className="padding-vertical display-flex justify-content-center red-outline-skin"
+          onClick={handleLogoutOnClick}
         >
           Logout
         </Button>
