@@ -38,3 +38,14 @@ export const fetchToiletsHash = (onSuccess, onError) => {
         }
     }).catch(onError);
 }
+
+export const fetchNearestToilets = ({ lat, lng }, onSuccess, onError) => {
+    axios.post(Routes.getNearestToilets, { lat, lon: lng }).then((response) => {
+        console.log(response.data);
+        if (response.status === 200 && response.data.length > 0) {
+            onSuccess(response.data);
+        } else {
+            console.log("fetchNearestToilets: Invalid response received");
+        }
+    }).catch(onError);
+}
