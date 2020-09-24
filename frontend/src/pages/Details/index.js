@@ -38,6 +38,10 @@ const Details = (props) => {
     );
   }, []);
 
+  const handleBackOnClick = () => {
+    f7.views.main.router.back('/', { force: true })
+  }
+
   const handleShareOnClick = () => {
     // TODO: Change
     console.log('Share');
@@ -68,6 +72,7 @@ const Details = (props) => {
         images={details.toilet_images}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
+        handleBackOnClick={handleBackOnClick}
       />
 
       <BasicInfo
