@@ -706,10 +706,8 @@ getTokenSecrets().then(data => {
     tokenSecret = JSON.parse(tokenSecret);
     console.log("Successfully initialised secret keys.")
 
-    app.listen(3000);
-
-    // let httpsServer = https.createServer(credentials, app);
-    // httpsServer.listen(port);
+    let httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(port);
     console.log(`Now listening on port ${port}.`)
 
 }).catch(err => {
