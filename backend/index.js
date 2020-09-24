@@ -377,7 +377,7 @@ app.post("/toilets/nearest", async (req, res) => {
     let toiletImages = await getToiletImages(`WHERE toilet_id IN (${toiletIds})`);
     nearestToilets.forEach(nearestToilet => {
         let currentToiletId = nearestToilet.toiletId;
-        let currentToilet = rows.filter(row => row.id === currentToiletId);
+        let currentToilet = rows.filter(row => row.id === currentToiletId)[0];
         let toilet = {
             toiletId: currentToiletId,
             name: currentToilet.name,
