@@ -488,7 +488,7 @@ app.post('/google/exchange-token', async (req, res) => {
             return res.status(500).send('Error in adding user');
         }
 
-        const user = {
+        user = {
             id: lastUserId,
             email: email,
             authType: 'google',
