@@ -6,6 +6,7 @@ export default (props) => {
     const {
         id,
         opened,
+        setRef,
         title,
         description,
         image,
@@ -18,6 +19,7 @@ export default (props) => {
             className="sheet-dialog"
             swipeToClose
             opened={opened}
+            {...(setRef ? { ref: setRef } : null)}
         >
             <div className="handle" />
             

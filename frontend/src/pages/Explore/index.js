@@ -34,6 +34,7 @@ const INITIAL_POSITION = { lat: 1.2966, lng: 103.7764 };
 
 export default (props) => {
     const bottomSheetRef = useRef();
+    const noLocationDialogRef = useRef();
     const [mapView, setMapView] = useState();
     const [mapsApi, setMapsApi] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
@@ -86,9 +87,12 @@ export default (props) => {
                     setLiveLocation(true);
                     setIsLoadingLocation(false);
                 }
-            , () => alert("Location services may be turned off. Please turn it back on."));
+            , () => {
+                noLocationDialogRef.current.open(true);
+                setIsLoadingLocation(false);
+            });
         } else {
-            alert("not supported");
+            noLocationDialogRef.current.open(true);
         }
     }
 
@@ -320,6 +324,17 @@ export default (props) => {
             >Log in or Sign Up</BasicButton>
 
             <BasicButton outline sheetClose="#new-user-modal">Continue to app</BasicButton>
+        </SheetDialog>
+
+        <SheetDialog
+            id="no-location"
+            setRef={noLocationDialogRef}
+            title="Whoops, seems like you're out of this world!"
+            description="We cannot retrieve your current location. Please check if your Location Services have been turned on and that you have granted location access on your browser, then try again."
+            image={require("../../assets/person-on-world.svg")}
+            imageAlt="Person on world"
+        >
+            <BasicButton fill sheetClose="#no-location">Okay</BasicButton>
         </SheetDialog>
 
         <div className="map-search-overlay">
