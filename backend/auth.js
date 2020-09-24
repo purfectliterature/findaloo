@@ -224,12 +224,14 @@ app.post('/login', async (req, res) => {
 
 app.delete('/logout', async (req, res) => {
     try {
-        const refreshToken = req.body.refreshToken;
-        if (!refreshToken) res.sendStatus(403);
+        const refreshToken = req.query.refreshToken;
+        if (!refreshToken) {
+            return res.sendStatus(403);
+        }
         await removeRefreshTokenFromDb(refreshToken);
-        res.sendStatus(204);
+        return res.sendStatus(204);
     } catch (err) {
-        res.sendStatus(500);
+        return res.sendStatus(500);
     }
 })
 
@@ -386,7 +388,7 @@ function createGoogleConnection(redirect) {
 }
 
 app.get('/google/sign-in-url', (req, res) => {
-    let { redirect } = res.body;
+    let { redirect } = req.body;
 
     let url = generateGoogleLoginUrl(redirect);
 
@@ -394,7 +396,7 @@ app.get('/google/sign-in-url', (req, res) => {
 })
 
 
-function generateGoogleLoginUrl() {
+function generateGoogleLoginUrl(redirect) {
     const auth = createGoogleConnection(redirect);
     return auth.generateAuthUrl({
         access_type: 'offline',
