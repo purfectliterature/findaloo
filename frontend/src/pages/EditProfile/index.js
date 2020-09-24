@@ -56,39 +56,41 @@ const EditProfile = (props) => {
 
   const handleUploadProfilePicture = async (file) => {
     try {
-      var login = await axios.post(`${endpoints.authenticationApi}/login`, {
-          email: "agnes2@gmail.com",
-          password: "P@ssw0rd12",
-        });
-      console.log(login)
-      console.log(file)
       let fileParts = file.name.split(".");
       let fileName = fileParts[0];
       let fileType = fileParts[1];
+      console.log(fileName);
+      console.log(fileType);
       console.log("Preparing the upload");
       axios
         .post(`${endpoints.databaseApi}/customer/profile/imageUrl`, {
           fileName: fileName,
           fileType: fileType,
-          file: file
         })
         .then((response) => {
           console.log(response)
-          var returnData = response.data.data.returnData;
-          var signedRequest = returnData.signedRequest;
-          var url = returnData.url;
-          console.log("Recieved a signed request " + signedRequest);
+          response = response.data.data;
+          console.log(response);
+          const formData = new FormData();
+          Object.keys(response.fields).forEach((key) => {
+            formData.append(key, response.fields[key]);
+          });
 
+          // Actual file has to be appended last.
+          formData.append("file", file);
+
+          console.log(fileName);
+          console.log(fileType)
           // Put the fileType in the headers for the upload
           var options = {
             headers: {
               Key: fileName,
-              ContentType: fileType,
-              ACL: "public-read",
+              "Content-Type": fileType,
+              "x-amz-acl": "public-read",
             },
           };
           axios
-            .put(signedRequest, file, options)
+            .post(response.url, formData)
             .then((result) => {
               console.log("Response from s3");
             })
