@@ -23,8 +23,8 @@ export const register = (params, onSuccess, onError) => {
         .catch(onError);
 };
 
-export const getGoogleSignInUrl = (params, onSuccess) => {
-    axios.get(Routes.googleSignInUrl, params).then((response) => {
+export const getGoogleSignInUrl = (onSuccess) => {
+    axios.get(Routes.googleSignInUrl).then((response) => {
         if (response.status === 200) {
             onSuccess(response.data);
         }

@@ -22,16 +22,9 @@ class LoginPage extends React.Component {
 
     componentDidMount() {
         const that = this;
-        getGoogleSignInUrl(
-            {
-                params: {
-                    redirect: "/",
-                },
-            },
-            (data) => {
-                that.setState({ google_login_url: data });
-            }
-        );
+        getGoogleSignInUrl((data) => {
+            that.setState({ google_login_url: data });
+        });
     }
 
     render() {
@@ -44,7 +37,7 @@ class LoginPage extends React.Component {
                         className="toilet-marker"
                     ></img>
                     <div>
-                        <h4 className="header">Palo Alto</h4>
+                        <h4 className="header">Findaloo</h4>
                         <h3 className="header">Lavatories System</h3>
                     </div>
                 </div>
