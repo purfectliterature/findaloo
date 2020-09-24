@@ -46,7 +46,7 @@ export const exchangeToken = (params, onSuccess, onError) => {
 
 export const fetchUserInfo = (authToken, onSuccess, onError) => {
     authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2MzI3NiwiZXhwIjoxNjAwOTY2ODc2fQ.3KjiLLxSgRgRvW5sbnbdnHGqO_Kw0iQLLJ3U9jv6tiE";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2NzA2NSwiZXhwIjoxNjAwOTcwNjY1fQ.kfsWP1H67KgOrAS6IkSVJpsMVNeI-pREGwT31HUajqU";
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
@@ -62,7 +62,7 @@ export const fetchUserInfo = (authToken, onSuccess, onError) => {
         .catch(onError);
 };
 
-export const updateProfilePicture = (
+export const updateProfilePicture = async (
   profilePicture,
 ) => {
   let imageUrl;
@@ -70,36 +70,35 @@ export const updateProfilePicture = (
   let fileParts = file.name.split(".");
   let fileName = fileParts[0];
   let fileType = fileParts[1];
-  axios
-    .post(`https://a3.dawo.me:3000/customer/profile/imageUrl`, {
-      fileName: fileName,
-      fileType: fileType,
-    })
-    .then((response) => {
-      console.log(response);
-      let returnData = response.data.data.returnData;
-      let signedRequest = returnData.signedRequest;
-      imageUrl = returnData.url;
-      console.log(returnData.url);
-      console.log(imageUrl);
-      let options = {
-        headers: {
-          "Content-Type": fileType,
-          ACL: "public-read",
-        },
-      };
-      axios
-        .put(signedRequest, file, options)
-        .then((result) => {
-          return result;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    let response = await axios
+      .post(`https://a3.dawo.me:3000/customer/profile/imageUrl`, {
+        fileName: fileName,
+        fileType: fileType,
+      });
+  
+    let returnData = response.data.data.returnData;
+    let signedRequest = returnData.signedRequest;
+    imageUrl = returnData.url;
+    let options = {
+      headers: {
+        "Content-Type": fileType,
+        ACL: "public-read",
+      },
+    };
+    await axios
+      .put(signedRequest, file, options)
+      .then((result) => {
+        return imageUrl;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return imageUrl;
+  }
+  catch(error) {
+    console.log(error);
+  };
 };
 
 export const updateUserInfo = (
@@ -110,7 +109,7 @@ export const updateUserInfo = (
     onError
 ) => {
  authToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2MzI3NiwiZXhwIjoxNjAwOTY2ODc2fQ.3KjiLLxSgRgRvW5sbnbdnHGqO_Kw0iQLLJ3U9jv6tiE";
+   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDk2NzA2NSwiZXhwIjoxNjAwOTcwNjY1fQ.kfsWP1H67KgOrAS6IkSVJpsMVNeI-pREGwT31HUajqU";
 
     const headers = {
         "Content-Type": "application/json",
