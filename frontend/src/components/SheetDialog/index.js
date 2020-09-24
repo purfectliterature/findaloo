@@ -10,22 +10,26 @@ export default (props) => {
         title,
         description,
         image,
-        imageAlt
+        imageAlt,
+        empty,
+        className
     } = props;
 
     return (
         <Sheet
             id={id}
-            className="sheet-dialog"
+            className={`sheet-dialog ${className}`}
             swipeToClose
             opened={opened}
             {...(setRef ? { ref: setRef } : null)}
         >
             <div className="handle" />
             
-            <img alt={imageAlt} src={image} />
-            <h2>{title}</h2>
-            <p>{description}</p>
+            {!empty ? <>                
+                <img alt={imageAlt} src={image} />
+                <h2>{title}</h2>
+                <p>{description}</p>
+            </>: null}
 
             {props.children}
         </Sheet>
