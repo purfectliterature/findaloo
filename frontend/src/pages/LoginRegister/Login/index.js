@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
         this.state = {
             google_login_url: "",
         };
+        this.navigateToGoogleLogin = this.navigateToGoogleLogin.bind(this);
     }
 
     componentDidMount() {
@@ -25,6 +26,10 @@ class LoginPage extends React.Component {
         getGoogleSignInUrl((data) => {
             that.setState({ google_login_url: data });
         });
+    }
+
+    navigateToGoogleLogin() {
+        f7.views.main.router.navigate(this.state.google_login_url);
     }
 
     render() {
@@ -51,7 +56,7 @@ class LoginPage extends React.Component {
                 <Button
                     outline
                     className="btn"
-                    href={this.state.google_login_url}
+                    onClick={this.navigateToGoogleLogin}
                 >
                     Sign in with Google
                 </Button>
@@ -162,7 +167,7 @@ const Form = () => {
                         className="visibility-icon"
                         onClick={toggleVisibility}
                     >
-                        {visible ? (
+                        {!visible ? (
                             <VisibilityOffIcon></VisibilityOffIcon>
                         ) : (
                             <VisibilityIcon></VisibilityIcon>
