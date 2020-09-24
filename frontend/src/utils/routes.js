@@ -9,6 +9,8 @@ export default {
     toiletReport: `${DATABASE}/report`,
     getUserProfile: `${DATABASE}/customer/profile`,
     userProfilePicture: `${DATABASE}/customer/profile/imageUrl`,
+    updatePassword: `${DATABASE}/customer/change-password`,
+    getUserReviews: `${DATABASE}/customer/reviews`, 
 
     login: `${AUTHENTICATION}/login`,
     logout: `${AUTHENTICATION}/logout`,

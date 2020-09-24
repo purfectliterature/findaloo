@@ -19,7 +19,7 @@ const RewardCard = ({ reward }) => {
 }
 
 const Rewards = (props) => {
-  const { userId, points } = props;
+  const { points } = props;
 
   const [rewards, setRewards] = useState([]);
 

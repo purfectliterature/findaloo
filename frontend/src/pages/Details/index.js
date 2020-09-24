@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { Page, Tabs, Tab, Toolbar, Link, Button, f7 } from 'framework7-react';
-import Routes from '../../utils/routes';
 import './styles.css';
 import BasicInfoImage from '../../components/BasicInfoImage';
 import BasicInfo from '../../components/BasicInfo';
 import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
 
+import { addToilet } from '../../store/toilets';
+import { getUserInfo } from '../../store/user';
+import { fetchToiletDetails } from '../../utils/toilets';
+
 const Details = (props) => {
   const { id } = props;
-  // TODO: Change
-  const authKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU';
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${authKey}`,
-  };
 
   const defaultInfo = {
     features: [],
@@ -25,24 +21,21 @@ const Details = (props) => {
     certifications: [],
   };
   const [details, setDetails] = useState(defaultInfo);
-  const [currentUser, setCurrentUser] = useState({});
+  const dispatch = useDispatch();
+  const currentUser = useSelector(getUserInfo);
 
   useEffect(() => {
-    axios.get(`${Routes.getToilets}/${id}`).then((res) => {
-      if (res.status === 200) {
-        setDetails(res.data);
+    fetchToiletDetails(
+      id,
+      (data) => {
+        setDetails(data);
+        dispatch(addToilet(id, data));
+      },
+      (err) => {
+        console.log(err);
+        // TODO: Network get from store
       }
-    });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(Routes.getUserProfile, { headers: headers })
-      .then((response) => {
-        if (response.status === 200) {
-          setCurrentUser(response.data);
-        }
-      });
+    );
   }, []);
 
   const handleShareOnClick = () => {
