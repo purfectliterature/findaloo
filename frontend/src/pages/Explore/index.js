@@ -16,8 +16,8 @@ import FetchLoading from "../../components/FetchLoading";
 import SheetDialog from "../../components/SheetDialog";
 import BasicButton from "../../components/BasicButton";
 
-import { addBuildings, getBuildings } from "../../store/toilets";
-import { fetchToilets } from "../../utils/toilets";
+import { addBuildings, getBuildings, getToiletsHash, updateToiletsHash } from "../../store/toilets";
+import { fetchToilets, fetchToiletsHash } from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
 
@@ -34,6 +34,7 @@ export default (props) => {
     const [buildings, setBuildings] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
+    const toiletsHashFromStore = useSelector(getToiletsHash);
 
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
@@ -148,13 +149,33 @@ export default (props) => {
     useEffect(() => { ReactGA.pageview("/"); });
 
     useEffect(() => {
-        fetchToilets((buildings) => {
-            dispatch(addBuildings(buildings));
-            setBuildings(buildings);
+        fetchToiletsHash((hash) => {
+            if (toiletsHashFromStore === hash) {
+                console.log("Hash is the same as server, using local storage");
+                setBuildings(buildingsFromStore);
+            } else {
+                console.log("Hash is different from server, retrieving");
+                fetchToilets((buildings) => {
+                    console.log("Retrieving buildings from server");
+                    dispatch(addBuildings(buildings));
+                    dispatch(updateToiletsHash(hash));
+                    setBuildings(buildings);
+                }, (error) => {
+                    if (error.message === "Network Error" && buildingsFromStore) {
+                        console.log("No network, using local storage");
+                        setBuildings(buildingsFromStore);
+                    } else {
+                        console.log("No network and no local storage, go fly kite");
+                    }
+                });
+            }
         }, (error) => {
-            console.log("NO INTERNET LA DEY");
-            console.log(buildingsFromStore);
-            setBuildings(buildingsFromStore);
+            if (error.message === "Network Error" && buildingsFromStore) {
+                console.log("No network, using local storage");
+                setBuildings(buildingsFromStore);
+            } else {
+                console.log("No network and no local storage, go fly kite");
+            }
         });
     }, []);
 
@@ -211,7 +232,7 @@ export default (props) => {
     return (<Page className="white-background-skin" id="explore">
         <SheetDialog
             id="new-user-modal"
-            opened={true}
+            opened={false}
             title="It’s now easier to deal with your business!"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             image={require("../../assets/persons-peeing.svg")}

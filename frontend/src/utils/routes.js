@@ -11,6 +11,7 @@ export default {
     userProfilePicture: `${DATABASE}/customer/profile/imageUrl`,
     updatePassword: `${DATABASE}/customer/change-password`,
     getUserReviews: `${DATABASE}/customer/reviews`,
+    getToiletsHash: `${DATABASE}/toilets/version`,
 
     login: `${AUTHENTICATION}/login`,
     logout: `${AUTHENTICATION}/logout`,
@@ -18,5 +19,5 @@ export default {
     managementSignUp: `${AUTHENTICATION}/sign-up/management`,
     getUserToken: `${AUTHENTICATION}/token`,
     googleSignInUrl: `${AUTHENTICATION}/google/sign-in-url`,
-    googleExchangeToken: `${AUTHENTICATION}/google/exchange-token`,
+    googleExchangeToken: `${AUTHENTICATION}/google/exchange-token`
 };
