@@ -28,7 +28,7 @@ We recommend that you deploy on netlify. However, for local deployment, follow t
 3. `yarn start` to launch the application. The application will be available on localhost:3000.
 
 ### Backend:
-Deployment of the backend happens in multiple stages.
+Deployment of the backend happens in multiple stages, listed below.
 
 #### Database setup
 1. `psql` to launch an interactive postgres shell
