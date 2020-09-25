@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 const UserImage = ({ profilePicture }) => {
-  if (!profileImage || typeof profilePicture === 'undefined') {
+  if (!profilePicture || typeof profilePicture === 'undefined') {
     return (
       <img
         className="image user-profile-image"
