@@ -30,7 +30,7 @@ const Profile = () => {
     logout(
       userTokens.refreshToken,
       (data) => {
-        dispatch(resetUserState);
+        dispatch(resetUserState());
         f7.views.main.router.navigate('/');
       },
       (err) => {
