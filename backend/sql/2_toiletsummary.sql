@@ -9,7 +9,8 @@ CREATE VIEW ToiletSummary(id, building_id, address, latittude, longitude, manage
 
     SELECT T.id, T.building_id, B.address, B.latitude, B.longitude, T.management_id, T.name, R.avg_review, R.review_count
     FROM toilets T
-    NATURAL LEFT JOIN review_summary R
+    LEFT JOIN review_summary R
+    ON T.id = R.toilet_id
     JOIN buildings B
     ON B.id = T.building_id
 );
