@@ -300,11 +300,13 @@ export default (props) => {
 
     useEffect(() => {
         const grid = document.querySelector(".cards");
-        new Masonry(grid, {
-            itemSelector: ".toil-card",
-            gutter: ".cards-gutter",
-            percentPosition: true
-        });
+        if (grid) {
+            new Masonry(grid, {
+                itemSelector: ".toil-card",
+                gutter: ".cards-gutter",
+                percentPosition: true
+            });
+        }
     });
     
     useEffect(() => {
