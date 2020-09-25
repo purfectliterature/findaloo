@@ -10,7 +10,7 @@ export default () => {
     const url = window.location.href;
     var token = new URL(url).searchParams.get("code");
     exchangeToken(
-        { token: token },
+        { code: token },
         (data) => {
             dispatch(setTokens(data));
 
