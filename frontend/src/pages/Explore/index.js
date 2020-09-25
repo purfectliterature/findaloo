@@ -216,10 +216,20 @@ export default (props) => {
 
     const renderSearchResults = (keywords) => {
         if (keywords !== "") {
+            setSearchedToilets(
+                <div className="search-loading">
+                    <ClipLoader size={40} />
+                </div>
+            );
+
             fetchToiletsFromSearchKeywords(keywords, (toilets) => {
-                setSearchedToilets(toilets.map((toilet) => (
-                    <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
-                )));
+                if (toilets.length > 0) {
+                    setSearchedToilets(toilets.map((toilet) => (
+                        <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
+                    )));
+                } else {
+                    setSearchedToilets(<center><h2>Try a different keyword?</h2></center>);
+                }
             }, (error) => console.log(error));
         } else {
             setSearchedToilets(null);
