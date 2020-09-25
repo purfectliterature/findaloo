@@ -79,7 +79,7 @@ export const updateProfilePicture = async (
       fileType: fileType,
     });
   
-    let returnData = response.data.data.returnData;
+    let returnData = response.data;
     let signedRequest = returnData.signedRequest;
     imageUrl = returnData.url;
     let options = {
