@@ -100,10 +100,6 @@ const validate = (values) => {
     return errors;
 };
 
-const navigateToLogin = () => {
-    f7.views.main.router.navigate("/login/");
-};
-
 const Form = () => {
     const dispatch = useDispatch();
     const formik = useFormik({
@@ -250,7 +246,7 @@ const Form = () => {
                 <Button fill className="btn" type="submit">
                     Create account
                 </Button>
-                <Button outline className="btn" onClick={navigateToLogin}>
+                <Button outline className="btn" href="/login/">
                     Log in to your account
                 </Button>
             </div>

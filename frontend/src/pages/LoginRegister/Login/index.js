@@ -77,10 +77,6 @@ class LoginPage extends React.Component {
 
 export default LoginPage;
 
-const navigateToRegister = () => {
-    f7.views.main.router.navigate("/register/");
-};
-
 const validate = (values) => {
     const errors = {};
     if (!values.email) {
@@ -193,7 +189,7 @@ const Form = () => {
                 <Button fill className="btn" type="submit">
                     Log in
                 </Button>
-                <Button outline className="btn" onClick={navigateToRegister}>
+                <Button outline className="btn" href="/register/">
                     Create an account
                 </Button>
             </div>

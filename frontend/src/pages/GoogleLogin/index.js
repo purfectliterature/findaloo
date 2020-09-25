@@ -21,7 +21,7 @@ export default () => {
                 },
                 (error) => {}
             );
-            f7.views.main.router.navigate("/");
+            //f7.views.main.router.navigate("/");
         },
         (error) => {
             f7.views.main.router.back();
