@@ -10,7 +10,7 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
-import { offline } from '@redux-offline/redux-offline';
+import { createOffline } from '@redux-offline/redux-offline';
 import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
 
 import userReducer from "./user";
@@ -23,24 +23,32 @@ const persistConfig = {
     storage
 };
 
-const reducer = persistReducer(persistConfig, combineReducers({
+// When using redux-persist v5, persist in createOffline config must be disabled
+// by assigning to a falsey value to prevent the autoRehydrator to be created by
+// enhanceStore. Else, will get an Uncaught TypeError exception.
+const { middleware, enhanceReducer, enhanceStore } = createOffline({
+    ...offlineConfig,
+    persist: false
+});
+
+const reducer = persistReducer(persistConfig, enhanceReducer(combineReducers({
     user: userReducer,
     toilets: toiletsReducer,
     reviews: reviewsReducer,
-    reports: reportsReducer,
-}));
-
+    reports: reportsReducer
+})));
 
 export const store = configureStore({
     reducer,
     middleware: [
+        middleware,
         ...getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
-        })
+        }),
     ],
-    enhancers: [offline(offlineConfig)],
+    enhancers: (defaultEnhancers) => [enhanceStore, ...defaultEnhancers]
 });
     
 export const persistor = persistStore(store);

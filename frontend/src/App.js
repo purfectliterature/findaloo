@@ -29,7 +29,7 @@ const f7params = {
     root: "#app", // App root element
     id: "io.framework7.testapp", // App bundle ID
     name: "Framework7", // App name
-    theme: "auto", // Automatic theme detection
+    theme: "auto", // Automatic theme detection,
     // App routes
     routes: [
         {
@@ -77,7 +77,7 @@ const f7params = {
             component: ManageReviews,
         },
         {
-            path: "/google-login/",
+            path: "/google-login",
             component: GoogleLoginPage,
         },
         {
@@ -92,7 +92,7 @@ export default (props) => {
         <Provider store={store}>
             <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/" />
+                    <View main url="/" pushState={true} />
                 </App>
             </PersistGate>
         </Provider>
