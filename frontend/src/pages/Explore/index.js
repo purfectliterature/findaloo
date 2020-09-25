@@ -85,10 +85,10 @@ export default (props) => {
                         setFeaturedToilets(toilets);
                     }, (error) => {
                         if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
-                            console.log("No network, using local storage");
+                            // console.log("No network, using local storage");
                             setFeaturedToilets(cachedNearestToiletsFromStore);
                         } else {
-                            console.log("No network and no local storage, go fly kite");
+                            // console.log("No network and no local storage, go fly kite");
                         }
                     });
 
@@ -231,7 +231,9 @@ export default (props) => {
                 } else {
                     setSearchedToilets(<center><h2>Try a different keyword?</h2></center>);
                 }
-            }, (error) => console.log(error));
+            }, (error) => {
+                // console.log(error);
+            });
         } else {
             setSearchedToilets(null);
         }
@@ -242,30 +244,30 @@ export default (props) => {
     useEffect(() => {
         fetchToiletsHash((hash) => {
             if (toiletsHashFromStore === hash) {
-                console.log("Hash is the same as server, using local storage");
+                // console.log("Hash is the same as server, using local storage");
                 setBuildings(buildingsFromStore);
             } else {
-                console.log("Hash is different from server, retrieving");
+                // console.log("Hash is different from server, retrieving");
                 fetchToilets((buildings) => {
-                    console.log("Retrieving buildings from server");
+                    // console.log("Retrieving buildings from server");
                     dispatch(addBuildings(buildings));
                     dispatch(updateToiletsHash(hash));
                     setBuildings(buildings);
                 }, (error) => {
                     if (error.message === "Network Error" && buildingsFromStore) {
-                        console.log("No network, using local storage");
+                        // console.log("No network, using local storage");
                         setBuildings(buildingsFromStore);
                     } else {
-                        console.log("No network and no local storage, go fly kite");
+                        // console.log("No network and no local storage, go fly kite");
                     }
                 });
             }
         }, (error) => {
             if (error.message === "Network Error" && buildingsFromStore) {
-                console.log("No network, using local storage");
+                // console.log("No network, using local storage");
                 setBuildings(buildingsFromStore);
             } else {
-                console.log("No network and no local storage, go fly kite");
+                // console.log("No network and no local storage, go fly kite");
             }
         });
     }, []);
@@ -289,10 +291,10 @@ export default (props) => {
             setFeaturedToilets(toilets);
         }, (error) => {
             if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
-                console.log("No network, using local storage");
+                // console.log("No network, using local storage");
                 setFeaturedToilets(cachedNearestToiletsFromStore);
             } else {
-                console.log("No network and no local storage, go fly kite");
+                // console.log("No network and no local storage, go fly kite");
             }
         });
 
@@ -342,7 +344,7 @@ export default (props) => {
                 });
             }
         } catch (error) {
-            console.log("WHOOPS NO MAPS");
+            // console.log("WHOOPS NO MAPS");
             console.error(error);
         }
     }, [buildings, mapView, mapsApi]);

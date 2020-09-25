@@ -34,7 +34,7 @@ const Profile = () => {
         f7.views.main.router.navigate('/');
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   };
