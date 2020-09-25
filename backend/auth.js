@@ -2,17 +2,33 @@ require('dotenv').config();
 
 const db = require('./db');
 const SQL = require('sql-template-strings');
+const port = process.env.PORT || 4000;
+
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors')
 
+const fs = require('fs');
+const https = require('https');
+
 const { google } = require('googleapis');
 
 var googleRedirect = 'https://findaloo.netlify.app/google-login'
 var tokenSecret;
 
+// const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
+// const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
+
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
+
+var tokenSecret;
 var AWS = require('aws-sdk'),
     region = "us-east-2",
     secretName = "arn:aws:secretsmanager:us-east-2:255459369867:secret:peepoo-token-secrets-5pGFfg",
@@ -28,8 +44,10 @@ app.use(cors());
 
 app.post('/sign-up/customer', async (req, res) => {
   try {
-    const { email, password, authType } = req.body;
+    let { email } = req.body;
+    const { password, authType } = req.body;
     const { name, profilePicture } = req.body;
+    email = email.toLowerCase();
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -159,8 +177,10 @@ app.post("/sign-up/management", async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-
+    let { email } = req.body;
+    const { password } = req.body;
+    email = email.toLowerCase()
+    
     let result;
 
     try {
@@ -531,9 +551,12 @@ async function getGoogleData(code) {
 getTokenSecrets().then(data => {
     tokenSecret = data;
     tokenSecret = JSON.parse(tokenSecret)
-    app.listen(4000)
-
     console.log("Successfully initialised secret keys.")
+
+    app.listen(port);
+
+    // let httpsServer = https.createServer(credentials, app);
+    // httpsServer.listen(port);
     console.log("Now listening on port 4000.")
 
 }).catch(err => { 

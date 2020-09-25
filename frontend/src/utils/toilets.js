@@ -49,8 +49,8 @@ export const fetchNearestToilets = ({ lat, lng }, onSuccess, onError) => {
     }).catch(onError);
 }
 
-export const fetchToiletsFromSearchKeywords = (keywords, onSuccess, onError) => {
-    axios.post(`${Routes.getToiletsFromSearchKeywords}/${keywords}`, { limit: 10 }).then((response) => {
+export const fetchToiletsFromSearchKeywords = (keyword, onSuccess, onError) => {
+    axios.post(Routes.getToiletsFromSearchKeywords, { limit: 10 }, { params: { keyword }}).then((response) => {
         if (response.status === 200) {
             onSuccess(response.data);
         } else {

@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "craco": "^0.0.3",
     "formik": "^2.1.5",
     "framework7": "^5.7.12",
     "framework7-react": "^5.7.12",

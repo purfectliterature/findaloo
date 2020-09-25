@@ -3,9 +3,9 @@ GET https://a3.dawo.me:3000/toilets
 Content-Type: application/json
 
 ###
-POST http://localhost:3000/review/1
+POST https://a3.dawo.me:3000/review/1
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDU3NzAwOSwiZXhwIjoxNjAwNTgwNjA5fQ.3k0GajT7pt1WwbFTURJn9ZtcCW4tYKPRyTStu_hQFn8
+Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU
 
 {
     "cleanlinessRating": 5,
@@ -41,7 +41,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/toilets/search?keyword=MRT
+POST https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
 
 {
@@ -71,7 +71,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET http://localhost:3000/customer/reviews
+GET https://a3.dawo.me:3000/customer/reviews
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMTAyOTc0MCwiZXhwIjoxNjAxMDMzMzQwfQ.G0sUUi6x7eV-HfeNLglnkO1j5S7Wwmj0kSEge44WUSE
 

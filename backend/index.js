@@ -12,8 +12,17 @@ const uuidv4 = require('uuid/v4')
 const fetch = require("node-fetch");
 const constants = require("./constants.js");
 const fs = require('fs');
-const http = require('http');
 const https = require('https');
+
+// const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
+// const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
+
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
 var AWS = require('aws-sdk'),
     region = "us-east-2",
@@ -36,7 +45,7 @@ const s3 = new AWS.S3({
 });
 
 
-app.get("/customer/profile/image-url", authenticateToken, async (req, res) => {
+app.post("/customer/profile/image-url", authenticateToken, async (req, res) => {
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
   // Set up the payload of what we are sending to the S3 api
@@ -109,8 +118,7 @@ app.get("/toilets/version", async (req, res) => {
     FROM toilet_version`)
 
     let result = await db.query(statement);
-    version = result.version;
-
+    version = result.rows[0];
     return res.status(200).send(version);
 })
 
@@ -419,6 +427,7 @@ app.post("/review/:toiletId", authenticateToken, async (req, res) => {
     try {
         await addToiletReview(userId, toiletId, req.body);
     } catch (err) {
+        console.log(err);
         return res.status(500).send('Error in creating review');
     }
     return res.sendStatus(200);
@@ -571,7 +580,7 @@ async function addToiletReview(userId, toiletId, review) {
 
     statement = (SQL `
     UPDATE customer_profiles
-    SET points = points + 15;
+    SET points = points + 15
     WHERE user_id = (${userId})
     `)
 
@@ -710,10 +719,13 @@ async function getTokenSecrets() {
 
 getTokenSecrets().then(data => {
     tokenSecret = data;
-    tokenSecret = JSON.parse(tokenSecret)
-    app.listen(port)
-
+    tokenSecret = JSON.parse(tokenSecret);
     console.log("Successfully initialised secret keys.")
+
+    app.listen(port);
+
+    // let httpsServer = https.createServer(credentials, app);
+    // httpsServer.listen(port);
     console.log(`Now listening on port ${port}.`)
 
 }).catch(err => {
