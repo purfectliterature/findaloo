@@ -30,7 +30,6 @@ const EditProfile = () => {
     if (profilePicture) {
       imageUrl = await updateProfilePicture(profilePicture);
     }
-    console.log(imageUrl);
   
     try {
       updateUserInfo(

@@ -10,7 +10,6 @@ import Feature from "../Feature";
 export default (props) => {    
     const {
         toiletId,
-        address,
         name,
         avg_review,
         review_count,
@@ -25,7 +24,8 @@ export default (props) => {
 
     const {
         mini,
-        onClick
+        onClick,
+        hideDistance
     } = props;
 
     let image;
@@ -56,7 +56,7 @@ export default (props) => {
 
         return (
             <div className="card-subtitle">
-                {!mini ? <>
+                {!hideDistance && !mini ? <>
                     <p>{distance}</p>
                     <div className="card-subtitle-dot" />
                 </> : null}
@@ -68,7 +68,7 @@ export default (props) => {
 
     const createFeature = (name, has) => (
         <Feature
-            key={"ft-" + Math.floor(Math.random()*(999-100+1)+100)}
+            key={"ft-" + toiletId + name}
             featureName={name}
             has={has}
             className="feature-lists"

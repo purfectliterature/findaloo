@@ -57,11 +57,6 @@
     letter-spacing: normal;
 }
 
-.searchbox.active .sb-button,
-.searchbox.filled .sb-button {
-    display: none;
-}
-
 .sb-profile-picture {
     height: 2.5rem;
     width: 2.5rem;
