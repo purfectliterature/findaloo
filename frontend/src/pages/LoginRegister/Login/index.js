@@ -55,8 +55,8 @@ class LoginPage extends React.Component {
 
                 <Button
                     outline
-                    className="btn"
-                    onClick={this.navigateToGoogleLogin}
+                    className="btn external"
+                    href={this.state.google_login_url}
                 >
                     Sign in with Google
                 </Button>
