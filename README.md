@@ -3,25 +3,25 @@
 
 ## Team Members
 
-### Phillmont Muktar `A0184545X`  
-Role: Frontend Developer  
-Contribution: UI Design, Explore pages
+#### Phillmont Muktar `A0184545X`  
+**Role:** Frontend Developer  
+**Contribution:** UI Design, Explore pages
 
-### Tan Jin Ying `A0168492R`  
-Role: Frontend Developer  
-Contribution: Profile, Report and Review pages
+#### Tan Jin Ying `A0168492R`  
+**Role:** Frontend Developer  
+**Contribution:** Profile, Report and Review pages
 
-### Jiang Yuxin `A0177868A`  
-Role: Frontend Developer  
-Contribution: Authentication, List page
+#### Jiang Yuxin `A0177868A`  
+**Role:** Frontend Developer  
+**Contribution:** Authentication, List page
 
-### Agnes Natasya  
-Role: Backend Developer  
-Contribution: Data scraping, Authentication routes, Toilet Routes, Image upload (profile photo)
+#### Agnes Natasya  
+**Role:** Backend Developer  
+**Contribution:** Data scraping, Authentication routes, Toilet Routes, Image upload (profile photo)
 
-### Daniel Wong `A0185050M`  
-Role: Backend Developer  
-Contribution: Authentication, Toilet routes, User Profile routes, Report & Review routes
+#### Daniel Wong `A0185050M`  
+**Role:** Backend Developer  
+**Contribution:** Authentication, Toilet routes, User Profile routes, Report & Review routes
 
 ## It doesn't always have to stink.
 
