@@ -31,7 +31,9 @@ const Profile = () => {
       userTokens.refreshToken,
       (data) => {
         dispatch(resetUserState());
-        f7.views.main.router.navigate('/');
+        f7.views.main.router.navigate('/', {
+          reloadAll: true,
+        });
       },
       (err) => {
         // console.log(err);
@@ -61,7 +63,7 @@ const Profile = () => {
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink backLinkUrl='/' backLinkForce />
+      <Navbar backLink backLinkUrl="/" backLinkForce />
 
       <div className="margin display-flex flex-direction-column justify-content-space-between profile-page">
         <div>
