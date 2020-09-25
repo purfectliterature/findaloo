@@ -221,7 +221,7 @@ app.post('/login', async (req, res) => {
         refreshToken: refreshToken,
         });
     } catch (err) {
-        return res.sendStatus(500);
+        return res.status(500).send("Error retrieving user");
     }
 });
 
@@ -229,7 +229,7 @@ app.delete('/logout', async (req, res) => {
     try {
         const refreshToken = req.query.refreshToken;
         if (!refreshToken) {
-            return res.sendStatus(403);
+            return res.status(403).send('Missing refresh token');
         }
         await removeRefreshTokenFromDb(refreshToken);
         return res.sendStatus(204);
@@ -267,14 +267,14 @@ app.post('/token', async (req, res) => {
 async function getTokenSecrets() {
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
-        
+
         if ('SecretString' in data) {
-            secret = data.SecretString;
-            return secret;
+        secret = data.SecretString;
+        return secret;
         } else {
-            let buff = Buffer.alloc(data.SecretBinary, 'base64');
-            decodedBinarySecret = buff.toString('ascii');
-            return decodedBinarySecret
+        let buff = Buffer.alloc(data.SecretBinary, 'base64');
+        decodedBinarySecret = buff.toString('ascii');
+        return decodedBinarySecret
         }
     } catch (err) {
         if (err) {
