@@ -350,8 +350,8 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.post("/toilets/nearest", async (req, res) => {
-    const { lat, lon } = req.body;
+app.get("/toilets/nearest", async (req, res) => {
+    const { lat, lon } = req.query;
 
     var nearestToilets = await getNearestToilets(lat, lon);
     var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(',');
