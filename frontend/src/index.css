@@ -7,10 +7,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
 :root {
     --color-primary: #0078FA;
     --color-primary-darker: #000D3C;
@@ -38,7 +34,7 @@ code {
 
 h1 {
     margin: 0;
-    font-family: "Work Sans";
+    font-family: "Work Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 600;
     font-size: 2rem;
     letter-spacing: -0.03em;
@@ -47,7 +43,7 @@ h1 {
 
 h2 {
     margin: 0;
-    font-family: "Work Sans";
+    font-family: "Work Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 600;
     font-size: 1.6rem;
     letter-spacing: -0.03em;
@@ -56,14 +52,14 @@ h2 {
 
 h3 {
     margin: 0;
-    font-family: "Inter";
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 600;
     font-size: 1.3rem;
     line-height: 1.8rem;
 }
 
 p {
-    font-family: "Inter";
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .header-margin {

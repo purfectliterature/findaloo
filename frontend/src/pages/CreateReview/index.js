@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
+import {
+  Page,
+  Navbar,
+  NavRight,
+  NavLeft,
+  NavTitle,
+  Button,
+  f7,
+} from 'framework7-react';
+import { ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import UserProfile from '../../components/UserProfile';
 import UserRating from '../../components/UserRating';
 import UserInput from '../../components/UserInput';
+import './styles.css';
 
 import { getUserInfo, getTokens } from '../../store/user';
 import { addNewReviews } from '../../store/reviews';
@@ -18,6 +28,13 @@ const CreateReviews = (props) => {
   const userTokens = useSelector(getTokens);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+  }, []);
+
   const handleFormSubmission = async (values) => {
     const { reviewTitle, reviewDescription } = values;
 
@@ -27,7 +44,7 @@ const CreateReviews = (props) => {
       description: reviewDescription,
     };
     dispatch(addNewReviews(id, userTokens.authToken, review));
-    
+
     formik.setSubmitting(false);
     f7.views.main.router.navigate(`/toilets/${id}/`);
   };
@@ -56,11 +73,25 @@ const CreateReviews = (props) => {
   });
 
   return (
-    <Page className="white-background-skin">
+    <Page className="create-review-page white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title={postTitle}>
+        <Navbar>
+          <NavLeft>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/toilets/${id}/`, {
+                  animate: false,
+                });
+              }}
+            >
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>{postTitle}</NavTitle>
           <NavRight>
-            <Button type="submit" disabled={formik.isSubmitting}>Post</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Post
+            </Button>
           </NavRight>
         </Navbar>
 

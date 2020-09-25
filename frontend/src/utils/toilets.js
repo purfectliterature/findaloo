@@ -9,7 +9,7 @@ export const fetchToilets = (onSuccess, onError) => {
       if (response.status === 200 && response.data.length > 0) {
         onSuccess(response.data);
       } else {
-        console.log('ERROR COY');
+        // console.log('ERROR COY');
       }
     })
     .catch(onError);
@@ -22,7 +22,7 @@ export const fetchToiletDetails = (id, onSuccess, onError) => {
       if (res.status === 200) {
         onSuccess(res.data);
       } else {
-        console.log('fetchToiletDetails: Something went wrong fetching data');
+        // console.log('fetchToiletDetails: Something went wrong fetching data');
       }
     })
     .catch(onError);
@@ -33,8 +33,8 @@ export const fetchToiletsHash = (onSuccess, onError) => {
         if (response.status === 200) {
             onSuccess(response.data.version);
         } else {
-            console.log("fetchToiletsHash: Invalid response received");
-            console.log(response);
+            // console.log("fetchToiletsHash: Invalid response received");
+            // console.log(response);
         }
     }).catch(onError);
 }
@@ -44,17 +44,17 @@ export const fetchNearestToilets = ({ lat, lng }, onSuccess, onError) => {
         if (response.status === 200 && response.data.length > 0) {
             onSuccess(response.data);
         } else {
-            console.log("fetchNearestToilets: Invalid response received");
+            // console.log("fetchNearestToilets: Invalid response received");
         }
     }).catch(onError);
 }
 
-export const fetchToiletsFromSearchKeywords = (keywords, onSuccess, onError) => {
-    axios.post(`${Routes.getToiletsFromSearchKeywords}/${keywords}`, { limit: 10 }).then((response) => {
+export const fetchToiletsFromSearchKeywords = (keyword, onSuccess, onError) => {
+    axios.post(Routes.getToiletsFromSearchKeywords, { limit: 10 }, { params: { keyword }}).then((response) => {
         if (response.status === 200) {
             onSuccess(response.data);
         } else {
-            console.log("fetchToiletsFromSearchKeywords: Invalid response received");
+            // console.log("fetchToiletsFromSearchKeywords: Invalid response received");
         }
     }).catch(onError);
 }
