@@ -36,7 +36,7 @@ const s3 = new AWS.S3({
 });
 
 
-app.post("/customer/profile/imageUrl", async (req, res) => {
+app.get("/customer/profile/image-url", authenticateToken, async (req, res) => {
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
   // Set up the payload of what we are sending to the S3 api
@@ -51,16 +51,13 @@ app.post("/customer/profile/imageUrl", async (req, res) => {
   s3.getSignedUrl("putObject", s3Params, (err, data) => {
     if (err) {
       console.log(err);
-      res.json({ success: false, error: err });
+      return res.status(500).send(err);
     }
-    // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
-    const returnData = {
+    // Send it all back
+    res.status(200).send({
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
-    };
-    console.log(returnData)
-    // Send it all back
-    res.json({ success: true, data: { returnData } });
+    });
   });
 });
 
@@ -693,7 +690,6 @@ async function getNearestToilets(lat, lon) {
 }
 
 async function getTokenSecrets() {
-
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
 
