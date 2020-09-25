@@ -124,24 +124,25 @@
 }
 
 .open-bottom-sheet {
+    display: flex;
+    padding: 0 1rem;
     position: absolute;
     z-index: 13;
     bottom: 1rem;
     left: 50%;
-    transform: translate(-50%, 0) !important;
     font-family: "Inter";
     font-weight: 600;
     text-transform: none;
     font-size: 1rem;
-    padding: 0 1rem;
+    transform: translate(-50%, 0) !important;
 }
 
 .open-bottom-sheet.hidden {
     bottom: -5rem;
 }
 
-.open-bottom-sheet .icon {
-    font-size: 1.4rem;
+.open-bottom-sheet svg {
+    font-size: 1.6rem;
     margin-right: 0.5rem;
 }
 

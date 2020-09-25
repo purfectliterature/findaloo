@@ -4,6 +4,7 @@ import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { Page, Sheet, Button, f7 } from "framework7-react";
@@ -414,9 +415,9 @@ export default (props) => {
             fill
             round
             className={`open-bottom-sheet ${bottomSheetState !== "hidden" ? "hidden" : ""}`}
-            iconF7="arrow_up"
             onClick={openBottomSheet}
         >
+            <ArrowUpwardIcon />
             Explore toilets
         </Button>
 
