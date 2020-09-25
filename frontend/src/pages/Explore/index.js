@@ -230,7 +230,9 @@ export default (props) => {
                 } else {
                     setSearchedToilets(<center><h2>Try a different keyword?</h2></center>);
                 }
-            }, (error) => /* console.log(error) */);
+            }, (error) => {
+                // console.log(error);
+            });
         } else {
             setSearchedToilets(null);
         }
