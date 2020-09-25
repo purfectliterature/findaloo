@@ -3,29 +3,24 @@
 
 ## Team Members
 
-### Phillmont Muktar
-Matriculation Number: A0184545X
-Role: Frontend Developer
+### Phillmont Muktar `A0184545X`  
+Role: Frontend Developer  
 Contribution: UI Design, Explore pages
 
-### Tan Jin Ying
-Matriculation Number: A0168492R
-Role: Frontend Developer
+### Tan Jin Ying `A0168492R`  
+Role: Frontend Developer  
 Contribution: Profile, Report and Review pages
 
-### Jiang Yuxin
-Matriculation Number: A0177868A
-Role: Frontend Developer
+### Jiang Yuxin `A0177868A`  
+Role: Frontend Developer  
 Contribution: Authentication, List page
 
-### Agnes Natasya
-Matriculation Number: 
-Role: Backend Developer
+### Agnes Natasya  
+Role: Backend Developer  
 Contribution: Data scraping, Authentication routes, Toilet Routes, Image upload (profile photo)
 
-### Daniel Wong
-Matriculation Number: A0185050M
-Role: 
+### Daniel Wong `A0185050M`  
+Role: Backend Developer  
 Contribution: Authentication, Toilet routes, User Profile routes, Report & Review routes
 
 ## It doesn't always have to stink.
