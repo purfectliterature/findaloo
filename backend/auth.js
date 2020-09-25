@@ -282,6 +282,7 @@ async function getTokenSecrets() {
         }
     }
 }
+
 async function getLastUserId() {
     let statement = SQL`
     SELECT id
