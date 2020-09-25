@@ -13,20 +13,20 @@ const cors = require('cors')
 const fs = require('fs');
 const https = require('https');
 
-const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
-const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
-
 const { google } = require('googleapis');
 
 var googleRedirect = 'https://findaloo.netlify.app/google-login'
 var tokenSecret;
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
+// const privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('./cert/cert.pem', 'utf8');
+// const ca = fs.readFileSync('./cert/chain.pem', 'utf8');
+
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
 var tokenSecret;
 var AWS = require('aws-sdk'),
@@ -553,8 +553,10 @@ getTokenSecrets().then(data => {
     tokenSecret = JSON.parse(tokenSecret)
     console.log("Successfully initialised secret keys.")
 
-    let httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(port);
+    app.listen(port);
+
+    // let httpsServer = https.createServer(credentials, app);
+    // httpsServer.listen(port);
     console.log("Now listening on port 4000.")
 
 }).catch(err => { 
