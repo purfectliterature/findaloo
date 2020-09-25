@@ -81,9 +81,9 @@ const f7params = {
             component: GoogleLoginPage,
         },
         {
-          path: "/buildings/",
-          component: Buildings,
-      },
+            path: "/buildings/",
+            component: Buildings,
+        },
     ],
 };
 
@@ -92,7 +92,12 @@ export default (props) => {
         <Provider store={store}>
             <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/" pushState={true} />
+                    <View
+                        main
+                        url="/"
+                        pushState={true}
+                        pushStateSeparator="/app"
+                    />
                 </App>
             </PersistGate>
         </Provider>
