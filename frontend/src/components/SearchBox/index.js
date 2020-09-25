@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Button } from "framework7-react";
 import "./styles.css";
 
 export default (props) => {
     const {
         mode,
-        onChange,
+        handleSearch,
         onFocus,
         value,
         loggedIn,
         onClickProfilePicture,
         onClickLogInButton,
-        profilePicture
+        onClickBackButton,
+        profilePicture,
+        searching
     } = props;
 
     const [appendedClasses, setAppendedClasses] = useState("");
+    const [searchKeywords, setSearchKeywords] = useState("");
+    const [searchWaiting, setSearchWaiting] = useState(null);
+
+    const handleKeywords = ({ target: { value }}) => {
+        setSearchKeywords(value);
+        if (searchWaiting) clearTimeout(searchWaiting);
+        setSearchWaiting(setTimeout(() => {
+            setSearchWaiting(null);
+            handleSearch(value)
+        }, 200));
+    }
 
     const renderRightFragment = () => {
         if (loggedIn) {
@@ -37,24 +51,30 @@ export default (props) => {
 
     return (
         <div className={`searchbox ${mode || ""} ${appendedClasses}`}>
-            <SearchIcon />
+            {searching ? 
+                <ArrowBackIcon onClick={() => {
+                    setSearchKeywords("");
+                    onClickBackButton();
+                }} /> 
+            : <SearchIcon />}
 
             <input
                 id={"search"}
                 name={"text"}
                 type={"search"}
                 className="searchbox-field"
-                placeholder="Search anything here"
-                onChange={(event) => onChange(event.target.value)}
+                placeholder="Search all toilets here"
+                onChange={handleKeywords}
                 onFocus={() => {
                     setAppendedClasses("active");
                     if (onFocus) onFocus();
                 }}
+                value={searchKeywords}
                 onBlur={() => setAppendedClasses(value !== "" ? "filled" : "")}
                 autoComplete="off"
             />
 
-            {renderRightFragment()}
+            {searching ? null : renderRightFragment()}
         </div>
     )
 }

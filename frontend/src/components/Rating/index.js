@@ -9,7 +9,7 @@ class Rating extends React.Component {
         this.state = {
             rating: parseFloat(props.rating),
             count: parseInt(props.count),
-            mini: props.mini
+            mini: props.mini,
         };
     }
 
@@ -41,7 +41,7 @@ class Rating extends React.Component {
             stars.push(
                 <StarIcon
                     className="star-empty"
-                    key={i + filledStars}
+                    key={i + filledStars + halfStar}
                 ></StarIcon>
             );
         }
@@ -50,8 +50,12 @@ class Rating extends React.Component {
 
     render() {
         return (
-            <div className={`rating-container ${this.state.mini ? "mini" : ""}`}>
-                <span className="rating-text">{Math.round(this.state.rating * 100) / 100}</span>
+            <div
+                className={`rating-container ${this.state.mini ? "mini" : ""}`}
+            >
+                <span className="rating-text">
+                    {Math.round(this.state.rating * 100) / 100}
+                </span>
                 {this.renderStars()}
                 <span className="rating-text">
                     ({this.state.count.toLocaleString()})
