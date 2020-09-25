@@ -45,7 +45,7 @@ const s3 = new AWS.S3({
 });
 
 
-app.post("/customer/profile/imageUrl", async (req, res) => {
+app.get("/customer/profile/image-url", authenticateToken, async (req, res) => {
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
   // Set up the payload of what we are sending to the S3 api
@@ -60,16 +60,13 @@ app.post("/customer/profile/imageUrl", async (req, res) => {
   s3.getSignedUrl("putObject", s3Params, (err, data) => {
     if (err) {
       console.log(err);
-      res.json({ success: false, error: err });
+      return res.status(500).send(err);
     }
-    // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
-    const returnData = {
+    // Send it all back
+    res.status(200).send({
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
-    };
-    console.log(returnData)
-    // Send it all back
-    res.json({ success: true, data: { returnData } });
+    });
   });
 });
 
@@ -286,7 +283,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
     statement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE toilet_id = (${toiletId})`;
+            WHERE toilet_id = ${toiletId}`;
 
     try {
         result = await db.query(statement);
@@ -361,8 +358,8 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
 });
 
 
-app.post("/toilets/nearest", async (req, res) => {
-    const { lat, lon } = req.body;
+app.get("/toilets/nearest", async (req, res) => {
+    const { lat, lon } = req.query;
 
     var nearestToilets = await getNearestToilets(lat, lon);
     var toiletIds = nearestToilets.map(nearestToilet => nearestToilet.toiletId).join(',');
@@ -405,9 +402,9 @@ app.post("/toilets/nearest", async (req, res) => {
     return res.status(200).send(toilets);
 });
 
-app.post("/toilets/search/:keyword", async (req, res) => {
+app.post("/toilets/search", async (req, res) => {
     const { limit } = req.body;
-    const keyword = req.params.keyword;
+    const keyword = req.query.keyword;
     
     try {
         let toilets = await getToiletSummary();
@@ -536,7 +533,7 @@ app.put("/customer/change-password", authenticateToken, async (req, res) => {
         result = await db.query(getEmailFromId);
         userEmail = result.rows[0].email;
     } catch (err) {
-        return res.status(500).send('Error retrieving user');
+        return res.status(500).send('Error updating password');
     }
 
     statement = SQL`
@@ -549,7 +546,7 @@ app.put("/customer/change-password", authenticateToken, async (req, res) => {
         result = await db.query(statement);
         rows = result.rows;
     } catch (error) {
-        return res.status(500).send(error);
+        return res.status(500).send("Error updating password");
     }
     return res.sendStatus(200);
 });

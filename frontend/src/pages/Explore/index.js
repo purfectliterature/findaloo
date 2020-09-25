@@ -26,8 +26,19 @@ import {
     getCachedNearestToilets
 } from "../../store/toilets";
 
-import { getTokens, getUserInfo, getLastLocation, saveLocation } from "../../store/user";
-import { fetchToilets, fetchToiletsHash, fetchNearestToilets } from "../../utils/toilets";
+import {
+    getTokens,
+    getUserInfo,
+    getLastLocation,
+    saveLocation 
+} from "../../store/user";
+
+import {
+    fetchToilets, 
+    fetchToiletsHash, 
+    fetchNearestToilets,
+    fetchToiletsFromSearchKeywords
+} from "../../utils/toilets";
 
 const MAX_BUILDINGS_FEATURED = 20;
 const INITIAL_POSITION = { lat: 1.2966, lng: 103.7764 };
@@ -38,7 +49,6 @@ export default (props) => {
     const [mapView, setMapView] = useState();
     const [mapsApi, setMapsApi] = useState();
     const [bottomSheetState, setBottomSheetState] = useState("normal");
-    const [searchKeywords, setSearchKeywords] = useState("");
     const [currentLocation, setCurrentLocation] = useState(null);
     const [buildingToShow, setBuildingToShow] = useState(null);
     const [buildingToiletsStripShowed, setBuildingToiletsStripShowed] = useState(false);
@@ -47,6 +57,7 @@ export default (props) => {
 
     const [buildings, setBuildings] = useState(null);
     const [featuredToilets, setFeaturedToilets] = useState(null);
+    const [searchedToilets, setSearchedToilets] = useState(null);
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
     const dispatch = useDispatch();
     const buildingsFromStore = useSelector(getBuildings);
@@ -182,7 +193,7 @@ export default (props) => {
     const renderBuildingToilets = () => {
         if (buildingToShow && buildingToShow.toilets) {
             const toilets = buildingToShow.toilets.map((toilet) => (
-                <ToiletCard key={"tm-" + Math.floor(Math.random()*(999-100+1)+100)} toilet={toilet} mini={true} />
+                <ToiletCard key={"tm-" + toilet.toiletId} toilet={toilet} mini={true} />
             ));
 
             return (
@@ -198,8 +209,20 @@ export default (props) => {
     const renderToilets = () => {
         if (featuredToilets) {
             return featuredToilets.map((toilet) => (
-                <ToiletCard toilet={toilet} key={"tl-" + Math.floor(Math.random()*(999-100+1)+200)} />
+                <ToiletCard toilet={toilet} key={"tl-" + toilet.toiletId} />
             ));
+        }
+    }
+
+    const renderSearchResults = (keywords) => {
+        if (keywords !== "") {
+            fetchToiletsFromSearchKeywords(keywords, (toilets) => {
+                setSearchedToilets(toilets.map((toilet) => (
+                    <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
+                )));
+            }, (error) => console.log(error));
+        } else {
+            setSearchedToilets(null);
         }
     }
     
@@ -348,12 +371,15 @@ export default (props) => {
         <div className="map-search-overlay">
             <SearchBox
                 mode={bottomSheetState === "expanded" ? "flat" : ""}
-                onChange={setSearchKeywords}
                 onFocus={expandBottomSheet}
-                value={searchKeywords}
+                handleSearch={renderSearchResults}
                 onClickProfilePicture={() => f7.views.main.router.navigate('/profile/')}
                 onClickLogInButton={() => f7.views.main.router.navigate('/login/')}
+                onClickBackButton={() => {
+                    setSearchedToilets(null);
+                }}
                 loggedIn={isUserLoggedIn}
+                searching={searchedToilets !== null}
                 profilePicture={userInfoFromStore.profilePicture}
             />
         </div>
@@ -417,7 +443,7 @@ export default (props) => {
                 <div className="cards">
                     <div className="cards-gutter" />
                     
-                    {renderToilets()}
+                    {searchedToilets ? searchedToilets : renderToilets()}
                 </div>
             </Page>
         </Sheet>

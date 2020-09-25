@@ -74,13 +74,12 @@ export const updateProfilePicture = async (
   let fileName = fileParts[0];
   let fileType = fileParts[1];
   try {
-    let response = await axios
-      .post(`https://a3.dawo.me:3000/customer/profile/imageUrl`, {
-        fileName: fileName,
-        fileType: fileType,
-      });
+    let response = await axios.post(Routes.userProfilePicture, {
+      fileName: fileName,
+      fileType: fileType,
+    });
   
-    let returnData = response.data.data.returnData;
+    let returnData = response.data;
     let signedRequest = returnData.signedRequest;
     imageUrl = returnData.url;
     let options = {

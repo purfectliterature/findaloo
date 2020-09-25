@@ -24,7 +24,7 @@ With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at ht
 **Role:** Frontend Developer  
 **Contribution:** Authentication, List page
 
-#### 4. Agnes Natasya  
+#### 4. Agnes Natasya `A0184576N`
 **Role:** Backend Developer  
 **Contribution:** Data scraping, Authentication routes, Toilet Routes, Image upload (profile photo)
 
@@ -62,7 +62,7 @@ Deployment of the backend happens in multiple stages, listed below.
 7. `\i 1_ppp.sql` to initialise the database tables
 8. `\i n_filename.sql` in order of increasing numbers in the current folder to load SQL views
 9. [OPTIONAL] `cd ../scripts` to open the scripts folder
-10. [OPTIONAL] `\i toilets_dump.sql` to load sample data
+10. [OPTIONAL] `\i n_filename.sql` in order of increasing numbers in the current folder to load sample data
 
 #### Database authentication setup
 1. `cd ../db` to enter the db folder
