@@ -162,13 +162,21 @@ export default (props) => {
             sliced.push(
                 <BuildingCard
                     key={"showAllBuildings"}
-                    onClick={() => {}}
+                    onClick={handleShowMoreBuildingsOnClick}
                     isShowAllBuildingsButton={true}
                 />
             );
         }
 
         return sliced;
+    }
+
+    const handleShowMoreBuildingsOnClick = () => {
+        f7.views.main.router.navigate('/buildings/', {
+            props: {
+              buildings
+            },
+        });
     }
 
     const renderBuildingToilets = () => {
