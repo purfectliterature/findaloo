@@ -405,7 +405,7 @@ app.post("/toilets/nearest", async (req, res) => {
     return res.status(200).send(toilets);
 });
 
-app.get("/toilets/search/:keyword", async (req, res) => {
+app.post("/toilets/search/:keyword", async (req, res) => {
     const { limit } = req.body;
     const keyword = req.params.keyword;
     

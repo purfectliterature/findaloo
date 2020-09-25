@@ -33,9 +33,8 @@ const slice = createSlice({
             user.lastLocation = action.payload;
         },
 
-        reset: (user, action) => {
-            user = initialState;
-        },
+        reset: state => initialState,
+        
         addNewPasswordRequest: {
             reducer(state, action) {
                 state.newPasswordRequest["new"] = action.payload.newPassword;

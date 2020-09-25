@@ -115,7 +115,7 @@ const Certificates = ({ certificates }) => {
               <Button
                 outline
                 external
-                href={certificate.url}
+                href={certificate.certification_webpage}
                 target="_blank"
                 className="learn-more-btn main-outlined-button-skin"
               >
@@ -126,7 +126,7 @@ const Certificates = ({ certificates }) => {
           </div>
           <div className="flex-20 text-align-right">
             <img
-              src={certificate.logo}
+              src={certificate.certification_logo}
               className="certificate-logo"
               alt="certificate logo"
             />

@@ -10,6 +10,28 @@ File a report to let management know.
 
 With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at https://findaloo.netlify.app today!
 
+## Team Members
+
+#### 1. Phillmont Muktar `A0184545X`  
+**Role:** Frontend Developer  
+**Contribution:** UI Design, Explore pages
+
+#### 2. Tan Jin Ying `A0168492R`  
+**Role:** Frontend Developer  
+**Contribution:** Profile, Report and Review pages
+
+#### 3. Jiang Yuxin `A0177868A`  
+**Role:** Frontend Developer  
+**Contribution:** Authentication, List page
+
+#### 4. Agnes Natasya  
+**Role:** Backend Developer  
+**Contribution:** Data scraping, Authentication routes, Toilet Routes, Image upload (profile photo)
+
+#### 5. Daniel Wong `A0185050M`  
+**Role:** Backend Developer  
+**Contribution:** Authentication, Toilet routes, User Profile routes, Report & Review routes
+
 ## Installation guide
 
 In order to run the application, please follow the steps below.

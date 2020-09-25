@@ -48,3 +48,94 @@ h3 {
     font-size: 1.3rem;
     line-height: 1.8rem;
 }
+
+.header-margin {
+    margin-block-start: 0;
+    margin-block-end: 0.25em;
+}
+
+.margin-horizontal-quarter {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+  
+.margin-bottom-double {
+    margin-bottom: 32px;
+}
+  
+.margin-right-half {
+    margin-right: 8px;
+}
+
+.flex-80 {
+    flex: 80;
+}
+  
+.flex-20 {
+    flex: 20;
+}
+  
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.user-profile-image {
+    border-radius: 50%;
+}
+  
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.grey-text {
+    color: var(--color-grey-3);
+}
+  
+.grey-bottom-border {
+    border-bottom: 1px solid var(--color-border-grey);
+}
+  
+.main-outlined-button-skin {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+  
+.description-skin {
+    color: var(--color-grey-3);
+    line-height: 1.5;
+}
+  
+.white-skin {
+    color: #fff;
+}
+  
+.primary-skin {
+    color: var(--color-primary);
+}
+  
+.secondary-skin {
+    color: var(--color-secondary);
+}
+  
+.grey-skin {
+    color: var(--color-grey-3);
+}
+  
+.white-background-skin {
+    background-color: #fff;
+}
+  
+.primary-background-skin {
+    background-color: var(--color-primary);
+}
+  
+.secondary-background-skin {
+    background-color: var(--color-secondary);
+}
+
+.simple-shadow-skin {
+    box-shadow: 0 4px 11px var(--color-grey-3);
+}

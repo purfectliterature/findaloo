@@ -86,7 +86,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/toilets/nearest
+POST https://a3.dawo.me:3000/toilets/nearest
 Content-Type: application/json
 
 {
