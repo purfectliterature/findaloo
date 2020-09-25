@@ -10,7 +10,7 @@ export default () => {
     const url = window.location.href;
     var token = new URL(url).searchParams.get("code");
     exchangeToken(
-        { code: token },
+        { token: token },
         (data) => {
             dispatch(setTokens(data));
 
@@ -21,7 +21,7 @@ export default () => {
                 },
                 (error) => {}
             );
-            //f7.views.main.router.navigate("/");
+            f7.views.main.router.navigate("/");
         },
         (error) => {
             f7.views.main.router.back();
