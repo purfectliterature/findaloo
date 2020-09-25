@@ -41,7 +41,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/toilets/search?keyword=MRT
+POST https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
 
 {

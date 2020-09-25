@@ -14,4 +14,4 @@ INSERT INTO management_profiles VALUES(1, 'CapitaLand', 'retail@capitaland.com',
 INSERT INTO management_profiles VALUES(2, 'SBS Transit', 'crc@sbstransit.com.sg', 'https://www.sbstransit.com.sg/Content/img/sbs-transit-logo.png', '205 Braddell Rd, Singapore 579701');
 INSERT INTO management_profiles VALUES(3, 'SMRT Corporation Ltd', 'customer_relations@smrt.com.sg', 'https://www.smrt.com.sg/Portals/0/SMRT_Corp_Logo.png?ver=2018-01-11-143632-557', '2 Tanjong Katong Road, #08-01, Tower 3, Paya Lebar Quarter, Singapore 437161');
 
-INSERT INTO certification_authorities VALUES(1, 'Restroom Association (Singapore)', '12. https://www.toilet.org.sg/images/RestroomLogo.png', 'https://toilet.org.sg/');
+INSERT INTO certification_authorities VALUES(1, 'Restroom Association (Singapore)', 'https://www.toilet.org.sg/images/RestroomLogo.png', 'https://toilet.org.sg/');
