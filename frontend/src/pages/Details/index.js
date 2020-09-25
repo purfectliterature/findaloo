@@ -62,7 +62,7 @@ const Details = (props) => {
     if (navigator.share) {
       navigator.share({
         title: `${details.title}`,
-        url: `https://findaloo.netlify.app/toilets/${id}`,
+        url: `https://findaloo.netlify.app/toilets/${id}/`,
       });
     }
   };
