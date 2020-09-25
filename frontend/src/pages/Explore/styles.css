@@ -1,5 +1,6 @@
 #explore > .page-content {
     overflow: hidden;
+    padding: 0;
 }
 
 .mapview {
