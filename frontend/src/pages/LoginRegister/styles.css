@@ -1,7 +1,3 @@
-.white-background-skin {
-    background-color: #fff;
-}
-
 .header-group {
     color: var(--color-primary);
     display: flex;

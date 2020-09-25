@@ -41,9 +41,8 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-GET https://a3.dawo.me:3000/toilets/search/MRT
+POST https://a3.dawo.me:3000/toilets/search/MRT
 Content-Type: application/json
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDYyMjY5OCwiZXhwIjoxNjAwNjI2Mjk4fQ.QXmR_P2F-rZSuA62_NgPtwCT8rXnEyTaPyHr9LL9qWw
 
 {
     "limit": 20
@@ -87,7 +86,7 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpb
 
 ###
 
-POST http://localhost:3000/toilets/nearest
+POST https://localhost:3000/toilets/nearest
 Content-Type: application/json
 
 {
@@ -95,10 +94,6 @@ Content-Type: application/json
     "lon": 103.829595
 
 }
-
-###
-GET http://localhost:3000/toilets
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg1NTIwNiwiZXhwIjoxNjAwODU4ODA2fQ.UFilfB1Xv9JongrE2TxubJJU7oFm7JdF-vPK3MWg6SU
 
 ###
 POST http://localhost:3000/customer/profile/imageUrl
