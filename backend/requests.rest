@@ -87,14 +87,8 @@ Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpb
 
 ###
 
-POST https://localhost:3000/toilets/nearest
+GET http://localhost:3000/toilets/nearest?lat=1.306708&lon=103.829595
 Content-Type: application/json
-
-{
-    "lat": 1.306708, 
-    "lon": 103.829595
-
-}
 
 ###
 GET http://localhost:3000/toilets
