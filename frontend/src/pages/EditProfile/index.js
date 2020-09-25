@@ -59,7 +59,7 @@ const EditProfile = () => {
     const { name, profilePicture } = values;
     let imageUrl = userInfo.profilePicture;
     if (profilePicture) {
-      imageUrl = await updateProfilePicture(profilePicture);
+      imageUrl = await updateProfilePicture(userTokens.authToken, profilePicture);
     }
 
     try {

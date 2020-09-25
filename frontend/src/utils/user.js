@@ -66,8 +66,14 @@ export const fetchUserInfo = (authToken, onSuccess, onError) => {
 };
 
 export const updateProfilePicture = async (
+  authToken,
   profilePicture,
 ) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    };  
+
   let imageUrl;
   let file = profilePicture;
   let fileParts = file.name.split(".");
@@ -77,6 +83,8 @@ export const updateProfilePicture = async (
     let response = await axios.post(Routes.userProfilePicture, {
       fileName: fileName,
       fileType: fileType,
+    }, {
+      headers: headers,
     });
   
     let returnData = response.data;
