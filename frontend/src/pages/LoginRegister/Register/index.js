@@ -3,7 +3,6 @@ import {
     Page,
     List,
     ListInput,
-    Button,
     f7,
     Sheet,
     PageContent,
@@ -20,6 +19,8 @@ import { useDispatch } from "react-redux";
 import { setTokens, setUserInfo } from "../../../store/user.js";
 import { register } from "../../../utils/user";
 import { login, fetchUserInfo } from "../../../utils/user.js";
+
+import Button from "../../../components/BasicButton";
 
 class LoginPage extends React.Component {
     toggleVisibility() {
@@ -42,7 +43,7 @@ class LoginPage extends React.Component {
                 </div>
 
                 <h1>
-                    Create a new<br></br>account!
+                    Create a new account!
                 </h1>
                 <Form></Form>
                 <div className="center-item">
@@ -243,10 +244,10 @@ const Form = () => {
                     </Link>
                     .
                 </div>
-                <Button fill className="btn" type="submit">
+                <Button fill type="submit">
                     Create account
                 </Button>
-                <Button outline className="btn" href="/login/">
+                <Button outline href="/login/">
                     Log in to your account
                 </Button>
             </div>
