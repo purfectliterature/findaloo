@@ -78,4 +78,14 @@ Deployment of the backend happens in multiple stages, listed below.
 
 ## Screenshots
 
+### Map View
 <img src ="./screenshots/app.png" height="800">
+
+### Toilet
+<img src ="./screenshots/profile.jpeg" height="800">
+
+### Review
+<img src ="./screenshots/review.jpeg" height="800">
+
+### Profile
+<img src ="./screenshots/toilet.jpeg" height="800">
