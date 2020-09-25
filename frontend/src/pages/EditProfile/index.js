@@ -17,6 +17,29 @@ import './styles.css';
 import { getUserInfo, getTokens } from '../../store/user';
 import { updateProfilePicture, updateUserInfo } from '../../utils/user';
 
+const UserImage = ({ currentProfilePicture, newProfilePicture }) => {
+  if (
+    (!currentProfilePicture || typeof currentProfilePicture === 'undefined') &&
+    (!newProfilePicture || typeof newProfilePicture === 'undefined')
+  ) {
+    return (
+      <img
+        className="image user-profile-image"
+        src={require('../../assets/user.svg')}
+        alt="profile"
+      />
+    );
+  }
+
+  return (
+    <img
+      className="image user-profile-image"
+      src={newProfilePicture || currentProfilePicture}
+      alt="profile"
+    />
+  );
+};
+
 const EditProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const userInfo = useSelector(getUserInfo);
@@ -25,25 +48,26 @@ const EditProfile = () => {
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-    console.log(profilePicture)
+    console.log(profilePicture);
     let imageUrl = userInfo.profilePicture;
     if (profilePicture) {
       imageUrl = await updateProfilePicture(profilePicture);
     }
-  
+
     try {
       updateUserInfo(
-      userTokens.authToken,
-      name,
-      imageUrl,
-      (data) => {
-        formik.setSubmitting(false);
-        f7.views.main.router.navigate(`/profile/`);
-      },
-      (err) => {
-        console.log(err);
-        formik.setSubmitting(false);
-      });
+        userTokens.authToken,
+        name,
+        imageUrl,
+        (data) => {
+          formik.setSubmitting(false);
+          f7.views.main.router.navigate(`/profile/`);
+        },
+        (err) => {
+          console.log(err);
+          formik.setSubmitting(false);
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -97,10 +121,9 @@ const EditProfile = () => {
 
         <div className="padding">
           <div className="margin-bottom edit-profile-profile-picture">
-            <img
-              className="image user-profile-image"
-              src={profilePicture || userInfo.profilePicture}
-              alt="profile"
+            <UserImage
+              currentProfilePicture={userInfo.profilePicture}
+              newProfilePicture={profilePicture}
             />
             <div className="edit-profile-edit-btn-section">
               <Button
@@ -116,7 +139,7 @@ const EditProfile = () => {
                 name={
                   formik.values.profilePicture
                     ? formik.values.profilePicture.name
-                    : ""
+                    : ''
                 }
                 className="edit-profile-file-input"
                 onChange={(event) =>
@@ -139,11 +162,11 @@ const EditProfile = () => {
                 errorMessage={
                   formik.touched.name && formik.errors.name
                     ? formik.errors.name
-                    : ""
+                    : ''
                 }
                 errorMessageForce
                 disabled={formik.isSubmitting}
-                {...formik.getFieldProps("name")}
+                {...formik.getFieldProps('name')}
               />
             </List>
           </div>
