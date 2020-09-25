@@ -5,4 +5,4 @@ CREATE VIEW CustomerSummary(id, name, email, auth_type, profile_picture, points)
     FROM customer_profiles CP 
     JOIN users U
     ON CP.user_id = U.id
-)
+);
