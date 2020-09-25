@@ -1,4 +1,5 @@
-# Findaloo
+<img src="./frontend/src/assets/logo-mark.svg" alt="findaloo logo" height="100" />
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/305a5606-25c6-4f91-b453-21d9cb6beeae/deploy-status)](https://app.netlify.com/sites/findaloo/deploys)
 
 ## It doesn't always have to stink.
