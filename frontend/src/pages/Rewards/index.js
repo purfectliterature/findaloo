@@ -1,50 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { Page, Navbar } from 'framework7-react';
+import { useSelector } from 'react-redux';
+import { Page, Navbar, NavLeft, NavTitle, Button, f7 } from 'framework7-react';
+import { ArrowBackIos } from '@material-ui/icons';
 import './styles.css';
+
+import { getTokens } from '../../store/user';
 
 const RewardCard = ({ reward }) => {
   return (
     <div className="margin-bottom padding-horizontal display-flex flex-direction-row align-items-center reward-card simple-shadow-skin">
       <div className="flex-20 margin-right reward-image-section">
-        <img className="image reward-image" src={reward.image_url} alt="reward" />
+        <img
+          className="image reward-image"
+          src={reward.image_url}
+          alt="reward"
+        />
       </div>
       <div className="flex-80">
         <h3>{reward.name}</h3>
       </div>
-      <div className="reward-points grey-text">
-        {reward.points_needed} pts
-      </div>
+      <div className="reward-points grey-text">{reward.points_needed} pts</div>
     </div>
-  )
-}
+  );
+};
 
 const Rewards = (props) => {
   const { points } = props;
 
   const [rewards, setRewards] = useState([]);
+  const userTokens = useSelector(getTokens);
 
   const rewardsStub = [
     {
       name: '$10 NTUC Voucher',
       points_needed: 50,
-      image_url: 'https://images.unsplash.com/photo-1592438224549-98c4f4b46e5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
+      image_url:
+        'https://images.unsplash.com/photo-1592438224549-98c4f4b46e5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
     },
     {
       name: '1 month toilet pass',
       points_needed: 1000,
-      image_url: 'https://images.unsplash.com/photo-1521327708881-8c1b5c6d2ce9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80',
+      image_url:
+        'https://images.unsplash.com/photo-1521327708881-8c1b5c6d2ce9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80',
     },
   ];
 
   useEffect(() => {
-    // TODO: API CALL
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
 
     setRewards(rewardsStub);
-  }, [])
+  }, []);
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink title="Rewards" />
+      <Navbar>
+        <NavLeft>
+          <Button
+            onClick={() => {
+              f7.views.main.router.navigate(`/profile/`, { animate: false });
+            }}
+          >
+            <ArrowBackIos />
+          </Button>
+        </NavLeft>
+        <NavTitle>Rewards</NavTitle>
+      </Navbar>
 
       <div className="padding">
         <div className="text-align-center margin-bottom-double">

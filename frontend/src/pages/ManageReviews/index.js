@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as moment from 'moment';
-import { Page, Navbar } from 'framework7-react';
-import { Star, StarBorderOutlined } from '@material-ui/icons';
+import { Page, Navbar, NavLeft, NavTitle, Button, f7 } from 'framework7-react';
+import { Star, StarBorderOutlined, ArrowBackIos } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 import './styles.css';
 
 import { getTokens } from '../../store/user';
 import { fetchUserReviews } from '../../utils/reviews';
+
+const Reviews = ({ reviews }) => {
+  if (reviews.length <= 0) {
+    return (
+      <div className="text-align-center">
+        <img
+          src={require('../../assets/undraw_empty_xct9.svg')}
+          className="image"
+          alt="empty review"
+        />
+        <p>You haven't review any toilets yet!</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {reviews.map((review, index) => (
+        <ReviewDetails key={index} review={review} />
+      ))}
+    </>
+  );
+};
 
 const ReviewDetails = ({ review }) => {
   return (
@@ -58,21 +81,39 @@ const ManageReviews = (props) => {
   const userTokens = useSelector(getTokens);
 
   useEffect(() => {
-    fetchUserReviews(userTokens.authToken, (data) => {
-      setReviews(data);
-    }, (err) => {
-      console.log(err)
-    })
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+
+    fetchUserReviews(
+      userTokens.authToken,
+      (data) => {
+        setReviews(data);
+      },
+      (err) => {
+        // console.log(err);
+      }
+    );
   }, []);
 
   return (
     <Page className="white-background-skin">
-      <Navbar backLink title="Manage Reviews" />
+      <Navbar>
+        <NavLeft>
+          <Button
+            onClick={() => {
+              f7.views.main.router.navigate(`/profile/`, { animate: false });
+            }}
+          >
+            <ArrowBackIos />
+          </Button>
+        </NavLeft>
+        <NavTitle>Manage Reviews</NavTitle>
+      </Navbar>
 
       <div className="padding">
-        {reviews.map((review, index) => (
-          <ReviewDetails key={index} review={review} />
-        ))}
+        <Reviews reviews={reviews} />
       </div>
     </Page>
   );
