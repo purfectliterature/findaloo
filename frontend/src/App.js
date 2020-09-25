@@ -18,6 +18,7 @@ import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
 import GoogleLoginPage from "./pages/GoogleLogin";
 import FetchLoading from "./components/FetchLoading";
+import Buildings from "./pages/Buildings";
 
 import { store, persistor } from "./store/configureStore";
 
@@ -79,6 +80,10 @@ const f7params = {
             path: "/google-login/",
             component: GoogleLoginPage,
         },
+        {
+          path: "/buildings/",
+          component: Buildings,
+      },
     ],
 };
 
