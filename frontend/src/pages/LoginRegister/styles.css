@@ -5,11 +5,6 @@
     margin: 1rem 0 3rem 0;
 }
 
-.toilet-marker {
-    height: 1.8rem;
-    margin-right: 0.3rem;
-}
-
 .list .item-content {
     padding: 0;
 }
@@ -76,4 +71,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 1.2rem;
+}
+
+.logo-mark {
+    height: 4rem;
 }

@@ -38,15 +38,7 @@ class LoginPage extends React.Component {
         return (
             <Page className="padding white-background-skin">
                 <div className="header-group">
-                    <img
-                        src="/toilet-marker.png"
-                        alt="toilet"
-                        className="toilet-marker"
-                    ></img>
-                    <div>
-                        <h4 className="header">Findaloo</h4>
-                        <h3 className="header">Lavatories System</h3>
-                    </div>
+                    <img src={require("../../../assets/logo-mark.svg")} alt="toilet" className="logo-mark" />
                 </div>
 
                 <h1>
