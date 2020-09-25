@@ -13,6 +13,7 @@ frontend/coverage
 
 # production
 frontend/build
+backend/cert
 
 # misc
 .DS_Store
