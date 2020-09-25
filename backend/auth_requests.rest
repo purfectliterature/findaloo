@@ -42,12 +42,12 @@ Content-Type: application/json
 
 ###
 
-POST https://a3.dawo.me:4000/login 
+POST http://localhost:4000/login 
 Content-Type: application/json
 
 {
     "email": "agnes2@gmail.com",
-    "password": "password2"
+    "password": "password4"
 }
 
 ###
@@ -105,4 +105,13 @@ Content-Type: application/json
 
 {
     "redirect": "findaloo.netlify.com"
+}
+
+###
+
+POST http://localhost:4000/google/exchange-token 
+Content-Type: application/json
+
+{
+    "code": "4%2F4gG1CchwCALYiyS5I7pXTP8-pGpAaqfs_C5fLZQDmSCI2opfXNMOLOQGNMf6HJh0406Ha74chQ3umfzpLMpPc1c&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&hd=dawo.me&prompt=consent#"
 }

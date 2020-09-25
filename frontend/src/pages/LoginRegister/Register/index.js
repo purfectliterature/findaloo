@@ -3,7 +3,6 @@ import {
     Page,
     List,
     ListInput,
-    Button,
     f7,
     Sheet,
     PageContent,
@@ -21,6 +20,8 @@ import { setTokens, setUserInfo } from "../../../store/user.js";
 import { register } from "../../../utils/user";
 import { login, fetchUserInfo } from "../../../utils/user.js";
 
+import Button from "../../../components/BasicButton";
+
 class LoginPage extends React.Component {
     toggleVisibility() {
         this.setState({ visible: !this.state.visible });
@@ -30,31 +31,13 @@ class LoginPage extends React.Component {
         return (
             <Page className="padding white-background-skin">
                 <div className="header-group">
-                    <img
-                        src="/toilet-marker.png"
-                        alt="toilet"
-                        className="toilet-marker"
-                    ></img>
-                    <div>
-                        <h4 className="header">Findaloo</h4>
-                        <h3 className="header">Lavatories System</h3>
-                    </div>
+                    <img src={require("../../../assets/logo-mark.svg")} alt="toilet" className="logo-mark" />
                 </div>
 
                 <h1>
-                    Create a new<br></br>account!
+                    Create a new account
                 </h1>
                 <Form></Form>
-                <div className="center-item">
-                    <a
-                        onClick={() =>
-                            f7.views.main.router.back("/", { force: true })
-                        }
-                        className="text-minor"
-                    >
-                        Continue without login
-                    </a>
-                </div>
             </Page>
         );
     }
@@ -243,12 +226,22 @@ const Form = () => {
                     </Link>
                     .
                 </div>
-                <Button fill className="btn" type="submit">
+                <Button fill type="submit">
                     Create account
                 </Button>
-                <Button outline className="btn" href="/login/">
+                <Button outline href="/login/">
                     Log in to your account
                 </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() =>
+                            f7.views.main.router.back("/", { force: true })
+                        }
+                        className="text-minor"
+                    >
+                        Continue without logging in
+                    </a>
+                </div>
             </div>
             <Sheet
                 className="demo-sheet-swipe-to-close modal-sheet"

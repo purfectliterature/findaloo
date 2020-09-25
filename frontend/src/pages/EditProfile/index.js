@@ -57,7 +57,6 @@ const EditProfile = () => {
 
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
-    console.log(profilePicture);
     let imageUrl = userInfo.profilePicture;
     if (profilePicture) {
       imageUrl = await updateProfilePicture(profilePicture);

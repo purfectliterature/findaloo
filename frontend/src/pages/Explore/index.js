@@ -216,10 +216,20 @@ export default (props) => {
 
     const renderSearchResults = (keywords) => {
         if (keywords !== "") {
+            setSearchedToilets(
+                <div className="search-loading">
+                    <ClipLoader size={40} />
+                </div>
+            );
+
             fetchToiletsFromSearchKeywords(keywords, (toilets) => {
-                setSearchedToilets(toilets.map((toilet) => (
-                    <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
-                )));
+                if (toilets.length > 0) {
+                    setSearchedToilets(toilets.map((toilet) => (
+                        <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
+                    )));
+                } else {
+                    setSearchedToilets(<center><h2>Try a different keyword?</h2></center>);
+                }
             }, (error) => console.log(error));
         } else {
             setSearchedToilets(null);
@@ -290,11 +300,13 @@ export default (props) => {
 
     useEffect(() => {
         const grid = document.querySelector(".cards");
-        new Masonry(grid, {
-            itemSelector: ".toil-card",
-            gutter: ".cards-gutter",
-            percentPosition: true
-        });
+        if (grid) {
+            new Masonry(grid, {
+                itemSelector: ".toil-card",
+                gutter: ".cards-gutter",
+                percentPosition: true
+            });
+        }
     });
     
     useEffect(() => {
@@ -342,7 +354,7 @@ export default (props) => {
         <SheetDialog
             id="new-user-modal"
             title="It’s now easier to deal with your business!"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            description="Findaloo helps you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available."
             image={require("../../assets/persons-peeing.svg")}
             imageAlt="Persons peeing"
             opened={!isUserLoggedIn}

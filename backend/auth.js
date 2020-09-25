@@ -221,7 +221,7 @@ app.post('/login', async (req, res) => {
         refreshToken: refreshToken,
         });
     } catch (err) {
-        return res.sendStatus(500);
+        return res.status(500).send("Error retrieving user");
     }
 });
 
@@ -229,7 +229,7 @@ app.delete('/logout', async (req, res) => {
     try {
         const refreshToken = req.query.refreshToken;
         if (!refreshToken) {
-            return res.sendStatus(403);
+            return res.status(403).send('Missing refresh token');
         }
         await removeRefreshTokenFromDb(refreshToken);
         return res.sendStatus(204);
@@ -267,14 +267,14 @@ app.post('/token', async (req, res) => {
 async function getTokenSecrets() {
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
-        
+
         if ('SecretString' in data) {
-            secret = data.SecretString;
-            return secret;
+        secret = data.SecretString;
+        return secret;
         } else {
-            let buff = Buffer.alloc(data.SecretBinary, 'base64');
-            decodedBinarySecret = buff.toString('ascii');
-            return decodedBinarySecret
+        let buff = Buffer.alloc(data.SecretBinary, 'base64');
+        decodedBinarySecret = buff.toString('ascii');
+        return decodedBinarySecret
         }
     } catch (err) {
         if (err) {
@@ -382,7 +382,7 @@ async function generateRefreshToken(user) {
     return jwt.sign(user, tokenSecret.REFRESH_TOKEN_SECRET)
 }
 
-function createGoogleConnection(redirect) {
+function createGoogleClient(redirect) {
     return new google.auth.OAuth2(
         tokenSecret.GOOGLE_AUTH_CLIENT_ID,
         tokenSecret.GOOGLE_AUTH_SECRET_KEY,
@@ -398,7 +398,7 @@ app.get('/google/sign-in-url', (req, res) => {
 
 
 function generateGoogleLoginUrl() {
-    const auth = createGoogleConnection();
+    const auth = createGoogleClient();
     return auth.generateAuthUrl({
         access_type: 'offline',
         prompt: 'consent',
@@ -411,7 +411,6 @@ function generateGoogleLoginUrl() {
 
 app.post('/google/exchange-token', async (req, res) => {
     const { code } = req.body;
-
 
     let email = await getGoogleData(code);
     let name = "name";
@@ -426,7 +425,13 @@ app.post('/google/exchange-token', async (req, res) => {
     let result = await db.query(statement);
     let rows = result.rows;
 
-    if (rows.length == 0) {    
+    if (rows.length == 0) {  
+        
+        const user = {
+            role_id: 2,
+            email: email,
+            authType: 'google',
+        };
         
         try {
             await db.query("BEGIN");
@@ -463,7 +468,7 @@ app.post('/google/exchange-token', async (req, res) => {
             return res.status(500).send('Error in adding user');
         }
 
-        const user = {
+        user = {
             id: lastUserId,
             email: email,
             authType: 'google',
@@ -502,11 +507,10 @@ app.post('/google/exchange-token', async (req, res) => {
 })
 
 async function getGoogleData(code) {
-    const auth = createGoogleConnection();
-    const data = await auth.getToken(code);
-    const tokens = data.tokens;
+    const auth = createGoogleClient();
+    const { tokens } = await auth.getToken(code);
 
-    auth.setCredentials(tokens);
+    auth.credentials = tokens;
 
     const people = google.people({
         version: 'v1',

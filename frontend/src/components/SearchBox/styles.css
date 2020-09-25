@@ -65,3 +65,9 @@
     display: inline-block;
     flex-shrink: 0;
 }
+
+.search-loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
