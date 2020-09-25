@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Page, Navbar, NavLeft, NavTitle, Button, f7 } from 'framework7-react';
 import { ArrowBackIos } from '@material-ui/icons';
 import './styles.css';
+
+import { getTokens } from '../../store/user';
 
 const RewardCard = ({ reward }) => {
   return (
@@ -25,6 +28,7 @@ const Rewards = (props) => {
   const { points } = props;
 
   const [rewards, setRewards] = useState([]);
+  const userTokens = useSelector(getTokens);
 
   const rewardsStub = [
     {
@@ -42,6 +46,11 @@ const Rewards = (props) => {
   ];
 
   useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+
     setRewards(rewardsStub);
   }, []);
 

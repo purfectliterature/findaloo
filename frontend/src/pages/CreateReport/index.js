@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Page,
@@ -27,6 +27,13 @@ const Report = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const userTokens = useSelector(getTokens);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+  }, []);
 
   const onItemClicked = (item) => {
     if (selectedItems.includes(item)) {

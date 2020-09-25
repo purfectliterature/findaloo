@@ -48,6 +48,13 @@ const EditProfile = () => {
   const userTokens = useSelector(getTokens);
   const fileInput = useRef(null);
 
+  useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+  }, []);
+
   const handleFormSubmission = async (values) => {
     const { name, profilePicture } = values;
     console.log(profilePicture);

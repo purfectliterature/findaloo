@@ -80,6 +80,11 @@ const ManageReviews = (props) => {
   const userTokens = useSelector(getTokens);
 
   useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+
     fetchUserReviews(
       userTokens.authToken,
       (data) => {
