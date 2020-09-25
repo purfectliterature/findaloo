@@ -80,7 +80,9 @@
   box-shadow: 0 4px 11px var(--color-grey-3);
 }
 
-/* ============== Tabs ================= */
+.details-page .page-content {
+  padding: 0;
+}
 
 .tab-bar-skin {
   background-color: inherit;

@@ -99,7 +99,7 @@ const Details = (props) => {
   };
 
   return (
-    <Page className="white-background-skin">
+    <Page className="details-page white-background-skin">
       <BasicInfoImage
         isUserLoggedIn={isUserLoggedIn}
         images={details.toilet_images}
