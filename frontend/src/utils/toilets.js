@@ -48,3 +48,13 @@ export const fetchNearestToilets = ({ lat, lng }, onSuccess, onError) => {
         }
     }).catch(onError);
 }
+
+export const fetchToiletsFromSearchKeywords = (keywords, onSuccess, onError) => {
+    axios.post(`${Routes.getToiletsFromSearchKeywords}/${keywords}`, { limit: 10 }).then((response) => {
+        if (response.status === 200) {
+            onSuccess(response.data);
+        } else {
+            console.log("fetchToiletsFromSearchKeywords: Invalid response received");
+        }
+    }).catch(onError);
+}
