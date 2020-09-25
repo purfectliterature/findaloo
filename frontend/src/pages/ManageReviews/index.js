@@ -9,6 +9,28 @@ import './styles.css';
 import { getTokens } from '../../store/user';
 import { fetchUserReviews } from '../../utils/reviews';
 
+const Reviews = ({ reviews }) => {
+  if (reviews.length <= 0) {
+    return (
+      <div className="text-align-center">
+        <img
+          src={require('../../assets/undraw_empty_xct9.svg')}
+          className="image"
+        />
+        <p>You haven't review any toilets yet!</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {reviews.map((review, index) => (
+        <ReviewDetails key={index} review={review} />
+      ))}
+    </>
+  );
+};
+
 const ReviewDetails = ({ review }) => {
   return (
     <div className="padding-bottom margin-bottom grey-bottom-border">
@@ -85,9 +107,7 @@ const ManageReviews = (props) => {
       </Navbar>
 
       <div className="padding">
-        {reviews.map((review, index) => (
-          <ReviewDetails key={index} review={review} />
-        ))}
+        <Reviews reviews={reviews} />
       </div>
     </Page>
   );
