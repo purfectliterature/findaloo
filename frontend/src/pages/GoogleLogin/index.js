@@ -8,7 +8,7 @@ import "./styles.css";
 export default () => {
     const dispatch = useDispatch();
     const url = window.location.href;
-    var token = new URL(url).searchParams.get("token");
+    var token = new URL(url).searchParams.get("code");
     exchangeToken(
         { code: token },
         (data) => {
@@ -21,7 +21,7 @@ export default () => {
                 },
                 (error) => {}
             );
-            f7.views.main.router.navigate("/");
+            //f7.views.main.router.navigate("/");
         },
         (error) => {
             f7.views.main.router.back();

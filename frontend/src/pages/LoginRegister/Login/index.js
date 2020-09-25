@@ -55,8 +55,8 @@ class LoginPage extends React.Component {
 
                 <Button
                     outline
-                    className="btn"
-                    onClick={this.navigateToGoogleLogin}
+                    className="btn external"
+                    href={this.state.google_login_url}
                 >
                     Sign in with Google
                 </Button>
@@ -76,10 +76,6 @@ class LoginPage extends React.Component {
 }
 
 export default LoginPage;
-
-const navigateToRegister = () => {
-    f7.views.main.router.navigate("/register/");
-};
 
 const validate = (values) => {
     const errors = {};
@@ -193,7 +189,7 @@ const Form = () => {
                 <Button fill className="btn" type="submit">
                     Log in
                 </Button>
-                <Button outline className="btn" onClick={navigateToRegister}>
+                <Button outline className="btn" href="/register/">
                     Create an account
                 </Button>
             </div>
