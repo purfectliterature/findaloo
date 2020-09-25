@@ -354,7 +354,7 @@ export default (props) => {
         <SheetDialog
             id="new-user-modal"
             title="It’s now easier to deal with your business!"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            description="Findaloo helps you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available."
             image={require("../../assets/persons-peeing.svg")}
             imageAlt="Persons peeing"
             opened={!isUserLoggedIn}
