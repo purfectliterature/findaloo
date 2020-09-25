@@ -8,7 +8,7 @@ export default {
     toiletReview: `${DATABASE}/review`,
     toiletReport: `${DATABASE}/report`,
     getUserProfile: `${DATABASE}/customer/profile`,
-    userProfilePicture: `${DATABASE}/customer/profile/imageUrl`,
+    userProfilePicture: `${DATABASE}/customer/profile/image-url`,
     updatePassword: `${DATABASE}/customer/change-password`,
     getUserReviews: `${DATABASE}/customer/reviews`,
     getToiletsHash: `${DATABASE}/toilets/version`,
