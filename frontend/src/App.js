@@ -92,12 +92,7 @@ export default (props) => {
         <Provider store={store}>
             <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View
-                        main
-                        url="/"
-                        pushState={true}
-                        pushStateSeparator="/app"
-                    />
+                    <View main url="/" pushState={true} pushStateSeparator="" />
                 </App>
             </PersistGate>
         </Provider>
