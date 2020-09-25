@@ -15,6 +15,11 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+
     fetchUserInfo(userTokens.authToken, (data) => {
       setUserDetails(data);
       dispatch(setUserInfo(data));
