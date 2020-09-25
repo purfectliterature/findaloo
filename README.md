@@ -1,6 +1,18 @@
 # Findaloo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/305a5606-25c6-4f91-b453-21d9cb6beeae/deploy-status)](https://app.netlify.com/sites/findaloo/deploys)
 
+## Team Members
+
+### Phillmont Muktar
+
+### Tan Jin Ying
+
+### Jiang Yuxin
+
+### Agnes Natasya
+
+### Daniel Wong
+
 ## It doesn't always have to stink.
 
 Findaloo is a progressive web application designed to help you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available. Are you a parent? Find the nearest nursing rooms with hot water dispensers and baby change stations around you.
