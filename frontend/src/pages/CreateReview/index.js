@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import UserProfile from '../../components/UserProfile';
 import UserRating from '../../components/UserRating';
 import UserInput from '../../components/UserInput';
+import './styles.css';
 
 import { getUserInfo, getTokens } from '../../store/user';
 import { addNewReviews } from '../../store/reviews';
@@ -72,7 +73,7 @@ const CreateReviews = (props) => {
   });
 
   return (
-    <Page className="white-background-skin">
+    <Page className="create-review-page white-background-skin">
       <form onSubmit={formik.handleSubmit}>
         <Navbar>
           <NavLeft>
