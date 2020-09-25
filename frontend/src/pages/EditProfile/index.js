@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux';
 import {
   Page,
   Navbar,
+  NavLeft, 
+  NavTitle,
   NavRight,
   Button,
   List,
   ListInput,
   f7,
 } from 'framework7-react';
-import { Edit } from '@material-ui/icons';
+import { Edit, ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
@@ -111,7 +113,13 @@ const EditProfile = () => {
   return (
     <Page className="edit-profile-page white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title="Edit Profile">
+        <Navbar>
+          <NavLeft>
+            <Button onClick={() => {f7.views.main.router.navigate(`/profile/`, { animate: false })}}>
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>Edit Profile</NavTitle> 
           <NavRight>
             <Button type="submit" disabled={formik.isSubmitting}>
               Update

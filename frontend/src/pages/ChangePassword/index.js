@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Page,
   Navbar,
+  NavLeft,
+  NavTitle,
   NavRight,
   Button,
   List,
   ListInput,
   f7,
 } from 'framework7-react';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff, ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './styles.css';
@@ -66,7 +68,17 @@ const ChangePassword = () => {
   return (
     <Page className="change-password-page white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title="Change Password">
+        <Navbar>
+          <NavLeft>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/profile/`, { animate: false });
+              }}
+            >
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>Change Password</NavTitle>
           <NavRight>
             <Button type="submit" disabled={formik.isSubmitting}>
               Update
