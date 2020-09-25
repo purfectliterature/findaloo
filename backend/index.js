@@ -36,7 +36,7 @@ const s3 = new AWS.S3({
 });
 
 
-app.get("/customer/profile/image-url", authenticateToken, async (req, res) => {
+app.post("/customer/profile/image-url", authenticateToken, async (req, res) => {
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
   // Set up the payload of what we are sending to the S3 api
