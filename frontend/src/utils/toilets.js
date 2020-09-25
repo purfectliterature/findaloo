@@ -40,7 +40,7 @@ export const fetchToiletsHash = (onSuccess, onError) => {
 }
 
 export const fetchNearestToilets = ({ lat, lng }, onSuccess, onError) => {
-    axios.post(Routes.getNearestToilets, { lat, lon: lng }).then((response) => {
+    axios.get(Routes.getNearestToilets, { params: { lat, lon: lng } }).then((response) => {
         if (response.status === 200 && response.data.length > 0) {
             onSuccess(response.data);
         } else {
