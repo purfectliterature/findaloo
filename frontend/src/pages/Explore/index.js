@@ -193,17 +193,9 @@ export default (props) => {
 
     const renderBuildingToilets = () => {
         if (buildingToShow && buildingToShow.toilets) {
-            const toilets = buildingToShow.toilets.map((toilet) => (
+            return buildingToShow.toilets.map((toilet) => (
                 <ToiletCard key={"tm-" + toilet.toiletId} toilet={toilet} mini={true} />
             ));
-
-            return (
-                <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
-                    <div className="bldg-toilets">
-                        {toilets}
-                    </div>
-                </div>
-            );
         }
     }
 
@@ -399,7 +391,11 @@ export default (props) => {
             />
         </div>
 
-        {renderBuildingToilets()}
+        <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+            <div className="bldg-toilets">
+                {renderBuildingToilets()}
+            </div>
+        </div>
 
         <Button
             fill
