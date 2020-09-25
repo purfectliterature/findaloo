@@ -5,11 +5,6 @@
     margin: 1rem 0 3rem 0;
 }
 
-.toilet-marker {
-    height: 1.8rem;
-    margin-right: 0.3rem;
-}
-
 .list .item-content {
     padding: 0;
 }
@@ -38,23 +33,17 @@
     color: var(--color-grey-3) !important;
 }
 
-.btn {
-    text-transform: none;
-    font-size: 1rem;
-    border-width: 0.1rem;
-    margin: 0.8rem 0;
-}
-
 .bottom-group {
-    margin-top: 3rem;
     left: 0;
     right: 0;
-    bottom: 1rem;
+    bottom: 0;
+    position: absolute;
 }
 
 .terms-text {
     color: var(--color-grey-3);
-    font-size: 0.7rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .terms-link {
@@ -72,6 +61,7 @@
 
 .text-minor {
     font-size: 1rem;
+    font-weight: 600;
     color: var(--color-grey-3);
     text-align:center;
 }
@@ -80,4 +70,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1.2rem;
+}
+
+.logo-mark {
+    height: 4rem;
 }

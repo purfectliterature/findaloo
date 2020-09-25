@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Page,
   Navbar,
   NavRight,
+  NavLeft,
+  NavTitle,
   Button,
   List,
   ListItem,
@@ -11,9 +13,11 @@ import {
   ListInput,
   f7,
 } from 'framework7-react';
+import { ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ISSUES, ISSUE_NOT_WORKING, FEATURE_TO_TEXT } from '../../strings';
+import './styles.css';
 
 import { getTokens } from '../../store/user';
 import { addNewReport } from '../../store/reports';
@@ -24,6 +28,13 @@ const Report = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const userTokens = useSelector(getTokens);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!userTokens || !userTokens.authToken) {
+      f7.views.main.router.navigate('/');
+      return;
+    }
+  }, []);
 
   const onItemClicked = (item) => {
     if (selectedItems.includes(item)) {
@@ -73,9 +84,21 @@ const Report = (props) => {
   });
 
   return (
-    <Page className="white-background-skin">
+    <Page className="create-report-page white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title={postTitle}>
+        <Navbar>
+          <NavLeft>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/toilets/${id}/`, {
+                  animate: false,
+                });
+              }}
+            >
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>{postTitle}</NavTitle>
           <NavRight>
             <Button type="submit" disabled={formik.isSubmitting}>
               Report

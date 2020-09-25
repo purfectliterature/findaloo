@@ -4,6 +4,7 @@ import MarkerClusterer from "@googlemaps/markerclustererplus";
 import Masonry from "masonry-layout";
 import ReactGA from "react-ga";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { Page, Sheet, Button, f7 } from "framework7-react";
@@ -84,10 +85,10 @@ export default (props) => {
                         setFeaturedToilets(toilets);
                     }, (error) => {
                         if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
-                            console.log("No network, using local storage");
+                            // console.log("No network, using local storage");
                             setFeaturedToilets(cachedNearestToiletsFromStore);
                         } else {
-                            console.log("No network and no local storage, go fly kite");
+                            // console.log("No network and no local storage, go fly kite");
                         }
                     });
 
@@ -192,17 +193,9 @@ export default (props) => {
 
     const renderBuildingToilets = () => {
         if (buildingToShow && buildingToShow.toilets) {
-            const toilets = buildingToShow.toilets.map((toilet) => (
+            return buildingToShow.toilets.map((toilet) => (
                 <ToiletCard key={"tm-" + toilet.toiletId} toilet={toilet} mini={true} />
             ));
-
-            return (
-                <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
-                    <div className="bldg-toilets">
-                        {toilets}
-                    </div>
-                </div>
-            );
         }
     }
 
@@ -216,11 +209,23 @@ export default (props) => {
 
     const renderSearchResults = (keywords) => {
         if (keywords !== "") {
+            setSearchedToilets(
+                <div className="search-loading">
+                    <ClipLoader size={40} />
+                </div>
+            );
+
             fetchToiletsFromSearchKeywords(keywords, (toilets) => {
-                setSearchedToilets(toilets.map((toilet) => (
-                    <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
-                )));
-            }, (error) => console.log(error));
+                if (toilets.length > 0) {
+                    setSearchedToilets(toilets.map((toilet) => (
+                        <ToiletCard toilet={toilet} key={"ts-" + toilet.toiletId} hideDistance={true} />
+                    )));
+                } else {
+                    setSearchedToilets(<center><h2>Try a different keyword?</h2></center>);
+                }
+            }, (error) => {
+                // console.log(error);
+            });
         } else {
             setSearchedToilets(null);
         }
@@ -231,30 +236,30 @@ export default (props) => {
     useEffect(() => {
         fetchToiletsHash((hash) => {
             if (toiletsHashFromStore === hash) {
-                console.log("Hash is the same as server, using local storage");
+                // console.log("Hash is the same as server, using local storage");
                 setBuildings(buildingsFromStore);
             } else {
-                console.log("Hash is different from server, retrieving");
+                // console.log("Hash is different from server, retrieving");
                 fetchToilets((buildings) => {
-                    console.log("Retrieving buildings from server");
+                    // console.log("Retrieving buildings from server");
                     dispatch(addBuildings(buildings));
                     dispatch(updateToiletsHash(hash));
                     setBuildings(buildings);
                 }, (error) => {
                     if (error.message === "Network Error" && buildingsFromStore) {
-                        console.log("No network, using local storage");
+                        // console.log("No network, using local storage");
                         setBuildings(buildingsFromStore);
                     } else {
-                        console.log("No network and no local storage, go fly kite");
+                        // console.log("No network and no local storage, go fly kite");
                     }
                 });
             }
         }, (error) => {
             if (error.message === "Network Error" && buildingsFromStore) {
-                console.log("No network, using local storage");
+                // console.log("No network, using local storage");
                 setBuildings(buildingsFromStore);
             } else {
-                console.log("No network and no local storage, go fly kite");
+                // console.log("No network and no local storage, go fly kite");
             }
         });
     }, []);
@@ -278,10 +283,10 @@ export default (props) => {
             setFeaturedToilets(toilets);
         }, (error) => {
             if (error.message === "Network Error" && cachedNearestToiletsFromStore) {
-                console.log("No network, using local storage");
+                // console.log("No network, using local storage");
                 setFeaturedToilets(cachedNearestToiletsFromStore);
             } else {
-                console.log("No network and no local storage, go fly kite");
+                // console.log("No network and no local storage, go fly kite");
             }
         });
 
@@ -290,11 +295,13 @@ export default (props) => {
 
     useEffect(() => {
         const grid = document.querySelector(".cards");
-        new Masonry(grid, {
-            itemSelector: ".toil-card",
-            gutter: ".cards-gutter",
-            percentPosition: true
-        });
+        if (grid) {
+            new Masonry(grid, {
+                itemSelector: ".toil-card",
+                gutter: ".cards-gutter",
+                percentPosition: true
+            });
+        }
     });
     
     useEffect(() => {
@@ -329,7 +336,7 @@ export default (props) => {
                 });
             }
         } catch (error) {
-            console.log("WHOOPS NO MAPS");
+            // console.log("WHOOPS NO MAPS");
             console.error(error);
         }
     }, [buildings, mapView, mapsApi]);
@@ -342,7 +349,7 @@ export default (props) => {
         <SheetDialog
             id="new-user-modal"
             title="It’s now easier to deal with your business!"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            description="findaloo helps you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available."
             image={require("../../assets/persons-peeing.svg")}
             imageAlt="Persons peeing"
             opened={!isUserLoggedIn}
@@ -384,7 +391,11 @@ export default (props) => {
             />
         </div>
 
-        {renderBuildingToilets()}
+        <div className={`map-toilets-overlay ${buildingToiletsStripShowed ? "" : "hidden"}`}>
+            <div className="bldg-toilets">
+                {renderBuildingToilets()}
+            </div>
+        </div>
 
         <Button
             fill
@@ -402,9 +413,9 @@ export default (props) => {
             fill
             round
             className={`open-bottom-sheet ${bottomSheetState !== "hidden" ? "hidden" : ""}`}
-            iconF7="arrow_up"
             onClick={openBottomSheet}
         >
+            <ArrowUpwardIcon />
             Explore toilets
         </Button>
 

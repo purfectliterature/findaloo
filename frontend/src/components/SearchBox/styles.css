@@ -55,6 +55,8 @@
     text-transform: none;
     font-size: 1rem;
     letter-spacing: normal;
+    height: 2.4rem;
+    display: flex;
 }
 
 .sb-profile-picture {
@@ -64,4 +66,10 @@
     border-radius: 50%;
     display: inline-block;
     flex-shrink: 0;
+}
+
+.search-loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

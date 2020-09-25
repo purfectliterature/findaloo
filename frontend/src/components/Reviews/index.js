@@ -65,6 +65,7 @@ const Reviews = ({ reviews }) => {
         <img
           src={require('../../assets/undraw_empty_xct9.svg')}
           className="image"
+          alt="empty review"
         />
         <p>No Reviews Yet</p>
       </div>

@@ -29,8 +29,6 @@ const Buildings = (props) => {
 
       setBuildingsToShow([...buildingsToShow, ...buildingsToAdd]);
       setAllowInfinite(true);
-
-      console.log(buildingsToShow.length)
     }, 1000);
   };
 
