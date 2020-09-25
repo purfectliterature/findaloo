@@ -101,6 +101,11 @@ GET http://localhost:3000/toilets
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMTAyOTc0MCwiZXhwIjoxNjAxMDMzMzQwfQ.G0sUUi6x7eV-HfeNLglnkO1j5S7Wwmj0kSEge44WUSE
 
 ###
-POST http://localhost:3000/customer/profile/imageUrl
+GET http://localhost:3000/customer/profile/image-url
 Content-Type: application/json
 Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFnbmVzMkBnbWFpbC5jb20iLCJhdXRoVHlwZSI6Im5hdGl2ZSIsImlhdCI6MTYwMDg3OTI4MiwiZXhwIjoxNjAwODgyODgyfQ.RV5S4Z6Z94hYYoFBYQ-g9xaKkE-BENsU_BgANgRrtS8
+
+{
+      "fileName": "fileName",
+      "fileType": "fileType"
+}
