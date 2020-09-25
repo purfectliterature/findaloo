@@ -6,9 +6,18 @@
   flex: 20;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .header-margin {
   margin-block-start: 0;
   margin-block-end: 0.25em;
+}
+
+.margin-horizontal-quarter {
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .margin-bottom-double {
@@ -61,6 +70,10 @@
   background-color: #fff;
 }
 
+.primary-background-skin {
+  background-color: var(--color-primary);
+}
+
 .secondary-background-skin {
   background-color: var(--color-secondary);
 }
@@ -76,7 +89,13 @@
   box-shadow: 0 4px 11px var(--color-grey-3);
 }
 
-/* ============== Tabs ================= */
+.details-page .page-content {
+  padding: 0;
+}
+
+.tab-bar .tab-link-active {
+  border-bottom: 2px solid var(--color-primary)
+}
 
 .tab-bar-skin {
   background-color: inherit;

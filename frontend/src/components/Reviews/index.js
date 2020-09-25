@@ -5,7 +5,27 @@ import { Star, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
 import './styles.css';
 
-const CreateReview = ({ currentUser, handleOnReviewClick }) => {
+const CreateReview = ({
+  isUserLoggedIn,
+  currentUser,
+  handleOnReviewClick,
+  handleOnLoginClick,
+}) => {
+  if (!isUserLoggedIn) {
+    return (
+      <div className="padding text-align-center grey-bottom-border">
+        <h3>Log in to review</h3>
+        <Button
+          fill
+          className="margin-top primary-background-skin"
+          onClick={handleOnLoginClick}
+        >
+          Log in
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="padding text-align-center grey-bottom-border">
       <div className="user-profile-image-section">
@@ -39,6 +59,18 @@ const CreateReview = ({ currentUser, handleOnReviewClick }) => {
 };
 
 const Reviews = ({ reviews }) => {
+  if (reviews.length <= 0) {
+    return (
+      <div className="padding text-align-center">
+        <img
+          src={require('../../assets/undraw_empty_xct9.svg')}
+          className="image"
+        />
+        <p>No Reviews Yet</p>
+      </div>
+    );
+  }
+
   return (
     <div className="padding">
       {reviews.map((review, index) => (
@@ -98,12 +130,20 @@ const ReviewStars = ({ reviewCount }) => {
   );
 };
 
-const ReviewsComponent = ({ currentUser, reviews, handleOnReviewClick }) => {
+const ReviewsComponent = ({
+  isUserLoggedIn,
+  currentUser,
+  reviews,
+  handleOnReviewClick,
+  handleOnLoginClick,
+}) => {
   return (
     <div className="tab-info">
       <CreateReview
+        isUserLoggedIn={isUserLoggedIn}
         currentUser={currentUser}
         handleOnReviewClick={handleOnReviewClick}
+        handleOnLoginClick={handleOnLoginClick}
       />
       <Reviews reviews={reviews} />
     </div>

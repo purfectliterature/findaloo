@@ -18,6 +18,7 @@ import Rewards from "./pages/Rewards";
 import ManageReviews from "./pages/ManageReviews";
 import GoogleLoginPage from "./pages/GoogleLogin";
 import FetchLoading from "./components/FetchLoading";
+import Buildings from "./pages/Buildings";
 
 import { store, persistor } from "./store/configureStore";
 
@@ -28,7 +29,7 @@ const f7params = {
     root: "#app", // App root element
     id: "io.framework7.testapp", // App bundle ID
     name: "Framework7", // App name
-    theme: "auto", // Automatic theme detection
+    theme: "auto", // Automatic theme detection,
     // App routes
     routes: [
         {
@@ -76,48 +77,22 @@ const f7params = {
             component: ManageReviews,
         },
         {
-            path: "/google-login/",
+            path: "/google-login",
             component: GoogleLoginPage,
         },
+        {
+          path: "/buildings/",
+          component: Buildings,
+      },
     ],
 };
 
 export default (props) => {
-    useEffect(() => {
-        let viewport = document.querySelector("meta[name=viewport]");
-        viewport.setAttribute(
-            "content",
-            "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        );
-        const initialHeight = window.innerHeight;
-
-        window.onresize = () => {
-            const metaViewport = document.querySelector("meta[name=viewport]");
-
-            if (window.innerHeight < initialHeight) {
-                document.documentElement.style.setProperty("overflow", "auto");
-                metaViewport.setAttribute(
-                    "content",
-                    `height=${initialHeight}px, width=device-width, initial-scale=1.0`
-                );
-            } else {
-                document.documentElement.style.setProperty(
-                    "overflow",
-                    "hidden"
-                );
-                viewport.setAttribute(
-                    "content",
-                    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-                );
-            }
-        };
-    }, []);
-
     return (
         <Provider store={store}>
             <PersistGate loading={<FetchLoading />} persistor={persistor}>
                 <App params={f7params}>
-                    <View main url="/profile/" />
+                    <View main url="/" pushState={true} />
                 </App>
             </PersistGate>
         </Provider>

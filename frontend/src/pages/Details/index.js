@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Page, Tabs, Tab, Toolbar, Link, Button, f7 } from 'framework7-react';
 import './styles.css';
@@ -6,9 +6,11 @@ import BasicInfoImage from '../../components/BasicInfoImage';
 import BasicInfo from '../../components/BasicInfo';
 import Overview from '../../components/Overview';
 import Reviews from '../../components/Reviews';
+import SheetDialog from '../../components/SheetDialog';
+import BasicButton from '../../components/BasicButton';
 
 import { addToilet, getToiletDetails } from '../../store/toilets';
-import { getUserInfo } from '../../store/user';
+import { getUserInfo, getTokens } from '../../store/user';
 import { fetchToiletDetails } from '../../utils/toilets';
 
 const Details = (props) => {
@@ -21,9 +23,19 @@ const Details = (props) => {
     certifications: [],
   };
   const [details, setDetails] = useState(defaultInfo);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const reportNotLoggedInRef = useRef();
   const dispatch = useDispatch();
   const currentUser = useSelector(getUserInfo);
+  const userTokens = useSelector(getTokens);
   const storeDetails = useSelector(getToiletDetails(id));
+  const [shouldShowReview, setShouldShowReview] = useState(false);
+
+  useEffect(() => {
+    if (userTokens && userTokens.authToken) {
+      setIsUserLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     fetchToiletDetails(
@@ -61,12 +73,16 @@ const Details = (props) => {
   };
 
   const handleReportOnClick = () => {
-    f7.views.main.router.navigate('/reports/create/', {
-      props: {
-        id: id,
-        postTitle: details.toiletName,
-      },
-    });
+    if (isUserLoggedIn) {
+      f7.views.main.router.navigate('/reports/create/', {
+        props: {
+          id: id,
+          postTitle: details.toiletName,
+        },
+      });
+    } else {
+      reportNotLoggedInRef.current.open(true);
+    }
   };
 
   const handleOnReviewClick = (rating) => {
@@ -79,9 +95,18 @@ const Details = (props) => {
     });
   };
 
+  const handleOnLoginClick = () => {
+    f7.views.main.router.navigate('/login/');
+  };
+
+  const toggleReview = () => {
+    setShouldShowReview(!shouldShowReview);
+  };
+
   return (
-    <Page className="white-background-skin">
+    <Page className="details-page white-background-skin">
       <BasicInfoImage
+        isUserLoggedIn={isUserLoggedIn}
         images={details.toilet_images}
         handleShareOnClick={handleShareOnClick}
         handleReportOnClick={handleReportOnClick}
@@ -116,15 +141,40 @@ const Details = (props) => {
             </div>
           </Tab>
 
-          <Tab id="reviews" className="page-content" tabActive>
+          <Tab
+            id="reviews"
+            className="page-content"
+            onTabShow={toggleReview}
+            onTabHide={toggleReview}
+            style={{ display: shouldShowReview ? 'block' : 'none' }}
+          >
             <Reviews
+              isUserLoggedIn={isUserLoggedIn}
               currentUser={currentUser}
               reviews={details.reviews}
               handleOnReviewClick={handleOnReviewClick}
+              handleOnLoginClick={handleOnLoginClick}
             />
           </Tab>
         </Tabs>
       </div>
+
+      <SheetDialog
+        id="report-not-logged-in"
+        setRef={reportNotLoggedInRef}
+        title="Whoops, seems like you're out not logged in!"
+        description="You need to logged it to send us a report :)"
+        image={require('../../assets/undraw_unlock_24mb.svg')}
+        imageAlt="Please log in"
+      >
+        <BasicButton
+          fill
+          sheetClose="#report-not-logged-in"
+          onClick={handleOnLoginClick}
+        >
+          Log In
+        </BasicButton>
+      </SheetDialog>
     </Page>
   );
 };
