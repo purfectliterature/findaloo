@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Page, Button, f7, List, ListInput } from "framework7-react";
+import { Page, f7, List, ListInput } from "framework7-react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles.css";
@@ -11,6 +11,8 @@ import {
     getGoogleSignInUrl,
     fetchUserInfo,
 } from "../../../utils/user.js";
+
+import Button from "../../../components/BasicButton";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -36,40 +38,21 @@ class LoginPage extends React.Component {
         return (
             <Page className="padding white-background-skin">
                 <div className="header-group">
-                    <img
-                        src="/toilet-marker.png"
-                        alt="toilet"
-                        className="toilet-marker"
-                    ></img>
-                    <div>
-                        <h4 className="header">Findaloo</h4>
-                        <h3 className="header">Lavatories System</h3>
-                    </div>
+                    <img src={require("../../../assets/logo-mark.svg")} alt="toilet" className="logo-mark" />
                 </div>
 
                 <h1>
-                    Let’s log into<br></br> your account!
+                    Let’s log into your account!
                 </h1>
 
                 <Form></Form>
 
-                <Button
+                {/* <Button
                     outline
-                    className="btn external"
                     href={this.state.google_login_url}
                 >
                     Sign in with Google
-                </Button>
-                <div className="center-item">
-                    <a
-                        onClick={() => {
-                            f7.views.main.router.back("/", { force: true });
-                        }}
-                        className="text-minor"
-                    >
-                        Continue without login
-                    </a>
-                </div>
+                </Button> */}
             </Page>
         );
     }
@@ -150,6 +133,7 @@ const Form = () => {
                     validate={false}
                     onChange={formik.handleChange}
                     value={formik.values.email}
+                    className="fd-textbox"
                 >
                     <div slot="root-end" className="error-message">
                         {formik.errors.email}
@@ -186,12 +170,24 @@ const Form = () => {
             </List>
 
             <div className="bottom-group">
-                <Button fill className="btn" type="submit">
+                <Button fill type="submit">
                     Log in
                 </Button>
-                <Button outline className="btn" href="/register/">
+
+                <Button outline href="/register/">
                     Create an account
                 </Button>
+
+                <div className="center-item">
+                    <a
+                        onClick={() => {
+                            f7.views.main.router.back("/", { force: true });
+                        }}
+                        className="text-minor"
+                    >
+                        Continue without logging in
+                    </a>
+                </div>
             </div>
         </form>
     );

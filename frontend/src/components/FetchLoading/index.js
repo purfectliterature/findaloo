@@ -5,6 +5,8 @@ import "./styles.css";
 export default (props) => {
     return (
         <div className="fetch-loading">
+            <img src={require("../../assets/logo-mark.svg")} alt="logo mark" className="logo-mark" />
+
             <PuffLoader
                 size={120}
                 loading={true}
