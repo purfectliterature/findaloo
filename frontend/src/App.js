@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { App, View } from "framework7-react";
 import ReactGA from "react-ga";
 import { Provider } from "react-redux";
