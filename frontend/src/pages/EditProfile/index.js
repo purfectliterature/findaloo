@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   Page,
   Navbar,
-  NavLeft, 
+  NavLeft,
   NavTitle,
   NavRight,
   Button,
@@ -72,12 +72,12 @@ const EditProfile = () => {
           f7.views.main.router.navigate(`/profile/`);
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           formik.setSubmitting(false);
         }
       );
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -121,11 +121,15 @@ const EditProfile = () => {
       <form onSubmit={formik.handleSubmit}>
         <Navbar>
           <NavLeft>
-            <Button onClick={() => {f7.views.main.router.navigate(`/profile/`, { animate: false })}}>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/profile/`, { animate: false });
+              }}
+            >
               <ArrowBackIos />
             </Button>
           </NavLeft>
-          <NavTitle>Edit Profile</NavTitle> 
+          <NavTitle>Edit Profile</NavTitle>
           <NavRight>
             <Button type="submit" disabled={formik.isSubmitting}>
               Update

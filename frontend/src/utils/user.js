@@ -94,12 +94,12 @@ export const updateProfilePicture = async (
         return imageUrl;
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     return imageUrl;
   }
   catch(error) {
-    console.log(error);
+    // console.log(error);
   };
 };
 

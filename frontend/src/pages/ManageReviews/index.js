@@ -91,7 +91,7 @@ const ManageReviews = (props) => {
         setReviews(data);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }, []);

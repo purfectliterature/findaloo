@@ -45,8 +45,6 @@ const Details = (props) => {
         dispatch(addToilet(id, data));
       },
       (err) => {
-        console.log(err);
-
         if (err.message === 'Network Error') {
           if (typeof storeDetails !== 'undefined') {
             setDetails(storeDetails);
@@ -62,13 +60,10 @@ const Details = (props) => {
 
   const handleShareOnClick = () => {
     if (navigator.share) {
-      navigator
-        .share({
-          title: `${details.title}`,
-          url: `https://findaloo.netlify.app/toilets/${id}`,
-        })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
+      navigator.share({
+        title: `${details.title}`,
+        url: `https://findaloo.netlify.app/toilets/${id}`,
+      });
     }
   };
 
