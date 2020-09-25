@@ -1,15 +1,31 @@
 import React from 'react';
 import './styles.css';
 
+const UserImage = ({ profilePicture }) => {
+  if (!profileImage || typeof profilePicture === 'undefined') {
+    return (
+      <img
+        className="image user-profile-image"
+        src={require('../../assets/user.svg')}
+        alt="profile"
+      />
+    );
+  }
+
+  return (
+    <img
+      className="image user-profile-image"
+      src={profilePicture}
+      alt="profile"
+    />
+  );
+};
+
 const UserInfo = ({ userInfo }) => {
   return (
     <div className="padding">
       <div className="margin-bottom user-info-profile-picture">
-        <img
-          className="image user-profile-image"
-          src={userInfo.profilePicture}
-          alt="profile"
-        />
+        <UserImage profilePicture={userInfo.profilePicture} />
       </div>
 
       <div className="text-align-center margin-bottom">
