@@ -71,7 +71,7 @@ const validate = (values) => {
         values.name.length > 20
     ) {
         errors.name =
-            "Name should contain alphabets, digits and _ only and at most 20 characters.";
+            "Name should contain alphabets, digits, spaces and _ only and at most 20 characters.";
     }
 
     if (!values.email) {
