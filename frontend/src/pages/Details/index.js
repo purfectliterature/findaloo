@@ -29,6 +29,7 @@ const Details = (props) => {
   const currentUser = useSelector(getUserInfo);
   const userTokens = useSelector(getTokens);
   const storeDetails = useSelector(getToiletDetails(id));
+  const [shouldShowReview, setShouldShowReview] = useState(false);
 
   useEffect(() => {
     if (userTokens && userTokens.authToken) {
@@ -98,6 +99,10 @@ const Details = (props) => {
     f7.views.main.router.navigate('/login/');
   };
 
+  const toggleReview = () => {
+    setShouldShowReview(!shouldShowReview);
+  };
+
   return (
     <Page className="details-page white-background-skin">
       <BasicInfoImage
@@ -136,7 +141,13 @@ const Details = (props) => {
             </div>
           </Tab>
 
-          <Tab id="reviews" className="page-content" tabActive>
+          <Tab
+            id="reviews"
+            className="page-content"
+            onTabShow={toggleReview}
+            onTabHide={toggleReview}
+            style={{ display: shouldShowReview ? 'block' : 'none' }}
+          >
             <Reviews
               isUserLoggedIn={isUserLoggedIn}
               currentUser={currentUser}
@@ -156,7 +167,11 @@ const Details = (props) => {
         image={require('../../assets/undraw_unlock_24mb.svg')}
         imageAlt="Please log in"
       >
-        <BasicButton fill sheetClose="#report-not-logged-in" onClick={handleOnLoginClick}>
+        <BasicButton
+          fill
+          sheetClose="#report-not-logged-in"
+          onClick={handleOnLoginClick}
+        >
           Log In
         </BasicButton>
       </SheetDialog>
