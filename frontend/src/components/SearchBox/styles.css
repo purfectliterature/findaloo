@@ -55,6 +55,8 @@
     text-transform: none;
     font-size: 1rem;
     letter-spacing: normal;
+    height: 2.4rem;
+    display: flex;
 }
 
 .sb-profile-picture {
