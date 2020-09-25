@@ -1,6 +1,15 @@
 # Findaloo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/305a5606-25c6-4f91-b453-21d9cb6beeae/deploy-status)](https://app.netlify.com/sites/findaloo/deploys)
 
+## It doesn't always have to stink.
+
+Findaloo is a progressive web application designed to help you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available. Are you a parent? Find the nearest nursing rooms with hot water dispensers and baby change stations around you.
+
+Just had the most wonderful experience in your lifetime so far? Leave a review! Upset that something broke? 
+File a report to let management know.
+
+With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at https://findaloo.netlify.app today!
+
 ## Team Members
 
 #### 1. Phillmont Muktar `A0184545X`  
@@ -22,15 +31,6 @@
 #### 5. Daniel Wong `A0185050M`  
 **Role:** Backend Developer  
 **Contribution:** Authentication, Toilet routes, User Profile routes, Report & Review routes
-
-## It doesn't always have to stink.
-
-Findaloo is a progressive web application designed to help you find the nearest toilets around you! See how far away they are, what genders are avaiable, or even see a list of features available. Are you a parent? Find the nearest nursing rooms with hot water dispensers and baby change stations around you.
-
-Just had the most wonderful experience in your lifetime so far? Leave a review! Upset that something broke? 
-File a report to let management know.
-
-With findaloo, dirty, smelly toilets will be a thing of the past. Visit us at https://findaloo.netlify.app today!
 
 ## Installation guide
 
