@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Page, Navbar, NavRight, Button, f7 } from 'framework7-react';
+import {
+  Page,
+  Navbar,
+  NavRight,
+  NavLeft,
+  NavTitle,
+  Button,
+  f7,
+} from 'framework7-react';
+import { ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import UserProfile from '../../components/UserProfile';
@@ -27,7 +36,7 @@ const CreateReviews = (props) => {
       description: reviewDescription,
     };
     dispatch(addNewReviews(id, userTokens.authToken, review));
-    
+
     formik.setSubmitting(false);
     f7.views.main.router.navigate(`/toilets/${id}/`);
   };
@@ -58,9 +67,23 @@ const CreateReviews = (props) => {
   return (
     <Page className="white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title={postTitle}>
+        <Navbar>
+          <NavLeft>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/toilets/${id}/`, {
+                  animate: false,
+                });
+              }}
+            >
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>{postTitle}</NavTitle>
           <NavRight>
-            <Button type="submit" disabled={formik.isSubmitting}>Post</Button>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              Post
+            </Button>
           </NavRight>
         </Navbar>
 

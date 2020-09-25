@@ -4,6 +4,8 @@ import {
   Page,
   Navbar,
   NavRight,
+  NavLeft,
+  NavTitle,
   Button,
   List,
   ListItem,
@@ -11,6 +13,7 @@ import {
   ListInput,
   f7,
 } from 'framework7-react';
+import { ArrowBackIos } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ISSUES, ISSUE_NOT_WORKING, FEATURE_TO_TEXT } from '../../strings';
@@ -75,7 +78,19 @@ const Report = (props) => {
   return (
     <Page className="white-background-skin">
       <form onSubmit={formik.handleSubmit}>
-        <Navbar backLink title={postTitle}>
+        <Navbar>
+          <NavLeft>
+            <Button
+              onClick={() => {
+                f7.views.main.router.navigate(`/toilets/${id}/`, {
+                  animate: false,
+                });
+              }}
+            >
+              <ArrowBackIos />
+            </Button>
+          </NavLeft>
+          <NavTitle>{postTitle}</NavTitle>
           <NavRight>
             <Button type="submit" disabled={formik.isSubmitting}>
               Report
