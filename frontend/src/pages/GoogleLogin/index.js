@@ -8,7 +8,7 @@ import "./styles.css";
 export default () => {
     const dispatch = useDispatch();
     const url = window.location.href;
-    var token = new URL(url).searchParams.get("token");
+    var token = new URL(url).searchParams.get("code");
     exchangeToken(
         { code: token },
         (data) => {
