@@ -67,11 +67,11 @@ const validate = (values) => {
     if (!values.name) {
         errors.name = "Required";
     } else if (
-        !/^[A-Z0-9a-z_]+$/i.test(values.name) ||
+        !/^[A-Z0-9a-z_ ]+$/i.test(values.name) ||
         values.name.length > 20
     ) {
         errors.name =
-            "Name should contain alphabets, digits and _ only and at most 20 characters.";
+            "Name should contain alphabets, digits, spaces and _ only and at most 20 characters.";
     }
 
     if (!values.email) {
@@ -90,7 +90,7 @@ const validate = (values) => {
         )
     ) {
         errors.password =
-            "Password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character and have between 8 and 15 characters.";
+            "Password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character(!@#$%^&*) and have between 8 and 15 characters.";
     }
 
     if (values.password !== values.confirmPassword) {
