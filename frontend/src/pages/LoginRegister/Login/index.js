@@ -55,23 +55,12 @@ class LoginPage extends React.Component {
 
                 <Form></Form>
 
-                <Button
+                {/* <Button
                     outline
                     href={this.state.google_login_url}
                 >
                     Sign in with Google
-                </Button>
-
-                <div className="center-item">
-                    <a
-                        onClick={() => {
-                            f7.views.main.router.back("/", { force: true });
-                        }}
-                        className="text-minor"
-                    >
-                        Continue without login
-                    </a>
-                </div>
+                </Button> */}
             </Page>
         );
     }
@@ -196,6 +185,17 @@ const Form = () => {
                 <Button outline href="/register/">
                     Create an account
                 </Button>
+
+                <div className="center-item">
+                    <a
+                        onClick={() => {
+                            f7.views.main.router.back("/", { force: true });
+                        }}
+                        className="text-minor"
+                    >
+                        Continue without logging in
+                    </a>
+                </div>
             </div>
         </form>
     );

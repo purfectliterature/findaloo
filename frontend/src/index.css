@@ -30,6 +30,19 @@ code {
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
+
+    --f7-input-outline-border-radius: 0.8rem;
+    --f7-input-outline-padding-horizontal: 1.2rem;
+    --f7-block-padding-vertical: 10rem;
+}
+
+h1 {
+    margin: 0;
+    font-family: "Work Sans";
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    line-height: 2.6rem;
 }
 
 h2 {
@@ -138,4 +151,12 @@ h3 {
 
 .simple-shadow-skin {
     box-shadow: 0 4px 11px var(--color-grey-3);
+}
+
+.item-input-wrap > input {
+    padding: 1.5rem 0;
+}
+
+.item-inner .item-label {
+    transform-origin: center left;
 }

@@ -43,19 +43,9 @@ class LoginPage extends React.Component {
                 </div>
 
                 <h1>
-                    Create a new account!
+                    Create a new account
                 </h1>
                 <Form></Form>
-                <div className="center-item">
-                    <a
-                        onClick={() =>
-                            f7.views.main.router.back("/", { force: true })
-                        }
-                        className="text-minor"
-                    >
-                        Continue without login
-                    </a>
-                </div>
             </Page>
         );
     }
@@ -250,6 +240,16 @@ const Form = () => {
                 <Button outline href="/login/">
                     Log in to your account
                 </Button>
+                <div className="center-item">
+                    <a
+                        onClick={() =>
+                            f7.views.main.router.back("/", { force: true })
+                        }
+                        className="text-minor"
+                    >
+                        Continue without logging in
+                    </a>
+                </div>
             </div>
             <Sheet
                 className="demo-sheet-swipe-to-close modal-sheet"
