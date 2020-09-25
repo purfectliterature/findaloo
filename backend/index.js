@@ -278,7 +278,7 @@ app.get('/toilets/:toiletId([0-9]+)', async (req, res) => {
     statement = SQL`
             SELECT *
             FROM ReviewSummary
-            WHERE toilet_id = (${toiletId})`;
+            WHERE toilet_id = ${toiletId}`;
 
     try {
         result = await db.query(statement);
@@ -397,9 +397,9 @@ app.post("/toilets/nearest", async (req, res) => {
     return res.status(200).send(toilets);
 });
 
-app.post("/toilets/search/:keyword", async (req, res) => {
+app.post("/toilets/search", async (req, res) => {
     const { limit } = req.body;
-    const keyword = req.params.keyword;
+    const keyword = req.query.keyword;
     
     try {
         let toilets = await getToiletSummary();
@@ -527,7 +527,7 @@ app.put("/customer/change-password", authenticateToken, async (req, res) => {
         result = await db.query(getEmailFromId);
         userEmail = result.rows[0].email;
     } catch (err) {
-        return res.status(500).send('Error retrieving user');
+        return res.status(500).send('Error updating password');
     }
 
     statement = SQL`
@@ -540,7 +540,7 @@ app.put("/customer/change-password", authenticateToken, async (req, res) => {
         result = await db.query(statement);
         rows = result.rows;
     } catch (error) {
-        return res.status(500).send(error);
+        return res.status(500).send("Error updating password");
     }
     return res.sendStatus(200);
 });
@@ -693,6 +693,7 @@ async function getNearestToilets(lat, lon) {
 }
 
 async function getTokenSecrets() {
+
     try {
         var data = await client.getSecretValue({ SecretId: secretName }).promise();
 
