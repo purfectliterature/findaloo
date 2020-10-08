@@ -3,7 +3,9 @@ import * as moment from 'moment';
 import { Button } from 'framework7-react';
 import { Star, StarBorderOutlined } from '@material-ui/icons';
 import { MAX_RATINGS } from '../../strings';
+import BasicButton from '../../components/BasicButton';
 import './styles.css';
+import SheetDialog from "../SheetDialog";
 
 const CreateReview = ({
   isUserLoggedIn,
@@ -14,14 +16,13 @@ const CreateReview = ({
   if (!isUserLoggedIn) {
     return (
       <div className="padding text-align-center grey-bottom-border">
-        <h3>Log in to review</h3>
-        <Button
+        <h3 style={{marginBottom: "1rem"}}>Log in to review</h3>
+        <BasicButton
           fill
-          className="margin-top primary-background-skin"
           onClick={handleOnLoginClick}
         >
           Log in
-        </Button>
+        </BasicButton>
       </div>
     );
   }
